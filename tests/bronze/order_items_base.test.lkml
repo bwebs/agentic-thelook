@@ -4,6 +4,7 @@ test: order_items_base_refinement_metrics {
   explore_source: order_items_base {
     column: total_revenue { field: order_items.total_revenue }
     column: order_item_count { field: order_items.count }
+    column: total_line_items_sold { field: order_items.total_line_items_sold }
     filters: {
       field: order_items.created_date
       value: "2024-01-01"
@@ -14,5 +15,8 @@ test: order_items_base_refinement_metrics {
   }
   assert: order_item_count_matches {
     expression: ${order_items.count} = 57 ;;
+  }
+  assert: total_line_items_sold_matches {
+    expression: ${order_items.total_line_items_sold} = 57 ;;
   }
 }
