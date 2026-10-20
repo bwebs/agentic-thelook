@@ -32,7 +32,7 @@ jobs:
 
       - name: Install lkr-dev-cli
         run: |
-          uv tool install "lkr-dev-cli[tools,code-mode,parse]"
+          uv tool install "lkr-dev-cli[tools,code-mode,parse] @ git+https://github.com/lkrdev/cli.git"
 
       - name: Check LookML Snapshots (Additive vs Material Changes)
         id: snapshots

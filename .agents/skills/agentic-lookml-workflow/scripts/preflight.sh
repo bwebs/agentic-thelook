@@ -7,7 +7,7 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 if ! command -v lkr >/dev/null 2>&1; then
-  uv tool install "lkr-dev-cli[tools,code-mode,parse]"
+  uv tool install "lkr-dev-cli[tools,code-mode,parse] @ git+https://github.com/lkrdev/cli.git"
 fi
 
 if ! command -v gh >/dev/null 2>&1; then
