@@ -5,4 +5,3 @@ include: "/bronze/*.refinement.lkml"
 include: "/bronze/explores/*.explore.lkml"
 include: "/silver/explores/*.explore.lkml"
 include: "/tests/**/*.test.lkml"
-
