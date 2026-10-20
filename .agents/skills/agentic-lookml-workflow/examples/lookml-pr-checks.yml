@@ -123,26 +123,39 @@ jobs:
         if: steps.snapshots.outputs.has_lookml == 'true'
         env:
           LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
-          PROJECT_ID: ${{ secrets.LOOKER_PROJECT_NAME || vars.LOOKER_PROJECT_NAME }}
+          PROJECT_ID: ${{ secrets.LOOKER_PROJECT_NAME || vars.LOOKER_PROJECT_NAME || github.event.repository.name }}
         run: |
+          SCRIPT_DIR=".agents/skills/agentic-lookml-workflow/scripts"
+          [[ ! -d "$SCRIPT_DIR" ]] && SCRIPT_DIR="skills/agentic-lookml-workflow/scripts"
           OUT=$(lkr --base-url="$LOOKERSDK_BASE_URL" --dev code-mode sandbox --dev-mode \
-            --file=skills/agentic-lookml-workflow/scripts/validate_and_commit_branch.py \
+            --file="$SCRIPT_DIR/validate_and_commit_branch.py" \
             --var project_id="$PROJECT_ID")
           echo "$OUT"
-          echo "$OUT" | jq -e '.passed == true' >/dev/null
+          echo "$OUT" | sed -n '/^{/,$p' | jq -e '.passed == true' >/dev/null
 
       - name: Verify Query Parity (SQL Runner vs Looker Inline Query)
         if: steps.snapshots.outputs.has_lookml == 'true'
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
         run: |
           DATA_FILE=$(find ./data -name "data.json" 2>/dev/null | head -n 1 || true)
+          if [[ -z "$DATA_FILE" || ! -f "$DATA_FILE" ]] && [[ -n "$PR_NUMBER" ]]; then
+            GIST_ID=$(gh pr view "$PR_NUMBER" --json body -q '.body' 2>/dev/null | grep -oE 'https://gist\.github\.com/[^/]+/[0-9a-f]+' | head -n 1 | awk -F/ '{print $NF}' || true)
+            if [[ -n "$GIST_ID" ]]; then
+              curl -fsSL "https://api.github.com/gists/$GIST_ID" | jq -r '.files["data.json"].content // empty' > /tmp/data.json || true
+              [[ -s /tmp/data.json ]] && DATA_FILE="/tmp/data.json"
+            fi
+          fi
           if [[ -z "$DATA_FILE" || ! -f "$DATA_FILE" ]]; then
             echo "No data.json session file found, skipping query parity check."
             exit 0
           fi
+          SCRIPT_DIR=".agents/skills/agentic-lookml-workflow/scripts"
+          [[ ! -d "$SCRIPT_DIR" ]] && SCRIPT_DIR="skills/agentic-lookml-workflow/scripts"
           OUT=$(lkr --base-url="$LOOKERSDK_BASE_URL" --dev code-mode sandbox --dev-mode \
-            --file=skills/agentic-lookml-workflow/scripts/record_query_parity.py \
+            --file="$SCRIPT_DIR/record_query_parity.py" \
             --var data_json="$(cat "$DATA_FILE")")
           echo "$OUT"
-          echo "$OUT" | jq -e '.passed == true' >/dev/null
+          echo "$OUT" | sed -n '/^{/,$p' | jq -e '.passed == true' >/dev/null

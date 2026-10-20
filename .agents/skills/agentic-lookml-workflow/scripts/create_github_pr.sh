@@ -23,9 +23,16 @@ if [[ ${#FILES[@]} -eq 0 ]]; then
   exit 1
 fi
 
-GIST_URL=$(gh gist create "${FILES[@]}" --desc "agentic-lookml attachments ($RUN_ID)")
-GIST_ID="${GIST_URL##*/}"
-ATTACHMENTS=$(gh api "/gists/$GIST_ID" --jq '.files | map_values(.raw_url)')
+if ! GIST_URL=$(gh gist create "${FILES[@]}" --desc "agentic-lookml attachments ($RUN_ID)" 2>/dev/null); then
+  GIST_URL=$(env -u GH_TOKEN -u GITHUB_TOKEN gh gist create "${FILES[@]}" --desc "agentic-lookml attachments ($RUN_ID)")
+  GIST_ID="${GIST_URL##*/}"
+  ATTACHMENTS=$(env -u GH_TOKEN -u GITHUB_TOKEN gh api "/gists/$GIST_ID" --jq '.files | map_values(.raw_url)')
+  GIST_ENV_PREFIX=(env -u GH_TOKEN -u GITHUB_TOKEN)
+else
+  GIST_ID="${GIST_URL##*/}"
+  ATTACHMENTS=$(gh api "/gists/$GIST_ID" --jq '.files | map_values(.raw_url)')
+  GIST_ENV_PREFIX=()
+fi
 
 SNAPSHOT_SECTION=""
 PR_EXTRA_ARGS=()
@@ -72,5 +79,5 @@ jq --arg pr "$PR_URL" --arg gist "$GIST_URL" --argjson att "$ATTACHMENTS" \
   '. + {pr_url: $pr, gist_url: $gist, attachments: $att}' "$DATA_JSON" > "$DATA_JSON.tmp" \
   && mv "$DATA_JSON.tmp" "$DATA_JSON"
 
-gh gist edit "$GIST_ID" --add "$DATA_JSON" >/dev/null
+"${GIST_ENV_PREFIX[@]}" gh gist edit "$GIST_ID" --add "$DATA_JSON" >/dev/null
 echo "$PR_URL"
