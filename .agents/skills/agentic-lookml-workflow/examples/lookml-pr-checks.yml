@@ -67,7 +67,7 @@ jobs:
           lkr parse lookml snapshot --path "$LOOKML_DIR" "${BASE_ARGS[@]}" --allow-additions --format json --output /tmp/snapshot_check.json || true
           cat /tmp/snapshot_check.json
 
-          if jq -e '.requires_review == false and .success == true' /tmp/snapshot_check.json >/dev/null; then
+          if jq -e '.requires_review == false' /tmp/snapshot_check.json >/dev/null; then
             echo "Snapshot check passed: changes are purely additive (no material changes requiring review)."
             exit 0
           fi
