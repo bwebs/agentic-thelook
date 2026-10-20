@@ -30,12 +30,19 @@ def compare_row_sets(sql_rows, looker_rows):
         if len(sn) != len(ln):
             mismatches.append(f"Row {idx} column count mismatch: SQL={len(sn)}, Looker={len(ln)}")
             continue
-        if set(sn) != set(ln):
-            mismatches.append(
-                f"Row {idx} column name mismatch: SQL={sorted(sn.keys())}, Looker={sorted(ln.keys())}"
-            )
-            continue
-        pairs = [(k, sn.get(k), ln.get(k)) for k in sn]
+        if set(sn) == set(ln):
+            pairs = [(k, sn.get(k), ln.get(k)) for k in sn]
+        else:
+            shared = [k for k in sn if k in ln]
+            rem_s = [k for k in sn if k not in ln]
+            rem_l = [k for k in ln if k not in sn]
+            pairs = [
+                *((k, sn[k], ln[k]) for k in shared),
+                *(
+                    (f"{sk}->{lk}", sn[sk], ln[lk])
+                    for sk, lk in zip(rem_s, rem_l, strict=False)
+                ),
+            ]
         for col, sv, lv in pairs:
             if sv != lv:
                 mismatches.append(f"Row {idx} ({col}): SQL={sv}, Looker={lv}")
@@ -66,6 +73,20 @@ def main():
     except NameError:
         payloads = {}
 
+    try:
+        do_validate = str(validate).lower() in ("true", "1", "yes")  # ty: ignore[unresolved-reference]
+    except NameError:
+        do_validate = False
+
+    val_errors = []
+    p_id = data.get("project_id")
+    if do_validate and p_id:
+        val = validate_project(project_id=str(p_id)) or {}  # ty: ignore[unresolved-reference]
+        val_errors = [
+            e for e in (val.get("errors") or []) if e.get("severity", "error") in ("error", "fatal", "")
+        ]
+        data["validation_errors"] = val_errors
+
     all_matched = True
     for q in data.get("queries") or []:
         idx = q.get("query_index")
@@ -83,8 +104,13 @@ def main():
         if not sql_slug or not (active_q or q.get("query_id")):
             continue
         try:
-            s_raw = run_sql_query(slug=sql_slug, result_format="json")  # ty: ignore[unresolved-reference]
-            s_rows = json.loads(s_raw) if isinstance(s_raw, str) else (s_raw or [])
+            if isinstance(q.get("sql_rows"), list):
+                s_rows = q["sql_rows"]
+            else:
+                s_raw = run_sql_query(slug=sql_slug, result_format="json")  # ty: ignore[unresolved-reference]
+                s_rows = json.loads(s_raw) if isinstance(s_raw, str) else (s_raw or [])
+                if isinstance(s_rows, list) and len(s_rows) <= 50:
+                    q["sql_rows"] = s_rows
             l_raw = (
                 run_inline_query(result_format="json", body=active_q)  # ty: ignore[unresolved-reference]
                 if active_q
@@ -100,7 +126,7 @@ def main():
             q["mismatches"] = [str(e)]
             all_matched = False
 
-    data["passed"] = all_matched
+    data["passed"] = all_matched and not val_errors
     data["all_queries_matched"] = all_matched
     return data
 

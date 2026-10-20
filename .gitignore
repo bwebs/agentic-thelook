@@ -1,0 +1,7 @@
+.env
+tmp
+data
+data/
+tmp/
+
+
