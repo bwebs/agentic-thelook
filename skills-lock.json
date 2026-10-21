@@ -11,7 +11,7 @@
       "source": "lkrdev/cli",
       "sourceType": "github",
       "skillPath": "skills/agentic-lookml-workflow/SKILL.md",
-      "computedHash": "de63cdc2ec73782f884abfd937997dd6d58bb22275d49424ee4b5b08ff5764c9"
+      "computedHash": "02b31b4b4f3a394b5ce7887b54388eaa106e6e1e122812e43fff04d011b95073"
     },
     "generate-view-from-table": {
       "source": "lkrdev/cli",
