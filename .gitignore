@@ -1,7 +1,6 @@
 .env
 tmp
-data
 data/
 tmp/
-
+questions/
 
