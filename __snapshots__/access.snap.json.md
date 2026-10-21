@@ -2,6 +2,28 @@
   "access_grants": {},
   "explores": {},
   "fields": {
+    "agentic_thelook.distribution_centers.count": {
+      "allowed_values": null,
+      "field": "count",
+      "field_type": "measure",
+      "file": "bronze/distribution_centers.view.lkml",
+      "label": "Total Warehouse Empire Count",
+      "line": 29,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "distribution_centers"
+    },
+    "agentic_thelook.distribution_centers.mean_warehouse_latitude": {
+      "allowed_values": null,
+      "field": "mean_warehouse_latitude",
+      "field_type": "measure",
+      "file": "distribution_centers.view.lkml",
+      "label": "Mean Warehouse Latitude",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "distribution_centers"
+    },
     "agentic_thelook.order_items.count": {
       "allowed_values": null,
       "field": "count",

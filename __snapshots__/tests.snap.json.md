@@ -1,4 +1,74 @@
 {
+  "agentic_thelook.distribution_centers_base_refinement_metrics": {
+    "assert": {
+      "mean_warehouse_latitude_matches": {
+        "expression": "round(${distribution_centers.mean_warehouse_latitude}, 4) = 35.1174"
+      },
+      "total_warehouses_matches": {
+        "expression": "${distribution_centers.count} = 1"
+      }
+    },
+    "explore_source": {
+      "distribution_centers_base": {
+        "column": {
+          "mean_warehouse_latitude": {
+            "field": "distribution_centers.mean_warehouse_latitude"
+          },
+          "total_warehouses": {
+            "field": "distribution_centers.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "distribution_centers_base",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "1",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/distribution_centers_base.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "distribution_centers_base_refinement_metrics"
+  },
+  "agentic_thelook.distribution_centers_metrics_at_fixed_id": {
+    "assert": {
+      "mean_warehouse_latitude_matches": {
+        "expression": "round(${distribution_centers.mean_warehouse_latitude}, 4) = 35.1174"
+      },
+      "total_warehouses_matches": {
+        "expression": "${distribution_centers.count} = 1"
+      }
+    },
+    "explore_source": {
+      "distribution_centers": {
+        "column": {
+          "mean_warehouse_latitude": {
+            "field": "distribution_centers.mean_warehouse_latitude"
+          },
+          "total_warehouses": {
+            "field": "distribution_centers.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "distribution_centers",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "1",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/distribution_centers.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "distribution_centers_metrics_at_fixed_id"
+  },
   "agentic_thelook.order_items_base_refinement_metrics": {
     "assert": {
       "order_item_count_matches": {
