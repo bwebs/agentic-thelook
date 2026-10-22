@@ -69,6 +69,47 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_metrics_at_fixed_id"
   },
+  "agentic_thelook.events_base_refinement_metrics": {
+    "assert": {
+      "count_matches": {
+        "expression": "${events.count} = 774"
+      },
+      "distinct_clicking_humans_matches": {
+        "expression": "${events.distinct_clicking_humans} = 63"
+      },
+      "unique_chaotic_sessions_matches": {
+        "expression": "${events.unique_chaotic_sessions} = 251"
+      }
+    },
+    "explore_source": {
+      "events_base": {
+        "column": {
+          "count": {
+            "field": "events.count"
+          },
+          "distinct_clicking_humans": {
+            "field": "events.distinct_clicking_humans"
+          },
+          "unique_chaotic_sessions": {
+            "field": "events.unique_chaotic_sessions"
+          }
+        },
+        "derived_column": null,
+        "explore": "events_base",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events_base.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "events_base_refinement_metrics"
+  },
   "agentic_thelook.inventory_items_base_refinement_metrics": {
     "assert": {
       "hypothetical_retail_value_matches": {
