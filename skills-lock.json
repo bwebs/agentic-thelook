@@ -5,13 +5,13 @@
       "source": "lkrdev/cli",
       "sourceType": "github",
       "skillPath": "skills/agentic-lookml/SKILL.md",
-      "computedHash": "2b96d799abed1ee019c201eb25cc9781794d448c294c42c11fa9c8f1229ce865"
+      "computedHash": "036e7d939ce224cf83be89bcfa96a2c0883878d7ec3f32c185e34e486193d112"
     },
     "agentic-lookml-workflow": {
       "source": "lkrdev/cli",
       "sourceType": "github",
       "skillPath": "skills/agentic-lookml-workflow/SKILL.md",
-      "computedHash": "02b31b4b4f3a394b5ce7887b54388eaa106e6e1e122812e43fff04d011b95073"
+      "computedHash": "136ca777439e7adcf22f9f000734c9b5c411c660e305d1a8e43784c2fc1b6387"
     },
     "generate-view-from-table": {
       "source": "lkrdev/cli",
@@ -35,7 +35,7 @@
       "source": "lkrdev/cli",
       "sourceType": "github",
       "skillPath": "skills/lookml/SKILL.md",
-      "computedHash": "f444092bbe68dce23b1f2a865b17156b837e9efa366ae742f2bc5457b309d6e4"
+      "computedHash": "5a64d8bea676bea32d27213196195dc6001b381612b419ee8af156bf250cbc19"
     },
     "lookml-field-curation": {
       "source": "lkrdev/cli",
