@@ -24,6 +24,39 @@
       "required_access_grants": [],
       "view": "distribution_centers"
     },
+    "agentic_thelook.inventory_items.count": {
+      "allowed_values": null,
+      "field": "count",
+      "field_type": "measure",
+      "file": "bronze/inventory_items.view.lkml",
+      "label": "Inventory Units Count",
+      "line": 58,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "inventory_items"
+    },
+    "agentic_thelook.inventory_items.hypothetical_retail_value": {
+      "allowed_values": null,
+      "field": "hypothetical_retail_value",
+      "field_type": "measure",
+      "file": "inventory_items.view.lkml",
+      "label": "Hypothetical Retail Value",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "inventory_items"
+    },
+    "agentic_thelook.inventory_items.sunk_dusty_shelf_cost": {
+      "allowed_values": null,
+      "field": "sunk_dusty_shelf_cost",
+      "field_type": "measure",
+      "file": "inventory_items.view.lkml",
+      "label": "Unsold Dusty Shelf Inventory Cost",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "inventory_items"
+    },
     "agentic_thelook.order_items.count": {
       "allowed_values": null,
       "field": "count",
