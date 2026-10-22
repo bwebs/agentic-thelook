@@ -69,6 +69,47 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_metrics_at_fixed_id"
   },
+  "agentic_thelook.inventory_items_base_refinement_metrics": {
+    "assert": {
+      "hypothetical_retail_value_matches": {
+        "expression": "round(${inventory_items.hypothetical_retail_value}, 2) = 6389.09"
+      },
+      "inventory_item_count_matches": {
+        "expression": "${inventory_items.count} = 188"
+      },
+      "sunk_dusty_shelf_cost_matches": {
+        "expression": "round(${inventory_items.sunk_dusty_shelf_cost}, 2) = 3031.82"
+      }
+    },
+    "explore_source": {
+      "inventory_items_base": {
+        "column": {
+          "hypothetical_retail_value": {
+            "field": "inventory_items.hypothetical_retail_value"
+          },
+          "inventory_item_count": {
+            "field": "inventory_items.count"
+          },
+          "sunk_dusty_shelf_cost": {
+            "field": "inventory_items.sunk_dusty_shelf_cost"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items_base",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/inventory_items_base.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "inventory_items_base_refinement_metrics"
+  },
   "agentic_thelook.order_items_base_refinement_metrics": {
     "assert": {
       "order_item_count_matches": {
