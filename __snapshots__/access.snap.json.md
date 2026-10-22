@@ -56,6 +56,39 @@
       "model": "agentic_thelook",
       "required_access_grants": [],
       "view": "products"
+    },
+    "agentic_thelook.users.avg_customer_age": {
+      "allowed_values": null,
+      "field": "avg_customer_age",
+      "field_type": "measure",
+      "file": "users.view.lkml",
+      "label": "Average Customer Wisdom Level",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "users"
+    },
+    "agentic_thelook.users.oldest_shopper_age": {
+      "allowed_values": null,
+      "field": "oldest_shopper_age",
+      "field_type": "measure",
+      "file": "users.view.lkml",
+      "label": "Oldest Shopper Age",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "users"
+    },
+    "agentic_thelook.users.youngest_shopper_age": {
+      "allowed_values": null,
+      "field": "youngest_shopper_age",
+      "field_type": "measure",
+      "file": "users.view.lkml",
+      "label": "Youngest Shopper Age",
+      "line": 1,
+      "model": "agentic_thelook",
+      "required_access_grants": [],
+      "view": "users"
     }
   },
   "views": {}

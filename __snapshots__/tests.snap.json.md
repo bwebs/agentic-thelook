@@ -208,5 +208,99 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "products_catalog_metrics_at_fixed_id"
+  },
+  "agentic_thelook.users_base_refinement_metrics": {
+    "assert": {
+      "avg_customer_age_matches": {
+        "expression": "round(${users.avg_customer_age}, 2) = 39.52"
+      },
+      "oldest_shopper_age_matches": {
+        "expression": "${users.oldest_shopper_age} = 70"
+      },
+      "user_count_matches": {
+        "expression": "${users.count} = 29"
+      },
+      "youngest_shopper_age_matches": {
+        "expression": "${users.youngest_shopper_age} = 14"
+      }
+    },
+    "explore_source": {
+      "users_base": {
+        "column": {
+          "avg_customer_age": {
+            "field": "users.avg_customer_age"
+          },
+          "oldest_shopper_age": {
+            "field": "users.oldest_shopper_age"
+          },
+          "user_count": {
+            "field": "users.count"
+          },
+          "youngest_shopper_age": {
+            "field": "users.youngest_shopper_age"
+          }
+        },
+        "derived_column": null,
+        "explore": "users_base",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users_base.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "users_base_refinement_metrics"
+  },
+  "agentic_thelook.users_metrics_at_fixed_date": {
+    "assert": {
+      "avg_customer_age_matches": {
+        "expression": "round(${users.avg_customer_age}, 2) = 39.52"
+      },
+      "oldest_shopper_age_matches": {
+        "expression": "${users.oldest_shopper_age} = 70"
+      },
+      "user_count_matches": {
+        "expression": "${users.count} = 29"
+      },
+      "youngest_shopper_age_matches": {
+        "expression": "${users.youngest_shopper_age} = 14"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_customer_age": {
+            "field": "users.avg_customer_age"
+          },
+          "oldest_shopper_age": {
+            "field": "users.oldest_shopper_age"
+          },
+          "user_count": {
+            "field": "users.count"
+          },
+          "youngest_shopper_age": {
+            "field": "users.youngest_shopper_age"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "users_metrics_at_fixed_date"
   }
 }
