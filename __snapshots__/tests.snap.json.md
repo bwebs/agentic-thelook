@@ -221,6 +221,53 @@
     "model": "agentic_thelook",
     "name": "order_items_fact_metrics_at_fixed_date"
   },
+  "agentic_thelook.orders_refinement_metrics": {
+    "assert": {
+      "avg_items_per_order_matches": {
+        "expression": "round(${orders.avg_items_per_order}, 2) = 1.31"
+      },
+      "max_items_per_order_matches": {
+        "expression": "${orders.max_items_per_order} = 3"
+      },
+      "order_count_matches": {
+        "expression": "${orders.count} = 36"
+      },
+      "stddev_items_per_order_matches": {
+        "expression": "round(${orders.stddev_items_per_order}, 2) = 0.58"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "avg_items_per_order": {
+            "field": "orders.avg_items_per_order"
+          },
+          "max_items_per_order": {
+            "field": "orders.max_items_per_order"
+          },
+          "order_count": {
+            "field": "orders.count"
+          },
+          "stddev_items_per_order": {
+            "field": "orders.stddev_items_per_order"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "orders.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/orders.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "orders_refinement_metrics"
+  },
   "agentic_thelook.products_base_refinement_metrics": {
     "assert": {
       "avg_sticker_price_matches": {

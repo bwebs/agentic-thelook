@@ -1,0 +1,20 @@
+include: "../orders.view.lkml"
+include: "../orders.refinement.lkml"
+
+explore: orders {
+  label: "Orders"
+  view_name: orders
+  hidden: no
+
+  query: cart_stuffing_velocity {
+    description: "Cart Stuffing Velocity measures the average, maximum, and spread of how many items customers pack into a single order."
+    measures: [orders.avg_items_per_order, orders.max_items_per_order, orders.stddev_items_per_order]
+  }
+
+  query: order_volume_by_basket_size {
+    description: "Full breakdown of order volume by basket size for setting minimum item thresholds for free shipping and bundle promotions."
+    dimensions: [orders.num_of_item]
+    measures: [orders.count]
+    sorts: [orders.num_of_item: asc]
+  }
+}

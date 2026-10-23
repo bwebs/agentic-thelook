@@ -49,6 +49,26 @@
     "label": "Total Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.orders.orders.avg_items_per_order": {
+    "explore_label": "Orders",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.orders.count": {
+    "explore_label": "Orders",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.orders.max_items_per_order": {
+    "explore_label": "Orders",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.orders.stddev_items_per_order": {
+    "explore_label": "Orders",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
   "agentic_thelook.products.products.avg_sticker_price": {
     "explore_label": "Products",
     "label": "Average Sticker Shock",
