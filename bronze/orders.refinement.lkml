@@ -29,12 +29,34 @@ view: +orders {
     sql: ${num_of_item} ;;
   }
 
+  measure: _num_of_item_count {
+    hidden: yes
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: [num_of_item: "NOT NULL"]
+  }
+
+  measure: _num_of_item_sum {
+    hidden: yes
+    type: sum
+    sql: ${num_of_item} ;;
+  }
+
+  measure: _num_of_item_sum_of_squares {
+    hidden: yes
+    type: sum
+    sql: POWER(${num_of_item}, 2) ;;
+  }
+
   measure: stddev_items_per_order {
     label: "Basket Size Standard Deviation (Jitter)"
     description: "Spread (sample standard deviation) of how many items customers pack into a single order."
     synonyms: ["basket size jitter", "cart stuffing spread"]
     type: number
-    sql: STDDEV(${num_of_item}) ;;
+    sql: SQRT(
+          GREATEST(${_num_of_item_sum_of_squares} - (POWER(${_num_of_item_sum}, 2) / NULLIF(${_num_of_item_count}, 0)), 0)
+          / NULLIF(${_num_of_item_count} - 1, 0)
+         ) ;;
     value_format_name: decimal_3
   }
 }
