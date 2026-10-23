@@ -1,7 +1,7 @@
-include: "../../bronze/explores/inventory_items_base.explore.lkml"
+include: "../inventory_items.view.lkml"
+include: "../inventory_items.refinement.lkml"
 
 explore: inventory_items {
-  extends: [inventory_items_base]
   label: "Inventory Items"
   view_name: inventory_items
   hidden: no

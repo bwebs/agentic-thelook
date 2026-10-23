@@ -1,7 +1,7 @@
-include: "../../bronze/explores/order_items_base.explore.lkml"
+include: "../../bronze/explores/order_items.explore.lkml"
 
-test: order_items_base_refinement_metrics {
-  explore_source: order_items_base {
+test: order_items_refinement_metrics {
+  explore_source: order_items {
     column: total_revenue { field: order_items.total_revenue }
     column: order_item_count { field: order_items.count }
     filters: {

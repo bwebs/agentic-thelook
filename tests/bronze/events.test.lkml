@@ -1,7 +1,7 @@
-include: "../../bronze/explores/events_base.explore.lkml"
+include: "../../bronze/explores/events.explore.lkml"
 
-test: events_base_refinement_metrics {
-  explore_source: events_base {
+test: events_refinement_metrics {
+  explore_source: events {
     column: count { field: events.count }
     column: unique_chaotic_sessions { field: events.unique_chaotic_sessions }
     column: distinct_clicking_humans { field: events.distinct_clicking_humans }

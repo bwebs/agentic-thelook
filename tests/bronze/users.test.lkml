@@ -1,7 +1,7 @@
-include: "../../bronze/explores/users_base.explore.lkml"
+include: "../../bronze/explores/users.explore.lkml"
 
-test: users_base_refinement_metrics {
-  explore_source: users_base {
+test: users_refinement_metrics {
+  explore_source: users {
     column: avg_customer_age { field: users.avg_customer_age }
     column: youngest_shopper_age { field: users.youngest_shopper_age }
     column: oldest_shopper_age { field: users.oldest_shopper_age }

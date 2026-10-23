@@ -1,7 +1,7 @@
-include: "../../bronze/explores/events_base.explore.lkml"
+include: "../events.view.lkml"
+include: "../events.refinement.lkml"
 
 explore: events {
-  extends: [events_base]
   label: "Events"
   view_name: events
   hidden: no

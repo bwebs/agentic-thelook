@@ -1,7 +1,7 @@
-include: "../../bronze/explores/products_base.explore.lkml"
+include: "../../bronze/explores/products.explore.lkml"
 
-test: products_base_refinement_metrics {
-  explore_source: products_base {
+test: products_refinement_metrics {
+  explore_source: products {
     column: avg_sticker_price { field: products.avg_sticker_price }
     column: product_count { field: products.count }
     filters: {

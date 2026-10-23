@@ -1,7 +1,7 @@
-include: "../../bronze/explores/distribution_centers_base.explore.lkml"
+include: "../../bronze/explores/distribution_centers.explore.lkml"
 
-test: distribution_centers_base_refinement_metrics {
-  explore_source: distribution_centers_base {
+test: distribution_centers_refinement_metrics {
+  explore_source: distribution_centers {
     column: total_warehouses { field: distribution_centers.count }
     column: mean_warehouse_latitude { field: distribution_centers.mean_warehouse_latitude }
     filters: {

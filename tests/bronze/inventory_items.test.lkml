@@ -1,7 +1,7 @@
-include: "../../bronze/explores/inventory_items_base.explore.lkml"
+include: "../../bronze/explores/inventory_items.explore.lkml"
 
-test: inventory_items_base_refinement_metrics {
-  explore_source: inventory_items_base {
+test: inventory_items_refinement_metrics {
+  explore_source: inventory_items {
     column: inventory_item_count { field: inventory_items.count }
     column: sunk_dusty_shelf_cost { field: inventory_items.sunk_dusty_shelf_cost }
     column: hypothetical_retail_value { field: inventory_items.hypothetical_retail_value }
