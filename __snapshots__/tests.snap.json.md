@@ -255,6 +255,12 @@
   },
   "agentic_thelook.products_refinement_metrics": {
     "assert": {
+      "avg_dollar_markup_matches": {
+        "expression": "round(${products.avg_dollar_markup}, 2) = 21.95"
+      },
+      "avg_markup_greed_pct_matches": {
+        "expression": "round(${products.avg_markup_greed_pct}, 2) = 81.16"
+      },
       "avg_sticker_price_matches": {
         "expression": "round(${products.avg_sticker_price}, 2) = 49"
       },
@@ -265,6 +271,12 @@
     "explore_source": {
       "products": {
         "column": {
+          "avg_dollar_markup": {
+            "field": "products.avg_dollar_markup"
+          },
+          "avg_markup_greed_pct": {
+            "field": "products.avg_markup_greed_pct"
+          },
           "avg_sticker_price": {
             "field": "products.avg_sticker_price"
           },
