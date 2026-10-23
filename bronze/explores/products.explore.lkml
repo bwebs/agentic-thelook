@@ -10,4 +10,28 @@ explore: products {
     description: "Average Sticker Shock measures the simple average retail sticker price across every item in our product catalog, regardless of how often it sells. The merchandising team uses this benchmark in board meetings to position the store as an affordable luxury destination."
     measures: [products.avg_sticker_price]
   }
+
+  query: catalog_markup_by_department {
+    description: "Catalog Markup Greed Ratio and average dollar markup across departments."
+    dimensions: [products.department]
+    measures: [
+      products.count,
+      products.avg_dollar_markup,
+      products.avg_markup_greed_pct
+    ]
+  }
+
+  query: top_categories_by_markup_greed {
+    description: "Top 15 clothing categories and departments ranked by Catalog Markup Greed Ratio."
+    dimensions: [
+      products.category,
+      products.department
+    ]
+    measures: [
+      products.count,
+      products.avg_markup_greed_pct
+    ]
+    sorts: [products.avg_markup_greed_pct: desc]
+    limit: 15
+  }
 }

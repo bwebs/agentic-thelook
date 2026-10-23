@@ -94,6 +94,16 @@
     "label": "Basket Size Standard Deviation (Jitter)",
     "view_label": "Orders"
   },
+  "agentic_thelook.products.products.avg_dollar_markup": {
+    "explore_label": "Products",
+    "label": "Average Dollar Markup",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.products.avg_markup_greed_pct": {
+    "explore_label": "Products",
+    "label": "Catalog Markup Greed Ratio",
+    "view_label": "Products"
+  },
   "agentic_thelook.products.products.avg_sticker_price": {
     "explore_label": "Products",
     "label": "Average Sticker Shock",
