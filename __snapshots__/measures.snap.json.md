@@ -39,6 +39,31 @@
     "label": "Unsold Dusty Shelf Inventory Cost",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items.order_items.avg_hours_to_deliver": {
+    "explore_label": "Order Items",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.avg_hours_to_ship": {
+    "explore_label": "Order Items",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Order Items",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.avg_truck_transit_hours": {
+    "explore_label": "Order Items",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Order Items",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.count": {
     "explore_label": "Order Items",
     "label": "Total Impulse Line Items Count",

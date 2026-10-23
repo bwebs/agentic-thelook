@@ -1,74 +1,4 @@
 {
-  "agentic_thelook.distribution_centers_base_refinement_metrics": {
-    "assert": {
-      "mean_warehouse_latitude_matches": {
-        "expression": "round(${distribution_centers.mean_warehouse_latitude}, 4) = 35.1174"
-      },
-      "total_warehouses_matches": {
-        "expression": "${distribution_centers.count} = 1"
-      }
-    },
-    "explore_source": {
-      "distribution_centers_base": {
-        "column": {
-          "mean_warehouse_latitude": {
-            "field": "distribution_centers.mean_warehouse_latitude"
-          },
-          "total_warehouses": {
-            "field": "distribution_centers.count"
-          }
-        },
-        "derived_column": null,
-        "explore": "distribution_centers_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "distribution_centers.id": "1",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_205909_719_1/lookml/tests/bronze/distribution_centers_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "distribution_centers_base_refinement_metrics"
-  },
-  "agentic_thelook.distribution_centers_metrics_at_fixed_id": {
-    "assert": {
-      "mean_warehouse_latitude_matches": {
-        "expression": "round(${distribution_centers.mean_warehouse_latitude}, 4) = 35.1174"
-      },
-      "total_warehouses_matches": {
-        "expression": "${distribution_centers.count} = 1"
-      }
-    },
-    "explore_source": {
-      "distribution_centers": {
-        "column": {
-          "mean_warehouse_latitude": {
-            "field": "distribution_centers.mean_warehouse_latitude"
-          },
-          "total_warehouses": {
-            "field": "distribution_centers.count"
-          }
-        },
-        "derived_column": null,
-        "explore": "distribution_centers",
-        "expression_custom_filter": null,
-        "filters": {
-          "distribution_centers.id": "1",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_205909_719_1/lookml/tests/silver/distribution_centers.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "distribution_centers_metrics_at_fixed_id"
-  },
   "agentic_thelook.distribution_centers_refinement_metrics": {
     "assert": {
       "mean_warehouse_latitude_matches": {
@@ -103,47 +33,6 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
-  },
-  "agentic_thelook.events_base_refinement_metrics": {
-    "assert": {
-      "count_matches": {
-        "expression": "${events.count} = 774"
-      },
-      "distinct_clicking_humans_matches": {
-        "expression": "${events.distinct_clicking_humans} = 63"
-      },
-      "unique_chaotic_sessions_matches": {
-        "expression": "${events.unique_chaotic_sessions} = 251"
-      }
-    },
-    "explore_source": {
-      "events_base": {
-        "column": {
-          "count": {
-            "field": "events.count"
-          },
-          "distinct_clicking_humans": {
-            "field": "events.distinct_clicking_humans"
-          },
-          "unique_chaotic_sessions": {
-            "field": "events.unique_chaotic_sessions"
-          }
-        },
-        "derived_column": null,
-        "explore": "events_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "events.created_date": "2024-01-01",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261022_203707_469_1/lookml/tests/bronze/events_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "events_base_refinement_metrics"
   },
   "agentic_thelook.events_refinement_metrics": {
     "assert": {
@@ -186,47 +75,6 @@
     "model": "agentic_thelook",
     "name": "events_refinement_metrics"
   },
-  "agentic_thelook.inventory_items_base_refinement_metrics": {
-    "assert": {
-      "hypothetical_retail_value_matches": {
-        "expression": "round(${inventory_items.hypothetical_retail_value}, 2) = 6389.09"
-      },
-      "inventory_item_count_matches": {
-        "expression": "${inventory_items.count} = 188"
-      },
-      "sunk_dusty_shelf_cost_matches": {
-        "expression": "round(${inventory_items.sunk_dusty_shelf_cost}, 2) = 3031.82"
-      }
-    },
-    "explore_source": {
-      "inventory_items_base": {
-        "column": {
-          "hypothetical_retail_value": {
-            "field": "inventory_items.hypothetical_retail_value"
-          },
-          "inventory_item_count": {
-            "field": "inventory_items.count"
-          },
-          "sunk_dusty_shelf_cost": {
-            "field": "inventory_items.sunk_dusty_shelf_cost"
-          }
-        },
-        "derived_column": null,
-        "explore": "inventory_items_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "inventory_items.created_date": "2024-01-01",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261022_184507_441_1/lookml/tests/bronze/inventory_items_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "inventory_items_base_refinement_metrics"
-  },
   "agentic_thelook.inventory_items_refinement_metrics": {
     "assert": {
       "hypothetical_retail_value_matches": {
@@ -268,75 +116,60 @@
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
   },
-  "agentic_thelook.order_items_base_refinement_metrics": {
+  "agentic_thelook.order_items_package_procrastination_metrics": {
     "assert": {
-      "order_item_count_matches": {
-        "expression": "${order_items.count} = 57"
+      "avg_hours_to_deliver_matches": {
+        "expression": "round(${order_items.avg_hours_to_deliver}, 2) = 56.42"
       },
-      "total_revenue_matches": {
-        "expression": "round(${order_items.total_revenue}, 2) = 3662.74"
-      }
-    },
-    "explore_source": {
-      "order_items_base": {
-        "column": {
-          "order_item_count": {
-            "field": "order_items.count"
-          },
-          "total_revenue": {
-            "field": "order_items.total_revenue"
-          }
-        },
-        "derived_column": null,
-        "explore": "order_items_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "order_items.created_date": "2024-01-01",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_185615_779_1/lookml/tests/bronze/order_items_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "order_items_base_refinement_metrics"
-  },
-  "agentic_thelook.order_items_fact_metrics_at_fixed_date": {
-    "assert": {
-      "order_item_count_matches": {
-        "expression": "${order_items.count} = 57"
+      "avg_hours_to_ship_matches": {
+        "expression": "round(${order_items.avg_hours_to_ship}, 2) = 2.88"
       },
-      "total_revenue_matches": {
-        "expression": "round(${order_items.total_revenue}, 2) = 3662.74"
+      "avg_total_doorstep_wait_hours_matches": {
+        "expression": "round(${order_items.avg_total_doorstep_wait_hours}, 2) = 58.88"
+      },
+      "avg_truck_transit_hours_matches": {
+        "expression": "round(${order_items.avg_truck_transit_hours}, 2) = 55.88"
+      },
+      "avg_warehouse_procrastination_hours_matches": {
+        "expression": "round(${order_items.avg_warehouse_procrastination_hours}, 2) = 2.81"
       }
     },
     "explore_source": {
       "order_items": {
         "column": {
-          "order_item_count": {
-            "field": "order_items.count"
+          "avg_hours_to_deliver": {
+            "field": "order_items.avg_hours_to_deliver"
           },
-          "total_revenue": {
-            "field": "order_items.total_revenue"
+          "avg_hours_to_ship": {
+            "field": "order_items.avg_hours_to_ship"
+          },
+          "avg_total_doorstep_wait_hours": {
+            "field": "order_items.avg_total_doorstep_wait_hours"
+          },
+          "avg_truck_transit_hours": {
+            "field": "order_items.avg_truck_transit_hours"
+          },
+          "avg_warehouse_procrastination_hours": {
+            "field": "order_items.avg_warehouse_procrastination_hours"
           }
         },
         "derived_column": null,
         "explore": "order_items",
         "expression_custom_filter": null,
         "filters": {
-          "order_items.created_date": "2024-01-01",
+          "order_items.delivered_date": "2024-01-01",
+          "order_items.is_delivered": "yes",
+          "order_items.is_shipped": "yes",
           "type_": "filters"
         },
         "limit": null,
         "timezone": null
       }
     },
-    "file": "data/20261021_185615_779_1/lookml/tests/silver/order_items.test.lkml",
-    "line": 3,
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 20,
     "model": "agentic_thelook",
-    "name": "order_items_fact_metrics_at_fixed_date"
+    "name": "order_items_package_procrastination_metrics"
   },
   "agentic_thelook.order_items_refinement_metrics": {
     "assert": {
@@ -415,80 +248,10 @@
         "timezone": null
       }
     },
-    "file": "data/20261023_061820_627_1/lookml/tests/bronze/orders.test.lkml",
+    "file": "tests/bronze/orders.test.lkml",
     "line": 3,
     "model": "agentic_thelook",
     "name": "orders_refinement_metrics"
-  },
-  "agentic_thelook.products_base_refinement_metrics": {
-    "assert": {
-      "avg_sticker_price_matches": {
-        "expression": "round(${products.avg_sticker_price}, 2) = 49"
-      },
-      "product_count_matches": {
-        "expression": "${products.count} = 1"
-      }
-    },
-    "explore_source": {
-      "products_base": {
-        "column": {
-          "avg_sticker_price": {
-            "field": "products.avg_sticker_price"
-          },
-          "product_count": {
-            "field": "products.count"
-          }
-        },
-        "derived_column": null,
-        "explore": "products_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "products.id": "1",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_185615_779_1/lookml/tests/bronze/products_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "products_base_refinement_metrics"
-  },
-  "agentic_thelook.products_catalog_metrics_at_fixed_id": {
-    "assert": {
-      "avg_sticker_price_matches": {
-        "expression": "round(${products.avg_sticker_price}, 2) = 49"
-      },
-      "product_count_matches": {
-        "expression": "${products.count} = 1"
-      }
-    },
-    "explore_source": {
-      "products": {
-        "column": {
-          "avg_sticker_price": {
-            "field": "products.avg_sticker_price"
-          },
-          "product_count": {
-            "field": "products.count"
-          }
-        },
-        "derived_column": null,
-        "explore": "products",
-        "expression_custom_filter": null,
-        "filters": {
-          "products.id": "1",
-          "type_": "filters"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_185615_779_1/lookml/tests/silver/products.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "products_catalog_metrics_at_fixed_id"
   },
   "agentic_thelook.products_refinement_metrics": {
     "assert": {
@@ -524,100 +287,6 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "products_refinement_metrics"
-  },
-  "agentic_thelook.users_base_refinement_metrics": {
-    "assert": {
-      "avg_customer_age_matches": {
-        "expression": "round(${users.avg_customer_age}, 2) = 39.52"
-      },
-      "oldest_shopper_age_matches": {
-        "expression": "${users.oldest_shopper_age} = 70"
-      },
-      "user_count_matches": {
-        "expression": "${users.count} = 29"
-      },
-      "youngest_shopper_age_matches": {
-        "expression": "${users.youngest_shopper_age} = 14"
-      }
-    },
-    "explore_source": {
-      "users_base": {
-        "column": {
-          "avg_customer_age": {
-            "field": "users.avg_customer_age"
-          },
-          "oldest_shopper_age": {
-            "field": "users.oldest_shopper_age"
-          },
-          "user_count": {
-            "field": "users.count"
-          },
-          "youngest_shopper_age": {
-            "field": "users.youngest_shopper_age"
-          }
-        },
-        "derived_column": null,
-        "explore": "users_base",
-        "expression_custom_filter": null,
-        "filters": {
-          "type_": "filters",
-          "users.created_date": "2024-01-01"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_215533_776_1/lookml/tests/bronze/users_base.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "users_base_refinement_metrics"
-  },
-  "agentic_thelook.users_metrics_at_fixed_date": {
-    "assert": {
-      "avg_customer_age_matches": {
-        "expression": "round(${users.avg_customer_age}, 2) = 39.52"
-      },
-      "oldest_shopper_age_matches": {
-        "expression": "${users.oldest_shopper_age} = 70"
-      },
-      "user_count_matches": {
-        "expression": "${users.count} = 29"
-      },
-      "youngest_shopper_age_matches": {
-        "expression": "${users.youngest_shopper_age} = 14"
-      }
-    },
-    "explore_source": {
-      "users": {
-        "column": {
-          "avg_customer_age": {
-            "field": "users.avg_customer_age"
-          },
-          "oldest_shopper_age": {
-            "field": "users.oldest_shopper_age"
-          },
-          "user_count": {
-            "field": "users.count"
-          },
-          "youngest_shopper_age": {
-            "field": "users.youngest_shopper_age"
-          }
-        },
-        "derived_column": null,
-        "explore": "users",
-        "expression_custom_filter": null,
-        "filters": {
-          "type_": "filters",
-          "users.created_date": "2024-01-01"
-        },
-        "limit": null,
-        "timezone": null
-      }
-    },
-    "file": "data/20261021_215533_776_1/lookml/tests/silver/users.test.lkml",
-    "line": 3,
-    "model": "agentic_thelook",
-    "name": "users_metrics_at_fixed_date"
   },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {
