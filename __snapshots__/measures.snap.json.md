@@ -49,6 +49,11 @@
     "label": "Average Hours to Ship",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.avg_item_price": {
+    "explore_label": "Order Items",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.avg_total_doorstep_wait_hours": {
     "explore_label": "Order Items",
     "label": "Average Total Doorstep Wait (Whole Hours)",
@@ -67,6 +72,11 @@
   "agentic_thelook.order_items.order_items.count": {
     "explore_label": "Order Items",
     "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.distinct_orders": {
+    "explore_label": "Order Items",
+    "label": "Distinct Orders",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items.total_revenue": {

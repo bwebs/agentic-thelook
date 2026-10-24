@@ -13,6 +13,24 @@ view: +order_items {
     description: "Whether the order item has been delivered to the customer (delivered_at is populated)."
   }
 
+  dimension: created_day_of_week_num {
+    label: "Created Day of Week Number"
+    group_label: "Created Date"
+    description: "Numeric day of the week when the order item was created in UTC (1 = Sunday through 7 = Saturday)."
+    synonyms: ["day of week num", "day of week number"]
+    type: number
+    sql: EXTRACT(DAYOFWEEK FROM ${created_raw}) ;;
+  }
+
+  dimension: shopping_regime {
+    label: "Shopping Regime"
+    group_label: "Created Date"
+    description: "Classifies order items into Saturday and Sunday weekend orders ('Weekend Warrior') versus Monday through Friday weekday orders ('Weekday Grinder')."
+    synonyms: ["weekend warrior regime", "weekend vs weekday"]
+    type: string
+    sql: CASE WHEN ${created_day_of_week_num} IN (1, 7) THEN 'Weekend Warrior' ELSE 'Weekday Grinder' END ;;
+  }
+
   dimension_group: to_ship {
     label: "To Ship"
     description: "Elapsed time an order sits waiting inside the warehouse before being handed to a shipping carrier (created_at to shipped_at)."
@@ -43,6 +61,7 @@ view: +order_items {
   measure: count {
     label: "Total Impulse Line Items Count"
     description: "Total Impulse Line Items Count tracks the sheer number of individual clothing items customers have tossed into their virtual carts and checked out. Warehouse operations use this volume metric to forecast daily packing workload and estimate how many shipping boxes they need to fold."
+    synonyms: ["items sold", "item volume"]
   }
 
   measure: total_revenue {
@@ -96,5 +115,22 @@ view: +order_items {
     type: average
     sql: ${minutes_to_deliver} / 60.0 ;;
     value_format_name: decimal_2
+  }
+
+  measure: avg_item_price {
+    label: "Average Item Price"
+    description: "Mean sale price per ordered item across line items."
+    synonyms: ["average sale price", "avg sale price"]
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: distinct_orders {
+    label: "Distinct Orders"
+    description: "Number of unique customer orders represented across order line items."
+    synonyms: ["order count", "unique orders"]
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 }

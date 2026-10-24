@@ -206,6 +206,41 @@
     "model": "agentic_thelook",
     "name": "order_items_refinement_metrics"
   },
+  "agentic_thelook.order_items_weekend_warrior_metrics": {
+    "assert": {
+      "avg_item_price_matches": {
+        "expression": "round(${order_items.avg_item_price}, 2) = 56.71"
+      },
+      "distinct_orders_matches": {
+        "expression": "${order_items.distinct_orders} = 59"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_item_price": {
+            "field": "order_items.avg_item_price"
+          },
+          "distinct_orders": {
+            "field": "order_items.distinct_orders"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 57,
+    "model": "agentic_thelook",
+    "name": "order_items_weekend_warrior_metrics"
+  },
   "agentic_thelook.orders_refinement_metrics": {
     "assert": {
       "avg_items_per_order_matches": {
