@@ -2,46 +2,39 @@
   "version": 1,
   "skills": {
     "agentic-lookml": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/agentic-lookml/SKILL.md",
-      "computedHash": "f33aa6578c95621605b4f6de9f33a92d926290d3f447ba9a0921606d599bd6fd"
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
+      "computedHash": "4811459ba28b6a01e6fdaa7c706a1c5a9960cb041a65bb548768c33cfaf041eb"
     },
     "agentic-lookml-workflow": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/agentic-lookml-workflow/SKILL.md",
-      "computedHash": "b20cdb77eef8f905591158e8d829b97398bb0aa2920f2a8c47730a1d67dbccae"
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
+      "computedHash": "f1b1a6511af86de1e5a531a0ecd62419ae101bd529cc7c93c169b192ad1caf8f"
     },
     "generate-view-from-table": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/generate-view-from-table/SKILL.md",
-      "computedHash": "54e2142d8e1af590a3611a277db7c1e7c8ad06dcfea903faff91b07e2546c2f2"
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
+      "computedHash": "61f1115d691c5cc836b679c8a04f95333b98bf1382edfa5695adb354527deb06"
     },
     "lkr-code-mode": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/lkr-code-mode/SKILL.md",
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
       "computedHash": "e897016a38205339b1de90e15bc2d48725537b456bb63ea3826bb4b0eeb6d64a"
     },
     "lkr-project-helper": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/lkr-project-helper/SKILL.md",
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
       "computedHash": "0b86dea70a514a8b1c475ce98cc293c39225b5b72b1dc7dcb7f69204cd303226"
     },
     "lookml": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/lookml/SKILL.md",
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
       "computedHash": "145bd2d504997e868bf3152d2bf94e683ac7a2d4e23cc2400b5de780cf4831a4"
     },
     "lookml-field-curation": {
-      "source": "lkrdev/cli",
-      "sourceType": "github",
-      "skillPath": "skills/lookml-field-curation/SKILL.md",
-      "computedHash": "4f874bede7d4a0e7f6af8ee178d1c84e9cd58dd5256d9050ed31e10d07259c42"
+      "source": "../../lkrdev/cli",
+      "sourceType": "local",
+      "computedHash": "edb104488e02bd2cdf41767bf4c1332c1ed426bbcd50af60b6a81f9180e03634"
     }
   }
 }
