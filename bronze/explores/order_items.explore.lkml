@@ -38,4 +38,24 @@ explore: order_items {
     ]
     filters: [order_items.is_shipped: "yes"]
   }
+
+  query: weekend_warrior_shopping_surge {
+    description: "Weekend Warrior Shopping Surge Ratio compares total sales, item volume, and average item price generated on Saturdays and Sundays against standard Monday-through-Friday weekday shopping."
+    dimensions: [order_items.shopping_regime]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      order_items.avg_item_price
+    ]
+  }
+
+  query: orders_and_revenue_by_day_of_week {
+    description: "Daily rhythm of distinct customer orders and total sales across days of the week (1 = Sunday through 7 = Saturday)."
+    dimensions: [order_items.created_day_of_week_num]
+    measures: [
+      order_items.distinct_orders,
+      order_items.total_revenue
+    ]
+    sorts: [order_items.created_day_of_week_num: asc]
+  }
 }

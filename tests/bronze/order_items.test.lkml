@@ -53,3 +53,20 @@ test: order_items_package_procrastination_metrics {
     expression: round(${order_items.avg_hours_to_deliver}, 2) = 56.42 ;;
   }
 }
+
+test: order_items_weekend_warrior_metrics {
+  explore_source: order_items {
+    column: avg_item_price { field: order_items.avg_item_price }
+    column: distinct_orders { field: order_items.distinct_orders }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: avg_item_price_matches {
+    expression: round(${order_items.avg_item_price}, 2) = 56.71 ;;
+  }
+  assert: distinct_orders_matches {
+    expression: ${order_items.distinct_orders} = 59 ;;
+  }
+}
