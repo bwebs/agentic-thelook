@@ -34,6 +34,47 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
   },
+  "agentic_thelook.events_ie_dinosaur_2024_01_01_metrics": {
+    "assert": {
+      "count_matches": {
+        "expression": "${events.count} = 922"
+      },
+      "ie_event_share_matches": {
+        "expression": "round(${events.ie_event_share}, 4) = 0.0813"
+      },
+      "ie_events_matches": {
+        "expression": "${events.ie_events} = 75"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "count": {
+            "field": "events.count"
+          },
+          "ie_event_share": {
+            "field": "events.ie_event_share"
+          },
+          "ie_events": {
+            "field": "events.ie_events"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 53,
+    "model": "agentic_thelook",
+    "name": "events_ie_dinosaur_2024_01_01_metrics"
+  },
   "agentic_thelook.events_rage_quit_abandonment_metrics": {
     "assert": {
       "cancel_events_matches": {

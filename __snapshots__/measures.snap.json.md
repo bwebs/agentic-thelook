@@ -39,6 +39,16 @@
     "label": "Distinct Clicking Shoppers",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.ie_event_share": {
+    "explore_label": "Events",
+    "label": "Internet Explorer Traffic Share (Dinosaur Tax)",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.ie_events": {
+    "explore_label": "Events",
+    "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.purchase_events": {
     "explore_label": "Events",
     "label": "Purchase Events",
