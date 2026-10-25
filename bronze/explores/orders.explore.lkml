@@ -17,4 +17,16 @@ explore: orders {
     measures: [orders.count]
     sorts: [orders.num_of_item: asc]
   }
+
+  query: buyers_remorse_order_volume {
+    description: "Buyer's Remorse Order Volume tracks how many orders end up cancelled or returned."
+    measures: [orders.cancelled_or_returned_orders]
+  }
+
+  query: order_volume_and_items_by_status {
+    description: "Breakdown of order count and total items involved across order fulfillment statuses."
+    dimensions: [orders.status]
+    measures: [orders.count, orders.total_items]
+    sorts: [orders.count: desc]
+  }
 }

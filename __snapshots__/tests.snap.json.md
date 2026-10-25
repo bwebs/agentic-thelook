@@ -329,6 +329,77 @@
     "model": "agentic_thelook",
     "name": "order_items_weekend_warrior_metrics"
   },
+  "agentic_thelook.order_shards_2024_01_01_metrics": {
+    "assert": {
+      "approx_distinct_users_matches": {
+        "expression": "${order_shards.approx_distinct_users} = 73"
+      },
+      "shard_records_matches": {
+        "expression": "${order_shards.count} = 117"
+      }
+    },
+    "explore_source": {
+      "order_shards": {
+        "column": {
+          "approx_distinct_users": {
+            "field": "order_shards.approx_distinct_users"
+          },
+          "shard_records": {
+            "field": "order_shards.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_shards",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_shards.created_date": "2024-01-01",
+          "order_shards.table_suffix": "s, ^_items",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_shards.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "order_shards_2024_01_01_metrics"
+  },
+  "agentic_thelook.orders_2024_01_01_remorse_metrics": {
+    "assert": {
+      "cancelled_or_returned_orders_matches": {
+        "expression": "${orders.cancelled_or_returned_orders} = 15"
+      },
+      "total_items_matches": {
+        "expression": "${orders.total_items} = 71"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "cancelled_or_returned_orders": {
+            "field": "orders.cancelled_or_returned_orders"
+          },
+          "total_items": {
+            "field": "orders.total_items"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "orders.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/orders.test.lkml",
+    "line": 28,
+    "model": "agentic_thelook",
+    "name": "orders_2024_01_01_remorse_metrics"
+  },
   "agentic_thelook.orders_refinement_metrics": {
     "assert": {
       "avg_items_per_order_matches": {

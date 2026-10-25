@@ -24,3 +24,20 @@ test: orders_refinement_metrics {
     expression: ${orders.count} = 36 ;;
   }
 }
+
+test: orders_2024_01_01_remorse_metrics {
+  explore_source: orders {
+    column: total_items { field: orders.total_items }
+    column: cancelled_or_returned_orders { field: orders.cancelled_or_returned_orders }
+    filters: {
+      field: orders.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: total_items_matches {
+    expression: ${orders.total_items} = 71 ;;
+  }
+  assert: cancelled_or_returned_orders_matches {
+    expression: ${orders.cancelled_or_returned_orders} = 15 ;;
+  }
+}
