@@ -152,6 +152,15 @@ view: +order_items {
     sql: ${order_id} ;;
   }
 
+  measure: distinct_users {
+    label: "Active Buyers"
+    description: "Number of distinct customers who purchased at least one order item."
+    synonyms: ["active buyers", "distinct buying users", "buying users", "purchasing customers"]
+    type: count_distinct
+    tags: ["non_additive"]
+    sql: ${user_id} ;;
+  }
+
   measure: late_night_revenue {
     label: "Midnight Owl Revenue"
     description: "Gross dollar sales from order items placed during late-night hours between midnight and 6:00 AM UTC (hours 0–5)."

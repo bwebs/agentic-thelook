@@ -388,6 +388,35 @@
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_active_buyers_metrics": {
+    "assert": {
+      "distinct_users_matches": {
+        "expression": "${order_items.distinct_users} = 71"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "distinct_users": {
+            "field": "order_items.distinct_users"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 91,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_active_buyers_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_socks_obsession_metrics": {
     "assert": {
       "sock_revenue_share_matches": {
@@ -797,6 +826,60 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "products_refinement_metrics"
+  },
+  "agentic_thelook.users_2022_cohort_year_1_survival_metrics": {
+    "assert": {
+      "active_buyers_matches": {
+        "expression": "${order_items.distinct_users} = 3182"
+      },
+      "buyer_activation_survival_rate_matches": {
+        "expression": "round(${order_items_user_cohort_facts_fields.buyer_activation_survival_rate}, 4) = 0.2558"
+      },
+      "cohort_revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 305644.78"
+      },
+      "initial_cohort_users_matches": {
+        "expression": "${user_cohort_facts.initial_cohort_users} = 12441"
+      },
+      "revenue_per_cohort_user_matches": {
+        "expression": "round(${order_items_user_cohort_facts_fields.revenue_per_cohort_user}, 2) = 24.57"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "active_buyers": {
+            "field": "order_items.distinct_users"
+          },
+          "buyer_activation_survival_rate": {
+            "field": "order_items_user_cohort_facts_fields.buyer_activation_survival_rate"
+          },
+          "cohort_revenue": {
+            "field": "order_items.total_revenue"
+          },
+          "initial_cohort_users": {
+            "field": "user_cohort_facts.initial_cohort_users"
+          },
+          "revenue_per_cohort_user": {
+            "field": "order_items_user_cohort_facts_fields.revenue_per_cohort_user"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items_users_fields.years_since_signup": "1",
+          "type_": "filters",
+          "users.cohort_signup_year": "2022"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 67,
+    "model": "agentic_thelook",
+    "name": "users_2022_cohort_year_1_survival_metrics"
   },
   "agentic_thelook.users_2024_01_01_ghost_account_metrics": {
     "assert": {

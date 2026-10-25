@@ -6,6 +6,14 @@ view: order_items_users_fields {
     sql: CONCAT(CAST(${users.id} AS STRING), '_', CAST(COALESCE(${order_items.id}, 0) AS STRING)) ;;
   }
 
+  dimension: years_since_signup {
+    label: "Years Since Signup"
+    description: "Number of calendar years elapsed between the customer's cohort signup year and the order item purchase year (UTC)."
+    synonyms: ["customer tenure years", "tenure years", "vintage year offset"]
+    type: number
+    sql: EXTRACT(YEAR FROM ${order_items.created_raw}) - ${users.cohort_signup_year} ;;
+  }
+
   measure: avg_activity_weighted_user_age {
     label: "Average Activity-Weighted User Age"
     description: "Mean shopper age across joined user and order-item rows (weights multi-item buyers by item count and zero-purchase users once)."

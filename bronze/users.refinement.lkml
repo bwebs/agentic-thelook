@@ -1,6 +1,16 @@
 include: "users.view.lkml"
 
 view: +users {
+  dimension: cohort_signup_year {
+    label: "Cohort Signup Year"
+    group_label: "Created Date"
+    description: "Calendar year (UTC) in which the customer first signed up."
+    synonyms: ["signup year", "customer vintage year", "registration year"]
+    type: number
+    value_format_name: id
+    sql: EXTRACT(YEAR FROM ${created_raw}) ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
