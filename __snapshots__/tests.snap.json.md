@@ -169,6 +169,59 @@
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_socks_obsession_metrics": {
+    "assert": {
+      "sock_revenue_share_matches": {
+        "expression": "round(${order_items_products_fields.sock_revenue_share}, 4) = 0.0161"
+      },
+      "sock_unit_share_matches": {
+        "expression": "round(${order_items_products_fields.sock_unit_share}, 4) = 0.075"
+      },
+      "sock_units_sold_matches": {
+        "expression": "${order_items_products_fields.sock_units_sold} = 6"
+      },
+      "total_sock_revenue_matches": {
+        "expression": "round(${order_items_products_fields.total_sock_revenue}, 2) = 73.39"
+      },
+      "total_units_sold_matches": {
+        "expression": "${order_items.count} = 80"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "sock_revenue_share": {
+            "field": "order_items_products_fields.sock_revenue_share"
+          },
+          "sock_unit_share": {
+            "field": "order_items_products_fields.sock_unit_share"
+          },
+          "sock_units_sold": {
+            "field": "order_items_products_fields.sock_units_sold"
+          },
+          "total_sock_revenue": {
+            "field": "order_items_products_fields.total_sock_revenue"
+          },
+          "total_units_sold": {
+            "field": "order_items.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_socks_obsession_metrics"
+  },
   "agentic_thelook.order_items_midnight_owl_metrics": {
     "assert": {
       "late_night_revenue_matches": {
