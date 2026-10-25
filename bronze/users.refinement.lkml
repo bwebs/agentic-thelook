@@ -3,7 +3,7 @@ include: "users.view.lkml"
 view: +users {
   measure: count {
     description: "Total number of registered shopper accounts."
-    synonyms: ["registered users", "registered customers"]
+    synonyms: ["registered users", "registered customers", "total users"]
   }
 
   measure: avg_customer_age {

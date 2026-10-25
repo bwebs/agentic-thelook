@@ -41,3 +41,17 @@ test: orders_2024_01_01_remorse_metrics {
     expression: ${orders.cancelled_or_returned_orders} = 15 ;;
   }
 }
+
+test: orders_2024_01_01_distinct_users_metrics {
+  explore_source: orders {
+    column: distinct_users { field: orders.distinct_users }
+    column: order_count { field: orders.count }
+    filters: {
+      field: orders.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: distinct_users_matches {
+    expression: ${orders.distinct_users} = 51 ;;
+  }
+}

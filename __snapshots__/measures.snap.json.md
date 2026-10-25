@@ -214,6 +214,11 @@
     "label": "Order Count",
     "view_label": "Orders"
   },
+  "agentic_thelook.orders.orders.distinct_users": {
+    "explore_label": "Orders",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
   "agentic_thelook.orders.orders.max_items_per_order": {
     "explore_label": "Orders",
     "label": "Max Items per Order",
@@ -312,6 +317,51 @@
   "agentic_thelook.users.order_items_users_fields.revenue_per_registered_user": {
     "explore_label": "Users",
     "label": "Revenue per Registered User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.orders.avg_items_per_order": {
+    "explore_label": "Users",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.cancelled_or_returned_orders": {
+    "explore_label": "Users",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.count": {
+    "explore_label": "Users",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.distinct_users": {
+    "explore_label": "Users",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.max_items_per_order": {
+    "explore_label": "Users",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.stddev_items_per_order": {
+    "explore_label": "Users",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders.total_items": {
+    "explore_label": "Users",
+    "label": "Total Items in Orders",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users.orders_users_fields.ghost_account_rate": {
+    "explore_label": "Users",
+    "label": "Ghost Account Window-Shopper Rate",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.orders_users_fields.ghost_users": {
+    "explore_label": "Users",
+    "label": "Ghost Users",
     "view_label": "Users"
   },
   "agentic_thelook.users.users.avg_customer_age": {
