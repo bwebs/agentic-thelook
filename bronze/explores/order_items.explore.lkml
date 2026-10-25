@@ -58,4 +58,23 @@ explore: order_items {
     ]
     sorts: [order_items.created_day_of_week_num: asc]
   }
+
+  query: midnight_owl_impulse_spend_share {
+    description: "Midnight Owl Impulse Spend Share calculates how much revenue and what share of store sales happen in the late-night hours between midnight and six in the morning."
+    measures: [
+      order_items.late_night_revenue,
+      order_items.total_revenue,
+      order_items.late_night_revenue_share
+    ]
+  }
+
+  query: hourly_revenue_and_item_volume {
+    description: "Hour-by-hour UTC curve of items bought and gross revenue across the 24-hour clock."
+    dimensions: [order_items.created_hour_utc]
+    measures: [
+      order_items.count,
+      order_items.total_revenue
+    ]
+    sorts: [order_items.created_hour_utc: asc]
+  }
 }

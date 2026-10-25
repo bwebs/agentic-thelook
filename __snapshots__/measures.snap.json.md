@@ -79,6 +79,16 @@
     "label": "Distinct Orders",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.late_night_revenue": {
+    "explore_label": "Order Items",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.late_night_revenue_share": {
+    "explore_label": "Order Items",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.total_revenue": {
     "explore_label": "Order Items",
     "label": "Total Revenue",

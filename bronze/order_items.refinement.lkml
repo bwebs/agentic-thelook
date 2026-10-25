@@ -31,6 +31,15 @@ view: +order_items {
     sql: CASE WHEN ${created_day_of_week_num} IN (1, 7) THEN 'Weekend Warrior' ELSE 'Weekday Grinder' END ;;
   }
 
+  dimension: created_hour_utc {
+    label: "Created Hour (UTC)"
+    group_label: "Created Date"
+    description: "UTC hour of the day when the order item was created (0 = midnight through 23 = 11 PM)."
+    synonyms: ["utc hour", "hour of day"]
+    type: number
+    sql: EXTRACT(HOUR FROM ${created_raw}) ;;
+  }
+
   dimension_group: to_ship {
     label: "To Ship"
     description: "Elapsed time an order sits waiting inside the warehouse before being handed to a shipping carrier (created_at to shipped_at)."
@@ -132,5 +141,24 @@ view: +order_items {
     synonyms: ["order count", "unique orders"]
     type: count_distinct
     sql: ${order_id} ;;
+  }
+
+  measure: late_night_revenue {
+    label: "Midnight Owl Revenue"
+    description: "Gross dollar sales from order items placed during late-night hours between midnight and 6:00 AM UTC (hours 0–5)."
+    synonyms: ["midnight owl revenue", "overnight revenue"]
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [created_hour_utc: "[0, 5]"]
+    value_format_name: usd
+  }
+
+  measure: late_night_revenue_share {
+    label: "Midnight Owl Impulse Spend Share"
+    description: "Midnight Owl Impulse Spend Share calculates the share of store sales generated in the late-night hours between midnight and six in the morning (hours 0–5 UTC). Lifecycle marketers use this late-night impulse index to schedule overnight push notifications and flash promos for night owls."
+    synonyms: ["midnight owl revenue pct", "midnight owl spend share", "late night impulse index"]
+    type: number
+    sql: 1.0 * ${late_night_revenue} / NULLIF(${total_revenue}, 0) ;;
+    value_format_name: percent_2
   }
 }
