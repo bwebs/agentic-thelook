@@ -32,6 +32,14 @@ view: +users {
     END ;;
   }
 
+  dimension: is_young_customer {
+    label: "Young Customer"
+    description: "Young Customer defines any registered shopper under the age of 25, covering our teen and early-twenties audience. Youth marketing teams use this segment to target student discount codes, campus promos, and streetwear campaigns."
+    synonyms: ["is young customer", "young customers", "under 25", "teen and early-twenties audience", "youth segment"]
+    type: yesno
+    sql: ${age} < 25 ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
