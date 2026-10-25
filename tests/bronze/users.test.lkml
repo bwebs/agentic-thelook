@@ -24,3 +24,20 @@ test: users_refinement_metrics {
     expression: ${users.count} = 29 ;;
   }
 }
+
+test: users_2024_01_01_latitude_metrics {
+  explore_source: users {
+    column: user_count { field: users.count }
+    column: avg_abs_latitude { field: users.avg_abs_latitude }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: user_count_matches {
+    expression: ${users.count} = 33 ;;
+  }
+  assert: avg_abs_latitude_matches {
+    expression: round(${users.avg_abs_latitude}, 2) = 37.3 ;;
+  }
+}

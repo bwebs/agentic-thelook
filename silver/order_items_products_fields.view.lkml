@@ -43,4 +43,24 @@ view: order_items_products_fields {
     sql: 1.0 * ${total_sock_revenue} / NULLIF(${order_items.total_revenue}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: total_warm_clothing_revenue {
+    label: "Cozy Warm Clothing Spend"
+    description: "Gross dollar sales from warm cold-weather clothing categories ('Sweaters', 'Fashion Hoodies & Sweatshirts', 'Blazers & Jackets', and 'Outerwear & Coats')."
+    synonyms: ["cozy warm clothing spend", "warm clothing spend", "cold-weather outerwear spend"]
+    type: sum
+    sql: ${order_items.sale_price} ;;
+    filters: [products.category: "Sweaters,Fashion Hoodies & Sweatshirts,Blazers & Jackets,Outerwear & Coats"]
+    value_format_name: usd
+  }
+
+  measure: warm_clothing_revenue_share {
+    label: "Warm Clothing Spend Share"
+    description: "Hemisphere and Latitude Fashion Chill Factor calculates the share of total clothing spend going toward warm sweaters, hoodies, jackets, and coats. Seasonal marketing teams use this geographic climate split to target cold-weather outerwear ads to northern shoppers while keeping warm-weather gear aimed at the tropics."
+    synonyms: ["cozy spend share", "cozy spend share pct", "hemisphere and latitude fashion chill factor", "fashion chill factor"]
+    type: number
+    tags: ["non_additive"]
+    sql: 1.0 * ${total_warm_clothing_revenue} / NULLIF(${order_items.total_revenue}, 0) ;;
+    value_format_name: percent_2
+  }
 }

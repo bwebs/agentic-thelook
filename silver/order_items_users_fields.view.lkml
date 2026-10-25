@@ -23,6 +23,15 @@ view: order_items_users_fields {
     value_format_name: decimal_1
   }
 
+  measure: avg_activity_weighted_abs_latitude {
+    label: "Average Activity-Weighted Absolute Latitude"
+    description: "Mean absolute customer latitude across joined user and order-item rows (weights multi-item buyers by item count and zero-purchase users once)."
+    type: average
+    tags: ["non_additive"]
+    sql: ${users.abs_latitude} ;;
+    value_format_name: decimal_2
+  }
+
   measure: revenue_per_registered_user {
     label: "Revenue per Registered User"
     description: "Country Per-Capita Fashion Spend measures average gross sales spend per registered customer across countries and marketing channels."
@@ -31,5 +40,25 @@ view: order_items_users_fields {
     tags: ["non_additive"]
     sql: 1.0 * ${order_items.total_revenue} / NULLIF(${users.count}, 0) ;;
     value_format_name: usd
+  }
+
+  measure: latitude_price_correlation {
+    label: "Latitude-Price Correlation"
+    description: "Pearson correlation coefficient between customer absolute latitude (distance from the equator) and ordered item sale price."
+    synonyms: ["latitude price correlation", "abs latitude sale price correlation"]
+    type: number
+    tags: ["non_additive"]
+    sql: CORR(${users.abs_latitude}, ${order_items.sale_price}) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: age_price_correlation {
+    label: "Age-Price Correlation"
+    description: "Pearson correlation coefficient between customer age and ordered item sale price."
+    synonyms: ["age price correlation", "customer age sale price correlation"]
+    type: number
+    tags: ["non_additive"]
+    sql: CORR(${users.age}, ${order_items.sale_price}) ;;
+    value_format_name: decimal_4
   }
 }
