@@ -14,4 +14,26 @@ explore: events {
       events.distinct_clicking_humans
     ]
   }
+
+  query: rage_quit_cart_abandonment_ratio {
+    description: "Rage-Quit Cart Abandonment Ratio compares how often shoppers add items to their cart or explicitly cancel out of a browsing flow relative to completed checkouts."
+    measures: [
+      events.cart_events,
+      events.purchase_events,
+      events.cancel_events,
+      events.carts_per_purchase_ratio,
+      events.cancel_to_cart_ratio
+    ]
+  }
+
+  query: funnel_events_by_traffic_source {
+    description: "Cart, purchase, and cancellation event volume across acquisition traffic channels ordered by cart volume."
+    dimensions: [events.traffic_source]
+    measures: [
+      events.cart_events,
+      events.purchase_events,
+      events.cancel_events
+    ]
+    sorts: [events.cart_events: desc]
+  }
 }
