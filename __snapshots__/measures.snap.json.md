@@ -239,6 +239,36 @@
     "label": "Total Socks & Hosiery Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_fields.total_warm_clothing_revenue": {
+    "explore_label": "Order Items",
+    "label": "Cozy Warm Clothing Spend",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.warm_clothing_revenue_share": {
+    "explore_label": "Order Items",
+    "label": "Warm Clothing Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_users_fields.age_price_correlation": {
+    "explore_label": "Order Items",
+    "label": "Age-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_users_fields.avg_activity_weighted_abs_latitude": {
+    "explore_label": "Order Items",
+    "label": "Average Activity-Weighted Absolute Latitude",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_users_fields.avg_activity_weighted_user_age": {
+    "explore_label": "Order Items",
+    "label": "Average Activity-Weighted User Age",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_users_fields.latitude_price_correlation": {
+    "explore_label": "Order Items",
+    "label": "Latitude-Price Correlation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.orders.avg_items_per_order": {
     "explore_label": "Order Items",
     "label": "Average Items per Order",
@@ -288,6 +318,31 @@
     "explore_label": "Order Items",
     "label": "Count",
     "view_label": "Products"
+  },
+  "agentic_thelook.order_items.users.avg_abs_latitude": {
+    "explore_label": "Order Items",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.avg_customer_age": {
+    "explore_label": "Order Items",
+    "label": "Average Customer Wisdom Level",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.count": {
+    "explore_label": "Order Items",
+    "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.oldest_shopper_age": {
+    "explore_label": "Order Items",
+    "label": "Oldest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.youngest_shopper_age": {
+    "explore_label": "Order Items",
+    "label": "Youngest Shopper Age",
+    "view_label": "Users"
   },
   "agentic_thelook.order_shards.order_shards.approx_distinct_users": {
     "explore_label": "Order Shards (Wildcard)",
@@ -449,9 +504,24 @@
     "label": "Revenue per Original Cohort User",
     "view_label": "Users"
   },
+  "agentic_thelook.users.order_items_users_fields.age_price_correlation": {
+    "explore_label": "Users",
+    "label": "Age-Price Correlation",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.order_items_users_fields.avg_activity_weighted_abs_latitude": {
+    "explore_label": "Users",
+    "label": "Average Activity-Weighted Absolute Latitude",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.order_items_users_fields.avg_activity_weighted_user_age": {
     "explore_label": "Users",
     "label": "Average Activity-Weighted User Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.order_items_users_fields.latitude_price_correlation": {
+    "explore_label": "Users",
+    "label": "Latitude-Price Correlation",
     "view_label": "Users"
   },
   "agentic_thelook.users.order_items_users_fields.revenue_per_registered_user": {
@@ -508,6 +578,11 @@
     "explore_label": "Users",
     "label": "Initial Cohort Users",
     "view_label": "User Cohort Facts"
+  },
+  "agentic_thelook.users.users.avg_abs_latitude": {
+    "explore_label": "Users",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
   },
   "agentic_thelook.users.users.avg_customer_age": {
     "explore_label": "Users",

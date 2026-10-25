@@ -61,3 +61,52 @@ test: order_items_2024_01_01_orders_join_metrics {
     expression: round(${order_items.refunded_revenue}, 2) = 563.41 ;;
   }
 }
+
+test: order_items_2024_01_01_thermal_chill_metrics {
+  explore_source: order_items {
+    column: order_item_count { field: order_items.count }
+    column: total_revenue { field: order_items.total_revenue }
+    column: total_warm_clothing_revenue { field: order_items_products_fields.total_warm_clothing_revenue }
+    column: warm_clothing_revenue_share { field: order_items_products_fields.warm_clothing_revenue_share }
+    column: avg_abs_latitude { field: users.avg_abs_latitude }
+    column: avg_activity_weighted_abs_latitude { field: order_items_users_fields.avg_activity_weighted_abs_latitude }
+    column: latitude_price_correlation { field: order_items_users_fields.latitude_price_correlation }
+    column: age_price_correlation { field: order_items_users_fields.age_price_correlation }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: users.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: products.id
+      value: "NOT NULL"
+    }
+  }
+  assert: order_item_count_matches {
+    expression: ${order_items.count} = 80 ;;
+  }
+  assert: total_revenue_matches {
+    expression: round(${order_items.total_revenue}, 2) = 4564.89 ;;
+  }
+  assert: total_warm_clothing_revenue_matches {
+    expression: round(${order_items_products_fields.total_warm_clothing_revenue}, 2) = 1060.61 ;;
+  }
+  assert: warm_clothing_revenue_share_matches {
+    expression: round(${order_items_products_fields.warm_clothing_revenue_share}, 4) = 0.2323 ;;
+  }
+  assert: avg_abs_latitude_symmetric_matches {
+    expression: round(${users.avg_abs_latitude}, 2) = 32.92 ;;
+  }
+  assert: avg_activity_weighted_abs_latitude_matches {
+    expression: round(${order_items_users_fields.avg_activity_weighted_abs_latitude}, 2) = 32.44 ;;
+  }
+  assert: latitude_price_correlation_matches {
+    expression: round(${order_items_users_fields.latitude_price_correlation}, 4) = -0.1648 ;;
+  }
+  assert: age_price_correlation_matches {
+    expression: round(${order_items_users_fields.age_price_correlation}, 4) = 0.1331 ;;
+  }
+}

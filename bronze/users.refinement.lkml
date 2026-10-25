@@ -11,6 +11,27 @@ view: +users {
     sql: EXTRACT(YEAR FROM ${created_raw}) ;;
   }
 
+  dimension: abs_latitude {
+    label: "Absolute Latitude"
+    description: "Absolute degrees of latitude from the equator (0 to 90 degrees), measuring how far north or south a customer lives from tropical latitudes."
+    synonyms: ["absolute customer latitude", "distance from equator"]
+    type: number
+    sql: ABS(${latitude}) ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: thermal_zone {
+    label: "Thermal Zone"
+    description: "Geographic climate latitude band grouping customers by absolute distance from the equator into '1. High Latitude Frost Zone (45+ deg)', '2. Temperate Sweater Belt (30-45 deg)', and '3. Tropical Flip-Flop Zone (<30 deg)'."
+    synonyms: ["climate zone", "latitude thermal zone", "hemisphere climate split"]
+    type: string
+    sql: CASE
+      WHEN ${abs_latitude} >= 45 THEN '1. High Latitude Frost Zone (45+ deg)'
+      WHEN ${abs_latitude} >= 30 THEN '2. Temperate Sweater Belt (30-45 deg)'
+      ELSE '3. Tropical Flip-Flop Zone (<30 deg)'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
@@ -37,5 +58,14 @@ view: +users {
     description: "Maximum age of our registered shopper base on file."
     type: max
     sql: ${age} ;;
+  }
+
+  measure: avg_abs_latitude {
+    label: "Average Absolute Customer Latitude"
+    description: "Mean absolute distance from the equator (in degrees of latitude) across distinct customers."
+    synonyms: ["avg abs customer latitude", "average absolute latitude"]
+    type: average
+    sql: ${abs_latitude} ;;
+    value_format_name: decimal_2
   }
 }

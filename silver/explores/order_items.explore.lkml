@@ -4,15 +4,23 @@ include: "/bronze/orders.view.lkml"
 include: "/bronze/orders.refinement.lkml"
 include: "/bronze/products.view.lkml"
 include: "/bronze/products.refinement.lkml"
+include: "/bronze/users.view.lkml"
+include: "/bronze/users.refinement.lkml"
 include: "/bronze/explores/order_items_base.explore.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
+include: "/silver/order_items_users_fields.view.lkml"
 
 explore: order_items {
   extends: [order_items_base]
   label: "Order Items"
   view_name: order_items
   hidden: no
-  fields: [ALL_FIELDS*, -products.markup_greed_pct, -products.avg_markup_greed_pct]
+  fields: [
+    ALL_FIELDS*,
+    -products.markup_greed_pct,
+    -products.avg_markup_greed_pct,
+    -order_items_users_fields.revenue_per_registered_user
+  ]
 
   join: orders {
     type: left_outer
@@ -26,7 +34,19 @@ explore: order_items {
     sql_on: ${order_items.product_id} = ${products.id} ;;
   }
 
+  join: users {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+  }
+
   join: order_items_products_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: order_items_users_fields {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
@@ -83,5 +103,31 @@ explore: order_items {
     filters: [products.id: "NOT NULL"]
     sorts: [order_items.return_rate: desc]
     limit: 15
+  }
+
+  query: warm_clothing_spend_by_thermal_zone {
+    description: "Hemisphere and Latitude Fashion Chill Factor compares item volume, cozy warm clothing spend, total spend, and warm clothing spend share across customer latitude thermal zones."
+    dimensions: [users.thermal_zone]
+    measures: [
+      order_items.count,
+      order_items_products_fields.total_warm_clothing_revenue,
+      order_items.total_revenue,
+      order_items_products_fields.warm_clothing_revenue_share
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+    sorts: [users.thermal_zone: asc]
+  }
+
+  query: latitude_and_age_price_correlations {
+    description: "Pearson correlations between customer absolute latitude or age and ordered item sale price, alongside average absolute customer latitude."
+    measures: [
+      order_items_users_fields.latitude_price_correlation,
+      order_items_users_fields.age_price_correlation,
+      users.avg_abs_latitude
+    ]
+    filters: [users.id: "NOT NULL"]
   }
 }
