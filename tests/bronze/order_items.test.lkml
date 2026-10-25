@@ -1,4 +1,4 @@
-include: "../../bronze/explores/order_items.explore.lkml"
+include: "../../silver/explores/order_items.explore.lkml"
 
 test: order_items_refinement_metrics {
   explore_source: order_items {

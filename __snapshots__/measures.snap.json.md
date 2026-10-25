@@ -119,6 +119,41 @@
     "label": "Total Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_fields.sock_revenue_share": {
+    "explore_label": "Order Items",
+    "label": "Socks & Hosiery Revenue Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.sock_unit_share": {
+    "explore_label": "Order Items",
+    "label": "Socks & Hosiery Unit Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.sock_units_sold": {
+    "explore_label": "Order Items",
+    "label": "Socks & Hosiery Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.total_sock_revenue": {
+    "explore_label": "Order Items",
+    "label": "Total Socks & Hosiery Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.products.avg_dollar_markup": {
+    "explore_label": "Order Items",
+    "label": "Average Dollar Markup",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items.products.avg_sticker_price": {
+    "explore_label": "Order Items",
+    "label": "Average Sticker Shock",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items.products.count": {
+    "explore_label": "Order Items",
+    "label": "Count",
+    "view_label": "Products"
+  },
   "agentic_thelook.order_shards.order_shards.approx_distinct_users": {
     "explore_label": "Order Shards (Wildcard)",
     "label": "Approximate Distinct Users",
