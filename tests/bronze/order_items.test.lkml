@@ -70,3 +70,20 @@ test: order_items_weekend_warrior_metrics {
     expression: ${order_items.distinct_orders} = 59 ;;
   }
 }
+
+test: order_items_midnight_owl_metrics {
+  explore_source: order_items {
+    column: late_night_revenue { field: order_items.late_night_revenue }
+    column: late_night_revenue_share { field: order_items.late_night_revenue_share }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: late_night_revenue_matches {
+    expression: round(${order_items.late_night_revenue}, 2) = 1238.69 ;;
+  }
+  assert: late_night_revenue_share_matches {
+    expression: round(${order_items.late_night_revenue_share}, 4) = 0.3467 ;;
+  }
+}

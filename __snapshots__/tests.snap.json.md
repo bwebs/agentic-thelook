@@ -116,6 +116,41 @@
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
   },
+  "agentic_thelook.order_items_midnight_owl_metrics": {
+    "assert": {
+      "late_night_revenue_matches": {
+        "expression": "round(${order_items.late_night_revenue}, 2) = 1238.69"
+      },
+      "late_night_revenue_share_matches": {
+        "expression": "round(${order_items.late_night_revenue_share}, 4) = 0.3467"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "late_night_revenue": {
+            "field": "order_items.late_night_revenue"
+          },
+          "late_night_revenue_share": {
+            "field": "order_items.late_night_revenue_share"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 74,
+    "model": "agentic_thelook",
+    "name": "order_items_midnight_owl_metrics"
+  },
   "agentic_thelook.order_items_package_procrastination_metrics": {
     "assert": {
       "avg_hours_to_deliver_matches": {
