@@ -274,6 +274,16 @@
     "label": "Warm Clothing Spend Share",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_users_fields.cross_department_gift_items": {
+    "explore_label": "Order Items",
+    "label": "Cross-Department Gift Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_users_fields.cross_shopping_rate": {
+    "explore_label": "Order Items",
+    "label": "Gender-Bending Wardrobe Cross-Shopping Index",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items_users_fields.age_price_correlation": {
     "explore_label": "Order Items",
     "label": "Age-Price Correlation",

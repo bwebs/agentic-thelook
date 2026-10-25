@@ -560,6 +560,62 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_boomerang_return_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_cross_shopping_metrics": {
+    "assert": {
+      "avg_item_price_matches": {
+        "expression": "round(${order_items.avg_item_price}, 2) = 57.06"
+      },
+      "cross_department_gift_items_matches": {
+        "expression": "${order_items_products_users_fields.cross_department_gift_items} = 0"
+      },
+      "cross_shopping_rate_matches": {
+        "expression": "round(${order_items_products_users_fields.cross_shopping_rate}, 4) = 0"
+      },
+      "order_item_count_matches": {
+        "expression": "${order_items.count} = 80"
+      },
+      "total_revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 4564.89"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_item_price": {
+            "field": "order_items.avg_item_price"
+          },
+          "cross_department_gift_items": {
+            "field": "order_items_products_users_fields.cross_department_gift_items"
+          },
+          "cross_shopping_rate": {
+            "field": "order_items_products_users_fields.cross_shopping_rate"
+          },
+          "order_item_count": {
+            "field": "order_items.count"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "orders.order_id": "NOT NULL",
+          "products.id": "NOT NULL",
+          "type_": "filters",
+          "users.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 114,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_cross_shopping_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_orders_join_metrics": {
     "assert": {
       "ever_returned_items_matches": {

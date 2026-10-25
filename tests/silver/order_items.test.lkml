@@ -110,3 +110,45 @@ test: order_items_2024_01_01_thermal_chill_metrics {
     expression: round(${order_items_users_fields.age_price_correlation}, 4) = 0.1331 ;;
   }
 }
+
+test: order_items_2024_01_01_cross_shopping_metrics {
+  explore_source: order_items {
+    column: cross_department_gift_items { field: order_items_products_users_fields.cross_department_gift_items }
+    column: order_item_count { field: order_items.count }
+    column: total_revenue { field: order_items.total_revenue }
+    column: avg_item_price { field: order_items.avg_item_price }
+    column: cross_shopping_rate { field: order_items_products_users_fields.cross_shopping_rate }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: users.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: orders.order_id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: products.id
+      value: "NOT NULL"
+    }
+  }
+  assert: cross_department_gift_items_matches {
+    expression: ${order_items_products_users_fields.cross_department_gift_items} = 0 ;;
+  }
+  assert: order_item_count_matches {
+    expression: ${order_items.count} = 80 ;;
+  }
+  assert: total_revenue_matches {
+    expression: round(${order_items.total_revenue}, 2) = 4564.89 ;;
+  }
+  assert: avg_item_price_matches {
+    expression: round(${order_items.avg_item_price}, 2) = 57.06 ;;
+  }
+  assert: cross_shopping_rate_matches {
+    expression: round(${order_items_products_users_fields.cross_shopping_rate}, 4) = 0 ;;
+  }
+}
+

@@ -8,6 +8,7 @@ include: "/bronze/users.view.lkml"
 include: "/bronze/users.refinement.lkml"
 include: "/bronze/explores/order_items_base.explore.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
+include: "/silver/order_items_products_users_fields.view.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
 
 explore: order_items {
@@ -41,6 +42,12 @@ explore: order_items {
   }
 
   join: order_items_products_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: order_items_products_users_fields {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
@@ -129,5 +136,37 @@ explore: order_items {
       users.avg_abs_latitude
     ]
     filters: [users.id: "NOT NULL"]
+  }
+
+  query: spend_by_shopper_gender_and_department {
+    description: "Items bought, total spend, and average item price broken down by shopper gender and product department."
+    dimensions: [users.gender, products.department]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      order_items.avg_item_price
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+    sorts: [
+      users.gender: asc,
+      products.department: asc
+    ]
+  }
+
+  query: gender_cross_shopping_index {
+    description: "Gender-Bending Wardrobe Cross-Shopping Index tracking cross-department gift items, total items sold, and cross-department purchasing rate across male and female shoppers."
+    measures: [
+      order_items_products_users_fields.cross_department_gift_items,
+      order_items.count,
+      order_items_products_users_fields.cross_shopping_rate
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      orders.order_id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
   }
 }
