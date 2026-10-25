@@ -1,4 +1,4 @@
-include: "../../bronze/explores/users.explore.lkml"
+include: "../../silver/explores/users.explore.lkml"
 
 test: users_refinement_metrics {
   explore_source: users {

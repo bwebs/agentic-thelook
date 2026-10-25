@@ -494,6 +494,65 @@
     "model": "agentic_thelook",
     "name": "products_refinement_metrics"
   },
+  "agentic_thelook.users_2024_01_01_per_capita_spend_metrics": {
+    "assert": {
+      "avg_activity_weighted_user_age_matches": {
+        "expression": "round(${order_items_users_fields.avg_activity_weighted_user_age}, 1) = 39.3"
+      },
+      "avg_customer_age_matches": {
+        "expression": "round(${users.avg_customer_age}, 2) = 35.45"
+      },
+      "items_purchased_matches": {
+        "expression": "${order_items.count} = 52"
+      },
+      "registered_users_matches": {
+        "expression": "${users.count} = 38"
+      },
+      "revenue_per_registered_user_matches": {
+        "expression": "round(${order_items_users_fields.revenue_per_registered_user}, 2) = 69.04"
+      },
+      "total_revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 2623.38"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_activity_weighted_user_age": {
+            "field": "order_items_users_fields.avg_activity_weighted_user_age"
+          },
+          "avg_customer_age": {
+            "field": "users.avg_customer_age"
+          },
+          "items_purchased": {
+            "field": "order_items.count"
+          },
+          "registered_users": {
+            "field": "users.count"
+          },
+          "revenue_per_registered_user": {
+            "field": "order_items_users_fields.revenue_per_registered_user"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_per_capita_spend_metrics"
+  },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {
       "avg_customer_age_matches": {

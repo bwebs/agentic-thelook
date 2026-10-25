@@ -179,6 +179,71 @@
     "label": "Count",
     "view_label": "Products"
   },
+  "agentic_thelook.users.order_items.avg_hours_to_deliver": {
+    "explore_label": "Users",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_hours_to_ship": {
+    "explore_label": "Users",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_item_price": {
+    "explore_label": "Users",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Users",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_truck_transit_hours": {
+    "explore_label": "Users",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Users",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.count": {
+    "explore_label": "Users",
+    "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.distinct_orders": {
+    "explore_label": "Users",
+    "label": "Distinct Orders",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.late_night_revenue": {
+    "explore_label": "Users",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.late_night_revenue_share": {
+    "explore_label": "Users",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.total_revenue": {
+    "explore_label": "Users",
+    "label": "Total Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items_users_fields.avg_activity_weighted_user_age": {
+    "explore_label": "Users",
+    "label": "Average Activity-Weighted User Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.order_items_users_fields.revenue_per_registered_user": {
+    "explore_label": "Users",
+    "label": "Revenue per Registered User",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.users.avg_customer_age": {
     "explore_label": "Users",
     "label": "Average Customer Wisdom Level",
