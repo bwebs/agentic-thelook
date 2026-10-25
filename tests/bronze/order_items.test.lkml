@@ -100,3 +100,32 @@ test: order_items_2024_01_01_active_buyers_metrics {
     expression: ${order_items.distinct_users} = 71 ;;
   }
 }
+
+test: order_items_2024_01_01_boomerang_return_metrics {
+  explore_source: order_items {
+    column: ever_returned_items { field: order_items.ever_returned_items }
+    column: ever_return_rate { field: order_items.ever_return_rate }
+    column: refunded_revenue { field: order_items.refunded_revenue }
+    column: returned_items { field: order_items.returned_items }
+    column: return_rate { field: order_items.return_rate }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: ever_returned_items_matches {
+    expression: ${order_items.ever_returned_items} = 12 ;;
+  }
+  assert: ever_return_rate_matches {
+    expression: round(${order_items.ever_return_rate}, 4) = 0.15 ;;
+  }
+  assert: refunded_revenue_matches {
+    expression: round(${order_items.refunded_revenue}, 2) = 563.41 ;;
+  }
+  assert: returned_items_matches {
+    expression: ${order_items.returned_items} = 12 ;;
+  }
+  assert: return_rate_matches {
+    expression: round(${order_items.return_rate}, 4) = 0.15 ;;
+  }
+}

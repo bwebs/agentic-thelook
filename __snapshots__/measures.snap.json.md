@@ -179,6 +179,16 @@
     "label": "Active Buyers",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.ever_return_rate": {
+    "explore_label": "Order Items",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.ever_returned_items": {
+    "explore_label": "Order Items",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.late_night_revenue": {
     "explore_label": "Order Items",
     "label": "Midnight Owl Revenue",
@@ -187,6 +197,21 @@
   "agentic_thelook.order_items.order_items.late_night_revenue_share": {
     "explore_label": "Order Items",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.refunded_revenue": {
+    "explore_label": "Order Items",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.return_rate": {
+    "explore_label": "Order Items",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.returned_items": {
+    "explore_label": "Order Items",
+    "label": "Returned Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items.total_revenue": {
@@ -213,6 +238,41 @@
     "explore_label": "Order Items",
     "label": "Total Socks & Hosiery Revenue",
     "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.orders.avg_items_per_order": {
+    "explore_label": "Order Items",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.cancelled_or_returned_orders": {
+    "explore_label": "Order Items",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.count": {
+    "explore_label": "Order Items",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.distinct_users": {
+    "explore_label": "Order Items",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.max_items_per_order": {
+    "explore_label": "Order Items",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.stddev_items_per_order": {
+    "explore_label": "Order Items",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.orders.total_items": {
+    "explore_label": "Order Items",
+    "label": "Total Items in Orders",
+    "view_label": "Orders"
   },
   "agentic_thelook.order_items.products.avg_dollar_markup": {
     "explore_label": "Order Items",
@@ -339,6 +399,16 @@
     "label": "Active Buyers",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users.order_items.ever_return_rate": {
+    "explore_label": "Users",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.ever_returned_items": {
+    "explore_label": "Users",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users.order_items.late_night_revenue": {
     "explore_label": "Users",
     "label": "Midnight Owl Revenue",
@@ -347,6 +417,21 @@
   "agentic_thelook.users.order_items.late_night_revenue_share": {
     "explore_label": "Users",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.refunded_revenue": {
+    "explore_label": "Users",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.return_rate": {
+    "explore_label": "Users",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.returned_items": {
+    "explore_label": "Users",
+    "label": "Returned Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.users.order_items.total_revenue": {
