@@ -1,6 +1,10 @@
 include: "orders.view.lkml"
 
 view: +orders {
+  dimension: user_id {
+    tags: ["foreign_key"]
+  }
+
   dimension: num_of_item {
     label: "Basket Size (Items in Order)"
     description: "Number of items packed into a single order (basket size)."
@@ -11,6 +15,15 @@ view: +orders {
     label: "Order Count"
     description: "Total volume of customer orders."
     synonyms: ["orders at this size", "order volume"]
+  }
+
+  measure: distinct_users {
+    label: "Distinct Buying Users"
+    description: "Number of distinct customers who have placed at least one order."
+    synonyms: ["buying users", "distinct buyers", "purchasing customers"]
+    type: count_distinct
+    tags: ["non_additive"]
+    sql: ${user_id} ;;
   }
 
   measure: avg_items_per_order {

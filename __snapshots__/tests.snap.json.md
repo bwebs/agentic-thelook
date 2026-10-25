@@ -519,6 +519,38 @@
     "model": "agentic_thelook",
     "name": "order_shards_2024_01_01_metrics"
   },
+  "agentic_thelook.orders_2024_01_01_distinct_users_metrics": {
+    "assert": {
+      "distinct_users_matches": {
+        "expression": "${orders.distinct_users} = 51"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "distinct_users": {
+            "field": "orders.distinct_users"
+          },
+          "order_count": {
+            "field": "orders.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "orders.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/orders.test.lkml",
+    "line": 45,
+    "model": "agentic_thelook",
+    "name": "orders_2024_01_01_distinct_users_metrics"
+  },
   "agentic_thelook.orders_2024_01_01_remorse_metrics": {
     "assert": {
       "cancelled_or_returned_orders_matches": {
@@ -647,6 +679,59 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "products_refinement_metrics"
+  },
+  "agentic_thelook.users_2024_01_01_ghost_account_metrics": {
+    "assert": {
+      "ghost_account_rate_at_most_one": {
+        "expression": "${orders_users_fields.ghost_account_rate} <= 1"
+      },
+      "ghost_account_rate_formula_matches": {
+        "expression": "round(${orders_users_fields.ghost_account_rate}, 4) = round(1.0 * ${orders_users_fields.ghost_users} / ${users.count}, 4)"
+      },
+      "ghost_account_rate_non_negative": {
+        "expression": "${orders_users_fields.ghost_account_rate} >= 0"
+      },
+      "ghost_users_complement_matches": {
+        "expression": "${orders_users_fields.ghost_users} = ${users.count} - ${orders.distinct_users}"
+      },
+      "ghost_users_non_negative": {
+        "expression": "${orders_users_fields.ghost_users} >= 0"
+      },
+      "registered_users_matches": {
+        "expression": "${users.count} = 33"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "buying_users": {
+            "field": "orders.distinct_users"
+          },
+          "ghost_account_rate": {
+            "field": "orders_users_fields.ghost_account_rate"
+          },
+          "ghost_users": {
+            "field": "orders_users_fields.ghost_users"
+          },
+          "registered_users": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 36,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_ghost_account_metrics"
   },
   "agentic_thelook.users_2024_01_01_per_capita_spend_metrics": {
     "assert": {

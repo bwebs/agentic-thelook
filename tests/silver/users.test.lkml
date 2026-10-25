@@ -32,3 +32,34 @@ test: users_2024_01_01_per_capita_spend_metrics {
     expression: round(${order_items_users_fields.avg_activity_weighted_user_age}, 1) = 39.3 ;;
   }
 }
+
+test: users_2024_01_01_ghost_account_metrics {
+  explore_source: users {
+    column: registered_users { field: users.count }
+    column: buying_users { field: orders.distinct_users }
+    column: ghost_users { field: orders_users_fields.ghost_users }
+    column: ghost_account_rate { field: orders_users_fields.ghost_account_rate }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: registered_users_matches {
+    expression: ${users.count} = 33 ;;
+  }
+  assert: ghost_users_non_negative {
+    expression: ${orders_users_fields.ghost_users} >= 0 ;;
+  }
+  assert: ghost_users_complement_matches {
+    expression: ${orders_users_fields.ghost_users} = ${users.count} - ${orders.distinct_users} ;;
+  }
+  assert: ghost_account_rate_non_negative {
+    expression: ${orders_users_fields.ghost_account_rate} >= 0 ;;
+  }
+  assert: ghost_account_rate_at_most_one {
+    expression: ${orders_users_fields.ghost_account_rate} <= 1 ;;
+  }
+  assert: ghost_account_rate_formula_matches {
+    expression: round(${orders_users_fields.ghost_account_rate}, 4) = round(1.0 * ${orders_users_fields.ghost_users} / ${users.count}, 4) ;;
+  }
+}
