@@ -128,6 +128,107 @@
     "model": "agentic_thelook",
     "name": "events_refinement_metrics"
   },
+  "agentic_thelook.inventory_items_2024_01_01_turnover_metrics": {
+    "assert": {
+      "avg_days_on_shelf_matches": {
+        "expression": "round(${inventory_items.avg_days_on_shelf}, 2) = 29.95"
+      },
+      "sell_through_rate_matches": {
+        "expression": "round(${inventory_items.sell_through_rate}, 4) = 1"
+      },
+      "sold_units_matches": {
+        "expression": "${inventory_items.sold_units} = 80"
+      },
+      "total_cost_matches": {
+        "expression": "round(${inventory_items.total_cost}, 2) = 2152.29"
+      },
+      "unsold_units_matches": {
+        "expression": "${inventory_items.unsold_units} = 0"
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "avg_days_on_shelf": {
+            "field": "inventory_items.avg_days_on_shelf"
+          },
+          "sell_through_rate": {
+            "field": "inventory_items.sell_through_rate"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          },
+          "total_cost": {
+            "field": "inventory_items.total_cost"
+          },
+          "unsold_units": {
+            "field": "inventory_items.unsold_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.sold_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/inventory_items.test.lkml",
+    "line": 24,
+    "model": "agentic_thelook",
+    "name": "inventory_items_2024_01_01_turnover_metrics"
+  },
+  "agentic_thelook.inventory_items_2024_01_01_warehouse_turnover_metrics": {
+    "assert": {
+      "avg_days_on_shelf_matches": {
+        "expression": "round(${inventory_items.avg_days_on_shelf}, 2) = 26.6"
+      },
+      "sold_units_matches": {
+        "expression": "${inventory_items.sold_units} = 10"
+      },
+      "total_cost_matches": {
+        "expression": "round(${inventory_items.total_cost}, 2) = 218.22"
+      },
+      "warehouse_name_matches": {
+        "expression": "${distribution_centers.name} = \"Memphis TN\""
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "avg_days_on_shelf": {
+            "field": "inventory_items.avg_days_on_shelf"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          },
+          "total_cost": {
+            "field": "inventory_items.total_cost"
+          },
+          "warehouse_name": {
+            "field": "distribution_centers.name"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.name": "Memphis TN",
+          "inventory_items.sold_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/inventory_items.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "inventory_items_2024_01_01_warehouse_turnover_metrics"
+  },
   "agentic_thelook.inventory_items_refinement_metrics": {
     "assert": {
       "hypothetical_retail_value_matches": {

@@ -49,6 +49,21 @@
     "label": "Unique Browsing Sessions",
     "view_label": "Events"
   },
+  "agentic_thelook.inventory_items.distribution_centers.count": {
+    "explore_label": "Inventory Items",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.inventory_items.distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Inventory Items",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.inventory_items.inventory_items.avg_days_on_shelf": {
+    "explore_label": "Inventory Items",
+    "label": "Average Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.inventory_items.inventory_items.count": {
     "explore_label": "Inventory Items",
     "label": "Inventory Units Count",
@@ -59,9 +74,29 @@
     "label": "Unsold Hypothetical Retail Value",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.inventory_items.inventory_items.sell_through_rate": {
+    "explore_label": "Inventory Items",
+    "label": "Sell-Through Rate",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items.sold_units": {
+    "explore_label": "Inventory Items",
+    "label": "Sold Inventory Units",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.inventory_items.inventory_items.sunk_dusty_shelf_cost": {
     "explore_label": "Inventory Items",
     "label": "Unsold Dusty Shelf Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items.total_cost": {
+    "explore_label": "Inventory Items",
+    "label": "Total Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items.unsold_units": {
+    "explore_label": "Inventory Items",
+    "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.order_items.order_items.avg_hours_to_deliver": {
