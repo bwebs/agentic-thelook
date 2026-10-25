@@ -5,6 +5,52 @@ view: +events {
     tags: ["foreign_key"]
   }
 
+  dimension: uri_segments {
+    hidden: yes
+    description: "Array of slash-delimited directory segments extracted from the trimmed event URI."
+    sql: SPLIT(TRIM(${uri}, '/'), '/') ;;
+  }
+
+  dimension: url_path_depth {
+    label: "URL Path Depth"
+    description: "Number of slash-delimited directory segments in the event URI path."
+    synonyms: ["path depth", "uri path depth"]
+    type: number
+    sql: ARRAY_LENGTH(${uri_segments}) ;;
+  }
+
+  dimension: uri_department {
+    label: "URI Department"
+    description: "Department slug extracted from deep department links (/department/<slug>) in the event URI."
+    synonyms: ["url department", "department slug"]
+    type: string
+    sql: REGEXP_EXTRACT(${uri}, r'/department/([^/]+)') ;;
+  }
+
+  dimension: uri_category {
+    label: "URI Category (Raw)"
+    description: "Raw URL-encoded product category slug extracted from deep category links (/category/<slug>) in the event URI."
+    synonyms: ["url category raw", "category slug"]
+    type: string
+    sql: REGEXP_EXTRACT(${uri}, r'/category/([^/]+)') ;;
+  }
+
+  dimension: decoded_url_category {
+    label: "Decoded URL Category"
+    description: "URL-decoded product category name extracted from deep category links (/category/<slug>, with %20 and + decoded to spaces)."
+    synonyms: ["decoded uri category", "url category", "category page"]
+    type: string
+    sql: REGEXP_REPLACE(${uri_category}, r'%20|\+', ' ') ;;
+  }
+
+  dimension: uri_brand {
+    label: "URI Brand"
+    description: "Brand slug extracted from deep brand links (/brand/<slug>) in the event URI."
+    synonyms: ["url brand", "brand slug"]
+    type: string
+    sql: REGEXP_EXTRACT(${uri}, r'/brand/([^/]+)') ;;
+  }
+
   measure: count {
     label: "Total Click Events"
     description: "Total volume of website interactions and clickstream events."
@@ -101,5 +147,49 @@ view: +events {
     tags: ["non_additive"]
     type: max
     sql: ${sequence_number} ;;
+  }
+
+  measure: avg_url_path_depth {
+    label: "Average URL Path Depth"
+    description: "Clickstream Deep-Link Engagement depth benchmark: average number of slash-delimited directory segments across visited event URIs."
+    synonyms: ["avg url path depth", "average path depth", "mean url depth"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${url_path_depth} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: department_url_events {
+    label: "Department Deep-Link Events"
+    description: "Clickstream Deep-Link Engagement count of events landing on a URI containing a /department/<slug> deep link."
+    synonyms: ["has department in url", "department page events", "department link hits"]
+    type: count
+    filters: [uri_department: "-NULL"]
+  }
+
+  measure: category_url_events {
+    label: "Category Deep-Link Events"
+    description: "Clickstream Deep-Link Engagement count of events landing on a URI containing a /category/<slug> deep link."
+    synonyms: ["has category in url", "category page events", "category link hits"]
+    type: count
+    filters: [uri_category: "-NULL"]
+  }
+
+  measure: brand_url_events {
+    label: "Brand Deep-Link Events"
+    description: "Clickstream Deep-Link Engagement count of events landing on a URI containing a /brand/<slug> deep link."
+    synonyms: ["has brand in url", "brand page events", "brand link hits"]
+    type: count
+    filters: [uri_brand: "-NULL"]
+  }
+
+  measure: approx_unique_sessions {
+    label: "Approximate Unique Sessions"
+    description: "HyperLogLog approximate count of distinct browsing sessions (session_id) for high-volume clickstream URI segment analysis."
+    synonyms: ["approx sessions", "approximate browsing sessions", "approx unique sessions"]
+    tags: ["non_additive"]
+    type: number
+    sql: APPROX_COUNT_DISTINCT(${session_id}) ;;
+    value_format_name: decimal_0
   }
 }

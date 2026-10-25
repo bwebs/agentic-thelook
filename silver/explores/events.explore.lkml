@@ -1,5 +1,6 @@
 include: "/bronze/events.view.lkml"
 include: "/bronze/events.refinement.lkml"
+include: "/bronze/events__uri_segments.view.lkml"
 include: "/bronze/explores/events_base.explore.lkml"
 include: "/silver/event_session_facts.view.lkml"
 

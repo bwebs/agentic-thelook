@@ -83,3 +83,57 @@ test: events_2024_01_01_max_sequence_metrics {
     expression: ${events.max_sequence_number} = 13 ;;
   }
 }
+
+test: events_2024_01_01_deep_link_metrics {
+  explore_source: events {
+    column: avg_url_path_depth { field: events.avg_url_path_depth }
+    column: department_url_events { field: events.department_url_events }
+    column: category_url_events { field: events.category_url_events }
+    column: brand_url_events { field: events.brand_url_events }
+    column: approx_unique_sessions { field: events.approx_unique_sessions }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: avg_url_path_depth_matches {
+    expression: round(${events.avg_url_path_depth}, 2) = 2.6 ;;
+  }
+  assert: department_url_events_matches {
+    expression: ${events.department_url_events} = 232 ;;
+  }
+  assert: category_url_events_matches {
+    expression: ${events.category_url_events} = 232 ;;
+  }
+  assert: brand_url_events_matches {
+    expression: ${events.brand_url_events} = 232 ;;
+  }
+  assert: approx_unique_sessions_matches {
+    expression: ${events.approx_unique_sessions} = 267 ;;
+  }
+}
+
+test: events_2024_01_01_uri_segment_metrics {
+  explore_source: events {
+    column: count { field: events.count }
+    column: approx_unique_sessions { field: events.approx_unique_sessions }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: events__uri_segments.url_directory_depth_level
+      value: "<=2"
+    }
+    filters: {
+      field: events__uri_segments.uri_segment
+      value: "department"
+    }
+  }
+  assert: count_matches {
+    expression: ${events.count} = 232 ;;
+  }
+  assert: approx_unique_sessions_matches {
+    expression: ${events.approx_unique_sessions} = 152 ;;
+  }
+}

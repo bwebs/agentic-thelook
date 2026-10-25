@@ -29,6 +29,21 @@
     "label": "Fastest Checkout Duration (Seconds)",
     "view_label": "Purchasing Session Facts"
   },
+  "agentic_thelook.events.events.approx_unique_sessions": {
+    "explore_label": "Events",
+    "label": "Approximate Unique Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.avg_url_path_depth": {
+    "explore_label": "Events",
+    "label": "Average URL Path Depth",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.brand_url_events": {
+    "explore_label": "Events",
+    "label": "Brand Deep-Link Events",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.cancel_events": {
     "explore_label": "Events",
     "label": "Rage-Quit Cancel Events",
@@ -49,9 +64,19 @@
     "label": "Carts per Purchase Ratio",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.category_url_events": {
+    "explore_label": "Events",
+    "label": "Category Deep-Link Events",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.count": {
     "explore_label": "Events",
     "label": "Total Click Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.department_url_events": {
+    "explore_label": "Events",
+    "label": "Department Deep-Link Events",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.distinct_clicking_humans": {

@@ -34,6 +34,59 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
   },
+  "agentic_thelook.events_2024_01_01_deep_link_metrics": {
+    "assert": {
+      "approx_unique_sessions_matches": {
+        "expression": "${events.approx_unique_sessions} = 267"
+      },
+      "avg_url_path_depth_matches": {
+        "expression": "round(${events.avg_url_path_depth}, 2) = 2.6"
+      },
+      "brand_url_events_matches": {
+        "expression": "${events.brand_url_events} = 232"
+      },
+      "category_url_events_matches": {
+        "expression": "${events.category_url_events} = 232"
+      },
+      "department_url_events_matches": {
+        "expression": "${events.department_url_events} = 232"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "approx_unique_sessions": {
+            "field": "events.approx_unique_sessions"
+          },
+          "avg_url_path_depth": {
+            "field": "events.avg_url_path_depth"
+          },
+          "brand_url_events": {
+            "field": "events.brand_url_events"
+          },
+          "category_url_events": {
+            "field": "events.category_url_events"
+          },
+          "department_url_events": {
+            "field": "events.department_url_events"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 87,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_deep_link_metrics"
+  },
   "agentic_thelook.events_2024_01_01_max_sequence_metrics": {
     "assert": {
       "max_sequence_number_matches": {
@@ -110,6 +163,43 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "events_2024_01_01_speed_runner_checkout_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_uri_segment_metrics": {
+    "assert": {
+      "approx_unique_sessions_matches": {
+        "expression": "${events.approx_unique_sessions} = 152"
+      },
+      "count_matches": {
+        "expression": "${events.count} = 232"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "approx_unique_sessions": {
+            "field": "events.approx_unique_sessions"
+          },
+          "count": {
+            "field": "events.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "events__uri_segments.uri_segment": "department",
+          "events__uri_segments.url_directory_depth_level": "<=2",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 116,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_uri_segment_metrics"
   },
   "agentic_thelook.events_ie_dinosaur_2024_01_01_metrics": {
     "assert": {
