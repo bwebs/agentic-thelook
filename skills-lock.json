@@ -4,12 +4,12 @@
     "agentic-lookml": {
       "source": "../../lkrdev/cli",
       "sourceType": "local",
-      "computedHash": "4811459ba28b6a01e6fdaa7c706a1c5a9960cb041a65bb548768c33cfaf041eb"
+      "computedHash": "37986392eec820a835fe0351b7587473ef2569251670c28ed0864e1105dec064"
     },
     "agentic-lookml-workflow": {
       "source": "../../lkrdev/cli",
       "sourceType": "local",
-      "computedHash": "f1b1a6511af86de1e5a531a0ecd62419ae101bd529cc7c93c169b192ad1caf8f"
+      "computedHash": "fa43374154e9700fa06c2a148576bae8ab7b7be8ff7b1d6fe8a56c9382a80549"
     },
     "generate-view-from-table": {
       "source": "../../lkrdev/cli",
