@@ -174,6 +174,11 @@
     "label": "Distinct Orders",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.distinct_users": {
+    "explore_label": "Order Items",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.late_night_revenue": {
     "explore_label": "Order Items",
     "label": "Midnight Owl Revenue",
@@ -329,6 +334,11 @@
     "label": "Distinct Orders",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users.order_items.distinct_users": {
+    "explore_label": "Users",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users.order_items.late_night_revenue": {
     "explore_label": "Users",
     "label": "Midnight Owl Revenue",
@@ -343,6 +353,16 @@
     "explore_label": "Users",
     "label": "Total Revenue",
     "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items_user_cohort_facts_fields.buyer_activation_survival_rate": {
+    "explore_label": "Users",
+    "label": "Buyer Activation Survival Rate",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.order_items_user_cohort_facts_fields.revenue_per_cohort_user": {
+    "explore_label": "Users",
+    "label": "Revenue per Original Cohort User",
+    "view_label": "Users"
   },
   "agentic_thelook.users.order_items_users_fields.avg_activity_weighted_user_age": {
     "explore_label": "Users",
@@ -398,6 +418,11 @@
     "explore_label": "Users",
     "label": "Ghost Users",
     "view_label": "Users"
+  },
+  "agentic_thelook.users.user_cohort_facts.initial_cohort_users": {
+    "explore_label": "Users",
+    "label": "Initial Cohort Users",
+    "view_label": "User Cohort Facts"
   },
   "agentic_thelook.users.users.avg_customer_age": {
     "explore_label": "Users",

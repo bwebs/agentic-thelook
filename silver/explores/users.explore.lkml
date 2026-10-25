@@ -7,6 +7,8 @@ include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/explores/users_base.explore.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
 include: "/silver/orders_users_fields.view.lkml"
+include: "/silver/user_cohort_facts.view.lkml"
+include: "/silver/order_items_user_cohort_facts_fields.view.lkml"
 
 explore: users {
   extends: [users_base]
@@ -33,6 +35,18 @@ explore: users {
   }
 
   join: order_items_users_fields {
+    view_label: "Users"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: user_cohort_facts {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${users.cohort_signup_year} = ${user_cohort_facts.cohort_signup_year} ;;
+  }
+
+  join: order_items_user_cohort_facts_fields {
     view_label: "Users"
     sql: ;;
     relationship: one_to_one
@@ -79,5 +93,25 @@ explore: users {
       orders_users_fields.ghost_account_rate
     ]
     sorts: [orders_users_fields.ghost_account_rate: desc]
+  }
+
+  query: annual_cohort_vintage_decay_and_survival_matrix {
+    description: "Annual Cohort Vintage Decay and Survival Matrix groups customers by the calendar year they first signed up and tracks how many remain active buyers and how much revenue they generate in each subsequent year of their tenure."
+    dimensions: [
+      users.cohort_signup_year,
+      order_items_users_fields.years_since_signup
+    ]
+    measures: [
+      user_cohort_facts.initial_cohort_users,
+      order_items.distinct_users,
+      order_items_user_cohort_facts_fields.buyer_activation_survival_rate,
+      order_items.total_revenue,
+      order_items_user_cohort_facts_fields.revenue_per_cohort_user
+    ]
+    filters: [order_items_users_fields.years_since_signup: ">=0"]
+    sorts: [
+      users.cohort_signup_year: asc,
+      order_items_users_fields.years_since_signup: asc
+    ]
   }
 }

@@ -87,3 +87,16 @@ test: order_items_midnight_owl_metrics {
     expression: round(${order_items.late_night_revenue_share}, 4) = 0.3467 ;;
   }
 }
+
+test: order_items_2024_01_01_active_buyers_metrics {
+  explore_source: order_items {
+    column: distinct_users { field: order_items.distinct_users }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: distinct_users_matches {
+    expression: ${order_items.distinct_users} = 71 ;;
+  }
+}
