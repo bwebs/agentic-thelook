@@ -63,4 +63,22 @@ view: +events {
     sql: 1.0 * ${cancel_events} / NULLIF(${cart_events}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: ie_events {
+    label: "Internet Explorer Events"
+    description: "Number of website clickstream events originating from legacy Internet Explorer browsers (browser = 'IE')."
+    synonyms: ["ie dinosaur events", "ie events", "legacy ie events"]
+    type: count
+    filters: [browser: "IE"]
+  }
+
+  measure: ie_event_share {
+    label: "Internet Explorer Traffic Share (Dinosaur Tax)"
+    description: "Internet Explorer Dinosaur Tax tracks what share of website traffic still comes from legacy Internet Explorer browsers relative to all clickstream events (ie_events / count)."
+    synonyms: ["internet explorer dinosaur tax", "ie dinosaur pct", "ie dinosaur share", "ie traffic share"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${ie_events} / NULLIF(${count}, 0) ;;
+    value_format_name: percent_2
+  }
 }

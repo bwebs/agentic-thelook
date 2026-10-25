@@ -36,4 +36,35 @@ explore: events {
     ]
     sorts: [events.cart_events: desc]
   }
+
+  query: ie_dinosaur_tax_share {
+    description: "Internet Explorer Dinosaur Tax tracks legacy Internet Explorer event volume, total website events, and the share of website traffic still coming from IE browsers."
+    measures: [
+      events.ie_events,
+      events.count,
+      events.ie_event_share
+    ]
+  }
+
+  query: event_volume_and_sessions_by_browser {
+    description: "Website clickstream event volume and unique browsing sessions broken down by browser."
+    dimensions: [events.browser]
+    measures: [
+      events.count,
+      events.unique_chaotic_sessions
+    ]
+    sorts: [events.count: desc]
+  }
+
+  query: browser_and_event_type_volume_since_2024 {
+    description: "Top 15 browser and event type combinations by clickstream event volume since 2024-01-01."
+    dimensions: [
+      events.browser,
+      events.event_type
+    ]
+    measures: [events.count]
+    filters: [events.created_date: "after 2024/01/01"]
+    sorts: [events.count: desc]
+    limit: 15
+  }
 }

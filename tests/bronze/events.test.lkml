@@ -49,3 +49,24 @@ test: events_rage_quit_abandonment_metrics {
     expression: round(${events.cancel_to_cart_ratio}, 4) = 0.2304 ;;
   }
 }
+
+test: events_ie_dinosaur_2024_01_01_metrics {
+  explore_source: events {
+    column: ie_events { field: events.ie_events }
+    column: count { field: events.count }
+    column: ie_event_share { field: events.ie_event_share }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: ie_events_matches {
+    expression: ${events.ie_events} = 75 ;;
+  }
+  assert: count_matches {
+    expression: ${events.count} = 922 ;;
+  }
+  assert: ie_event_share_matches {
+    expression: round(${events.ie_event_share}, 4) = 0.0813 ;;
+  }
+}
