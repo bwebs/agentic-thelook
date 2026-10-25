@@ -119,9 +119,24 @@
     "label": "Total Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_shards.order_shards.approx_distinct_users": {
+    "explore_label": "Order Shards (Wildcard)",
+    "label": "Approximate Distinct Users",
+    "view_label": "Order Shards"
+  },
+  "agentic_thelook.order_shards.order_shards.count": {
+    "explore_label": "Order Shards (Wildcard)",
+    "label": "Shard Record Count",
+    "view_label": "Order Shards"
+  },
   "agentic_thelook.orders.orders.avg_items_per_order": {
     "explore_label": "Orders",
     "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.orders.cancelled_or_returned_orders": {
+    "explore_label": "Orders",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
     "view_label": "Orders"
   },
   "agentic_thelook.orders.orders.count": {
@@ -137,6 +152,11 @@
   "agentic_thelook.orders.orders.stddev_items_per_order": {
     "explore_label": "Orders",
     "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.orders.total_items": {
+    "explore_label": "Orders",
+    "label": "Total Items in Orders",
     "view_label": "Orders"
   },
   "agentic_thelook.products.products.avg_dollar_markup": {

@@ -36,10 +36,21 @@ view: +orders {
     filters: [num_of_item: "NOT NULL"]
   }
 
-  measure: _num_of_item_sum {
-    hidden: yes
+  measure: total_items {
+    label: "Total Items in Orders"
+    description: "Total count of individual items packed across orders (sum of num_of_item)."
+    synonyms: ["total items involved", "items in orders"]
+    alias: [_num_of_item_sum]
     type: sum
     sql: ${num_of_item} ;;
+  }
+
+  measure: cancelled_or_returned_orders {
+    label: "Buyer's Remorse Order Volume (Cancelled or Returned)"
+    description: "Buyer's Remorse Order Volume: count of customer orders that ended up cancelled or returned."
+    synonyms: ["buyer's remorse order volume", "remorseful orders", "heartbreak metric"]
+    type: count
+    filters: [status: "Cancelled, Returned"]
   }
 
   measure: _num_of_item_sum_of_squares {
@@ -54,7 +65,7 @@ view: +orders {
     synonyms: ["basket size jitter", "cart stuffing spread"]
     type: number
     sql: SQRT(
-          GREATEST(${_num_of_item_sum_of_squares} - (POWER(${_num_of_item_sum}, 2) / NULLIF(${_num_of_item_count}, 0)), 0)
+          GREATEST(${_num_of_item_sum_of_squares} - (POWER(${total_items}, 2) / NULLIF(${_num_of_item_count}, 0)), 0)
           / NULLIF(${_num_of_item_count} - 1, 0)
          ) ;;
     value_format_name: decimal_3
