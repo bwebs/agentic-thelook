@@ -28,3 +28,36 @@ test: order_items_2024_01_01_socks_obsession_metrics {
     expression: round(${order_items_products_fields.sock_revenue_share}, 4) = 0.0161 ;;
   }
 }
+
+test: order_items_2024_01_01_orders_join_metrics {
+  explore_source: order_items {
+    column: order_item_count { field: order_items.count }
+    column: order_count { field: orders.count }
+    column: ever_returned_items { field: order_items.ever_returned_items }
+    column: refunded_revenue { field: order_items.refunded_revenue }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: orders.order_id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: products.id
+      value: "NOT NULL"
+    }
+  }
+  assert: order_item_count_matches {
+    expression: ${order_items.count} = 80 ;;
+  }
+  assert: order_count_symmetric_matches {
+    expression: ${orders.count} = 71 ;;
+  }
+  assert: ever_returned_items_matches {
+    expression: ${order_items.ever_returned_items} = 12 ;;
+  }
+  assert: refunded_revenue_matches {
+    expression: round(${order_items.refunded_revenue}, 2) = 563.41 ;;
+  }
+}

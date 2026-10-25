@@ -9,6 +9,10 @@ view: +order_items {
     tags: ["foreign_key"]
   }
 
+  dimension: order_id {
+    tags: ["foreign_key"]
+  }
+
   dimension: is_shipped {
     type: yesno
     sql: ${shipped_raw} IS NOT NULL ;;
@@ -19,6 +23,19 @@ view: +order_items {
     type: yesno
     sql: ${delivered_raw} IS NOT NULL ;;
     description: "Whether the order item has been delivered to the customer (delivered_at is populated)."
+  }
+
+  dimension: is_returned {
+    type: yesno
+    sql: ${returned_raw} IS NOT NULL ;;
+    description: "Whether the order item has a return timestamp recorded (returned_at is populated)."
+  }
+
+  dimension: is_ever_returned {
+    type: yesno
+    hidden: yes
+    sql: ${status} = 'Returned' OR ${is_returned} ;;
+    description: "Helper flag indicating whether the order item has status 'Returned' or a populated returned_at timestamp."
   }
 
   dimension: created_day_of_week_num {
@@ -78,7 +95,7 @@ view: +order_items {
   measure: count {
     label: "Total Impulse Line Items Count"
     description: "Total Impulse Line Items Count tracks the sheer number of individual clothing items customers have tossed into their virtual carts and checked out. Warehouse operations use this volume metric to forecast daily packing workload and estimate how many shipping boxes they need to fold."
-    synonyms: ["items sold", "item volume", "items purchased", "total units sold", "units sold"]
+    synonyms: ["items sold", "item volume", "items purchased", "total units sold", "units sold", "total items ordered", "items ordered"]
   }
 
   measure: total_revenue {
@@ -177,6 +194,52 @@ view: +order_items {
     synonyms: ["midnight owl revenue pct", "midnight owl spend share", "late night impulse index"]
     type: number
     sql: 1.0 * ${late_night_revenue} / NULLIF(${total_revenue}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: ever_returned_items {
+    label: "Boomeranged Items"
+    description: "Count of ordered line items that came back as customer returns (status is 'Returned' or returned_at is populated)."
+    synonyms: ["boomeranged items", "ever returned items", "boomerang items"]
+    type: count
+    filters: [is_ever_returned: "yes"]
+  }
+
+  measure: ever_return_rate {
+    label: "Brand Return Boomerang Rate"
+    description: "Brand Return Boomerang Rate identifies the share of ordered items that come back as customer returns (status 'Returned' or returned_at populated). Merchandising quality teams review this boomerang leaderboard to flag brands with inconsistent sizing or misleading product photos."
+    synonyms: ["boomerang return rate", "boomerang return rate pct", "brand return boomerang rate"]
+    type: number
+    tags: ["non_additive"]
+    sql: 1.0 * ${ever_returned_items} / NULLIF(${count}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: refunded_revenue {
+    label: "Refunded Dollars"
+    description: "Total sale price refunded to customers across ordered line items in 'Returned' status."
+    synonyms: ["refunded dollars", "total refunded revenue", "returned revenue"]
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [status: "Returned"]
+    value_format_name: usd
+  }
+
+  measure: returned_items {
+    label: "Returned Items"
+    description: "Count of ordered line items currently in 'Returned' status."
+    synonyms: ["items returned", "returned item count", "returned units"]
+    type: count
+    filters: [status: "Returned"]
+  }
+
+  measure: return_rate {
+    label: "Item Return Rate"
+    description: "Share of ordered line items currently in 'Returned' status out of total items ordered."
+    synonyms: ["return pct", "return percentage", "category return rate"]
+    type: number
+    tags: ["non_additive"]
+    sql: 1.0 * ${returned_items} / NULLIF(${count}, 0) ;;
     value_format_name: percent_2
   }
 }

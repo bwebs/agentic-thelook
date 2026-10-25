@@ -417,6 +417,108 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_active_buyers_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_boomerang_return_metrics": {
+    "assert": {
+      "ever_return_rate_matches": {
+        "expression": "round(${order_items.ever_return_rate}, 4) = 0.15"
+      },
+      "ever_returned_items_matches": {
+        "expression": "${order_items.ever_returned_items} = 12"
+      },
+      "refunded_revenue_matches": {
+        "expression": "round(${order_items.refunded_revenue}, 2) = 563.41"
+      },
+      "return_rate_matches": {
+        "expression": "round(${order_items.return_rate}, 4) = 0.15"
+      },
+      "returned_items_matches": {
+        "expression": "${order_items.returned_items} = 12"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "ever_return_rate": {
+            "field": "order_items.ever_return_rate"
+          },
+          "ever_returned_items": {
+            "field": "order_items.ever_returned_items"
+          },
+          "refunded_revenue": {
+            "field": "order_items.refunded_revenue"
+          },
+          "return_rate": {
+            "field": "order_items.return_rate"
+          },
+          "returned_items": {
+            "field": "order_items.returned_items"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 104,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_boomerang_return_metrics"
+  },
+  "agentic_thelook.order_items_2024_01_01_orders_join_metrics": {
+    "assert": {
+      "ever_returned_items_matches": {
+        "expression": "${order_items.ever_returned_items} = 12"
+      },
+      "order_count_symmetric_matches": {
+        "expression": "${orders.count} = 71"
+      },
+      "order_item_count_matches": {
+        "expression": "${order_items.count} = 80"
+      },
+      "refunded_revenue_matches": {
+        "expression": "round(${order_items.refunded_revenue}, 2) = 563.41"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "ever_returned_items": {
+            "field": "order_items.ever_returned_items"
+          },
+          "order_count": {
+            "field": "orders.count"
+          },
+          "order_item_count": {
+            "field": "order_items.count"
+          },
+          "refunded_revenue": {
+            "field": "order_items.refunded_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "orders.order_id": "NOT NULL",
+          "products.id": "NOT NULL",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 32,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_orders_join_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_socks_obsession_metrics": {
     "assert": {
       "sock_revenue_share_matches": {
