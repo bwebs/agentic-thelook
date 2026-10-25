@@ -9,6 +9,26 @@
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
   },
+  "agentic_thelook.events.event_session_facts.avg_checkout_duration_sec": {
+    "explore_label": "Events",
+    "label": "Average Checkout Duration (Seconds)",
+    "view_label": "Purchasing Session Facts"
+  },
+  "agentic_thelook.events.event_session_facts.count": {
+    "explore_label": "Events",
+    "label": "Purchasing Sessions",
+    "view_label": "Purchasing Session Facts"
+  },
+  "agentic_thelook.events.event_session_facts.max_checkout_duration_sec": {
+    "explore_label": "Events",
+    "label": "Slowest Checkout Duration (Seconds)",
+    "view_label": "Purchasing Session Facts"
+  },
+  "agentic_thelook.events.event_session_facts.min_checkout_duration_sec": {
+    "explore_label": "Events",
+    "label": "Fastest Checkout Duration (Seconds)",
+    "view_label": "Purchasing Session Facts"
+  },
   "agentic_thelook.events.events.cancel_events": {
     "explore_label": "Events",
     "label": "Rage-Quit Cancel Events",
@@ -47,6 +67,11 @@
   "agentic_thelook.events.events.ie_events": {
     "explore_label": "Events",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.max_sequence_number": {
+    "explore_label": "Events",
+    "label": "Max Sequence Number",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.purchase_events": {

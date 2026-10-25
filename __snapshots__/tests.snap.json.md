@@ -34,6 +34,83 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
   },
+  "agentic_thelook.events_2024_01_01_max_sequence_metrics": {
+    "assert": {
+      "max_sequence_number_matches": {
+        "expression": "${events.max_sequence_number} = 13"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "max_sequence_number": {
+            "field": "events.max_sequence_number"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 74,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_max_sequence_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_speed_runner_checkout_metrics": {
+    "assert": {
+      "avg_checkout_duration_sec_matches": {
+        "expression": "round(${event_session_facts.avg_checkout_duration_sec}, 2) = 123270.09"
+      },
+      "max_checkout_duration_sec_matches": {
+        "expression": "${event_session_facts.max_checkout_duration_sec} = 346922"
+      },
+      "min_checkout_duration_sec_matches": {
+        "expression": "${event_session_facts.min_checkout_duration_sec} = 35"
+      },
+      "purchasing_sessions_matches": {
+        "expression": "${event_session_facts.count} = 105"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "avg_checkout_duration_sec": {
+            "field": "event_session_facts.avg_checkout_duration_sec"
+          },
+          "max_checkout_duration_sec": {
+            "field": "event_session_facts.max_checkout_duration_sec"
+          },
+          "min_checkout_duration_sec": {
+            "field": "event_session_facts.min_checkout_duration_sec"
+          },
+          "purchasing_sessions": {
+            "field": "event_session_facts.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "event_session_facts.session_id": "-NULL",
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/events.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_speed_runner_checkout_metrics"
+  },
   "agentic_thelook.events_ie_dinosaur_2024_01_01_metrics": {
     "assert": {
       "count_matches": {

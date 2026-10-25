@@ -1,6 +1,10 @@
 include: "events.view.lkml"
 
 view: +events {
+  dimension: session_id {
+    tags: ["foreign_key"]
+  }
+
   measure: count {
     label: "Total Click Events"
     description: "Total volume of website interactions and clickstream events."
@@ -80,5 +84,22 @@ view: +events {
     type: number
     sql: 1.0 * ${ie_events} / NULLIF(${count}, 0) ;;
     value_format_name: percent_2
+  }
+
+  measure: _event_span_seconds {
+    hidden: yes
+    description: "Elapsed seconds between the earliest and latest clickstream event timestamps within the grouping (TIMESTAMP_DIFF(MAX(created_at), MIN(created_at), SECOND))."
+    tags: ["non_additive"]
+    type: number
+    sql: TIMESTAMP_DIFF(MAX(${created_raw}), MIN(${created_raw}), SECOND) ;;
+  }
+
+  measure: max_sequence_number {
+    label: "Max Sequence Number"
+    description: "Maximum clickstream step sequence number reached across events in the grouping."
+    synonyms: ["max event sequence", "max step sequence"]
+    tags: ["non_additive"]
+    type: max
+    sql: ${sequence_number} ;;
   }
 }

@@ -1,4 +1,4 @@
-include: "../../bronze/explores/events.explore.lkml"
+include: "../../silver/explores/events.explore.lkml"
 
 test: events_refinement_metrics {
   explore_source: events {
@@ -68,5 +68,18 @@ test: events_ie_dinosaur_2024_01_01_metrics {
   }
   assert: ie_event_share_matches {
     expression: round(${events.ie_event_share}, 4) = 0.0813 ;;
+  }
+}
+
+test: events_2024_01_01_max_sequence_metrics {
+  explore_source: events {
+    column: max_sequence_number { field: events.max_sequence_number }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: max_sequence_number_matches {
+    expression: ${events.max_sequence_number} = 13 ;;
   }
 }
