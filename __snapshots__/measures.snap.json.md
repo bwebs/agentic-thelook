@@ -9,6 +9,26 @@
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
   },
+  "agentic_thelook.events.events.cancel_events": {
+    "explore_label": "Events",
+    "label": "Rage-Quit Cancel Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.cancel_to_cart_ratio": {
+    "explore_label": "Events",
+    "label": "Rage-Quit Cart Abandonment Ratio",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.cart_events": {
+    "explore_label": "Events",
+    "label": "Cart Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.carts_per_purchase_ratio": {
+    "explore_label": "Events",
+    "label": "Carts per Purchase Ratio",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.count": {
     "explore_label": "Events",
     "label": "Total Click Events",
@@ -17,6 +37,11 @@
   "agentic_thelook.events.events.distinct_clicking_humans": {
     "explore_label": "Events",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.purchase_events": {
+    "explore_label": "Events",
+    "label": "Purchase Events",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.unique_chaotic_sessions": {

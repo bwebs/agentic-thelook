@@ -34,6 +34,59 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
   },
+  "agentic_thelook.events_rage_quit_abandonment_metrics": {
+    "assert": {
+      "cancel_events_matches": {
+        "expression": "${events.cancel_events} = 44"
+      },
+      "cancel_to_cart_ratio_matches": {
+        "expression": "round(${events.cancel_to_cart_ratio}, 4) = 0.2304"
+      },
+      "cart_events_matches": {
+        "expression": "${events.cart_events} = 191"
+      },
+      "carts_per_purchase_ratio_matches": {
+        "expression": "round(${events.carts_per_purchase_ratio}, 2) = 3.03"
+      },
+      "purchase_events_matches": {
+        "expression": "${events.purchase_events} = 63"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "cancel_events": {
+            "field": "events.cancel_events"
+          },
+          "cancel_to_cart_ratio": {
+            "field": "events.cancel_to_cart_ratio"
+          },
+          "cart_events": {
+            "field": "events.cart_events"
+          },
+          "carts_per_purchase_ratio": {
+            "field": "events.carts_per_purchase_ratio"
+          },
+          "purchase_events": {
+            "field": "events.purchase_events"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 24,
+    "model": "agentic_thelook",
+    "name": "events_rage_quit_abandonment_metrics"
+  },
   "agentic_thelook.events_refinement_metrics": {
     "assert": {
       "count_matches": {
