@@ -217,4 +217,22 @@ view: +events {
     sql: APPROX_COUNT_DISTINCT(${session_id}) ;;
     value_format_name: decimal_0
   }
+
+  measure: event_span_minutes {
+    label: "Event Span Duration (Minutes)"
+    description: "Elapsed whole minutes between the earliest and latest clickstream event timestamps within the grouping (TIMESTAMP_DIFF(MAX(created_at), MIN(created_at), MINUTE))."
+    synonyms: ["session duration minutes", "event duration minutes", "clickstream duration minutes"]
+    tags: ["non_additive"]
+    type: number
+    sql: TIMESTAMP_DIFF(MAX(${created_raw}), MIN(${created_raw}), MINUTE) ;;
+  }
+
+  measure: click_trail {
+    label: "Clickstream Event Trail"
+    description: "Chronological sequence of event_type steps joined with '>' ordered by sequence_number across events in the grouping."
+    synonyms: ["full click trail", "session click trail", "click path"]
+    tags: ["non_additive"]
+    type: string
+    sql: STRING_AGG(${event_type}, '>' ORDER BY ${sequence_number}) ;;
+  }
 }

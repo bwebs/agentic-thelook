@@ -9,6 +9,21 @@
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
   },
+  "agentic_thelook.events.browsing_session_facts.converted_sessions": {
+    "explore_label": "Events",
+    "label": "Converting Browsing Sessions",
+    "view_label": "Browsing Session Facts"
+  },
+  "agentic_thelook.events.browsing_session_facts.count": {
+    "explore_label": "Events",
+    "label": "Browsing Sessions",
+    "view_label": "Browsing Session Facts"
+  },
+  "agentic_thelook.events.browsing_session_facts.session_conversion_rate": {
+    "explore_label": "Events",
+    "label": "Session Purchase Conversion Rate",
+    "view_label": "Browsing Session Facts"
+  },
   "agentic_thelook.events.event_session_facts.avg_checkout_duration_sec": {
     "explore_label": "Events",
     "label": "Average Checkout Duration (Seconds)",
@@ -69,6 +84,11 @@
     "label": "Category Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.click_trail": {
+    "explore_label": "Events",
+    "label": "Clickstream Event Trail",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.count": {
     "explore_label": "Events",
     "label": "Total Click Events",
@@ -82,6 +102,11 @@
   "agentic_thelook.events.events.distinct_clicking_humans": {
     "explore_label": "Events",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.event_span_minutes": {
+    "explore_label": "Events",
+    "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.ie_event_share": {
@@ -249,6 +274,11 @@
     "label": "Total Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_fields.activewear_units": {
+    "explore_label": "Order Items",
+    "label": "Activewear Units Sold",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items_products_fields.sock_revenue_share": {
     "explore_label": "Order Items",
     "label": "Socks & Hosiery Revenue Share",
@@ -264,6 +294,11 @@
     "label": "Socks & Hosiery Units Sold",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_fields.swimwear_units": {
+    "explore_label": "Order Items",
+    "label": "Swimwear Units Sold",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items_products_fields.total_sock_revenue": {
     "explore_label": "Order Items",
     "label": "Total Socks & Hosiery Revenue",
@@ -277,6 +312,11 @@
   "agentic_thelook.order_items.order_items_products_fields.warm_clothing_revenue_share": {
     "explore_label": "Order Items",
     "label": "Warm Clothing Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.winter_cozy_units": {
+    "explore_label": "Order Items",
+    "label": "Sweaters & Outerwear Units Sold",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_products_users_fields.cross_department_gift_items": {
@@ -453,6 +493,91 @@
     "explore_label": "Orders",
     "label": "Total Items in Orders",
     "view_label": "Orders"
+  },
+  "agentic_thelook.products.order_items.avg_hours_to_deliver": {
+    "explore_label": "Products",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.avg_hours_to_ship": {
+    "explore_label": "Products",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.avg_item_price": {
+    "explore_label": "Products",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Products",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.avg_truck_transit_hours": {
+    "explore_label": "Products",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Products",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.count": {
+    "explore_label": "Products",
+    "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.distinct_orders": {
+    "explore_label": "Products",
+    "label": "Distinct Orders",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.distinct_users": {
+    "explore_label": "Products",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.ever_return_rate": {
+    "explore_label": "Products",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.ever_returned_items": {
+    "explore_label": "Products",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.late_night_revenue": {
+    "explore_label": "Products",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.late_night_revenue_share": {
+    "explore_label": "Products",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.refunded_revenue": {
+    "explore_label": "Products",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.return_rate": {
+    "explore_label": "Products",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.returned_items": {
+    "explore_label": "Products",
+    "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.total_revenue": {
+    "explore_label": "Products",
+    "label": "Total Revenue",
+    "view_label": "Order Items"
   },
   "agentic_thelook.products.products.avg_dollar_markup": {
     "explore_label": "Products",
@@ -663,6 +788,11 @@
     "explore_label": "Users",
     "label": "Initial Cohort Users",
     "view_label": "User Cohort Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.avg_customer_ltv": {
+    "explore_label": "Users",
+    "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users.users.avg_abs_latitude": {
     "explore_label": "Users",

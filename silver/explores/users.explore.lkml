@@ -10,6 +10,8 @@ include: "/silver/order_items_users_fields.view.lkml"
 include: "/silver/orders_users_fields.view.lkml"
 include: "/silver/user_cohort_facts.view.lkml"
 include: "/silver/order_items_user_cohort_facts_fields.view.lkml"
+include: "/silver/user_spend_facts.view.lkml"
+include: "/silver/user_order_facts.view.lkml"
 
 explore: users {
   extends: [users_base]
@@ -51,6 +53,20 @@ explore: users {
     view_label: "Users"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: user_spend_facts {
+    view_label: "Customer Spend Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_spend_facts.user_id} ;;
+  }
+
+  join: user_order_facts {
+    view_label: "Customer Order Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_order_facts.user_id} ;;
   }
 
   query: country_per_capita_fashion_spend {
@@ -260,6 +276,74 @@ explore: users {
     ]
     measures: [users__name_tokens.count]
     sorts: [users__name_tokens.count: desc]
+    limit: 20
+  }
+
+  query: customers_by_oceanic_spend_tier {
+    description: "Paying customer count, average buyer age, total tier revenue, and average customer LTV across Whale versus Minnow Customer Spend Tiers."
+    dimensions: [user_spend_facts.oceanic_spend_tier]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      order_items.total_revenue,
+      user_spend_facts.avg_customer_ltv
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_spend_facts.oceanic_spend_tier: asc]
+  }
+
+  query: top_mega_whale_customers {
+    description: "Top 20 Moby Dick Mega-Whale customers ($300+ lifetime spend) ranked by cumulative lifetime spend."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue
+    ]
+    filters: [
+      order_items.id: "NOT NULL",
+      order_items.total_revenue: ">=300"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 20
+  }
+
+  query: customers_by_loyalty_tier {
+    description: "Registered customer count, average customer age, orders contributed, and items contributed across One-and-Done Tourist versus Loyal Repeat Regular tiers."
+    dimensions: [user_order_facts.customer_loyalty_tier]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      orders.count,
+      orders.total_items
+    ]
+    sorts: [user_order_facts.customer_loyalty_tier: asc]
+  }
+
+  query: top_loyal_repeat_regulars {
+    description: "Top 20 Cult Die-Hard Regular customers (3+ lifetime orders) ranked by total orders and total items ordered."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      orders.count,
+      orders.total_items
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      orders.count: ">=3"
+    ]
+    sorts: [
+      orders.count: desc,
+      orders.total_items: desc
+    ]
     limit: 20
   }
 }

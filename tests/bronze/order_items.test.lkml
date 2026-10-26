@@ -173,3 +173,31 @@ test: order_items_2024_01_fulfillment_speed_tier {
       AND index(${order_items.count}, 4) = 146 ;;
   }
 }
+
+test: order_items_2024_seasonal_vintage_metrics {
+  explore_source: order_items {
+    column: retail_seasonal_vintage { field: order_items.retail_seasonal_vintage }
+    column: created_month_num { field: order_items.created_month_num }
+    column: count { field: order_items.count }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-15, 2024-04-15, 2024-06-15, 2024-09-15, 2024-11-15"
+    }
+    sorts: [order_items.retail_seasonal_vintage: asc]
+  }
+  assert: q4_holiday_vintage_matches {
+    expression: index(${order_items.retail_seasonal_vintage}, 1) = "Q4 Cyber-Holiday Frenzy (Nov-Dec)" AND index(${order_items.created_month_num}, 1) = 11 AND index(${order_items.count}, 1) = 88 ;;
+  }
+  assert: fall_layering_vintage_matches {
+    expression: index(${order_items.retail_seasonal_vintage}, 2) = "Back-to-School & Fall Layering (Aug-Oct)" AND index(${order_items.created_month_num}, 2) = 9 AND index(${order_items.count}, 2) = 83 ;;
+  }
+  assert: spring_reboot_vintage_matches {
+    expression: index(${order_items.retail_seasonal_vintage}, 3) = "Spring Wardrobe Reboot (Mar-May)" AND index(${order_items.created_month_num}, 3) = 4 AND index(${order_items.count}, 3) = 66 ;;
+  }
+  assert: mid_summer_vintage_matches {
+    expression: index(${order_items.retail_seasonal_vintage}, 4) = "Mid-Summer Fiesta (Jun-Jul)" AND index(${order_items.created_month_num}, 4) = 6 AND index(${order_items.count}, 4) = 92 ;;
+  }
+  assert: new_year_rush_vintage_matches {
+    expression: index(${order_items.retail_seasonal_vintage}, 5) = "New-Year Resolution Rush (Jan-Feb)" AND index(${order_items.created_month_num}, 5) = 1 AND index(${order_items.count}, 5) = 60 ;;
+  }
+}

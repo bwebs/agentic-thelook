@@ -209,4 +209,33 @@ explore: order_items {
     sorts: [order_items.hours_total_doorstep_wait: desc]
     limit: 15
   }
+
+  query: sales_by_retail_seasonal_vintage {
+    description: "Order count, items sold, seasonal gross revenue, and average item price across Retail Seasonal Order Vintage fashion seasons."
+    dimensions: [order_items.retail_seasonal_vintage]
+    measures: [
+      orders.count,
+      order_items.count,
+      order_items.total_revenue,
+      order_items.avg_item_price
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+    sorts: [order_items.retail_seasonal_vintage: asc]
+  }
+
+  query: monthly_seasonal_category_units {
+    description: "Calendar month breakdown of Activewear, Swimwear, and Sweaters & Outerwear units sold alongside total monthly revenue."
+    dimensions: [order_items.created_month_num]
+    measures: [
+      order_items_products_fields.activewear_units,
+      order_items_products_fields.swimwear_units,
+      order_items_products_fields.winter_cozy_units,
+      order_items.total_revenue
+    ]
+    filters: [products.id: "NOT NULL"]
+    sorts: [order_items.created_month_num: asc]
+  }
 }

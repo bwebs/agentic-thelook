@@ -2,6 +2,7 @@ include: "/bronze/events.view.lkml"
 include: "/bronze/events.refinement.lkml"
 include: "/bronze/events__uri_segments.view.lkml"
 include: "/bronze/explores/events_base.explore.lkml"
+include: "/silver/browsing_session_facts.view.lkml"
 include: "/silver/event_session_facts.view.lkml"
 include: "/silver/event_session_steps.view.lkml"
 
@@ -10,6 +11,13 @@ explore: events {
   label: "Events"
   view_name: events
   hidden: no
+
+  join: browsing_session_facts {
+    view_label: "Browsing Session Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${events.session_id} = ${browsing_session_facts.session_id} ;;
+  }
 
   join: event_session_facts {
     view_label: "Purchasing Session Facts"
@@ -74,5 +82,29 @@ explore: events {
     measures: [events.count]
     filters: [events.created_date: "after 2025/01/01"]
     sorts: [events.count: desc]
+  }
+
+  query: session_marathon_tier_conversion {
+    description: "Browsing sessions, converting sessions, and purchase conversion rate across Clickstream Binge-Scroll Marathon Tiers."
+    dimensions: [browsing_session_facts.session_marathon_tier]
+    measures: [
+      browsing_session_facts.count,
+      browsing_session_facts.converted_sessions,
+      browsing_session_facts.session_conversion_rate
+    ]
+    sorts: [browsing_session_facts.session_marathon_tier: asc]
+  }
+
+  query: top_marathon_sessions_click_trails {
+    description: "Top 15 Doom-Scroll Fashion Marathon sessions (10+ events) ranked by event count with session duration in minutes and full clickstream event trail."
+    dimensions: [events.session_id, events.user_id]
+    measures: [
+      events.count,
+      events.event_span_minutes,
+      events.click_trail
+    ]
+    filters: [events.count: ">=10"]
+    sorts: [events.count: desc]
+    limit: 15
   }
 }

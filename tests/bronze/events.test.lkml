@@ -158,3 +158,27 @@ test: events_2024_01_01_browser_persona {
       AND index(${events.count}, 5) = 50 ;;
   }
 }
+
+test: events_2024_01_01_session_span_and_click_trail_metrics {
+  explore_source: events {
+    column: session_id { field: events.session_id }
+    column: count { field: events.count }
+    column: event_span_minutes { field: events.event_span_minutes }
+    column: click_trail { field: events.click_trail }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: events.count
+      value: ">=5"
+    }
+    sorts: [events.session_id: asc]
+  }
+  assert: first_session_span_and_trail_matches {
+    expression: index(${events.session_id}, 1) = "00a05f63-5d71-49ee-bccf-7f0103c94dc0" AND index(${events.count}, 1) = 6 AND index(${events.event_span_minutes}, 1) = 10 AND index(${events.click_trail}, 1) = "department>product>cart>department>product>cart" ;;
+  }
+  assert: second_session_converting_trail_matches {
+    expression: index(${events.session_id}, 2) = "0419867a-8983-474c-8982-c19c5ed7b378" AND index(${events.count}, 2) = 5 AND index(${events.event_span_minutes}, 2) = 7 AND index(${events.click_trail}, 2) = "home>department>product>cart>purchase" ;;
+  }
+}

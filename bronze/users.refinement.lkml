@@ -245,6 +245,15 @@ view: +users {
     sql: CONCAT(SUBSTR(${first_name}, 1, 1), '.', SUBSTR(${last_name}, 1, 1), '.') ;;
   }
 
+  dimension: full_name {
+    label: "Full Name"
+    group_label: "Name"
+    description: "Customer full name combining first_name and last_name separated by a space."
+    synonyms: ["customer name", "whale name", "shopper full name"]
+    type: string
+    sql: CONCAT(${first_name}, ' ', ${last_name}) ;;
+  }
+
   dimension: name_tokens {
     hidden: yes
     description: "Two-element array [first_name, last_name] for unnested given-name and surname token analysis."

@@ -149,6 +149,47 @@
     "model": "agentic_thelook",
     "name": "events_2024_01_01_deep_link_metrics"
   },
+  "agentic_thelook.events_2024_01_01_marathon_tier_metrics": {
+    "assert": {
+      "audit_and_marathon_tiers_match": {
+        "expression": "index(${browsing_session_facts.session_marathon_tier}, 3) = \"Serious Closet Audit (5-9 Events)\" AND index(${browsing_session_facts.count}, 3) = 71 AND index(${browsing_session_facts.converted_sessions}, 3) = 71 AND round(index(${browsing_session_facts.session_conversion_rate}, 3), 4) = 1 AND index(${browsing_session_facts.session_marathon_tier}, 4) = \"Doom-Scroll Fashion Marathon (10+ Events)\" AND index(${browsing_session_facts.count}, 4) = 23 AND index(${browsing_session_facts.converted_sessions}, 4) = 23 AND round(index(${browsing_session_facts.session_conversion_rate}, 4), 4) = 1"
+      },
+      "bounce_and_peek_tiers_match": {
+        "expression": "index(${browsing_session_facts.session_marathon_tier}, 1) = \"One-Hit Bounce (1 Event)\" AND index(${browsing_session_facts.count}, 1) = 46 AND index(${browsing_session_facts.converted_sessions}, 1) = 0 AND round(index(${browsing_session_facts.session_conversion_rate}, 1), 4) = 0 AND index(${browsing_session_facts.session_marathon_tier}, 2) = \"Casual Window Peek (2-4 Events)\" AND index(${browsing_session_facts.count}, 2) = 129"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "converted_sessions": {
+            "field": "browsing_session_facts.converted_sessions"
+          },
+          "session_conversion_rate": {
+            "field": "browsing_session_facts.session_conversion_rate"
+          },
+          "session_marathon_tier": {
+            "field": "browsing_session_facts.session_marathon_tier"
+          },
+          "sessions_count": {
+            "field": "browsing_session_facts.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/events.test.lkml",
+    "line": 51,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_marathon_tier_metrics"
+  },
   "agentic_thelook.events_2024_01_01_max_sequence_metrics": {
     "assert": {
       "max_sequence_number_matches": {
@@ -177,6 +218,48 @@
     "line": 74,
     "model": "agentic_thelook",
     "name": "events_2024_01_01_max_sequence_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_session_span_and_click_trail_metrics": {
+    "assert": {
+      "first_session_span_and_trail_matches": {
+        "expression": "index(${events.session_id}, 1) = \"00a05f63-5d71-49ee-bccf-7f0103c94dc0\" AND index(${events.count}, 1) = 6 AND index(${events.event_span_minutes}, 1) = 10 AND index(${events.click_trail}, 1) = \"department>product>cart>department>product>cart\""
+      },
+      "second_session_converting_trail_matches": {
+        "expression": "index(${events.session_id}, 2) = \"0419867a-8983-474c-8982-c19c5ed7b378\" AND index(${events.count}, 2) = 5 AND index(${events.event_span_minutes}, 2) = 7 AND index(${events.click_trail}, 2) = \"home>department>product>cart>purchase\""
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "click_trail": {
+            "field": "events.click_trail"
+          },
+          "count": {
+            "field": "events.count"
+          },
+          "event_span_minutes": {
+            "field": "events.event_span_minutes"
+          },
+          "session_id": {
+            "field": "events.session_id"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.count": ">=5",
+          "events.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 162,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_session_span_and_click_trail_metrics"
   },
   "agentic_thelook.events_2024_01_01_session_structural_role": {
     "assert": {
@@ -1078,6 +1161,101 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_fulfillment_speed_tier"
   },
+  "agentic_thelook.order_items_2024_01_seasonal_category_metrics": {
+    "assert": {
+      "activewear_units_matches": {
+        "expression": "${order_items_products_fields.activewear_units} = 107"
+      },
+      "swimwear_units_matches": {
+        "expression": "${order_items_products_fields.swimwear_units} = 118"
+      },
+      "total_revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 123613.15"
+      },
+      "winter_cozy_units_matches": {
+        "expression": "${order_items_products_fields.winter_cozy_units} = 238"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "activewear_units": {
+            "field": "order_items_products_fields.activewear_units"
+          },
+          "swimwear_units": {
+            "field": "order_items_products_fields.swimwear_units"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          },
+          "winter_cozy_units": {
+            "field": "order_items_products_fields.winter_cozy_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01 to 2024-02-01",
+          "products.id": "NOT NULL",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 156,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_seasonal_category_metrics"
+  },
+  "agentic_thelook.order_items_2024_seasonal_vintage_metrics": {
+    "assert": {
+      "fall_layering_vintage_matches": {
+        "expression": "index(${order_items.retail_seasonal_vintage}, 2) = \"Back-to-School & Fall Layering (Aug-Oct)\" AND index(${order_items.created_month_num}, 2) = 9 AND index(${order_items.count}, 2) = 83"
+      },
+      "mid_summer_vintage_matches": {
+        "expression": "index(${order_items.retail_seasonal_vintage}, 4) = \"Mid-Summer Fiesta (Jun-Jul)\" AND index(${order_items.created_month_num}, 4) = 6 AND index(${order_items.count}, 4) = 92"
+      },
+      "new_year_rush_vintage_matches": {
+        "expression": "index(${order_items.retail_seasonal_vintage}, 5) = \"New-Year Resolution Rush (Jan-Feb)\" AND index(${order_items.created_month_num}, 5) = 1 AND index(${order_items.count}, 5) = 60"
+      },
+      "q4_holiday_vintage_matches": {
+        "expression": "index(${order_items.retail_seasonal_vintage}, 1) = \"Q4 Cyber-Holiday Frenzy (Nov-Dec)\" AND index(${order_items.created_month_num}, 1) = 11 AND index(${order_items.count}, 1) = 88"
+      },
+      "spring_reboot_vintage_matches": {
+        "expression": "index(${order_items.retail_seasonal_vintage}, 3) = \"Spring Wardrobe Reboot (Mar-May)\" AND index(${order_items.created_month_num}, 3) = 4 AND index(${order_items.count}, 3) = 66"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "count": {
+            "field": "order_items.count"
+          },
+          "created_month_num": {
+            "field": "order_items.created_month_num"
+          },
+          "retail_seasonal_vintage": {
+            "field": "order_items.retail_seasonal_vintage"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-15, 2024-04-15, 2024-06-15, 2024-09-15, 2024-11-15",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 177,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_seasonal_vintage_metrics"
+  },
   "agentic_thelook.order_items_midnight_owl_metrics": {
     "assert": {
       "late_night_revenue_matches": {
@@ -1512,6 +1690,44 @@
     "model": "agentic_thelook",
     "name": "orders_refinement_metrics"
   },
+  "agentic_thelook.products_2024_01_01_order_items_join_metrics": {
+    "assert": {
+      "products_and_units_match": {
+        "expression": "${products.count} = 55 AND ${order_items.count} = 55"
+      },
+      "revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 2995.96"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "sku_count": {
+            "field": "products.count"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          },
+          "units_sold": {
+            "field": "order_items.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/products.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "products_2024_01_01_order_items_join_metrics"
+  },
   "agentic_thelook.products_id_le_1000_margin_and_anatomy_metrics": {
     "assert": {
       "commodity_grinder_tier_row_matches": {
@@ -1602,6 +1818,50 @@
     "line": 28,
     "model": "agentic_thelook",
     "name": "products_id_le_1000_price_tier_metrics"
+  },
+  "agentic_thelook.products_id_le_1000_sku_velocity_invariants": {
+    "assert": {
+      "catalog_slice_partitions_all_1000_skus": {
+        "expression": "sum(${products.count}) = 1000"
+      },
+      "hero_and_steady_mover_velocity_bounds_hold": {
+        "expression": "index(${product_sales_facts.sku_velocity_tier}, 1) = \"Viral Hero SKU (5+ Units Sold)\" AND index(${order_items.count}, 1) >= 5 * index(${products.count}, 1) AND index(${product_sales_facts.sku_velocity_tier}, 2) = \"Steady Mover (2-4 Units Sold)\" AND index(${order_items.count}, 2) >= 2 * index(${products.count}, 2) AND index(${order_items.count}, 2) <= 4 * index(${products.count}, 2)"
+      },
+      "single_sale_and_wallflower_bounds_hold": {
+        "expression": "index(${product_sales_facts.sku_velocity_tier}, 3) = \"Lonely Single-Sale SKU (1 Unit Sold)\" AND index(${order_items.count}, 3) = index(${products.count}, 3) AND index(${product_sales_facts.sku_velocity_tier}, 4) = \"Unloved Zero-Sale Wallflower (0 Sold)\" AND index(${order_items.count}, 4) = 0 AND index(${order_items.total_revenue}, 4) = 0"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "sku_count": {
+            "field": "products.count"
+          },
+          "sku_velocity_tier": {
+            "field": "product_sales_facts.sku_velocity_tier"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          },
+          "units_sold": {
+            "field": "order_items.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "products.id": "<=1000",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/products.test.lkml",
+    "line": 21,
+    "model": "agentic_thelook",
+    "name": "products_id_le_1000_sku_velocity_invariants"
   },
   "agentic_thelook.products_refinement_metrics": {
     "assert": {
@@ -2152,6 +2412,130 @@
     "line": 195,
     "model": "agentic_thelook",
     "name": "users_2024_01_name_phonetics_and_tokens"
+  },
+  "agentic_thelook.users_id_le_1000_loyalty_tier_invariants": {
+    "assert": {
+      "double_dipper_and_regular_order_bounds_hold": {
+        "expression": "index(${user_order_facts.customer_loyalty_tier}, 3) = \"Repeat Double-Dipper (2 Orders)\" AND index(${orders.count}, 3) = 2 * index(${users.count}, 3) AND index(${user_order_facts.customer_loyalty_tier}, 4) = \"Cult Die-Hard Regular (3+ Orders)\" AND index(${orders.count}, 4) >= 3 * index(${users.count}, 4)"
+      },
+      "ghost_and_tourist_order_bounds_hold": {
+        "expression": "index(${user_order_facts.customer_loyalty_tier}, 1) = \"Window-Shopping Ghost (0 Orders)\" AND index(${orders.count}, 1) = 0 AND index(${orders.total_items}, 1) = 0 AND index(${user_order_facts.customer_loyalty_tier}, 2) = \"One-and-Done Tourist (1 Order)\" AND index(${orders.count}, 2) = index(${users.count}, 2)"
+      },
+      "user_slice_partitions_all_1000_customers": {
+        "expression": "sum(${users.count}) = 1000"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "customer_count": {
+            "field": "users.count"
+          },
+          "customer_loyalty_tier": {
+            "field": "user_order_facts.customer_loyalty_tier"
+          },
+          "items_contributed": {
+            "field": "orders.total_items"
+          },
+          "orders_contributed": {
+            "field": "orders.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.id": "<=1000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 124,
+    "model": "agentic_thelook",
+    "name": "users_id_le_1000_loyalty_tier_invariants"
+  },
+  "agentic_thelook.users_id_le_1000_oceanic_spend_invariants": {
+    "assert": {
+      "dolphin_and_mega_whale_ltv_bounds_hold": {
+        "expression": "index(${user_spend_facts.oceanic_spend_tier}, 3) = \"Dolphin ($100-$299 LTV)\" AND index(${user_spend_facts.avg_customer_ltv}, 3) >= 100 AND index(${user_spend_facts.avg_customer_ltv}, 3) < 300 AND index(${user_spend_facts.oceanic_spend_tier}, 4) = \"Moby Dick Mega-Whale ($300+ LTV)\" AND index(${user_spend_facts.avg_customer_ltv}, 4) >= 300"
+      },
+      "plankton_and_minnow_ltv_bounds_hold": {
+        "expression": "index(${user_spend_facts.oceanic_spend_tier}, 1) = \"Plankton (<$30 LTV)\" AND index(${user_spend_facts.avg_customer_ltv}, 1) > 0 AND index(${user_spend_facts.avg_customer_ltv}, 1) < 30 AND index(${user_spend_facts.oceanic_spend_tier}, 2) = \"Minnow ($30-$99 LTV)\" AND index(${user_spend_facts.avg_customer_ltv}, 2) >= 30 AND index(${user_spend_facts.avg_customer_ltv}, 2) < 100"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_customer_ltv": {
+            "field": "user_spend_facts.avg_customer_ltv"
+          },
+          "buyers_count": {
+            "field": "users.count"
+          },
+          "oceanic_spend_tier": {
+            "field": "user_spend_facts.oceanic_spend_tier"
+          },
+          "tier_total_revenue": {
+            "field": "order_items.total_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "user_spend_facts.user_id": "NOT NULL",
+          "users.id": "<=1000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 100,
+    "model": "agentic_thelook",
+    "name": "users_id_le_1000_oceanic_spend_invariants"
+  },
+  "agentic_thelook.users_id_le_5_full_name_metrics": {
+    "assert": {
+      "fifth_user_full_name_matches": {
+        "expression": "index(${users.id}, 5) = 5 AND index(${users.full_name}, 5) = \"Nicholas Turner\" AND sum(${users.count}) = 5"
+      },
+      "first_user_full_name_matches": {
+        "expression": "index(${users.id}, 1) = 1 AND index(${users.full_name}, 1) = \"Valerie Lowe\" AND index(${users.count}, 1) = 1"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "full_name": {
+            "field": "users.full_name"
+          },
+          "id": {
+            "field": "users.id"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.id": "<=5"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 216,
+    "model": "agentic_thelook",
+    "name": "users_id_le_5_full_name_metrics"
   },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {

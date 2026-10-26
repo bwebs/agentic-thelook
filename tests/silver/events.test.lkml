@@ -47,3 +47,23 @@ test: events_2024_01_01_session_structural_role {
       AND index(${events.count}, 4) = 183 ;;
   }
 }
+
+test: events_2024_01_01_marathon_tier_metrics {
+  explore_source: events {
+    column: session_marathon_tier { field: browsing_session_facts.session_marathon_tier }
+    column: sessions_count { field: browsing_session_facts.count }
+    column: converted_sessions { field: browsing_session_facts.converted_sessions }
+    column: session_conversion_rate { field: browsing_session_facts.session_conversion_rate }
+    filters: {
+      field: events.created_date
+      value: "2024-01-01"
+    }
+    sorts: [browsing_session_facts.session_marathon_tier: asc]
+  }
+  assert: bounce_and_peek_tiers_match {
+    expression: index(${browsing_session_facts.session_marathon_tier}, 1) = "One-Hit Bounce (1 Event)" AND index(${browsing_session_facts.count}, 1) = 46 AND index(${browsing_session_facts.converted_sessions}, 1) = 0 AND round(index(${browsing_session_facts.session_conversion_rate}, 1), 4) = 0 AND index(${browsing_session_facts.session_marathon_tier}, 2) = "Casual Window Peek (2-4 Events)" AND index(${browsing_session_facts.count}, 2) = 129 ;;
+  }
+  assert: audit_and_marathon_tiers_match {
+    expression: index(${browsing_session_facts.session_marathon_tier}, 3) = "Serious Closet Audit (5-9 Events)" AND index(${browsing_session_facts.count}, 3) = 71 AND index(${browsing_session_facts.converted_sessions}, 3) = 71 AND round(index(${browsing_session_facts.session_conversion_rate}, 3), 4) = 1 AND index(${browsing_session_facts.session_marathon_tier}, 4) = "Doom-Scroll Fashion Marathon (10+ Events)" AND index(${browsing_session_facts.count}, 4) = 23 AND index(${browsing_session_facts.converted_sessions}, 4) = 23 AND round(index(${browsing_session_facts.session_conversion_rate}, 4), 4) = 1 ;;
+  }
+}
