@@ -129,3 +129,28 @@ test: order_items_2024_01_01_boomerang_return_metrics {
     expression: round(${order_items.return_rate}, 4) = 0.15 ;;
   }
 }
+
+test: order_items_2024_01_01_high_roller_single_item_metrics {
+  explore_source: order_items {
+    column: order_item_count { field: order_items.count }
+    column: total_revenue { field: order_items.total_revenue }
+    column: avg_item_price { field: order_items.avg_item_price }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: order_items.is_high_roller_single_item
+      value: "yes"
+    }
+  }
+  assert: high_roller_item_count_matches {
+    expression: ${order_items.count} = 11 ;;
+  }
+  assert: high_roller_total_revenue_matches {
+    expression: round(${order_items.total_revenue}, 2) = 2195.79 ;;
+  }
+  assert: high_roller_avg_item_price_matches {
+    expression: round(${order_items.avg_item_price}, 2) = 199.62 ;;
+  }
+}

@@ -169,4 +169,19 @@ explore: order_items {
       products.id: "NOT NULL"
     ]
   }
+
+  query: high_roller_single_items {
+    description: "High-Roller Single Item identifies any individual order item sold for a hundred dollars or more. Merchandising and fulfillment teams use this label to spot premium-ticket purchases that qualify for upgraded packaging and VIP post-purchase follow-up."
+    dimensions: [
+      order_items.id,
+      order_items.order_id,
+      order_items.user_id,
+      order_items.product_id,
+      order_items.status,
+      order_items.sale_price
+    ]
+    filters: [order_items.is_high_roller_single_item: "yes"]
+    sorts: [order_items.sale_price: desc]
+    limit: 25
+  }
 }
