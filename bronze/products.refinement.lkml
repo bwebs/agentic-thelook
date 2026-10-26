@@ -32,29 +32,48 @@ view: +products {
 
   dimension: gross_margin_tier {
     label: "Gross Margin Cash-Cow Tier"
-    description: "Gross Margin Cash-Cow Tier classifies every product by combining its percentage gross margin and dollar profit per unit into four quadrants: '1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)', '2. High-Margin Trinket (<$40 profit & 55%+ margin)', '3. Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)', and '4. Commodity Margin Grinder (<$40 profit & <55% margin)'. Paid advertising teams use this product classification so they never spend heavy ad budgets promoting low-dollar trinkets that cannot pay back the click cost."
+    description: "Gross Margin Cash-Cow Tier classifies every product by combining its percentage gross margin and dollar profit per unit into four quadrants: 'Golden Goose Cash Cow ($40+ profit & 55%+ margin)', 'High-Margin Trinket (<$40 profit & 55%+ margin)', 'Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)', and 'Commodity Margin Grinder (<$40 profit & <55% margin)'. Paid advertising teams use this product classification so they never spend heavy ad budgets promoting low-dollar trinkets that cannot pay back the click cost."
     synonyms: ["gross margin cash-cow tier", "margin cash cow tier", "product margin quadrant", "gross margin tier"]
-    type: string
-    sql: CASE
-      WHEN ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 THEN '1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)'
-      WHEN ${dollar_markup} < 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 THEN '2. High-Margin Trinket (<$40 profit & 55%+ margin)'
-      WHEN ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) < 0.55 THEN '3. Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)'
-      ELSE '4. Commodity Margin Grinder (<$40 profit & <55% margin)'
-    END ;;
+    case: {
+      when: {
+        sql: ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 ;;
+        label: "Golden Goose Cash Cow ($40+ profit & 55%+ margin)"
+      }
+      when: {
+        sql: ${dollar_markup} < 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 ;;
+        label: "High-Margin Trinket (<$40 profit & 55%+ margin)"
+      }
+      when: {
+        sql: ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) < 0.55 ;;
+        label: "Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)"
+      }
+      else: "Commodity Margin Grinder (<$40 profit & <55% margin)"
+    }
   }
 
   dimension: wardrobe_anatomy_zone {
     label: "Wardrobe Anatomy Zone"
-    description: "Wardrobe Anatomy Zone maps all twenty-six clothing categories onto the part of the human body they cover: '1. Upper Torso, Outerwear & Accessories Zone', '2. Lower Half & Legs Zone', '3. Feet & Ankles Zone', '4. Full-Body Ensemble Zone', and '5. Unmentionables, Poolside & Pajama Zone'. Outfit recommendation tools use these anatomical zones to suggest a matching top, bottom, and pair of socks rather than recommending four pairs of pants."
+    description: "Wardrobe Anatomy Zone maps all twenty-six clothing categories onto the part of the human body they cover: 'Upper Torso, Outerwear & Accessories Zone', 'Lower Half & Legs Zone', 'Feet & Ankles Zone', 'Full-Body Ensemble Zone', and 'Unmentionables, Poolside & Pajama Zone'. Outfit recommendation tools use these anatomical zones to suggest a matching top, bottom, and pair of socks rather than recommending four pairs of pants."
     synonyms: ["wardrobe anatomy zone", "anatomical wardrobe zone", "body coverage zone", "outfit anatomy zone"]
-    type: string
-    sql: CASE
-      WHEN ${category} IN ('Socks', 'Socks & Hosiery') THEN '3. Feet & Ankles Zone'
-      WHEN ${category} IN ('Pants & Capris', 'Jeans', 'Shorts', 'Skirts', 'Leggings', 'Pants') THEN '2. Lower Half & Legs Zone'
-      WHEN ${category} IN ('Dresses', 'Suits', 'Suits & Sport Coats', 'Jumpsuits & Rompers') THEN '4. Full-Body Ensemble Zone'
-      WHEN ${category} IN ('Swim', 'Intimates', 'Underwear', 'Sleep & Lounge') THEN '5. Unmentionables, Poolside & Pajama Zone'
-      ELSE '1. Upper Torso, Outerwear & Accessories Zone'
-    END ;;
+    case: {
+      when: {
+        sql: ${category} IS NULL OR ${category} NOT IN ('Pants & Capris', 'Jeans', 'Shorts', 'Skirts', 'Leggings', 'Pants', 'Socks', 'Socks & Hosiery', 'Dresses', 'Suits', 'Suits & Sport Coats', 'Jumpsuits & Rompers', 'Swim', 'Intimates', 'Underwear', 'Sleep & Lounge') ;;
+        label: "Upper Torso, Outerwear & Accessories Zone"
+      }
+      when: {
+        sql: ${category} IN ('Pants & Capris', 'Jeans', 'Shorts', 'Skirts', 'Leggings', 'Pants') ;;
+        label: "Lower Half & Legs Zone"
+      }
+      when: {
+        sql: ${category} IN ('Socks', 'Socks & Hosiery') ;;
+        label: "Feet & Ankles Zone"
+      }
+      when: {
+        sql: ${category} IN ('Dresses', 'Suits', 'Suits & Sport Coats', 'Jumpsuits & Rompers') ;;
+        label: "Full-Body Ensemble Zone"
+      }
+      else: "Unmentionables, Poolside & Pajama Zone"
+    }
   }
 
   measure: count {
