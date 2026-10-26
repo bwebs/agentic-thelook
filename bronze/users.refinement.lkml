@@ -40,6 +40,14 @@ view: +users {
     sql: ${age} < 25 ;;
   }
 
+  dimension: is_new_customer {
+    label: "New Customer"
+    description: "New Customer identifies shoppers who created their store account during the current calendar year. Lifecycle marketing teams use this definition to enroll fresh signups into welcome email sequences and track recent acquisition momentum."
+    synonyms: ["is new customer", "new customers", "fresh signups", "current calendar year signup"]
+    type: yesno
+    sql: ${cohort_signup_year} >= EXTRACT(YEAR FROM CURRENT_TIMESTAMP()) ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]

@@ -127,4 +127,19 @@ explore: users {
     filters: [users.is_young_customer: "yes"]
     limit: 25
   }
+
+  query: new_customers {
+    description: "New Customer identifies shoppers who created their store account during the current calendar year. Lifecycle marketing teams use this definition to enroll fresh signups into welcome email sequences and track recent acquisition momentum."
+    dimensions: [
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.age,
+      users.country,
+      users.created_time
+    ]
+    filters: [users.is_new_customer: "yes"]
+    sorts: [users.created_time: desc]
+    limit: 25
+  }
 }

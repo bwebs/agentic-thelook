@@ -1538,6 +1538,41 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_young_customers_metrics"
   },
+  "agentic_thelook.users_current_year_new_customers_invariants": {
+    "assert": {
+      "current_year_new_customer_count_positive": {
+        "expression": "${users.count} > 0"
+      },
+      "current_year_signups_are_new_customers": {
+        "expression": "${users.is_new_customer} = yes"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "is_new_customer": {
+            "field": "users.is_new_customer"
+          },
+          "user_count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "this year"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 74,
+    "model": "agentic_thelook",
+    "name": "users_current_year_new_customers_invariants"
+  },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {
       "avg_customer_age_matches": {

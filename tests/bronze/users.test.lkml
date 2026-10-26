@@ -70,3 +70,21 @@ test: users_2024_01_01_young_customers_metrics {
     expression: ${users.oldest_shopper_age} = 24 ;;
   }
 }
+
+test: users_current_year_new_customers_invariants {
+  explore_source: users {
+    column: is_new_customer { field: users.is_new_customer }
+    column: user_count { field: users.count }
+    filters: {
+      field: users.created_date
+      value: "this year"
+    }
+    sorts: [users.is_new_customer: asc]
+  }
+  assert: current_year_signups_are_new_customers {
+    expression: ${users.is_new_customer} = yes ;;
+  }
+  assert: current_year_new_customer_count_positive {
+    expression: ${users.count} > 0 ;;
+  }
+}
