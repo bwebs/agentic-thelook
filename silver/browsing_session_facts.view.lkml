@@ -1,12 +1,13 @@
-include: "/bronze/explores/events_base.explore.lkml"
+include: "/silver/explores/events_steps_base.explore.lkml"
 
 view: browsing_session_facts {
   label: "Browsing Session Facts"
 
   derived_table: {
-    explore_source: events_base {
+    explore_source: events_steps_base {
       column: session_id { field: events.session_id }
       column: event_count { field: events.count }
+      column: pogo_stick_oscillations { field: event_step_triplets.pogo_stick_oscillations }
       column: purchase_events { field: events.purchase_events }
       column: cart_events { field: events.cart_events }
       column: cancel_events { field: events.cancel_events }
@@ -29,6 +30,35 @@ view: browsing_session_facts {
     synonyms: ["total events in session", "session depth", "clicks in session"]
     type: number
     sql: ${TABLE}.event_count ;;
+  }
+
+  dimension: pogo_stick_oscillations {
+    label: "Session Pogo-Stick Oscillations"
+    description: "Total number of A -> B -> A pogo-sticking backtrack bounces recorded within the browsing session."
+    synonyms: ["pogo stick oscillations", "session backtracks", "a-b-a bounces"]
+    type: number
+    sql: COALESCE(${TABLE}.pogo_stick_oscillations, 0) ;;
+  }
+
+  dimension: clickstream_loop_archetype {
+    label: "Clickstream Indecision Loop Archetype"
+    description: "Clickstream Indecision Loop Archetype detects pogo-sticking behavior where a shopper bounces back and forth between the exact same two page types—such as cart to product and right back to cart—within a single session, classifying visits into Chronic Pogo-Sticking Loops, Single Double-Check Backtracks, Linear Forward Marches, and Short Micro-Sessions. User experience researchers study these back-and-forth oscillation loops to see where shoppers get stuck comparing items or hesitating at checkout."
+    synonyms: ["clickstream loop archetype", "clickstream indecision loop archetype", "pogo-sticking loop tier", "session backtrack archetype"]
+    case: {
+      when: {
+        sql: ${pogo_stick_oscillations} >= 2 ;;
+        label: "Chronic Pogo-Sticking Indecision Loop (2+ A->B->A Bounces)"
+      }
+      when: {
+        sql: ${pogo_stick_oscillations} = 1 ;;
+        label: "Single Double-Check Backtrack (1 A->B->A Bounce)"
+      }
+      when: {
+        sql: ${event_count} >= 3 ;;
+        label: "Linear Forward March (3+ Steps, 0 Backtracks)"
+      }
+      else: "Short Micro-Session (<3 Steps)"
+    }
   }
 
   dimension: is_converted_to_purchase {

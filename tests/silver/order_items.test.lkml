@@ -219,3 +219,21 @@ test: order_items_2024_01_complete_gross_profit {
     expression: round(${inventory_items_order_items_fields.gross_margin_ratio}, 4) = 0.5221 ;;
   }
 }
+
+test: order_items_department_units_2024_01_01 {
+  explore_source: order_items {
+    column: mens_units { field: order_items_products_fields.mens_units }
+    column: womens_units { field: order_items_products_fields.womens_units }
+    column: count { field: order_items.count }
+    filters: [order_items.created_date: "2024-01-01"]
+  }
+  assert: mens_units_matches {
+    expression: ${order_items_products_fields.mens_units} = 25 ;;
+  }
+  assert: womens_units_matches {
+    expression: ${order_items_products_fields.womens_units} = 30 ;;
+  }
+  assert: department_units_partition_total {
+    expression: ${order_items_products_fields.mens_units} + ${order_items_products_fields.womens_units} = ${order_items.count} ;;
+  }
+}

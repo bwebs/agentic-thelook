@@ -237,3 +237,55 @@ test: users_id_le_1000_buyer_personas_invariants {
     expression: ${user_spend_facts.total_lifetime_spend} > 0 AND ${user_spend_facts.total_lifetime_spend} >= ${user_spend_facts.total_lifetime_profit} AND round(${user_spend_facts.blended_lifetime_margin_ratio}, 6) = round(${user_spend_facts.total_lifetime_profit} / ${user_spend_facts.total_lifetime_spend}, 6) ;;
   }
 }
+
+test: users_channel_attribution_persona_invariants {
+  explore_source: users {
+    column: channel_attribution_persona { field: user_click_facts.channel_attribution_persona }
+    column: count { field: users.count }
+    column: avg_channels_touched { field: user_click_facts.avg_channels_touched }
+    filters: [
+      users.id: "<=1000",
+      user_click_facts.total_clicks: ">0"
+    ]
+    sorts: [user_click_facts.channel_attribution_persona: asc]
+  }
+  assert: non_null_persona_and_positive_users {
+    expression: NOT is_null(${user_click_facts.channel_attribution_persona})
+      AND ${users.count} > 0 ;;
+  }
+  assert: channel_bounds_by_persona {
+    expression: if(
+      ${user_click_facts.channel_attribution_persona} = "Single-Channel Purist (1 Channel Only)",
+      round(${user_click_facts.avg_channels_touched}, 4) = 1,
+      if(
+        ${user_click_facts.channel_attribution_persona} = "Omnichannel Everywhere Enthusiast (3+ Channels)",
+        ${user_click_facts.avg_channels_touched} >= 3,
+        ${user_click_facts.avg_channels_touched} >= 1
+      )
+    ) ;;
+  }
+}
+
+test: users_department_allegiance_invariants {
+  explore_source: users {
+    column: department_allegiance { field: user_spend_facts.department_allegiance }
+    column: count { field: users.count }
+    column: total_items_bought { field: user_spend_facts.total_items_bought }
+    column: total_lifetime_spend { field: user_spend_facts.total_lifetime_spend }
+    column: total_event_weighted_revenue { field: events_order_items_fields.total_event_weighted_revenue }
+    filters: [
+      users.id: "<=1000",
+      user_spend_facts.user_id: "NOT NULL"
+    ]
+    sorts: [user_spend_facts.department_allegiance: asc]
+  }
+  assert: non_null_allegiance_and_buyer_floor {
+    expression: NOT is_null(${user_spend_facts.department_allegiance})
+      AND ${users.count} > 0
+      AND ${user_spend_facts.total_items_bought} >= ${users.count}
+      AND ${user_spend_facts.total_lifetime_spend} > 0 ;;
+  }
+  assert: event_weighted_revenue_at_least_lifetime_spend {
+    expression: round(${events_order_items_fields.total_event_weighted_revenue}, 2) >= round(${user_spend_facts.total_lifetime_spend}, 2) ;;
+  }
+}

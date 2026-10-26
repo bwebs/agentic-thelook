@@ -1,16 +1,31 @@
 include: "/bronze/events.view.lkml"
 include: "/bronze/events.refinement.lkml"
 include: "/bronze/events__uri_segments.view.lkml"
-include: "/bronze/explores/events_base.explore.lkml"
+include: "/bronze/users.view.lkml"
+include: "/bronze/users.refinement.lkml"
+include: "/silver/explores/events_steps_base.explore.lkml"
 include: "/silver/browsing_session_facts.view.lkml"
 include: "/silver/event_session_facts.view.lkml"
 include: "/silver/event_session_steps.view.lkml"
+include: "/silver/events_users_fields.view.lkml"
 
 explore: events {
-  extends: [events_base]
+  extends: [events_steps_base]
   label: "Events"
   view_name: events
   hidden: no
+
+  join: users {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${events.user_id} = ${users.id} ;;
+  }
+
+  join: events_users_fields {
+    view_label: "Events"
+    sql: ;;
+    relationship: one_to_one
+  }
 
   join: browsing_session_facts {
     view_label: "Browsing Session Facts"
@@ -38,6 +53,41 @@ explore: events {
       session_total_events,
       session_structural_role
     ]
+  }
+
+  query: channel_crossover_events_by_source {
+    description: "Top 15 customer signup-to-session channel crossover pairs ranked by crossover clickstream event volume."
+    dimensions: [users.traffic_source, events.traffic_source]
+    measures: [users.count, events.count]
+    filters: [
+      users.id: "NOT NULL",
+      events_users_fields.is_channel_crossover_event: "yes"
+    ]
+    sorts: [events.count: desc]
+    limit: 15
+  }
+
+  query: sessions_by_clickstream_loop_archetype {
+    description: "Browsing session volume, average clickstream steps per session, and session purchase conversion rate across Clickstream Indecision Loop Archetypes."
+    dimensions: [browsing_session_facts.clickstream_loop_archetype]
+    measures: [
+      browsing_session_facts.count,
+      browsing_session_facts.avg_events_per_session,
+      browsing_session_facts.session_conversion_rate
+    ]
+    sorts: [browsing_session_facts.clickstream_loop_archetype: asc]
+  }
+
+  query: top_clickstream_step_triplets {
+    description: "Top 15 consecutive three-step clickstream transitions (prev_event -> curr_event -> next_event) ranked by occurrence count alongside distinct browsing sessions."
+    dimensions: [event_step_triplets.oscillation_triplet]
+    measures: [events.count, events.unique_chaotic_sessions]
+    filters: [
+      event_step_triplets.prev_event_type: "-NULL",
+      event_step_triplets.next_event_type: "-NULL"
+    ]
+    sorts: [events.count: desc]
+    limit: 15
   }
 
   query: speed_runner_checkout_score {

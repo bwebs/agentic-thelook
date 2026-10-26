@@ -495,6 +495,40 @@
     "model": "agentic_thelook",
     "name": "events_2024_01_01_uri_segment_metrics"
   },
+  "agentic_thelook.events_distinct_traffic_sources_2024_01_01": {
+    "assert": {
+      "distinct_traffic_sources_matches": {
+        "expression": "${events.distinct_traffic_sources} = 5"
+      },
+      "event_count_matches": {
+        "expression": "${events.count} = 880"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "count": {
+            "field": "events.count"
+          },
+          "distinct_traffic_sources": {
+            "field": "events.distinct_traffic_sources"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 204,
+    "model": "agentic_thelook",
+    "name": "events_distinct_traffic_sources_2024_01_01"
+  },
   "agentic_thelook.events_ie_dinosaur_2024_01_01_metrics": {
     "assert": {
       "count_matches": {
@@ -535,6 +569,46 @@
     "line": 53,
     "model": "agentic_thelook",
     "name": "events_ie_dinosaur_2024_01_01_metrics"
+  },
+  "agentic_thelook.events_loop_archetype_and_crossover_2024_01": {
+    "assert": {
+      "linear_forward_march_slice_matches": {
+        "expression": "index(${browsing_session_facts.clickstream_loop_archetype}, 1) = \"Linear Forward March (3+ Steps, 0 Backtracks)\" AND index(${browsing_session_facts.count}, 1) = 4741 AND index(${event_step_triplets.pogo_stick_oscillations}, 1) = 0 AND index(${events_users_fields.channel_crossover_events}, 1) = 13700"
+      },
+      "short_micro_session_slice_matches": {
+        "expression": "index(${browsing_session_facts.clickstream_loop_archetype}, 2) = \"Short Micro-Session (<3 Steps)\" AND index(${browsing_session_facts.count}, 2) = 2677 AND index(${event_step_triplets.pogo_stick_oscillations}, 2) = 0 AND index(${events_users_fields.channel_crossover_events}, 2) = 0"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "channel_crossover_events": {
+            "field": "events_users_fields.channel_crossover_events"
+          },
+          "clickstream_loop_archetype": {
+            "field": "browsing_session_facts.clickstream_loop_archetype"
+          },
+          "pogo_stick_oscillations": {
+            "field": "event_step_triplets.pogo_stick_oscillations"
+          },
+          "sessions_count": {
+            "field": "browsing_session_facts.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/events.test.lkml",
+    "line": 88,
+    "model": "agentic_thelook",
+    "name": "events_loop_archetype_and_crossover_2024_01"
   },
   "agentic_thelook.events_rage_quit_abandonment_metrics": {
     "assert": {
@@ -1445,6 +1519,46 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_seasonal_vintage_metrics"
   },
+  "agentic_thelook.order_items_department_units_2024_01_01": {
+    "assert": {
+      "department_units_partition_total": {
+        "expression": "${order_items_products_fields.mens_units} + ${order_items_products_fields.womens_units} = ${order_items.count}"
+      },
+      "mens_units_matches": {
+        "expression": "${order_items_products_fields.mens_units} = 25"
+      },
+      "womens_units_matches": {
+        "expression": "${order_items_products_fields.womens_units} = 30"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "count": {
+            "field": "order_items.count"
+          },
+          "mens_units": {
+            "field": "order_items_products_fields.mens_units"
+          },
+          "womens_units": {
+            "field": "order_items_products_fields.womens_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 223,
+    "model": "agentic_thelook",
+    "name": "order_items_department_units_2024_01_01"
+  },
   "agentic_thelook.order_items_midnight_owl_metrics": {
     "assert": {
       "late_night_revenue_matches": {
@@ -1831,6 +1945,57 @@
     "line": 28,
     "model": "agentic_thelook",
     "name": "orders_2024_01_01_remorse_metrics"
+  },
+  "agentic_thelook.orders_complete_basket_diversity_2024_01_01": {
+    "assert": {
+      "dual_category_basket_metrics_match": {
+        "expression": "index(${order_basket_facts.basket_diversity_archetype}, 2) = \"Dual-Category Mix-and-Matcher (2 Categories)\" AND index(${orders.count}, 2) = 7 AND round(index(${order_basket_facts.avg_basket_spend}, 2), 2) = 145.59 AND round(index(${order_basket_facts.total_basket_revenue}, 2), 2) = 1019.12"
+      },
+      "outfit_builder_basket_metrics_match": {
+        "expression": "index(${order_basket_facts.basket_diversity_archetype}, 1) = \"Head-to-Toe Complete Outfit Builder (3+ Distinct Categories)\" AND index(${orders.count}, 1) = 1 AND round(index(${order_basket_facts.avg_basket_units}, 1), 2) = 4 AND round(index(${order_basket_facts.avg_basket_distinct_brands}, 1), 2) = 4 AND round(index(${order_basket_facts.avg_basket_spend}, 1), 2) = 178.44 AND round(index(${order_basket_facts.total_basket_revenue}, 1), 2) = 178.44"
+      },
+      "solo_sniper_basket_metrics_match": {
+        "expression": "index(${order_basket_facts.basket_diversity_archetype}, 3) = \"Solo Item Sniper (1 Unit Total)\" AND index(${orders.count}, 3) = 11 AND round(index(${order_basket_facts.avg_basket_spend}, 3), 2) = 61.38 AND round(index(${order_basket_facts.total_basket_revenue}, 3), 2) = 675.14"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "avg_basket_distinct_brands": {
+            "field": "order_basket_facts.avg_basket_distinct_brands"
+          },
+          "avg_basket_spend": {
+            "field": "order_basket_facts.avg_basket_spend"
+          },
+          "avg_basket_units": {
+            "field": "order_basket_facts.avg_basket_units"
+          },
+          "basket_diversity_archetype": {
+            "field": "order_basket_facts.basket_diversity_archetype"
+          },
+          "count": {
+            "field": "orders.count"
+          },
+          "total_basket_revenue": {
+            "field": "order_basket_facts.total_basket_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_basket_facts.order_id": "NOT NULL",
+          "orders.created_date": "2024-01-01",
+          "orders.status": "Complete"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/orders.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "orders_complete_basket_diversity_2024_01_01"
   },
   "agentic_thelook.orders_refinement_metrics": {
     "assert": {
@@ -2772,6 +2937,125 @@
     "line": 195,
     "model": "agentic_thelook",
     "name": "users_2024_01_name_phonetics_and_tokens"
+  },
+  "agentic_thelook.users_channel_attribution_persona_invariants": {
+    "assert": {
+      "channel_bounds_by_persona": {
+        "expression": "if( ${user_click_facts.channel_attribution_persona} = \"Single-Channel Purist (1 Channel Only)\", round(${user_click_facts.avg_channels_touched}, 4) = 1, if( ${user_click_facts.channel_attribution_persona} = \"Omnichannel Everywhere Enthusiast (3+ Channels)\", ${user_click_facts.avg_channels_touched} >= 3, ${user_click_facts.avg_channels_touched} >= 1 ) )"
+      },
+      "non_null_persona_and_positive_users": {
+        "expression": "NOT is_null(${user_click_facts.channel_attribution_persona}) AND ${users.count} > 0"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_channels_touched": {
+            "field": "user_click_facts.avg_channels_touched"
+          },
+          "channel_attribution_persona": {
+            "field": "user_click_facts.channel_attribution_persona"
+          },
+          "count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "user_click_facts.total_clicks": ">0",
+          "users.id": "<=1000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 241,
+    "model": "agentic_thelook",
+    "name": "users_channel_attribution_persona_invariants"
+  },
+  "agentic_thelook.users_department_allegiance_invariants": {
+    "assert": {
+      "event_weighted_revenue_at_least_lifetime_spend": {
+        "expression": "round(${events_order_items_fields.total_event_weighted_revenue}, 2) >= round(${user_spend_facts.total_lifetime_spend}, 2)"
+      },
+      "non_null_allegiance_and_buyer_floor": {
+        "expression": "NOT is_null(${user_spend_facts.department_allegiance}) AND ${users.count} > 0 AND ${user_spend_facts.total_items_bought} >= ${users.count} AND ${user_spend_facts.total_lifetime_spend} > 0"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "department_allegiance": {
+            "field": "user_spend_facts.department_allegiance"
+          },
+          "total_event_weighted_revenue": {
+            "field": "events_order_items_fields.total_event_weighted_revenue"
+          },
+          "total_items_bought": {
+            "field": "user_spend_facts.total_items_bought"
+          },
+          "total_lifetime_spend": {
+            "field": "user_spend_facts.total_lifetime_spend"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "user_spend_facts.user_id": "NOT NULL",
+          "users.id": "<=1000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 269,
+    "model": "agentic_thelook",
+    "name": "users_department_allegiance_invariants"
+  },
+  "agentic_thelook.users_email_persona_and_us_state_2024_01_01": {
+    "assert": {
+      "long_aristocratic_handle_slice_matches": {
+        "expression": "index(${users.email_handle_persona}, 2) = \"Long Aristocratic Handle (16+ Letters, No Digits)\" AND index(${users.count}, 2) = 2 AND index(${users.us_registered_users}, 2) = 1"
+      },
+      "short_alphabetic_handle_slice_matches": {
+        "expression": "index(${users.email_handle_persona}, 1) = \"Short Clean Alphabetic Handle (<16 Letters, No Digits)\" AND index(${users.count}, 1) = 36 AND index(${users.us_registered_users}, 1) = 8"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "email_handle_persona": {
+            "field": "users.email_handle_persona"
+          },
+          "us_registered_users": {
+            "field": "users.us_registered_users"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 235,
+    "model": "agentic_thelook",
+    "name": "users_email_persona_and_us_state_2024_01_01"
   },
   "agentic_thelook.users_id_le_1000_buyer_personas_invariants": {
     "assert": {

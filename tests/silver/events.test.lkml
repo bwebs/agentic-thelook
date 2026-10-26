@@ -84,3 +84,26 @@ test: events_2024_01_01_funnel_archetype_invariants {
       AND ${browsing_session_facts.avg_events_per_session} >= 1 ;;
   }
 }
+
+test: events_loop_archetype_and_crossover_2024_01 {
+  explore_source: events {
+    column: clickstream_loop_archetype { field: browsing_session_facts.clickstream_loop_archetype }
+    column: sessions_count { field: browsing_session_facts.count }
+    column: pogo_stick_oscillations { field: event_step_triplets.pogo_stick_oscillations }
+    column: channel_crossover_events { field: events_users_fields.channel_crossover_events }
+    filters: [events.created_date: "2024-01"]
+    sorts: [browsing_session_facts.clickstream_loop_archetype: asc]
+  }
+  assert: linear_forward_march_slice_matches {
+    expression: index(${browsing_session_facts.clickstream_loop_archetype}, 1) = "Linear Forward March (3+ Steps, 0 Backtracks)"
+      AND index(${browsing_session_facts.count}, 1) = 4741
+      AND index(${event_step_triplets.pogo_stick_oscillations}, 1) = 0
+      AND index(${events_users_fields.channel_crossover_events}, 1) = 13700 ;;
+  }
+  assert: short_micro_session_slice_matches {
+    expression: index(${browsing_session_facts.clickstream_loop_archetype}, 2) = "Short Micro-Session (<3 Steps)"
+      AND index(${browsing_session_facts.count}, 2) = 2677
+      AND index(${event_step_triplets.pogo_stick_oscillations}, 2) = 0
+      AND index(${events_users_fields.channel_crossover_events}, 2) = 0 ;;
+  }
+}

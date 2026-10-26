@@ -88,6 +88,50 @@ explore: order_items {
     relationship: one_to_one
   }
 
+  query: top_monoculture_category_hoarder_baskets {
+    description: "Top 15 multi-item monoculture orders (3+ units all within a single clothing category) ranked by basket units and gross basket spend."
+    dimensions: [orders.order_id]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      order_items_products_fields.ordered_item_categories
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      products.id: "NOT NULL",
+      order_items.count: ">=3",
+      products.distinct_categories: "1"
+    ]
+    sorts: [
+      order_items.count: desc,
+      order_items.total_revenue: desc
+    ]
+    limit: 15
+  }
+
+  query: top_cross_department_postal_codes {
+    description: "Top 15 high-volume cross-department postal codes (at least 5 Menswear units and 5 Womenswear units sold) ranked by total gross spend."
+    dimensions: [
+      users.postal_code,
+      users.city,
+      users.country
+    ]
+    measures: [
+      users.count,
+      order_items_products_fields.mens_units,
+      order_items_products_fields.womens_units,
+      order_items.total_revenue
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      products.id: "NOT NULL",
+      order_items_products_fields.mens_units: ">=5",
+      order_items_products_fields.womens_units: ">=5"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 15
+  }
+
   query: top_profit_angel_customers {
     description: "Top 15 multi-item customers (3+ items bought) ranked by blended gross profit margin and net dollar profit."
     dimensions: [

@@ -19,6 +19,7 @@ include: "/silver/user_order_facts_users_fields.view.lkml"
 include: "/silver/user_spend_trajectory_facts.view.lkml"
 include: "/silver/user_click_facts.view.lkml"
 include: "/silver/user_click_facts_user_spend_facts_users_fields.view.lkml"
+include: "/silver/events_users_fields.view.lkml"
 
 explore: users {
   extends: [users_base]
@@ -54,6 +55,12 @@ explore: users {
     type: left_outer
     relationship: one_to_many
     sql_on: ${users.id} = ${events.user_id} ;;
+  }
+
+  join: events_users_fields {
+    view_label: "Events"
+    sql: ;;
+    relationship: one_to_one
   }
 
   join: events_order_items_fields {
@@ -112,6 +119,68 @@ explore: users {
     view_label: "Customer Order Facts"
     sql: ;;
     relationship: one_to_one
+  }
+
+  query: customers_by_email_handle_persona {
+    description: "Registered customer count, average customer age, items purchased, and total gross spend across Email Provider and Handle Numerology Personas."
+    dimensions: [users.email_handle_persona]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      order_items.count,
+      order_items.total_revenue
+    ]
+    sorts: [users.email_handle_persona: asc]
+  }
+
+  query: email_domain_activity_and_revenue {
+    description: "Top 15 customer email provider domains ranked by total gross revenue alongside registered users and unique browsing sessions."
+    dimensions: [users.email_domain]
+    measures: [
+      users.count,
+      events.unique_chaotic_sessions,
+      order_items.total_revenue
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 15
+  }
+
+  query: users_by_country_and_traffic_source {
+    description: "Top 15 customer country and acquisition traffic source combinations ranked by registered user count alongside average customer age."
+    dimensions: [users.country, users.traffic_source]
+    measures: [users.count, users.avg_customer_age]
+    sorts: [users.count: desc]
+    limit: 15
+  }
+
+  query: customers_by_channel_attribution_persona {
+    description: "Active clicking customer count and average distinct clickstream channels touched across Channel Chameleon versus Single-Source Purist personas."
+    dimensions: [user_click_facts.channel_attribution_persona]
+    measures: [
+      users.count,
+      user_click_facts.avg_channels_touched
+    ]
+    filters: [user_click_facts.total_clicks: ">0"]
+    sorts: [user_click_facts.channel_attribution_persona: asc]
+  }
+
+  query: buyers_by_department_allegiance_and_gender {
+    description: "Paying buyer count, average customer age, total items bought, and total gross revenue broken down by Department Loyalist versus Cross-Department Switch-Hitter allegiance and profile gender."
+    dimensions: [
+      user_spend_facts.department_allegiance,
+      users.gender
+    ]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      user_spend_facts.total_items_bought,
+      user_spend_facts.total_lifetime_spend
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [
+      user_spend_facts.department_allegiance: asc,
+      users.gender: asc
+    ]
   }
 
   query: customers_by_activation_velocity_persona {
