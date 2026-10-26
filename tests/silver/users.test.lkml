@@ -289,3 +289,31 @@ test: users_department_allegiance_invariants {
     expression: round(${events_order_items_fields.total_event_weighted_revenue}, 2) >= round(${user_spend_facts.total_lifetime_spend}, 2) ;;
   }
 }
+
+test: users_2024_01_01_warehouse_proximity_metrics {
+  explore_source: users {
+    column: warehouse_proximity_tier { field: user_warehouse_proximity_facts.warehouse_proximity_tier }
+    column: count { field: users.count }
+    column: avg_nearest_dc_km { field: user_warehouse_proximity_facts.avg_nearest_dc_km }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    sorts: [user_warehouse_proximity_facts.warehouse_proximity_tier: asc]
+  }
+  assert: forklift_neighbor_tier_label_matches {
+    expression: index(${user_warehouse_proximity_facts.warehouse_proximity_tier}, 1) = "Forklift Earshot Neighbor (<100 km to Warehouse)" ;;
+  }
+  assert: forklift_neighbor_count_matches {
+    expression: index(${users.count}, 1) = 1 ;;
+  }
+  assert: forklift_neighbor_avg_km_matches {
+    expression: round(index(${user_warehouse_proximity_facts.avg_nearest_dc_km}, 1), 1) = 92.9 ;;
+  }
+  assert: transoceanic_expedition_count_matches {
+    expression: index(${users.count}, 4) = 29 ;;
+  }
+  assert: transoceanic_expedition_avg_km_matches {
+    expression: round(index(${user_warehouse_proximity_facts.avg_nearest_dc_km}, 4), 1) = 8380.8 ;;
+  }
+}

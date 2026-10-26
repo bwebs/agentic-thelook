@@ -704,6 +704,51 @@
     "model": "agentic_thelook",
     "name": "events_refinement_metrics"
   },
+  "agentic_thelook.inventory_items_2024_01_01_products_join_metrics": {
+    "assert": {
+      "distinct_categories_matches": {
+        "expression": "${products.distinct_categories} = 25"
+      },
+      "intake_unit_count_matches": {
+        "expression": "${inventory_items.count} = 186"
+      },
+      "sold_plus_unsold_equals_total_units": {
+        "expression": "${inventory_items.sold_units} + ${inventory_items.unsold_units} = ${inventory_items.count}"
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "count": {
+            "field": "inventory_items.count"
+          },
+          "distinct_categories": {
+            "field": "products.distinct_categories"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          },
+          "unsold_units": {
+            "field": "inventory_items.unsold_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.created_date": "2024-01-01",
+          "products.id": "NOT NULL",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/inventory_items.test.lkml",
+    "line": 32,
+    "model": "agentic_thelook",
+    "name": "inventory_items_2024_01_01_products_join_metrics"
+  },
   "agentic_thelook.inventory_items_2024_01_01_turnover_metrics": {
     "assert": {
       "avg_days_on_shelf_matches": {
@@ -1140,6 +1185,59 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_dc_1_join_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_geospatial_haul_metrics": {
+    "assert": {
+      "local_regional_hop_count_matches": {
+        "expression": "index(${order_items.count}, 1) = 2"
+      },
+      "local_regional_hop_distance_matches": {
+        "expression": "round(index(${distribution_centers_order_items_users_fields.avg_shipment_distance_km}, 1), 1) = 761.9"
+      },
+      "local_regional_hop_lat_span_matches": {
+        "expression": "round(index(${distribution_centers_order_items_users_fields.avg_lat_degrees_crossed}, 1), 2) = 2.40"
+      },
+      "local_regional_hop_row_matches": {
+        "expression": "index(${distribution_centers_order_items_users_fields.geospatial_haul_classification}, 1) = \"Local Regional Hop (<5 deg Lat & <10 deg Lon)\""
+      },
+      "trans_oceanic_expedition_count_matches": {
+        "expression": "index(${order_items.count}, 3) = 45"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_lat_degrees_crossed": {
+            "field": "distribution_centers_order_items_users_fields.avg_lat_degrees_crossed"
+          },
+          "avg_shipment_distance_km": {
+            "field": "distribution_centers_order_items_users_fields.avg_shipment_distance_km"
+          },
+          "count": {
+            "field": "order_items.count"
+          },
+          "geospatial_haul_classification": {
+            "field": "distribution_centers_order_items_users_fields.geospatial_haul_classification"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "NOT NULL",
+          "inventory_items.id": "NOT NULL",
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters",
+          "users.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 241,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_geospatial_haul_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_high_roller_single_item_metrics": {
     "assert": {
       "high_roller_avg_item_price_matches": {
@@ -1356,6 +1454,53 @@
     "line": 65,
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_thermal_chill_metrics"
+  },
+  "agentic_thelook.order_items_2024_01_01_trade_corridor_metrics": {
+    "assert": {
+      "domestic_short_haul_count_matches": {
+        "expression": "index(${order_items.count}, 1) = 2"
+      },
+      "domestic_short_haul_label_matches": {
+        "expression": "index(${distribution_centers_order_items_users_fields.trade_corridor_regime}, 1) = \"Domestic Short-Haul Trucking Corridor (<800 km US)\""
+      },
+      "transpacific_corridor_count_matches": {
+        "expression": "index(${order_items.count}, 4) = 22"
+      },
+      "transpacific_corridor_distance_matches": {
+        "expression": "round(index(${distribution_centers_order_items_users_fields.avg_shipment_distance_km}, 4), 1) = 11894.4"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_shipment_distance_km": {
+            "field": "distribution_centers_order_items_users_fields.avg_shipment_distance_km"
+          },
+          "count": {
+            "field": "order_items.count"
+          },
+          "trade_corridor_regime": {
+            "field": "distribution_centers_order_items_users_fields.trade_corridor_regime"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "NOT NULL",
+          "inventory_items.id": "NOT NULL",
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters",
+          "users.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 282,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_trade_corridor_metrics"
   },
   "agentic_thelook.order_items_2024_01_complete_gross_profit": {
     "assert": {
@@ -2357,6 +2502,68 @@
     "model": "agentic_thelook",
     "name": "products_id_le_5000_brand_prestige_invariants"
   },
+  "agentic_thelook.products_jeans_outliers_and_inventory_invariants": {
+    "assert": {
+      "jeans_sku_count_positive": {
+        "expression": "${products.count} >= 1000"
+      },
+      "jeans_warehouses_matches": {
+        "expression": "${distribution_centers.count} = 10"
+      },
+      "jeans_z_score_mean_is_zero": {
+        "expression": "round(${category_sku_price_facts.avg_category_price_z_score}, 4) = 0"
+      },
+      "sold_units_positive": {
+        "expression": "${product_inventory_facts.total_sold_units} >= 1"
+      },
+      "unsold_capital_non_negative": {
+        "expression": "${product_inventory_facts.total_unsold_capital_value} >= 0"
+      },
+      "unsold_units_non_negative": {
+        "expression": "${product_inventory_facts.total_unsold_available_units} >= 0"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "avg_category_price_z_score": {
+            "field": "category_sku_price_facts.avg_category_price_z_score"
+          },
+          "sku_count": {
+            "field": "products.count"
+          },
+          "total_sold_units": {
+            "field": "product_inventory_facts.total_sold_units"
+          },
+          "total_unsold_available_units": {
+            "field": "product_inventory_facts.total_unsold_available_units"
+          },
+          "total_unsold_capital_value": {
+            "field": "product_inventory_facts.total_unsold_capital_value"
+          },
+          "warehouse_count": {
+            "field": "distribution_centers.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "category_sku_price_facts.category_price_outlier_term": "-EMPTY",
+          "distribution_centers.id": "NOT NULL",
+          "product_inventory_facts.replenishment_urgency_tier": "-EMPTY",
+          "products.category": "Jeans",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/products.test.lkml",
+    "line": 102,
+    "model": "agentic_thelook",
+    "name": "products_jeans_outliers_and_inventory_invariants"
+  },
   "agentic_thelook.products_refinement_metrics": {
     "assert": {
       "avg_dollar_markup_matches": {
@@ -2510,6 +2717,62 @@
     "line": 163,
     "model": "agentic_thelook",
     "name": "users_2024_01_01_age_and_region_metrics"
+  },
+  "agentic_thelook.users_2024_01_01_geographic_reach_metrics": {
+    "assert": {
+      "avg_resident_age_max_bound": {
+        "expression": "${users.avg_resident_age} <= 90"
+      },
+      "avg_resident_age_min_bound": {
+        "expression": "${users.avg_resident_age} >= 12"
+      },
+      "distinct_cities_matches": {
+        "expression": "${users.distinct_cities} = 37"
+      },
+      "distinct_postal_codes_matches": {
+        "expression": "${users.distinct_postal_codes} = 38"
+      },
+      "distinct_states_matches": {
+        "expression": "${users.distinct_states} = 32"
+      },
+      "user_count_matches": {
+        "expression": "${users.count} = 38"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_resident_age": {
+            "field": "users.avg_resident_age"
+          },
+          "count": {
+            "field": "users.count"
+          },
+          "distinct_cities": {
+            "field": "users.distinct_cities"
+          },
+          "distinct_postal_codes": {
+            "field": "users.distinct_postal_codes"
+          },
+          "distinct_states": {
+            "field": "users.distinct_states"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 255,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_geographic_reach_metrics"
   },
   "agentic_thelook.users_2024_01_01_ghost_account_metrics": {
     "assert": {
@@ -2821,6 +3084,53 @@
     "line": 91,
     "model": "agentic_thelook",
     "name": "users_2024_01_01_thoroughfare_tier_metrics"
+  },
+  "agentic_thelook.users_2024_01_01_warehouse_proximity_metrics": {
+    "assert": {
+      "forklift_neighbor_avg_km_matches": {
+        "expression": "round(index(${user_warehouse_proximity_facts.avg_nearest_dc_km}, 1), 1) = 92.9"
+      },
+      "forklift_neighbor_count_matches": {
+        "expression": "index(${users.count}, 1) = 1"
+      },
+      "forklift_neighbor_tier_label_matches": {
+        "expression": "index(${user_warehouse_proximity_facts.warehouse_proximity_tier}, 1) = \"Forklift Earshot Neighbor (<100 km to Warehouse)\""
+      },
+      "transoceanic_expedition_avg_km_matches": {
+        "expression": "round(index(${user_warehouse_proximity_facts.avg_nearest_dc_km}, 4), 1) = 8380.8"
+      },
+      "transoceanic_expedition_count_matches": {
+        "expression": "index(${users.count}, 4) = 29"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_nearest_dc_km": {
+            "field": "user_warehouse_proximity_facts.avg_nearest_dc_km"
+          },
+          "count": {
+            "field": "users.count"
+          },
+          "warehouse_proximity_tier": {
+            "field": "user_warehouse_proximity_facts.warehouse_proximity_tier"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 293,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_warehouse_proximity_metrics"
   },
   "agentic_thelook.users_2024_01_01_young_customers_metrics": {
     "assert": {

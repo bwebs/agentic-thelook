@@ -209,14 +209,34 @@
     "label": "Average Customer Wisdom Level",
     "view_label": "Users"
   },
+  "agentic_thelook.events.users.avg_resident_age": {
+    "explore_label": "Events",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
   "agentic_thelook.events.users.count": {
     "explore_label": "Events",
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.events.users.distinct_cities": {
+    "explore_label": "Events",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
   "agentic_thelook.events.users.distinct_countries": {
     "explore_label": "Events",
     "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.events.users.distinct_postal_codes": {
+    "explore_label": "Events",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.events.users.distinct_states": {
+    "explore_label": "Events",
+    "label": "Distinct States or Provinces",
     "view_label": "Users"
   },
   "agentic_thelook.events.users.oldest_shopper_age": {
@@ -284,6 +304,46 @@
     "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.inventory_items.products.avg_dollar_markup": {
+    "explore_label": "Inventory Items",
+    "label": "Average Dollar Markup",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.avg_sticker_price": {
+    "explore_label": "Inventory Items",
+    "label": "Average Sticker Shock",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.avg_wholesale_cost": {
+    "explore_label": "Inventory Items",
+    "label": "Average Wholesale Cost",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.count": {
+    "explore_label": "Inventory Items",
+    "label": "Count",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.distinct_brands": {
+    "explore_label": "Inventory Items",
+    "label": "Distinct Brands",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.distinct_categories": {
+    "explore_label": "Inventory Items",
+    "label": "Distinct Categories",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.max_retail_price": {
+    "explore_label": "Inventory Items",
+    "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.min_retail_price": {
+    "explore_label": "Inventory Items",
+    "label": "Minimum Retail Price",
+    "view_label": "Products"
+  },
   "agentic_thelook.logistics_network_nodes.logistics_network_nodes.count": {
     "explore_label": "Logistics Network Nodes",
     "label": "Network Node Count",
@@ -298,6 +358,16 @@
     "explore_label": "Order Items",
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.avg_lat_degrees_crossed": {
+    "explore_label": "Order Items",
+    "label": "Average Latitude Degrees Crossed",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.avg_shipment_distance_km": {
+    "explore_label": "Order Items",
+    "label": "Average Shipment Distance (km)",
+    "view_label": "Order Items"
   },
   "agentic_thelook.order_items.inventory_items.avg_days_on_shelf": {
     "explore_label": "Order Items",
@@ -614,14 +684,34 @@
     "label": "Average Customer Wisdom Level",
     "view_label": "Users"
   },
+  "agentic_thelook.order_items.users.avg_resident_age": {
+    "explore_label": "Order Items",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
   "agentic_thelook.order_items.users.count": {
     "explore_label": "Order Items",
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.order_items.users.distinct_cities": {
+    "explore_label": "Order Items",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
   "agentic_thelook.order_items.users.distinct_countries": {
     "explore_label": "Order Items",
     "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.distinct_postal_codes": {
+    "explore_label": "Order Items",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items.users.distinct_states": {
+    "explore_label": "Order Items",
+    "label": "Distinct States or Provinces",
     "view_label": "Users"
   },
   "agentic_thelook.order_items.users.oldest_shopper_age": {
@@ -703,6 +793,21 @@
     "explore_label": "Orders",
     "label": "Total Items in Orders",
     "view_label": "Orders"
+  },
+  "agentic_thelook.products.category_sku_price_facts.avg_category_price_z_score": {
+    "explore_label": "Products",
+    "label": "Average Category Price Z-Score",
+    "view_label": "Category Price Outlier Facts"
+  },
+  "agentic_thelook.products.distribution_centers.count": {
+    "explore_label": "Products",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.products.distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Products",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Distribution Centers"
   },
   "agentic_thelook.products.order_items.avg_hours_to_deliver": {
     "explore_label": "Products",
@@ -793,6 +898,21 @@
     "explore_label": "Products",
     "label": "Average Activity-Weighted Retail Price",
     "view_label": "Products"
+  },
+  "agentic_thelook.products.product_inventory_facts.total_sold_units": {
+    "explore_label": "Products",
+    "label": "Total Catalog Sold Inventory Units",
+    "view_label": "Product Inventory & Replenishment Facts"
+  },
+  "agentic_thelook.products.product_inventory_facts.total_unsold_available_units": {
+    "explore_label": "Products",
+    "label": "Total Catalog Unsold Units",
+    "view_label": "Product Inventory & Replenishment Facts"
+  },
+  "agentic_thelook.products.product_inventory_facts.total_unsold_capital_value": {
+    "explore_label": "Products",
+    "label": "Total Unsold Capital Value",
+    "view_label": "Product Inventory & Replenishment Facts"
   },
   "agentic_thelook.products.product_sales_facts.total_sku_profit": {
     "explore_label": "Products",
@@ -1209,6 +1329,11 @@
     "label": "Average Latest Order Spend",
     "view_label": "Customer Spend Trajectory Facts"
   },
+  "agentic_thelook.users.user_warehouse_proximity_facts.avg_nearest_dc_km": {
+    "explore_label": "Users",
+    "label": "Average Distance to Nearest Warehouse (km)",
+    "view_label": "Customer Warehouse Proximity Facts"
+  },
   "agentic_thelook.users.users.avg_abs_latitude": {
     "explore_label": "Users",
     "label": "Average Absolute Customer Latitude",
@@ -1219,14 +1344,34 @@
     "label": "Average Customer Wisdom Level",
     "view_label": "Users"
   },
+  "agentic_thelook.users.users.avg_resident_age": {
+    "explore_label": "Users",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.users.count": {
     "explore_label": "Users",
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.users.users.distinct_cities": {
+    "explore_label": "Users",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.users.distinct_countries": {
     "explore_label": "Users",
     "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.users.distinct_postal_codes": {
+    "explore_label": "Users",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.users.distinct_states": {
+    "explore_label": "Users",
+    "label": "Distinct States or Provinces",
     "view_label": "Users"
   },
   "agentic_thelook.users.users.oldest_shopper_age": {
@@ -1639,6 +1784,11 @@
     "label": "Average Latest Order Spend",
     "view_label": "Customer Spend Trajectory Facts"
   },
+  "agentic_thelook.users_signup_activation.user_warehouse_proximity_facts.avg_nearest_dc_km": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Distance to Nearest Warehouse (km)",
+    "view_label": "Customer Warehouse Proximity Facts"
+  },
   "agentic_thelook.users_signup_activation.users.avg_abs_latitude": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Absolute Customer Latitude",
@@ -1649,14 +1799,34 @@
     "label": "Average Customer Wisdom Level",
     "view_label": "Users"
   },
+  "agentic_thelook.users_signup_activation.users.avg_resident_age": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_signup_activation.users.count": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.users_signup_activation.users.distinct_cities": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_signup_activation.users.distinct_countries": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.distinct_postal_codes": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.distinct_states": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct States or Provinces",
     "view_label": "Users"
   },
   "agentic_thelook.users_signup_activation.users.oldest_shopper_age": {
@@ -2149,6 +2319,11 @@
     "label": "Average Latest Order Spend",
     "view_label": "Customer Spend Trajectory Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_warehouse_proximity_facts.avg_nearest_dc_km": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Distance to Nearest Warehouse (km)",
+    "view_label": "Customer Warehouse Proximity Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.users.avg_abs_latitude": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Absolute Customer Latitude",
@@ -2159,14 +2334,34 @@
     "label": "Average Customer Wisdom Level",
     "view_label": "Users"
   },
+  "agentic_thelook.users_state_channel_traffic.users.avg_resident_age": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_state_channel_traffic.users.count": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.users_state_channel_traffic.users.distinct_cities": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_state_channel_traffic.users.distinct_countries": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.users.distinct_postal_codes": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.users.distinct_states": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct States or Provinces",
     "view_label": "Users"
   },
   "agentic_thelook.users_state_channel_traffic.users.oldest_shopper_age": {

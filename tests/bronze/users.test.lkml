@@ -251,3 +251,35 @@ test: users_email_persona_and_us_state_2024_01_01 {
       AND index(${users.us_registered_users}, 2) = 1 ;;
   }
 }
+
+test: users_2024_01_01_geographic_reach_metrics {
+  explore_source: users {
+    column: distinct_states { field: users.distinct_states }
+    column: distinct_cities { field: users.distinct_cities }
+    column: distinct_postal_codes { field: users.distinct_postal_codes }
+    column: avg_resident_age { field: users.avg_resident_age }
+    column: count { field: users.count }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: distinct_states_matches {
+    expression: ${users.distinct_states} = 32 ;;
+  }
+  assert: distinct_cities_matches {
+    expression: ${users.distinct_cities} = 37 ;;
+  }
+  assert: distinct_postal_codes_matches {
+    expression: ${users.distinct_postal_codes} = 38 ;;
+  }
+  assert: user_count_matches {
+    expression: ${users.count} = 38 ;;
+  }
+  assert: avg_resident_age_min_bound {
+    expression: ${users.avg_resident_age} >= 12 ;;
+  }
+  assert: avg_resident_age_max_bound {
+    expression: ${users.avg_resident_age} <= 90 ;;
+  }
+}

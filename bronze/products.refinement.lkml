@@ -1,6 +1,10 @@
 include: "products.view.lkml"
 
 view: +products {
+  dimension: distribution_center_id {
+    tags: ["foreign_key"]
+  }
+
   dimension: dollar_markup {
     label: "Dollar Markup"
     description: "Unit retail sticker price minus unit wholesale cost (retail_price - cost)."
