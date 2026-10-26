@@ -83,6 +83,18 @@ view: +users {
     END ;;
   }
 
+  dimension: postal_code_parity {
+    label: "Zip Code Numeric Parity Tribe"
+    description: "Zip Code Numeric Parity Tribe divides customers into 'Even-Zip Aristocrat', 'Odd-Zip Rebel', and 'Alphanumeric International Postcode' based on whether their postal code is an even number, an odd number, or contains letters or non-digits. Growth analysts use even-versus-odd postal codes as a simple geographic holdout split when testing regional marketing campaigns."
+    synonyms: ["zip code numeric parity tribe", "zip parity tribe", "postal code numeric parity", "even odd zip holdout"]
+    type: string
+    sql: CASE
+      WHEN REGEXP_CONTAINS(${postal_code}, r'^[0-9]+$') AND MOD(SAFE_CAST(${postal_code} AS INT64), 2) = 0 THEN 'Even-Zip Aristocrat'
+      WHEN REGEXP_CONTAINS(${postal_code}, r'^[0-9]+$') AND MOD(SAFE_CAST(${postal_code} AS INT64), 2) = 1 THEN 'Odd-Zip Rebel'
+      ELSE 'Alphanumeric International Postcode'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
@@ -118,5 +130,14 @@ view: +users {
     type: average
     sql: ${abs_latitude} ;;
     value_format_name: decimal_2
+  }
+
+  measure: distinct_countries {
+    label: "Distinct Countries"
+    description: "Count of distinct countries represented across registered shopper accounts."
+    synonyms: ["countries represented", "country count", "unique countries"]
+    type: count_distinct
+    sql: ${country} ;;
+    tags: ["non_additive"]
   }
 }

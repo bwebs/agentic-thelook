@@ -137,3 +137,25 @@ test: users_2024_01_01_hemisphere_belt_metrics {
     expression: index(${users.hemisphere_belt}, 7) = "4. Southern Hemisphere Down-Under (<-23.5S)" AND index(${users.longitude_sector}, 7) = "Americas West" AND index(${users.count}, 7) = 2 AND index(${users.longitude_sector}, 8) = "Asia/Oceania East" AND index(${users.count}, 8) = 2 ;;
   }
 }
+
+test: users_2024_01_01_postal_code_parity_metrics {
+  explore_source: users {
+    column: postal_code_parity { field: users.postal_code_parity }
+    column: count { field: users.count }
+    column: distinct_countries { field: users.distinct_countries }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    sorts: [users.postal_code_parity: asc]
+  }
+  assert: alphanumeric_postcode_metrics_match {
+    expression: index(${users.postal_code_parity}, 1) = "Alphanumeric International Postcode" AND index(${users.count}, 1) = 11 AND index(${users.distinct_countries}, 1) = 3 ;;
+  }
+  assert: even_zip_aristocrat_metrics_match {
+    expression: index(${users.postal_code_parity}, 2) = "Even-Zip Aristocrat" AND index(${users.count}, 2) = 14 AND index(${users.distinct_countries}, 2) = 5 ;;
+  }
+  assert: odd_zip_rebel_metrics_match {
+    expression: index(${users.postal_code_parity}, 3) = "Odd-Zip Rebel" AND index(${users.count}, 3) = 13 AND index(${users.distinct_countries}, 3) = 5 ;;
+  }
+}

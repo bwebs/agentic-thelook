@@ -374,6 +374,11 @@
     "label": "Count",
     "view_label": "Users"
   },
+  "agentic_thelook.order_items.users.distinct_countries": {
+    "explore_label": "Order Items",
+    "label": "Distinct Countries",
+    "view_label": "Users"
+  },
   "agentic_thelook.order_items.users.oldest_shopper_age": {
     "explore_label": "Order Items",
     "label": "Oldest Shopper Age",
@@ -637,6 +642,11 @@
   "agentic_thelook.users.users.count": {
     "explore_label": "Users",
     "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.users.distinct_countries": {
+    "explore_label": "Users",
+    "label": "Distinct Countries",
     "view_label": "Users"
   },
   "agentic_thelook.users.users.oldest_shopper_age": {
