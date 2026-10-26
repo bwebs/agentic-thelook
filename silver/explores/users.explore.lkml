@@ -5,13 +5,19 @@ include: "/bronze/orders.view.lkml"
 include: "/bronze/orders.refinement.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
+include: "/bronze/events.view.lkml"
+include: "/bronze/events.refinement.lkml"
 include: "/bronze/explores/users_base.explore.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
 include: "/silver/orders_users_fields.view.lkml"
+include: "/silver/events_order_items_fields.view.lkml"
 include: "/silver/user_cohort_facts.view.lkml"
 include: "/silver/order_items_user_cohort_facts_fields.view.lkml"
 include: "/silver/user_spend_facts.view.lkml"
 include: "/silver/user_order_facts.view.lkml"
+include: "/silver/user_spend_trajectory_facts.view.lkml"
+include: "/silver/user_click_facts.view.lkml"
+include: "/silver/user_click_facts_user_spend_facts_users_fields.view.lkml"
 
 explore: users {
   extends: [users_base]
@@ -43,6 +49,18 @@ explore: users {
     relationship: one_to_one
   }
 
+  join: events {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${users.id} = ${events.user_id} ;;
+  }
+
+  join: events_order_items_fields {
+    view_label: "Users"
+    sql: ;;
+    relationship: one_to_one
+  }
+
   join: user_cohort_facts {
     type: left_outer
     relationship: many_to_one
@@ -67,6 +85,76 @@ explore: users {
     type: left_outer
     relationship: one_to_one
     sql_on: ${users.id} = ${user_order_facts.user_id} ;;
+  }
+
+  join: user_spend_trajectory_facts {
+    view_label: "Customer Spend Trajectory Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_spend_trajectory_facts.user_id} AND ${user_spend_trajectory_facts.order_recency_rank} = 1 ;;
+  }
+
+  join: user_click_facts {
+    view_label: "Customer Clickstream Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_click_facts.user_id} ;;
+  }
+
+  join: user_click_facts_user_spend_facts_users_fields {
+    view_label: "Users"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: repeat_customers_by_spend_trajectory {
+    description: "Repeat customer count, average first order spend, and average latest order spend across Customer Spend Trajectory Personas."
+    dimensions: [user_spend_trajectory_facts.spend_trajectory_persona]
+    measures: [
+      users.count,
+      user_spend_trajectory_facts.avg_first_order_spend,
+      user_spend_trajectory_facts.avg_latest_order_spend
+    ]
+    filters: [user_spend_trajectory_facts.user_order_count: ">=2"]
+    sorts: [user_spend_trajectory_facts.spend_trajectory_persona: asc]
+  }
+
+  query: customers_by_clickstream_intent_persona {
+    description: "Registered customer count, average customer age, average lifetime clicks, and average lifetime items bought across Clickstream Tease versus Sniping Assassin personas."
+    dimensions: [user_click_facts_user_spend_facts_users_fields.clickstream_intent_persona]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      user_click_facts_user_spend_facts_users_fields.avg_user_clicks,
+      user_click_facts_user_spend_facts_users_fields.avg_user_items_bought
+    ]
+    sorts: [user_click_facts_user_spend_facts_users_fields.clickstream_intent_persona: asc]
+  }
+
+  query: high_click_shoppers_clicks_per_item {
+    description: "Top 15 high-click customers (25+ lifetime clicks) ranked by clicks per item bought and total clicks."
+    dimensions: [
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      events.count,
+      events.unique_chaotic_sessions,
+      order_items.count,
+      events_order_items_fields.clicks_per_item_bought
+    ]
+    filters: [
+      events.id: "NOT NULL",
+      events.count: ">=25"
+    ]
+    sorts: [
+      events_order_items_fields.clicks_per_item_bought: desc,
+      events.count: desc
+    ]
+    limit: 15
   }
 
   query: country_per_capita_fashion_spend {

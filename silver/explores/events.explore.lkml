@@ -107,4 +107,26 @@ explore: events {
     sorts: [events.count: desc]
     limit: 15
   }
+
+  query: sessions_by_funnel_archetype {
+    description: "Browsing session volume and average clickstream events per session across Clickstream Cart-Abandoner versus Decisive Closer Session Archetypes."
+    dimensions: [browsing_session_facts.session_funnel_archetype]
+    measures: [
+      browsing_session_facts.count,
+      browsing_session_facts.avg_events_per_session
+    ]
+    sorts: [browsing_session_facts.session_funnel_archetype: asc]
+  }
+
+  query: funnel_sessions_by_browser_and_traffic_source {
+    description: "Top 15 browser and traffic source combinations ranked by completed purchase sessions alongside silent cart abandon sessions and explicit cancel sessions."
+    dimensions: [events.browser, events.traffic_source]
+    measures: [
+      browsing_session_facts.silent_cart_abandon_sessions,
+      browsing_session_facts.explicit_cancel_sessions,
+      browsing_session_facts.converted_sessions
+    ]
+    sorts: [browsing_session_facts.converted_sessions: desc]
+    limit: 15
+  }
 }

@@ -71,3 +71,13 @@ test: products_id_le_1000_margin_and_anatomy_metrics {
     expression: index(${products.gross_margin_tier}, 4) = "Commodity Margin Grinder (<$40 profit & <55% margin)" AND index(${products.count}, 4) = 797 AND index(${products.distinct_categories}, 4) = 2 AND round(index(${products.min_retail_price}, 4), 2) = 3.11 AND round(index(${products.max_retail_price}, 4), 2) = 92 ;;
   }
 }
+
+test: products_id_le_1000_distinct_brands {
+  explore_source: products {
+    column: distinct_brands { field: products.distinct_brands }
+    filters: [products.id: "<=1000"]
+  }
+  assert: distinct_brands_matches {
+    expression: ${products.distinct_brands} = 258 ;;
+  }
+}

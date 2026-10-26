@@ -103,6 +103,30 @@ view: +events {
     filters: [event_type: "cart"]
   }
 
+  measure: home_events {
+    label: "Home Page Events"
+    description: "Number of clickstream events landing on the storefront home page (event_type = 'home')."
+    synonyms: ["home hits", "home events"]
+    type: count
+    filters: [event_type: "home"]
+  }
+
+  measure: department_events {
+    label: "Department Page Events"
+    description: "Number of clickstream events viewing a department browse page (event_type = 'department')."
+    synonyms: ["dept hits", "department events"]
+    type: count
+    filters: [event_type: "department"]
+  }
+
+  measure: product_events {
+    label: "Product Page Events"
+    description: "Number of clickstream events viewing an individual product detail page (event_type = 'product')."
+    synonyms: ["prod hits", "product events"]
+    type: count
+    filters: [event_type: "product"]
+  }
+
   measure: purchase_events {
     label: "Purchase Events"
     description: "Number of completed checkout clickstream events (event_type = 'purchase')."

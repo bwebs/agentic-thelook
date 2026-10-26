@@ -143,3 +143,42 @@ test: users_id_le_1000_loyalty_tier_invariants {
     expression: index(${user_order_facts.customer_loyalty_tier}, 3) = "Repeat Double-Dipper (2 Orders)" AND index(${orders.count}, 3) = 2 * index(${users.count}, 3) AND index(${user_order_facts.customer_loyalty_tier}, 4) = "Cult Die-Hard Regular (3+ Orders)" AND index(${orders.count}, 4) >= 3 * index(${users.count}, 4) ;;
   }
 }
+
+test: users_id_le_5000_spend_trajectory_invariants {
+  explore_source: users {
+    column: repeat_customers { field: users.count }
+    column: avg_first_order_spend { field: user_spend_trajectory_facts.avg_first_order_spend }
+    column: avg_latest_order_spend { field: user_spend_trajectory_facts.avg_latest_order_spend }
+    filters: [
+      users.id: "<=5000",
+      user_spend_trajectory_facts.spend_trajectory_persona: "Big-Spender Escalator (Latest >= 1.25x First Order)"
+    ]
+  }
+  assert: escalator_spend_trajectory_holds {
+    expression: ${users.count} > 0
+      AND ${user_spend_trajectory_facts.avg_latest_order_spend} >= 1.25 * ${user_spend_trajectory_facts.avg_first_order_spend} ;;
+  }
+}
+
+test: users_id_le_5000_clickstream_intent_and_ratio_invariants {
+  explore_source: users {
+    column: clickstream_intent_persona { field: user_click_facts_user_spend_facts_users_fields.clickstream_intent_persona }
+    column: users_count { field: users.count }
+    column: avg_user_clicks { field: user_click_facts_user_spend_facts_users_fields.avg_user_clicks }
+    column: avg_user_items_bought { field: user_click_facts_user_spend_facts_users_fields.avg_user_items_bought }
+    column: total_clicks { field: events.count }
+    column: items_bought { field: order_items.count }
+    column: clicks_per_item_bought { field: events_order_items_fields.clicks_per_item_bought }
+    filters: [users.id: "<=5000"]
+  }
+  assert: clickstream_intent_personas_and_ratios_hold {
+    expression: NOT is_null(${user_click_facts_user_spend_facts_users_fields.clickstream_intent_persona})
+      AND ${users.count} > 0
+      AND ${user_click_facts_user_spend_facts_users_fields.avg_user_clicks} >= 0
+      AND ${user_click_facts_user_spend_facts_users_fields.avg_user_items_bought} >= 0
+      AND (
+        ${order_items.count} = 0
+        OR round(${events_order_items_fields.clicks_per_item_bought}, 4) = round(1.0 * ${events.count} / ${order_items.count}, 4)
+      ) ;;
+  }
+}

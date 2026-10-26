@@ -1,4 +1,4 @@
-include: "../../bronze/explores/distribution_centers.explore.lkml"
+include: "../../silver/explores/distribution_centers.explore.lkml"
 
 test: distribution_centers_refinement_metrics {
   explore_source: distribution_centers {

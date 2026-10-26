@@ -40,3 +40,33 @@ test: products_id_le_1000_sku_velocity_invariants {
     expression: index(${product_sales_facts.sku_velocity_tier}, 3) = "Lonely Single-Sale SKU (1 Unit Sold)" AND index(${order_items.count}, 3) = index(${products.count}, 3) AND index(${product_sales_facts.sku_velocity_tier}, 4) = "Unloved Zero-Sale Wallflower (0 Sold)" AND index(${order_items.count}, 4) = 0 AND index(${order_items.total_revenue}, 4) = 0 ;;
   }
 }
+
+test: products_2024_01_01_activity_weighted_retail_price {
+  explore_source: products {
+    column: avg_activity_weighted_retail_price { field: order_items_products_fields.avg_activity_weighted_retail_price }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      products.id: "NOT NULL"
+    ]
+  }
+  assert: avg_activity_weighted_retail_price_matches {
+    expression: round(${order_items_products_fields.avg_activity_weighted_retail_price}, 2) = 54.47 ;;
+  }
+}
+
+test: products_id_le_5000_brand_prestige_invariants {
+  explore_source: products {
+    column: brand_prestige_tier { field: brand_facts.brand_prestige_tier }
+    column: distinct_brands { field: products.distinct_brands }
+    column: sku_count { field: products.count }
+    filters: [
+      products.id: "<=5000",
+      products.brand: "-NULL"
+    ]
+  }
+  assert: brand_prestige_tier_populated_and_bounded {
+    expression: NOT is_null(${brand_facts.brand_prestige_tier})
+      AND ${products.distinct_brands} > 0
+      AND ${products.count} >= ${products.distinct_brands} ;;
+  }
+}
