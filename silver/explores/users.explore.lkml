@@ -114,4 +114,17 @@ explore: users {
       order_items_users_fields.years_since_signup: asc
     ]
   }
+
+  query: young_customers {
+    description: "Young Customer defines any registered shopper under the age of 25, covering our teen and early-twenties audience. Youth marketing teams use this segment to target student discount codes, campus promos, and streetwear campaigns."
+    dimensions: [
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.age,
+      users.country
+    ]
+    filters: [users.is_young_customer: "yes"]
+    limit: 25
+  }
 }

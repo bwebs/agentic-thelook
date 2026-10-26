@@ -1349,6 +1349,54 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_per_capita_spend_metrics"
   },
+  "agentic_thelook.users_2024_01_01_young_customers_metrics": {
+    "assert": {
+      "avg_young_customer_age_matches": {
+        "expression": "round(${users.avg_customer_age}, 2) = 19.2"
+      },
+      "oldest_young_customer_under_25": {
+        "expression": "${users.oldest_shopper_age} = 24"
+      },
+      "young_customer_count_matches": {
+        "expression": "${users.count} = 5"
+      },
+      "youngest_young_customer_age_matches": {
+        "expression": "${users.youngest_shopper_age} = 12"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_customer_age": {
+            "field": "users.avg_customer_age"
+          },
+          "oldest_shopper_age": {
+            "field": "users.oldest_shopper_age"
+          },
+          "user_count": {
+            "field": "users.count"
+          },
+          "youngest_shopper_age": {
+            "field": "users.youngest_shopper_age"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01",
+          "users.is_young_customer": "yes"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 45,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_young_customers_metrics"
+  },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {
       "avg_customer_age_matches": {

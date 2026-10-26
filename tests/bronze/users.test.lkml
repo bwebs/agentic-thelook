@@ -41,3 +41,32 @@ test: users_2024_01_01_latitude_metrics {
     expression: round(${users.avg_abs_latitude}, 2) = 37.3 ;;
   }
 }
+
+test: users_2024_01_01_young_customers_metrics {
+  explore_source: users {
+    column: user_count { field: users.count }
+    column: avg_customer_age { field: users.avg_customer_age }
+    column: youngest_shopper_age { field: users.youngest_shopper_age }
+    column: oldest_shopper_age { field: users.oldest_shopper_age }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: users.is_young_customer
+      value: "yes"
+    }
+  }
+  assert: young_customer_count_matches {
+    expression: ${users.count} = 5 ;;
+  }
+  assert: avg_young_customer_age_matches {
+    expression: round(${users.avg_customer_age}, 2) = 19.2 ;;
+  }
+  assert: youngest_young_customer_age_matches {
+    expression: ${users.youngest_shopper_age} = 12 ;;
+  }
+  assert: oldest_young_customer_under_25 {
+    expression: ${users.oldest_shopper_age} = 24 ;;
+  }
+}
