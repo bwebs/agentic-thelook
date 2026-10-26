@@ -37,8 +37,13 @@ view: +users {
     END ;;
   }
 
+  dimension: age {
+    group_label: "Age"
+  }
+
   dimension: is_young_customer {
     label: "Young Customer"
+    group_label: "Age"
     description: "Young Customer defines any registered shopper under the age of 25, covering our teen and early-twenties audience. Youth marketing teams use this segment to target student discount codes, campus promos, and streetwear campaigns."
     synonyms: ["is young customer", "young customers", "under 25", "teen and early-twenties audience", "youth segment"]
     type: yesno
@@ -47,19 +52,29 @@ view: +users {
 
   dimension: age_bucket {
     label: "Generational Age Bucket"
-    description: "Generational Age Buckets group shoppers into four life-stage cohorts: '1. Teen & Gen-Z (<25)', '2. Millennial Hustler (25-39)', '3. Gen-X Boss (40-54)', and '4. Boomer & Golden Senior (55+)'. Marketing and merchandising teams use these groupings to compare conversion rates, return habits, and clothing preferences across generations."
+    group_label: "Age"
+    description: "Generational Age Buckets group shoppers into four life-stage cohorts: 'Teen & Gen-Z (<25)', 'Millennial Hustler (25-39)', 'Gen-X Boss (40-54)', and 'Boomer & Golden Senior (55+)'. Marketing and merchandising teams use these groupings to compare conversion rates, return habits, and clothing preferences across generations."
     synonyms: ["generational age buckets", "generational cohort", "life-stage cohort", "age generation"]
-    type: string
-    sql: CASE
-      WHEN ${age} < 25 THEN '1. Teen & Gen-Z (<25)'
-      WHEN ${age} BETWEEN 25 AND 39 THEN '2. Millennial Hustler (25-39)'
-      WHEN ${age} BETWEEN 40 AND 54 THEN '3. Gen-X Boss (40-54)'
-      ELSE '4. Boomer & Golden Senior (55+)'
-    END ;;
+    case: {
+      when: {
+        sql: ${age} < 25 ;;
+        label: "Teen & Gen-Z (<25)"
+      }
+      when: {
+        sql: ${age} BETWEEN 25 AND 39 ;;
+        label: "Millennial Hustler (25-39)"
+      }
+      when: {
+        sql: ${age} BETWEEN 40 AND 54 ;;
+        label: "Gen-X Boss (40-54)"
+      }
+      else: "Boomer & Golden Senior (55+)"
+    }
   }
 
   dimension: age_decade {
     label: "Age Decade"
+    group_label: "Age"
     description: "Ten-year age decade floor (e.g., 10, 20, 30) grouping shoppers into ten-year demographic brackets."
     synonyms: ["age decade floor", "ten-year age decade", "decade of age"]
     type: number
@@ -69,6 +84,7 @@ view: +users {
 
   dimension: age_decade_label {
     label: "Age Decade Label"
+    group_label: "Age"
     description: "Formatted ten-year age decade label (e.g., '20s Decade', '30s Decade') for generational cohort reporting."
     synonyms: ["decade label", "age decade cohort"]
     type: string
@@ -77,37 +93,62 @@ view: +users {
 
   dimension: global_macro_region {
     label: "Global Macro Region"
-    description: "Global Macro Regions roll individual countries up into broad commercial territories: '1. North America', '2. European Runway', '3. Asia-Pacific Tigers', '4. Latin America Fiesta', and '5. Rest of Galaxy'. Regional sales directors use these territory definitions to manage regional performance targets and localized shipping policies."
+    group_label: "Location"
+    description: "Global Macro Regions roll individual countries up into broad commercial territories: 'North America', 'European Runway', 'Asia-Pacific Tigers', 'Latin America Fiesta', and 'Rest of Galaxy'. Regional sales directors use these territory definitions to manage regional performance targets and localized shipping policies."
     synonyms: ["global macro regions", "commercial territory", "macro region", "international sales region"]
-    type: string
-    sql: CASE
-      WHEN ${country} IN ('United States') THEN '1. North America'
-      WHEN ${country} IN ('United Kingdom', 'France', 'Germany', 'Spain', 'Belgium', 'Poland') THEN '2. European Runway'
-      WHEN ${country} IN ('China', 'Japan', 'South Korea', 'Australia') THEN '3. Asia-Pacific Tigers'
-      WHEN ${country} IN ('Brasil', 'Colombia') THEN '4. Latin America Fiesta'
-      ELSE '5. Rest of Galaxy'
-    END ;;
+    case: {
+      when: {
+        sql: ${country} IN ('United States') ;;
+        label: "North America"
+      }
+      when: {
+        sql: ${country} IN ('United Kingdom', 'France', 'Germany', 'Spain', 'Belgium', 'Poland') ;;
+        label: "European Runway"
+      }
+      when: {
+        sql: ${country} IN ('China', 'Japan', 'South Korea', 'Australia') ;;
+        label: "Asia-Pacific Tigers"
+      }
+      when: {
+        sql: ${country} IN ('Brasil', 'Colombia') ;;
+        label: "Latin America Fiesta"
+      }
+      else: "Rest of Galaxy"
+    }
   }
 
   dimension: us_super_region {
     label: "US Super-Region"
-    description: "US Super-Regions roll domestic states up into four US commercial zones: 'US West Coast & Pacific', 'US Sunbelt & South', 'US Northeast Corridor', and 'US Heartland & Midwest' (filter country to 'United States' when analyzing domestic shoppers)."
+    group_label: "Location"
+    description: "US Super-Regions roll domestic United States addresses up into four commercial zones: 'US West Coast & Pacific', 'US Sunbelt & South', 'US Northeast Corridor', and 'US Heartland & Midwest' (returns NULL for shoppers outside the United States)."
     synonyms: ["us super-regions", "us super region", "us state region", "domestic sales zone"]
-    type: string
-    sql: CASE
-      WHEN ${state} IN ('California', 'Oregon', 'Washington', 'Nevada', 'Arizona', 'Hawaii', 'Alaska') THEN 'US West Coast & Pacific'
-      WHEN ${state} IN ('Texas', 'Florida', 'Georgia', 'North Carolina', 'Virginia', 'Tennessee', 'Louisiana', 'Alabama', 'South Carolina') THEN 'US Sunbelt & South'
-      WHEN ${state} IN ('New York', 'Pennsylvania', 'New Jersey', 'Massachusetts', 'Connecticut', 'Maryland') THEN 'US Northeast Corridor'
-      ELSE 'US Heartland & Midwest'
-    END ;;
+    case: {
+      when: {
+        sql: ${country} = 'United States' AND ${state} IN ('California', 'Oregon', 'Washington', 'Nevada', 'Arizona', 'Hawaii', 'Alaska') ;;
+        label: "US West Coast & Pacific"
+      }
+      when: {
+        sql: ${country} = 'United States' AND ${state} IN ('Texas', 'Florida', 'Georgia', 'North Carolina', 'Virginia', 'Tennessee', 'Louisiana', 'Alabama', 'South Carolina') ;;
+        label: "US Sunbelt & South"
+      }
+      when: {
+        sql: ${country} = 'United States' AND ${state} IN ('New York', 'Pennsylvania', 'New Jersey', 'Massachusetts', 'Connecticut', 'Maryland') ;;
+        label: "US Northeast Corridor"
+      }
+      when: {
+        sql: ${country} = 'United States' ;;
+        label: "US Heartland & Midwest"
+      }
+    }
   }
 
   dimension: postal_code_zone {
-    label: "Postal Code First-Digit Zone"
-    description: "Leading character of the shopper's postal code (first-digit ZIP zone for United States addresses) used for regional shipping and territory rollups."
+    label: "US Postal Code First-Digit Zone"
+    group_label: "Location"
+    description: "First-digit US ZIP code zone (0-9) for United States addresses used for regional shipping and territory rollups (returns NULL for shoppers outside the United States)."
     synonyms: ["zip first digit zone", "postal code prefix", "us zip zone"]
     type: string
-    sql: SUBSTR(${postal_code}, 1, 1) ;;
+    sql: CASE WHEN ${country} = 'United States' THEN SUBSTR(${postal_code}, 1, 1) END ;;
   }
 
   dimension: thoroughfare_tier {

@@ -26,17 +26,34 @@ view: +inventory_items {
     sql_end: ${sold_raw} ;;
   }
 
+  dimension_group: shelf_age {
+    label: "Shelf Age"
+    description: "Elapsed time an inventory unit has been on the warehouse shelf from intake creation until sale or the current timestamp if still unsold."
+    type: duration
+    intervals: [day, month, year]
+    sql_start: ${created_raw} ;;
+    sql_end: COALESCE(${sold_raw}, ${common_helpers.current_timestamp_raw}) ;;
+  }
+
   dimension: inventory_aging_tier {
     label: "Vintage Dead-Stock Museum Artifact Tier"
-    description: "Vintage Dead-Stock Museum Artifact classifies warehouse inventory units by how long they have sat on the shelf: '1. Fresh Off the Truck (<90 Days)', '2. Seasoned Shelf Stock (90-365 Days)', '3. Clearance Rack Veteran (1-3 Years)', and '4. Museum Piece Fossil (3+ Years on Shelf)'. Inventory liquidators use this aging tier to bundle multi-year-old stock into deep-discount clearance sales."
+    description: "Vintage Dead-Stock Museum Artifact classifies warehouse inventory units by how long they have sat on the shelf: 'Fresh Off the Truck (<90 Days)', 'Seasoned Shelf Stock (90-365 Days)', 'Clearance Rack Veteran (1-3 Years)', and 'Museum Piece Fossil (3+ Years on Shelf)'. Inventory liquidators use this aging tier to bundle multi-year-old stock into deep-discount clearance sales."
     synonyms: ["vintage dead-stock museum artifact", "inventory aging tier", "dead stock tier", "shelf aging tier", "museum piece fossil"]
-    type: string
-    sql: CASE
-      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 90 THEN '1. Fresh Off the Truck (<90 Days)'
-      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 365 THEN '2. Seasoned Shelf Stock (90-365 Days)'
-      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 1095 THEN '3. Clearance Rack Veteran (1-3 Years)'
-      ELSE '4. Museum Piece Fossil (3+ Years on Shelf)'
-    END ;;
+    case: {
+      when: {
+        sql: ${days_shelf_age} < 90 ;;
+        label: "Fresh Off the Truck (<90 Days)"
+      }
+      when: {
+        sql: ${days_shelf_age} < 365 ;;
+        label: "Seasoned Shelf Stock (90-365 Days)"
+      }
+      when: {
+        sql: ${days_shelf_age} < 1095 ;;
+        label: "Clearance Rack Veteran (1-3 Years)"
+      }
+      else: "Museum Piece Fossil (3+ Years on Shelf)"
+    }
   }
 
   measure: count {

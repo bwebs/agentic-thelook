@@ -181,10 +181,13 @@ test: users_2024_01_01_age_and_region_metrics {
       users.age_decade: asc
     ]
   }
-  assert: north_america_heartland_row_matches {
-    expression: index(${users.global_macro_region}, 1) = "1. North America" AND index(${users.us_super_region}, 1) = "US Heartland & Midwest" AND index(${users.postal_code_zone}, 1) = "6" AND index(${users.age_bucket}, 1) = "1. Teen & Gen-Z (<25)" AND index(${users.age_decade}, 1) = 20 AND index(${users.age_decade_label}, 1) = "20s Decade" AND index(${users.count}, 1) = 1 ;;
+  assert: north_america_west_coast_row_matches {
+    expression: index(${users.global_macro_region}, 1) = "North America" AND index(${users.us_super_region}, 1) = "US West Coast & Pacific" AND index(${users.postal_code_zone}, 1) = "8" AND index(${users.age_bucket}, 1) = "Gen-X Boss (40-54)" AND index(${users.age_decade}, 1) = 50 AND index(${users.age_decade_label}, 1) = "50s Decade" AND index(${users.count}, 1) = 1 ;;
   }
   assert: north_america_sunbelt_row_matches {
-    expression: index(${users.global_macro_region}, 4) = "1. North America" AND index(${users.us_super_region}, 4) = "US Sunbelt & South" AND index(${users.postal_code_zone}, 4) = "3" AND index(${users.age_bucket}, 4) = "2. Millennial Hustler (25-39)" AND index(${users.age_decade}, 4) = 30 AND index(${users.age_decade_label}, 4) = "30s Decade" AND index(${users.count}, 4) = 2 ;;
+    expression: index(${users.global_macro_region}, 5) = "North America" AND index(${users.us_super_region}, 5) = "US Sunbelt & South" AND index(${users.postal_code_zone}, 5) = "3" AND index(${users.age_bucket}, 5) = "Millennial Hustler (25-39)" AND index(${users.age_decade}, 5) = 30 AND index(${users.age_decade_label}, 5) = "30s Decade" AND index(${users.count}, 5) = 2 ;;
+  }
+  assert: non_us_european_runway_null_us_fields_match {
+    expression: index(${users.global_macro_region}, 11) = "European Runway" AND is_null(index(${users.us_super_region}, 11)) AND is_null(index(${users.postal_code_zone}, 11)) AND index(${users.age_bucket}, 11) = "Millennial Hustler (25-39)" AND index(${users.age_decade}, 11) = 20 AND index(${users.age_decade_label}, 11) = "20s Decade" AND index(${users.count}, 11) = 2 ;;
   }
 }

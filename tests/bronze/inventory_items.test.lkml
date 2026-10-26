@@ -96,7 +96,7 @@ test: inventory_items_sold_2024_01_01_aging_tier_metrics {
     sorts: [inventory_items.inventory_aging_tier: asc]
   }
   assert: sold_aging_tier_matches {
-    expression: ${inventory_items.inventory_aging_tier} = "1. Fresh Off the Truck (<90 Days)" ;;
+    expression: ${inventory_items.inventory_aging_tier} = "Fresh Off the Truck (<90 Days)" ;;
   }
   assert: sold_units_and_cost_match {
     expression: ${inventory_items.sold_units} = 55 AND round(${inventory_items.total_cost}, 2) = 1413.30 ;;

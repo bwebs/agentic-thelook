@@ -532,7 +532,7 @@
   "agentic_thelook.inventory_items_sold_2024_01_01_aging_tier_metrics": {
     "assert": {
       "sold_aging_tier_matches": {
-        "expression": "${inventory_items.inventory_aging_tier} = \"1. Fresh Off the Truck (<90 Days)\""
+        "expression": "${inventory_items.inventory_aging_tier} = \"Fresh Off the Truck (<90 Days)\""
       },
       "sold_units_and_cost_match": {
         "expression": "${inventory_items.sold_units} = 55 AND round(${inventory_items.total_cost}, 2) = 1413.30"
@@ -1328,10 +1328,10 @@
   "agentic_thelook.products_id_le_1000_margin_and_anatomy_metrics": {
     "assert": {
       "commodity_grinder_tier_row_matches": {
-        "expression": "index(${products.gross_margin_tier}, 4) = \"4. Commodity Margin Grinder (<$40 profit & <55% margin)\" AND index(${products.count}, 4) = 797 AND index(${products.distinct_categories}, 4) = 2 AND round(index(${products.min_retail_price}, 4), 2) = 3.11 AND round(index(${products.max_retail_price}, 4), 2) = 92"
+        "expression": "index(${products.gross_margin_tier}, 4) = \"Commodity Margin Grinder (<$40 profit & <55% margin)\" AND index(${products.count}, 4) = 797 AND index(${products.distinct_categories}, 4) = 2 AND round(index(${products.min_retail_price}, 4), 2) = 3.11 AND round(index(${products.max_retail_price}, 4), 2) = 92"
       },
       "golden_goose_tier_row_matches": {
-        "expression": "index(${products.gross_margin_tier}, 1) = \"1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)\" AND index(${products.wardrobe_anatomy_zone}, 1) = \"1. Upper Torso, Outerwear & Accessories Zone\" AND index(${products.count}, 1) = 43 AND index(${products.distinct_categories}, 1) = 1 AND round(index(${products.min_retail_price}, 1), 2) = 74.99 AND round(index(${products.max_retail_price}, 1), 2) = 352"
+        "expression": "index(${products.gross_margin_tier}, 1) = \"Golden Goose Cash Cow ($40+ profit & 55%+ margin)\" AND index(${products.wardrobe_anatomy_zone}, 1) = \"Upper Torso, Outerwear & Accessories Zone\" AND index(${products.count}, 1) = 43 AND index(${products.distinct_categories}, 1) = 1 AND round(index(${products.min_retail_price}, 1), 2) = 74.99 AND round(index(${products.max_retail_price}, 1), 2) = 352"
       }
     },
     "explore_source": {
@@ -1519,11 +1519,14 @@
   },
   "agentic_thelook.users_2024_01_01_age_and_region_metrics": {
     "assert": {
-      "north_america_heartland_row_matches": {
-        "expression": "index(${users.global_macro_region}, 1) = \"1. North America\" AND index(${users.us_super_region}, 1) = \"US Heartland & Midwest\" AND index(${users.postal_code_zone}, 1) = \"6\" AND index(${users.age_bucket}, 1) = \"1. Teen & Gen-Z (<25)\" AND index(${users.age_decade}, 1) = 20 AND index(${users.age_decade_label}, 1) = \"20s Decade\" AND index(${users.count}, 1) = 1"
+      "non_us_european_runway_null_us_fields_match": {
+        "expression": "index(${users.global_macro_region}, 11) = \"European Runway\" AND is_null(index(${users.us_super_region}, 11)) AND is_null(index(${users.postal_code_zone}, 11)) AND index(${users.age_bucket}, 11) = \"Millennial Hustler (25-39)\" AND index(${users.age_decade}, 11) = 20 AND index(${users.age_decade_label}, 11) = \"20s Decade\" AND index(${users.count}, 11) = 2"
       },
       "north_america_sunbelt_row_matches": {
-        "expression": "index(${users.global_macro_region}, 4) = \"1. North America\" AND index(${users.us_super_region}, 4) = \"US Sunbelt & South\" AND index(${users.postal_code_zone}, 4) = \"3\" AND index(${users.age_bucket}, 4) = \"2. Millennial Hustler (25-39)\" AND index(${users.age_decade}, 4) = 30 AND index(${users.age_decade_label}, 4) = \"30s Decade\" AND index(${users.count}, 4) = 2"
+        "expression": "index(${users.global_macro_region}, 5) = \"North America\" AND index(${users.us_super_region}, 5) = \"US Sunbelt & South\" AND index(${users.postal_code_zone}, 5) = \"3\" AND index(${users.age_bucket}, 5) = \"Millennial Hustler (25-39)\" AND index(${users.age_decade}, 5) = 30 AND index(${users.age_decade_label}, 5) = \"30s Decade\" AND index(${users.count}, 5) = 2"
+      },
+      "north_america_west_coast_row_matches": {
+        "expression": "index(${users.global_macro_region}, 1) = \"North America\" AND index(${users.us_super_region}, 1) = \"US West Coast & Pacific\" AND index(${users.postal_code_zone}, 1) = \"8\" AND index(${users.age_bucket}, 1) = \"Gen-X Boss (40-54)\" AND index(${users.age_decade}, 1) = 50 AND index(${users.age_decade_label}, 1) = \"50s Decade\" AND index(${users.count}, 1) = 1"
       }
     },
     "explore_source": {

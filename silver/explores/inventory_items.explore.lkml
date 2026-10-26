@@ -1,3 +1,4 @@
+include: "/bronze/common_helpers.view.lkml"
 include: "/bronze/inventory_items.view.lkml"
 include: "/bronze/inventory_items.refinement.lkml"
 include: "/bronze/distribution_centers.view.lkml"
@@ -78,7 +79,7 @@ explore: inventory_items {
     ]
     filters: [
       inventory_items.is_sold: "no",
-      inventory_items.inventory_aging_tier: "4. Museum Piece Fossil (3+ Years on Shelf)"
+      inventory_items.inventory_aging_tier: "Museum Piece Fossil (3+ Years on Shelf)"
     ]
     sorts: [inventory_items.sunk_dusty_shelf_cost: desc]
     limit: 15
