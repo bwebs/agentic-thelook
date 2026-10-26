@@ -71,20 +71,19 @@ test: users_2024_01_01_young_customers_metrics {
   }
 }
 
-test: users_current_year_new_customers_invariants {
+test: users_2024_01_01_new_customer_created_year_metrics {
   explore_source: users {
-    column: is_new_customer { field: users.is_new_customer }
+    column: cohort_signup_year { field: users.cohort_signup_year }
     column: user_count { field: users.count }
     filters: {
       field: users.created_date
-      value: "this year"
+      value: "2024-01-01"
     }
-    sorts: [users.is_new_customer: asc]
   }
-  assert: current_year_signups_are_new_customers {
-    expression: ${users.is_new_customer} = yes ;;
+  assert: signup_year_matches_2024 {
+    expression: ${users.cohort_signup_year} = 2024 ;;
   }
-  assert: current_year_new_customer_count_positive {
-    expression: ${users.count} > 0 ;;
+  assert: user_count_matches {
+    expression: ${users.count} = 38 ;;
   }
 }

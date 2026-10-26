@@ -1,11 +1,16 @@
 include: "users.view.lkml"
 
 view: +users {
+  dimension_group: created {
+    description: "Timestamp when the shopper created their store account. New Customer status is determined by created_year: filter created_year to 'this year' (or a target calendar year) on Users, or compare orders.created_year, order_items.created_year, or events.created_year to users.created_year in other explores."
+    synonyms: ["account creation", "customer signup", "new customer signup"]
+  }
+
   dimension: cohort_signup_year {
     label: "Cohort Signup Year"
     group_label: "Created Date"
-    description: "Calendar year (UTC) in which the customer first signed up."
-    synonyms: ["signup year", "customer vintage year", "registration year"]
+    description: "Calendar year (UTC) in which the customer first signed up. Determines New Customer status: filter to the current or target calendar year on Users, or compare orders.created_year, order_items.created_year, or events.created_year to cohort_signup_year (or years_since_signup = 0) in other explores."
+    synonyms: ["signup year", "customer vintage year", "registration year", "account creation year"]
     type: number
     value_format_name: id
     sql: EXTRACT(YEAR FROM ${created_raw}) ;;
@@ -38,14 +43,6 @@ view: +users {
     synonyms: ["is young customer", "young customers", "under 25", "teen and early-twenties audience", "youth segment"]
     type: yesno
     sql: ${age} < 25 ;;
-  }
-
-  dimension: is_new_customer {
-    label: "New Customer"
-    description: "New Customer identifies shoppers who created their store account during the current calendar year. Lifecycle marketing teams use this definition to enroll fresh signups into welcome email sequences and track recent acquisition momentum."
-    synonyms: ["is new customer", "new customers", "fresh signups", "current calendar year signup"]
-    type: yesno
-    sql: ${cohort_signup_year} >= EXTRACT(YEAR FROM CURRENT_TIMESTAMP()) ;;
   }
 
   measure: count {

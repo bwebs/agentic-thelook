@@ -138,7 +138,7 @@ explore: users {
       users.country,
       users.created_time
     ]
-    filters: [users.is_new_customer: "yes"]
+    filters: [users.created_year: "this year"]
     sorts: [users.created_time: desc]
     limit: 25
   }
