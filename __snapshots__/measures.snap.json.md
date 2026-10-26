@@ -349,6 +349,11 @@
     "label": "Average Sticker Shock",
     "view_label": "Products"
   },
+  "agentic_thelook.order_items.products.avg_wholesale_cost": {
+    "explore_label": "Order Items",
+    "label": "Average Wholesale Cost",
+    "view_label": "Products"
+  },
   "agentic_thelook.order_items.products.count": {
     "explore_label": "Order Items",
     "label": "Count",
@@ -437,6 +442,11 @@
   "agentic_thelook.products.products.avg_sticker_price": {
     "explore_label": "Products",
     "label": "Average Sticker Shock",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.products.avg_wholesale_cost": {
+    "explore_label": "Products",
+    "label": "Average Wholesale Cost",
     "view_label": "Products"
   },
   "agentic_thelook.products.products.count": {

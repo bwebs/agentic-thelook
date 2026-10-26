@@ -17,6 +17,19 @@ view: +products {
     value_format: "0.00\"%\""
   }
 
+  dimension: price_tier {
+    label: "Product Price Tier Taxonomy"
+    description: "Product Price Tier Taxonomy buckets every catalog item by its retail sticker price into four clear brackets: 1. Impulse Pocket Change (<$25), 2. Everyday Mall Staple ($25-$75), 3. Treat-Yo-Self Designer ($75-$200), and 4. Trust-Fund Couture ($200+). Merchandising teams use these price tiers as sidebar shopping filters and to balance catalog assortment across budget levels."
+    synonyms: ["product price tier taxonomy", "price tier term"]
+    type: string
+    sql: CASE
+      WHEN ${retail_price} < 25.0 THEN '1. Impulse Pocket Change (<$25)'
+      WHEN ${retail_price} < 75.0 THEN '2. Everyday Mall Staple ($25-$75)'
+      WHEN ${retail_price} < 200.0 THEN '3. Treat-Yo-Self Designer ($75-$200)'
+      ELSE '4. Trust-Fund Couture ($200+)'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of distinct product SKUs in the catalog."
     synonyms: ["sku count", "skus"]
@@ -28,6 +41,16 @@ view: +products {
     type: average
     sql: ${retail_price} ;;
     value_format_name: usd
+  }
+
+  measure: avg_wholesale_cost {
+    label: "Average Wholesale Cost"
+    description: "Average unit wholesale cost across catalog product SKUs."
+    synonyms: ["average cost", "avg cost"]
+    type: average
+    sql: ${cost} ;;
+    value_format_name: usd
+    tags: ["non_additive"]
   }
 
   measure: avg_dollar_markup {

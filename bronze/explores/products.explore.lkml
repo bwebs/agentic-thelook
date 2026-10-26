@@ -34,4 +34,15 @@ explore: products {
     sorts: [products.avg_markup_greed_pct: desc]
     limit: 15
   }
+
+  query: catalog_assortment_by_price_tier {
+    description: "Catalog SKU count, average retail sticker price, and average wholesale cost across Product Price Tier Taxonomy brackets."
+    dimensions: [products.price_tier]
+    measures: [
+      products.count,
+      products.avg_sticker_price,
+      products.avg_wholesale_cost
+    ]
+    sorts: [products.price_tier: asc]
+  }
 }
