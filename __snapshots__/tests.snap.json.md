@@ -529,6 +529,45 @@
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
   },
+  "agentic_thelook.inventory_items_sold_2024_01_01_aging_tier_metrics": {
+    "assert": {
+      "sold_aging_tier_matches": {
+        "expression": "${inventory_items.inventory_aging_tier} = \"1. Fresh Off the Truck (<90 Days)\""
+      },
+      "sold_units_and_cost_match": {
+        "expression": "${inventory_items.sold_units} = 55 AND round(${inventory_items.total_cost}, 2) = 1413.30"
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "inventory_aging_tier": {
+            "field": "inventory_items.inventory_aging_tier"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          },
+          "total_cost": {
+            "field": "inventory_items.total_cost"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.is_sold": "yes",
+          "inventory_items.sold_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/inventory_items.test.lkml",
+    "line": 83,
+    "model": "agentic_thelook",
+    "name": "inventory_items_sold_2024_01_01_aging_tier_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_active_buyers_metrics": {
     "assert": {
       "distinct_users_matches": {
@@ -1286,6 +1325,53 @@
     "model": "agentic_thelook",
     "name": "orders_refinement_metrics"
   },
+  "agentic_thelook.products_id_le_1000_margin_and_anatomy_metrics": {
+    "assert": {
+      "commodity_grinder_tier_row_matches": {
+        "expression": "index(${products.gross_margin_tier}, 4) = \"4. Commodity Margin Grinder (<$40 profit & <55% margin)\" AND index(${products.count}, 4) = 797 AND index(${products.distinct_categories}, 4) = 2 AND round(index(${products.min_retail_price}, 4), 2) = 3.11 AND round(index(${products.max_retail_price}, 4), 2) = 92"
+      },
+      "golden_goose_tier_row_matches": {
+        "expression": "index(${products.gross_margin_tier}, 1) = \"1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)\" AND index(${products.wardrobe_anatomy_zone}, 1) = \"1. Upper Torso, Outerwear & Accessories Zone\" AND index(${products.count}, 1) = 43 AND index(${products.distinct_categories}, 1) = 1 AND round(index(${products.min_retail_price}, 1), 2) = 74.99 AND round(index(${products.max_retail_price}, 1), 2) = 352"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "count": {
+            "field": "products.count"
+          },
+          "distinct_categories": {
+            "field": "products.distinct_categories"
+          },
+          "gross_margin_tier": {
+            "field": "products.gross_margin_tier"
+          },
+          "max_retail_price": {
+            "field": "products.max_retail_price"
+          },
+          "min_retail_price": {
+            "field": "products.min_retail_price"
+          },
+          "wardrobe_anatomy_zone": {
+            "field": "products.wardrobe_anatomy_zone"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "products.id": "<=1000",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/products.test.lkml",
+    "line": 53,
+    "model": "agentic_thelook",
+    "name": "products_id_le_1000_margin_and_anatomy_metrics"
+  },
   "agentic_thelook.products_id_le_1000_price_tier_metrics": {
     "assert": {
       "couture_tier_matches": {
@@ -1430,6 +1516,56 @@
     "line": 67,
     "model": "agentic_thelook",
     "name": "users_2022_cohort_year_1_survival_metrics"
+  },
+  "agentic_thelook.users_2024_01_01_age_and_region_metrics": {
+    "assert": {
+      "north_america_heartland_row_matches": {
+        "expression": "index(${users.global_macro_region}, 1) = \"1. North America\" AND index(${users.us_super_region}, 1) = \"US Heartland & Midwest\" AND index(${users.postal_code_zone}, 1) = \"6\" AND index(${users.age_bucket}, 1) = \"1. Teen & Gen-Z (<25)\" AND index(${users.age_decade}, 1) = 20 AND index(${users.age_decade_label}, 1) = \"20s Decade\" AND index(${users.count}, 1) = 1"
+      },
+      "north_america_sunbelt_row_matches": {
+        "expression": "index(${users.global_macro_region}, 4) = \"1. North America\" AND index(${users.us_super_region}, 4) = \"US Sunbelt & South\" AND index(${users.postal_code_zone}, 4) = \"3\" AND index(${users.age_bucket}, 4) = \"2. Millennial Hustler (25-39)\" AND index(${users.age_decade}, 4) = 30 AND index(${users.age_decade_label}, 4) = \"30s Decade\" AND index(${users.count}, 4) = 2"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "age_bucket": {
+            "field": "users.age_bucket"
+          },
+          "age_decade": {
+            "field": "users.age_decade"
+          },
+          "age_decade_label": {
+            "field": "users.age_decade_label"
+          },
+          "count": {
+            "field": "users.count"
+          },
+          "global_macro_region": {
+            "field": "users.global_macro_region"
+          },
+          "postal_code_zone": {
+            "field": "users.postal_code_zone"
+          },
+          "us_super_region": {
+            "field": "users.us_super_region"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 163,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_age_and_region_metrics"
   },
   "agentic_thelook.users_2024_01_01_ghost_account_metrics": {
     "assert": {

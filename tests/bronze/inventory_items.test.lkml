@@ -79,3 +79,26 @@ test: inventory_items_2024_01_01_unsold_shelf_sitter_invariants {
     expression: coalesce(round(${inventory_items.total_cost}, 2), 0) = coalesce(round(${inventory_items.sunk_dusty_shelf_cost}, 2), 0) AND coalesce(${inventory_items.total_cost}, 0) >= 0 ;;
   }
 }
+
+test: inventory_items_sold_2024_01_01_aging_tier_metrics {
+  explore_source: inventory_items {
+    column: inventory_aging_tier { field: inventory_items.inventory_aging_tier }
+    column: sold_units { field: inventory_items.sold_units }
+    column: total_cost { field: inventory_items.total_cost }
+    filters: {
+      field: inventory_items.is_sold
+      value: "yes"
+    }
+    filters: {
+      field: inventory_items.sold_date
+      value: "2024-01-01"
+    }
+    sorts: [inventory_items.inventory_aging_tier: asc]
+  }
+  assert: sold_aging_tier_matches {
+    expression: ${inventory_items.inventory_aging_tier} = "1. Fresh Off the Truck (<90 Days)" ;;
+  }
+  assert: sold_units_and_cost_match {
+    expression: ${inventory_items.sold_units} = 55 AND round(${inventory_items.total_cost}, 2) = 1413.30 ;;
+  }
+}

@@ -30,9 +30,45 @@ view: +products {
     END ;;
   }
 
+  dimension: gross_margin_tier {
+    label: "Gross Margin Cash-Cow Tier"
+    description: "Gross Margin Cash-Cow Tier classifies every product by combining its percentage gross margin and dollar profit per unit into four quadrants: '1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)', '2. High-Margin Trinket (<$40 profit & 55%+ margin)', '3. Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)', and '4. Commodity Margin Grinder (<$40 profit & <55% margin)'. Paid advertising teams use this product classification so they never spend heavy ad budgets promoting low-dollar trinkets that cannot pay back the click cost."
+    synonyms: ["gross margin cash-cow tier", "margin cash cow tier", "product margin quadrant", "gross margin tier"]
+    type: string
+    sql: CASE
+      WHEN ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 THEN '1. Golden Goose Cash Cow ($40+ profit & 55%+ margin)'
+      WHEN ${dollar_markup} < 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) >= 0.55 THEN '2. High-Margin Trinket (<$40 profit & 55%+ margin)'
+      WHEN ${dollar_markup} >= 40.0 AND SAFE_DIVIDE(${dollar_markup}, ${retail_price}) < 0.55 THEN '3. Big-Ticket Low-Margin Heavyweight ($40+ profit & <55% margin)'
+      ELSE '4. Commodity Margin Grinder (<$40 profit & <55% margin)'
+    END ;;
+  }
+
+  dimension: wardrobe_anatomy_zone {
+    label: "Wardrobe Anatomy Zone"
+    description: "Wardrobe Anatomy Zone maps all twenty-six clothing categories onto the part of the human body they cover: '1. Upper Torso, Outerwear & Accessories Zone', '2. Lower Half & Legs Zone', '3. Feet & Ankles Zone', '4. Full-Body Ensemble Zone', and '5. Unmentionables, Poolside & Pajama Zone'. Outfit recommendation tools use these anatomical zones to suggest a matching top, bottom, and pair of socks rather than recommending four pairs of pants."
+    synonyms: ["wardrobe anatomy zone", "anatomical wardrobe zone", "body coverage zone", "outfit anatomy zone"]
+    type: string
+    sql: CASE
+      WHEN ${category} IN ('Socks', 'Socks & Hosiery') THEN '3. Feet & Ankles Zone'
+      WHEN ${category} IN ('Pants & Capris', 'Jeans', 'Shorts', 'Skirts', 'Leggings', 'Pants') THEN '2. Lower Half & Legs Zone'
+      WHEN ${category} IN ('Dresses', 'Suits', 'Suits & Sport Coats', 'Jumpsuits & Rompers') THEN '4. Full-Body Ensemble Zone'
+      WHEN ${category} IN ('Swim', 'Intimates', 'Underwear', 'Sleep & Lounge') THEN '5. Unmentionables, Poolside & Pajama Zone'
+      ELSE '1. Upper Torso, Outerwear & Accessories Zone'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of distinct product SKUs in the catalog."
     synonyms: ["sku count", "skus"]
+  }
+
+  measure: distinct_categories {
+    label: "Distinct Categories"
+    description: "Count of distinct clothing categories in the product catalog."
+    synonyms: ["category count", "unique categories"]
+    type: count_distinct
+    sql: ${category} ;;
+    tags: ["non_additive"]
   }
 
   measure: avg_sticker_price {
@@ -41,6 +77,26 @@ view: +products {
     type: average
     sql: ${retail_price} ;;
     value_format_name: usd
+  }
+
+  measure: min_retail_price {
+    label: "Minimum Retail Price"
+    description: "Minimum retail sticker price across catalog product SKUs."
+    synonyms: ["min price", "min retail price", "lowest sticker price"]
+    type: min
+    sql: ${retail_price} ;;
+    value_format_name: usd
+    tags: ["non_additive"]
+  }
+
+  measure: max_retail_price {
+    label: "Maximum Retail Price"
+    description: "Maximum retail sticker price across catalog product SKUs."
+    synonyms: ["max price", "max retail price", "highest sticker price"]
+    type: max
+    sql: ${retail_price} ;;
+    value_format_name: usd
+    tags: ["non_additive"]
   }
 
   measure: avg_wholesale_cost {

@@ -45,6 +45,71 @@ view: +users {
     sql: ${age} < 25 ;;
   }
 
+  dimension: age_bucket {
+    label: "Generational Age Bucket"
+    description: "Generational Age Buckets group shoppers into four life-stage cohorts: '1. Teen & Gen-Z (<25)', '2. Millennial Hustler (25-39)', '3. Gen-X Boss (40-54)', and '4. Boomer & Golden Senior (55+)'. Marketing and merchandising teams use these groupings to compare conversion rates, return habits, and clothing preferences across generations."
+    synonyms: ["generational age buckets", "generational cohort", "life-stage cohort", "age generation"]
+    type: string
+    sql: CASE
+      WHEN ${age} < 25 THEN '1. Teen & Gen-Z (<25)'
+      WHEN ${age} BETWEEN 25 AND 39 THEN '2. Millennial Hustler (25-39)'
+      WHEN ${age} BETWEEN 40 AND 54 THEN '3. Gen-X Boss (40-54)'
+      ELSE '4. Boomer & Golden Senior (55+)'
+    END ;;
+  }
+
+  dimension: age_decade {
+    label: "Age Decade"
+    description: "Ten-year age decade floor (e.g., 10, 20, 30) grouping shoppers into ten-year demographic brackets."
+    synonyms: ["age decade floor", "ten-year age decade", "decade of age"]
+    type: number
+    value_format_name: decimal_0
+    sql: CAST(FLOOR(${age} / 10) * 10 AS INT64) ;;
+  }
+
+  dimension: age_decade_label {
+    label: "Age Decade Label"
+    description: "Formatted ten-year age decade label (e.g., '20s Decade', '30s Decade') for generational cohort reporting."
+    synonyms: ["decade label", "age decade cohort"]
+    type: string
+    sql: CONCAT(CAST(${age_decade} AS STRING), 's Decade') ;;
+  }
+
+  dimension: global_macro_region {
+    label: "Global Macro Region"
+    description: "Global Macro Regions roll individual countries up into broad commercial territories: '1. North America', '2. European Runway', '3. Asia-Pacific Tigers', '4. Latin America Fiesta', and '5. Rest of Galaxy'. Regional sales directors use these territory definitions to manage regional performance targets and localized shipping policies."
+    synonyms: ["global macro regions", "commercial territory", "macro region", "international sales region"]
+    type: string
+    sql: CASE
+      WHEN ${country} IN ('United States') THEN '1. North America'
+      WHEN ${country} IN ('United Kingdom', 'France', 'Germany', 'Spain', 'Belgium', 'Poland') THEN '2. European Runway'
+      WHEN ${country} IN ('China', 'Japan', 'South Korea', 'Australia') THEN '3. Asia-Pacific Tigers'
+      WHEN ${country} IN ('Brasil', 'Colombia') THEN '4. Latin America Fiesta'
+      ELSE '5. Rest of Galaxy'
+    END ;;
+  }
+
+  dimension: us_super_region {
+    label: "US Super-Region"
+    description: "US Super-Regions roll domestic states up into four US commercial zones: 'US West Coast & Pacific', 'US Sunbelt & South', 'US Northeast Corridor', and 'US Heartland & Midwest' (filter country to 'United States' when analyzing domestic shoppers)."
+    synonyms: ["us super-regions", "us super region", "us state region", "domestic sales zone"]
+    type: string
+    sql: CASE
+      WHEN ${state} IN ('California', 'Oregon', 'Washington', 'Nevada', 'Arizona', 'Hawaii', 'Alaska') THEN 'US West Coast & Pacific'
+      WHEN ${state} IN ('Texas', 'Florida', 'Georgia', 'North Carolina', 'Virginia', 'Tennessee', 'Louisiana', 'Alabama', 'South Carolina') THEN 'US Sunbelt & South'
+      WHEN ${state} IN ('New York', 'Pennsylvania', 'New Jersey', 'Massachusetts', 'Connecticut', 'Maryland') THEN 'US Northeast Corridor'
+      ELSE 'US Heartland & Midwest'
+    END ;;
+  }
+
+  dimension: postal_code_zone {
+    label: "Postal Code First-Digit Zone"
+    description: "Leading character of the shopper's postal code (first-digit ZIP zone for United States addresses) used for regional shipping and territory rollups."
+    synonyms: ["zip first digit zone", "postal code prefix", "us zip zone"]
+    type: string
+    sql: SUBSTR(${postal_code}, 1, 1) ;;
+  }
+
   dimension: thoroughfare_tier {
     label: "Street Address Thoroughfare Aristocracy Tier"
     description: "Street Address Thoroughfare Aristocracy Tier groups customers by the kind of road named in their home street address, separating grand boulevards and avenues from quiet cul-de-sac courts, standard streets and roads, and international lanes. Direct-mail marketers use this playful neighborhood taxonomy to slice regional catalog mailings."
