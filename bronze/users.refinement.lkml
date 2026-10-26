@@ -1,11 +1,16 @@
 include: "users.view.lkml"
 
 view: +users {
+  dimension_group: created {
+    description: "Timestamp when the shopper created their store account. New Customer status is determined by created_year: filter created_year to 'this year' (or a target calendar year) on Users, or compare orders.created_year, order_items.created_year, or events.created_year to users.created_year in other explores."
+    synonyms: ["account creation", "customer signup", "new customer signup"]
+  }
+
   dimension: cohort_signup_year {
     label: "Cohort Signup Year"
     group_label: "Created Date"
-    description: "Calendar year (UTC) in which the customer first signed up."
-    synonyms: ["signup year", "customer vintage year", "registration year"]
+    description: "Calendar year (UTC) in which the customer first signed up. Determines New Customer status: filter to the current or target calendar year on Users, or compare orders.created_year, order_items.created_year, or events.created_year to cohort_signup_year (or years_since_signup = 0) in other explores."
+    synonyms: ["signup year", "customer vintage year", "registration year", "account creation year"]
     type: number
     value_format_name: id
     sql: EXTRACT(YEAR FROM ${created_raw}) ;;

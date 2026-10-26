@@ -70,3 +70,20 @@ test: users_2024_01_01_young_customers_metrics {
     expression: ${users.oldest_shopper_age} = 24 ;;
   }
 }
+
+test: users_2024_01_01_new_customer_created_year_metrics {
+  explore_source: users {
+    column: cohort_signup_year { field: users.cohort_signup_year }
+    column: user_count { field: users.count }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: signup_year_matches_2024 {
+    expression: ${users.cohort_signup_year} = 2024 ;;
+  }
+  assert: user_count_matches {
+    expression: ${users.count} = 38 ;;
+  }
+}

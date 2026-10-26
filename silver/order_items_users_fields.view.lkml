@@ -62,3 +62,4 @@ view: order_items_users_fields {
     value_format_name: decimal_4
   }
 }
+

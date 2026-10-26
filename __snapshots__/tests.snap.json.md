@@ -1431,6 +1431,41 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_latitude_metrics"
   },
+  "agentic_thelook.users_2024_01_01_new_customer_created_year_metrics": {
+    "assert": {
+      "signup_year_matches_2024": {
+        "expression": "${users.cohort_signup_year} = 2024"
+      },
+      "user_count_matches": {
+        "expression": "${users.count} = 38"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "cohort_signup_year": {
+            "field": "users.cohort_signup_year"
+          },
+          "user_count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 74,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_new_customer_created_year_metrics"
+  },
   "agentic_thelook.users_2024_01_01_per_capita_spend_metrics": {
     "assert": {
       "avg_activity_weighted_user_age_matches": {
