@@ -184,4 +184,29 @@ explore: order_items {
     sorts: [order_items.sale_price: desc]
     limit: 25
   }
+
+  query: fulfillment_speed_tiers {
+    description: "Order item volume and average item sale price across Flash-Flood versus Snail-Mail Fulfillment Tiers."
+    dimensions: [order_items.fulfillment_speed_tier]
+    measures: [
+      order_items.count,
+      order_items.avg_item_price
+    ]
+    sorts: [order_items.fulfillment_speed_tier: asc]
+  }
+
+  query: longest_doorstep_wait_items {
+    description: "Top 15 delivered order items with the longest total doorstep wait time in hours, showing warehouse processing hours, carrier transit hours, and total hours."
+    dimensions: [
+      order_items.id,
+      order_items.order_id,
+      order_items.status,
+      order_items.hours_to_ship,
+      order_items.hours_to_deliver,
+      order_items.hours_total_doorstep_wait
+    ]
+    filters: [order_items.is_delivered: "yes"]
+    sorts: [order_items.hours_total_doorstep_wait: desc]
+    limit: 15
+  }
 }

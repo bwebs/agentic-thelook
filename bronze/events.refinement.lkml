@@ -51,6 +51,31 @@ view: +events {
     sql: REGEXP_EXTRACT(${uri}, r'/brand/([^/]+)') ;;
   }
 
+  dimension: browser_persona {
+    label: "Browser Modernity Persona"
+    description: "Browser Modernity Persona groups website traffic by the browser used during the visit, labeling sessions as 'Google Chrome RAM Eater', 'Apple Walled-Garden Safari Snob', 'Open-Source Firefox Privacy Nerd', 'Time-Traveler Internet Explorer Dinosaur', or 'Mystery Smart-Fridge / Other Browser'. Quality assurance and product teams use this persona breakdown to track browser preferences across traffic channels."
+    synonyms: ["browser modernity persona", "browser persona", "visitor browser segment", "browser modernity tier"]
+    case: {
+      when: {
+        sql: ${browser} = 'Chrome' ;;
+        label: "Google Chrome RAM Eater"
+      }
+      when: {
+        sql: ${browser} = 'Safari' ;;
+        label: "Apple Walled-Garden Safari Snob"
+      }
+      when: {
+        sql: ${browser} = 'Firefox' ;;
+        label: "Open-Source Firefox Privacy Nerd"
+      }
+      when: {
+        sql: ${browser} = 'IE' ;;
+        label: "Time-Traveler Internet Explorer Dinosaur"
+      }
+      else: "Mystery Smart-Fridge / Other Browser"
+    }
+  }
+
   measure: count {
     label: "Total Click Events"
     description: "Total volume of website interactions and clickstream events."

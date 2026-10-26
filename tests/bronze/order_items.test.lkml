@@ -154,3 +154,22 @@ test: order_items_2024_01_01_high_roller_single_item_metrics {
     expression: round(${order_items.avg_item_price}, 2) = 199.62 ;;
   }
 }
+
+test: order_items_2024_01_fulfillment_speed_tier {
+  explore_source: order_items {
+    column: fulfillment_speed_tier { field: order_items.fulfillment_speed_tier }
+    column: count { field: order_items.count }
+    filters: [order_items.delivered_date: "2024-01"]
+    sorts: [order_items.fulfillment_speed_tier: asc]
+  }
+  assert: fulfillment_speed_tier_counts_match {
+    expression: index(${order_items.fulfillment_speed_tier}, 1) = "Supersonic Drone Speed (<24h)"
+      AND index(${order_items.count}, 1) = 118
+      AND index(${order_items.fulfillment_speed_tier}, 2) = "Prime-ish Express (24-72h)"
+      AND index(${order_items.count}, 2) = 189
+      AND index(${order_items.fulfillment_speed_tier}, 3) = "Standard Pony Express (72-120h)"
+      AND index(${order_items.count}, 3) = 248
+      AND index(${order_items.fulfillment_speed_tier}, 4) = "Lost-at-Sea Snail Mail (120h+)"
+      AND index(${order_items.count}, 4) = 146 ;;
+  }
+}

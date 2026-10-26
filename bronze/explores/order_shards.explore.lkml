@@ -30,4 +30,15 @@ explore: order_shards {
     ]
     sorts: [order_shards.table_suffix: asc, order_shards.count: desc]
   }
+
+  query: order_shard_grain_status_volume_2021 {
+    description: "Record count and approximate distinct shoppers by wildcard order shard grain and status since 2021-01-01."
+    dimensions: [order_shards.wildcard_table_grain, order_shards.status]
+    measures: [order_shards.count, order_shards.approx_distinct_users]
+    filters: [
+      order_shards.table_suffix: "s, ^_items",
+      order_shards.created_date: "after 2021/01/01"
+    ]
+    sorts: [order_shards.wildcard_table_grain: asc, order_shards.count: desc]
+  }
 }

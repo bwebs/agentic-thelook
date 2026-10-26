@@ -100,6 +100,31 @@ view: +order_items {
     sql_end: ${delivered_raw} ;;
   }
 
+  dimension: fulfillment_speed_tier {
+    label: "Flash-Flood versus Snail-Mail Fulfillment Tier"
+    description: "Flash-Flood versus Snail-Mail Fulfillment Tier categorizes every item by total door-to-door wait time from checkout to delivery: 'Supersonic Drone Speed (<24h)', 'Prime-ish Express (24-72h)', 'Standard Pony Express (72-120h)', 'Lost-at-Sea Snail Mail (120h+)', or 'Still Floating in Transit / Unshipped' when undelivered. Customer support teams use this speed tier to monitor delivery service levels and proactively send apology credits when orders fall into the snail-mail bracket."
+    synonyms: ["fulfillment speed tier", "flash-flood vs snail-mail tier", "delivery speed tier", "doorstep speed bracket"]
+    case: {
+      when: {
+        sql: ${is_delivered} AND ${hours_total_doorstep_wait} < 24 ;;
+        label: "Supersonic Drone Speed (<24h)"
+      }
+      when: {
+        sql: ${is_delivered} AND ${hours_total_doorstep_wait} < 72 ;;
+        label: "Prime-ish Express (24-72h)"
+      }
+      when: {
+        sql: ${is_delivered} AND ${hours_total_doorstep_wait} < 120 ;;
+        label: "Standard Pony Express (72-120h)"
+      }
+      when: {
+        sql: ${is_delivered} ;;
+        label: "Lost-at-Sea Snail Mail (120h+)"
+      }
+      else: "Still Floating in Transit / Unshipped"
+    }
+  }
+
   measure: count {
     label: "Total Impulse Line Items Count"
     description: "Total Impulse Line Items Count tracks the sheer number of individual clothing items customers have tossed into their virtual carts and checked out. Warehouse operations use this volume metric to forecast daily packing workload and estimate how many shipping boxes they need to fold."

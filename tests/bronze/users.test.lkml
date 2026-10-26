@@ -191,3 +191,24 @@ test: users_2024_01_01_age_and_region_metrics {
     expression: index(${users.global_macro_region}, 11) = "European Runway" AND is_null(index(${users.us_super_region}, 11)) AND is_null(index(${users.postal_code_zone}, 11)) AND index(${users.age_bucket}, 11) = "Millennial Hustler (25-39)" AND index(${users.age_decade}, 11) = 20 AND index(${users.age_decade_label}, 11) = "20s Decade" AND index(${users.count}, 11) = 2 ;;
   }
 }
+
+test: users_2024_01_name_phonetics_and_tokens {
+  explore_source: users {
+    column: name_phonetics_club { field: users.name_phonetics_club }
+    column: count { field: users.count }
+    column: token_count { field: users__name_tokens.count }
+    filters: [users.created_date: "2024-01"]
+    sorts: [users.name_phonetics_club: asc]
+  }
+  assert: name_phonetics_club_counts_match {
+    expression: index(${users.name_phonetics_club}, 1) = "Marvel Superhero Alliterative Name (Same Initials)"
+      AND index(${users.count}, 1) = 66
+      AND index(${users.name_phonetics_club}, 2) = "Double-Letter Geminate Name Club"
+      AND index(${users.count}, 2) = 375
+      AND index(${users.name_phonetics_club}, 3) = "Regular Non-Alliterative Civilian"
+      AND index(${users.count}, 3) = 623 ;;
+  }
+  assert: unnested_name_tokens_double_users {
+    expression: ${users__name_tokens.count} = ${users.count} * 2 ;;
+  }
+}
