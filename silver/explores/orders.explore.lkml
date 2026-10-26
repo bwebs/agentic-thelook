@@ -1,7 +1,10 @@
 include: "/bronze/orders.view.lkml"
 include: "/bronze/orders.refinement.lkml"
+include: "/bronze/users.view.lkml"
+include: "/bronze/users.refinement.lkml"
 include: "/bronze/explores/orders_base.explore.lkml"
 include: "/silver/order_basket_facts.view.lkml"
+include: "/silver/orders_sequenced.view.lkml"
 
 explore: orders {
   extends: [orders_base]
@@ -9,11 +12,51 @@ explore: orders {
   view_name: orders
   hidden: no
 
+  join: users {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${orders.user_id} = ${users.id} ;;
+  }
+
+  join: orders_sequenced {
+    view_label: "Orders"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${orders.order_id} = ${orders_sequenced.order_id} ;;
+    fields: [
+      orders_sequenced.order_id,
+      orders_sequenced.prev_order_raw,
+      orders_sequenced.prev_order_time,
+      orders_sequenced.prev_order_date,
+      orders_sequenced.days_inter_order_gap,
+      orders_sequenced.max_inter_order_gap_days
+    ]
+  }
+
   join: order_basket_facts {
     view_label: "Order Basket Composition Facts"
     type: left_outer
     relationship: one_to_one
     sql_on: ${orders.order_id} = ${order_basket_facts.order_id} ;;
+  }
+
+  query: resurrected_lazarus_orders {
+    description: "Top 15 reactivated Lazarus shopper orders placed after 180+ days of dormancy, ranked by days in hibernation."
+    dimensions: [
+      orders.user_id,
+      users.full_name,
+      users.age,
+      users.country,
+      orders_sequenced.prev_order_time,
+      orders.created_time,
+      orders_sequenced.days_inter_order_gap
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      orders_sequenced.days_inter_order_gap: ">=180"
+    ]
+    sorts: [orders_sequenced.days_inter_order_gap: desc]
+    limit: 15
   }
 
   query: orders_by_basket_diversity_archetype {

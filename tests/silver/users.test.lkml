@@ -317,3 +317,47 @@ test: users_2024_01_01_warehouse_proximity_metrics {
     expression: round(index(${user_warehouse_proximity_facts.avg_nearest_dc_km}, 4), 1) = 8380.8 ;;
   }
 }
+
+test: users_first_1000_lifecycle_and_persona_invariants {
+  explore_source: users {
+    column: lifecycle_resurrection_state { field: user_click_facts_user_order_facts_users_fields.lifecycle_resurrection_state }
+    column: four_d_customer_persona { field: user_spend_facts_users_fields.four_d_customer_persona }
+    column: users_count { field: users.count }
+    column: active_buyers { field: user_spend_facts.count }
+    column: avg_user_lifetime_orders { field: user_order_facts_users_fields.avg_user_lifetime_orders }
+    column: avg_user_gross_spend { field: user_spend_facts_users_fields.avg_user_gross_spend }
+    column: avg_user_retained_profit { field: user_spend_facts_users_fields.avg_user_retained_profit }
+    column: total_user_retained_profit { field: user_spend_facts_users_fields.total_user_retained_profit }
+    filters: [users.id: "<=1000"]
+  }
+  assert: lifecycle_and_persona_exhaustive {
+    expression: NOT is_null(${user_click_facts_user_order_facts_users_fields.lifecycle_resurrection_state})
+      AND NOT is_null(${user_spend_facts_users_fields.four_d_customer_persona})
+      AND ${users.count} > 0
+      AND ${user_spend_facts.count} <= ${users.count} ;;
+  }
+  assert: spend_and_retained_profit_algebraic_bounds {
+    expression: ${user_order_facts_users_fields.avg_user_lifetime_orders} >= 0
+      AND ${user_spend_facts_users_fields.avg_user_gross_spend} >= ${user_spend_facts_users_fields.avg_user_retained_profit}
+      AND abs(${user_spend_facts_users_fields.total_user_retained_profit} - (${users.count} * ${user_spend_facts_users_fields.avg_user_retained_profit})) < 0.01 ;;
+  }
+}
+
+test: users_first_1000_cognitive_friction_invariants {
+  explore_source: users {
+    column: cognitive_friction_tier { field: user_click_facts_user_spend_facts_users_fields.cognitive_friction_tier }
+    column: users_count { field: users.count }
+    column: avg_user_sessions { field: user_click_facts.avg_user_sessions }
+    column: avg_user_url_depth { field: user_click_facts.avg_user_url_depth }
+    filters: [
+      users.id: "<=1000",
+      user_click_facts.user_id: "NOT NULL"
+    ]
+  }
+  assert: cognitive_friction_exhaustive_and_bounded {
+    expression: NOT is_null(${user_click_facts_user_spend_facts_users_fields.cognitive_friction_tier})
+      AND ${users.count} > 0
+      AND ${user_click_facts.avg_user_sessions} >= 1
+      AND ${user_click_facts.avg_user_url_depth} >= 1 ;;
+  }
+}

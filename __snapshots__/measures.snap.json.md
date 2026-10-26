@@ -1,4 +1,34 @@
 {
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.avg_category_margin_rate": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Average Category Margin Rate",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.count": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Categories in Quadrant",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.flagship_categories": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Flagship Categories (Top 5 by Revenue)",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.total_active_skus": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Total Active SKUs",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.total_quadrant_profit": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Quadrant Profit",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
+  "agentic_thelook.category_growth_share_facts.category_growth_share_facts.total_quadrant_revenue": {
+    "explore_label": "Category Growth-Share Portfolio",
+    "label": "Quadrant Revenue",
+    "view_label": "Category Growth-Share Portfolio Facts"
+  },
   "agentic_thelook.distribution_centers.distribution_centers.count": {
     "explore_label": "Distribution Centers",
     "label": "Total Warehouse Empire Count",
@@ -172,6 +202,11 @@
   "agentic_thelook.events.events.ie_events": {
     "explore_label": "Events",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.latest_browser": {
+    "explore_label": "Events",
+    "label": "Latest Event Browser",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.max_sequence_number": {
@@ -409,9 +444,19 @@
     "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.avg_order_shelf_age_days": {
+    "explore_label": "Order Items",
+    "label": "Average Order Shelf Age (Days, Zero-Defaulted)",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.inventory_items_order_items_fields.gross_margin_ratio": {
     "explore_label": "Order Items",
     "label": "Gross Profit Margin",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.retained_net_profit": {
+    "explore_label": "Order Items",
+    "label": "Retained Net Profit",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.inventory_items_order_items_fields.total_gross_profit": {
@@ -449,6 +494,11 @@
     "label": "Average Warehouse Procrastination (Whole Hours)",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.completed_items": {
+    "explore_label": "Order Items",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.count": {
     "explore_label": "Order Items",
     "label": "Total Impulse Line Items Count",
@@ -482,6 +532,16 @@
   "agentic_thelook.order_items.order_items.late_night_revenue_share": {
     "explore_label": "Order Items",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.recent_era_revenue": {
+    "explore_label": "Order Items",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.recent_era_revenue_share": {
+    "explore_label": "Order Items",
+    "label": "Recent-Era Revenue Share (2025+)",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items.refunded_revenue": {
@@ -577,6 +637,11 @@
   "agentic_thelook.order_items.order_items_products_users_fields.cross_shopping_rate": {
     "explore_label": "Order Items",
     "label": "Gender-Bending Wardrobe Cross-Shopping Index",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_user_click_facts_fields.avg_item_buyer_clicks": {
+    "explore_label": "Order Items",
+    "label": "Average Buyer Clicks (Item-Weighted)",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_users_fields.age_price_correlation": {
@@ -794,6 +859,66 @@
     "label": "Total Items in Orders",
     "view_label": "Orders"
   },
+  "agentic_thelook.orders.orders_sequenced.max_inter_order_gap_days": {
+    "explore_label": "Orders",
+    "label": "Max Inter-Order Gap (Days)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.orders.users.avg_abs_latitude": {
+    "explore_label": "Orders",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.avg_customer_age": {
+    "explore_label": "Orders",
+    "label": "Average Customer Wisdom Level",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.avg_resident_age": {
+    "explore_label": "Orders",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.count": {
+    "explore_label": "Orders",
+    "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.distinct_cities": {
+    "explore_label": "Orders",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.distinct_countries": {
+    "explore_label": "Orders",
+    "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.distinct_postal_codes": {
+    "explore_label": "Orders",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.distinct_states": {
+    "explore_label": "Orders",
+    "label": "Distinct States or Provinces",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.oldest_shopper_age": {
+    "explore_label": "Orders",
+    "label": "Oldest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.us_registered_users": {
+    "explore_label": "Orders",
+    "label": "US State Registered Users",
+    "view_label": "Users"
+  },
+  "agentic_thelook.orders.users.youngest_shopper_age": {
+    "explore_label": "Orders",
+    "label": "Youngest Shopper Age",
+    "view_label": "Users"
+  },
   "agentic_thelook.products.category_sku_price_facts.avg_category_price_z_score": {
     "explore_label": "Products",
     "label": "Average Category Price Z-Score",
@@ -839,6 +964,11 @@
     "label": "Average Warehouse Procrastination (Whole Hours)",
     "view_label": "Order Items"
   },
+  "agentic_thelook.products.order_items.completed_items": {
+    "explore_label": "Products",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.products.order_items.count": {
     "explore_label": "Products",
     "label": "Total Impulse Line Items Count",
@@ -872,6 +1002,16 @@
   "agentic_thelook.products.order_items.late_night_revenue_share": {
     "explore_label": "Products",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.recent_era_revenue": {
+    "explore_label": "Products",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.recent_era_revenue_share": {
+    "explore_label": "Products",
+    "label": "Recent-Era Revenue Share (2025+)",
     "view_label": "Order Items"
   },
   "agentic_thelook.products.order_items.refunded_revenue": {
@@ -1064,6 +1204,11 @@
     "label": "Internet Explorer Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users.events.latest_browser": {
+    "explore_label": "Users",
+    "label": "Latest Event Browser",
+    "view_label": "Events"
+  },
   "agentic_thelook.users.events.max_sequence_number": {
     "explore_label": "Users",
     "label": "Max Sequence Number",
@@ -1129,6 +1274,11 @@
     "label": "Average Warehouse Procrastination (Whole Hours)",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users.order_items.completed_items": {
+    "explore_label": "Users",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users.order_items.count": {
     "explore_label": "Users",
     "label": "Total Impulse Line Items Count",
@@ -1162,6 +1312,16 @@
   "agentic_thelook.users.order_items.late_night_revenue_share": {
     "explore_label": "Users",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.recent_era_revenue": {
+    "explore_label": "Users",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.recent_era_revenue_share": {
+    "explore_label": "Users",
+    "label": "Recent-Era Revenue Share (2025+)",
     "view_label": "Order Items"
   },
   "agentic_thelook.users.order_items.refunded_revenue": {
@@ -1274,6 +1434,16 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users.user_click_facts.avg_user_sessions": {
+    "explore_label": "Users",
+    "label": "Average Browsing Sessions per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users.user_click_facts.avg_user_url_depth": {
+    "explore_label": "Users",
+    "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
     "explore_label": "Users",
     "label": "Average Lifetime Clicks per User",
@@ -1294,6 +1464,11 @@
     "label": "Average Days to First Order",
     "view_label": "Customer Order Facts"
   },
+  "agentic_thelook.users.user_order_facts_users_fields.avg_user_lifetime_orders": {
+    "explore_label": "Users",
+    "label": "Average Lifetime Orders per User",
+    "view_label": "Customer Order Facts"
+  },
   "agentic_thelook.users.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users",
     "label": "Average Customer LTV",
@@ -1302,6 +1477,11 @@
   "agentic_thelook.users.user_spend_facts.blended_lifetime_margin_ratio": {
     "explore_label": "Users",
     "label": "Blended Customer Gross Margin",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.count": {
+    "explore_label": "Users",
+    "label": "Active Paying Buyers",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users.user_spend_facts.total_items_bought": {
@@ -1318,6 +1498,21 @@
     "explore_label": "Users",
     "label": "Total Customer Lifetime Spend",
     "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts_users_fields.avg_user_gross_spend": {
+    "explore_label": "Users",
+    "label": "Average Gross Spend per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_spend_facts_users_fields.avg_user_retained_profit": {
+    "explore_label": "Users",
+    "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_spend_facts_users_fields.total_user_retained_profit": {
+    "explore_label": "Users",
+    "label": "Total Retained Net Profit (All Users)",
+    "view_label": "Users"
   },
   "agentic_thelook.users.user_spend_trajectory_facts.avg_first_order_spend": {
     "explore_label": "Users",
@@ -1484,6 +1679,11 @@
     "label": "Internet Explorer Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_signup_activation.events.latest_browser": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Latest Event Browser",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_signup_activation.events.max_sequence_number": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Max Sequence Number",
@@ -1549,6 +1749,11 @@
     "label": "Average Warehouse Procrastination (Whole Hours)",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users_signup_activation.order_items.completed_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users_signup_activation.order_items.count": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Total Impulse Line Items Count",
@@ -1582,6 +1787,16 @@
   "agentic_thelook.users_signup_activation.order_items.late_night_revenue_share": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.recent_era_revenue": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.recent_era_revenue_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Recent-Era Revenue Share (2025+)",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_signup_activation.order_items.refunded_revenue": {
@@ -1729,6 +1944,16 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_signup_activation.user_click_facts.avg_user_sessions": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Browsing Sessions per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts.avg_user_url_depth": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Lifetime Clicks per User",
@@ -1749,6 +1974,11 @@
     "label": "Average Days to First Order",
     "view_label": "Customer Order Facts"
   },
+  "agentic_thelook.users_signup_activation.user_order_facts_users_fields.avg_user_lifetime_orders": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Lifetime Orders per User",
+    "view_label": "Customer Order Facts"
+  },
   "agentic_thelook.users_signup_activation.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Customer LTV",
@@ -1757,6 +1987,11 @@
   "agentic_thelook.users_signup_activation.user_spend_facts.blended_lifetime_margin_ratio": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Blended Customer Gross Margin",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Active Paying Buyers",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users_signup_activation.user_spend_facts.total_items_bought": {
@@ -1773,6 +2008,21 @@
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Total Customer Lifetime Spend",
     "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.avg_user_gross_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Gross Spend per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.avg_user_retained_profit": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.total_user_retained_profit": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Retained Net Profit (All Users)",
+    "view_label": "Users"
   },
   "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_first_order_spend": {
     "explore_label": "Users (Signup Activation Cohort)",
@@ -1939,6 +2189,11 @@
     "label": "Internet Explorer Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_state_channel_traffic.events.latest_browser": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Latest Event Browser",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_state_channel_traffic.events.max_sequence_number": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Max Sequence Number",
@@ -2004,6 +2259,11 @@
     "label": "Average Warehouse Procrastination (Whole Hours)",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users_state_channel_traffic.order_items.completed_items": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users_state_channel_traffic.order_items.count": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Total Impulse Line Items Count",
@@ -2037,6 +2297,16 @@
   "agentic_thelook.users_state_channel_traffic.order_items.late_night_revenue_share": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.recent_era_revenue": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.recent_era_revenue_share": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Recent-Era Revenue Share (2025+)",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_state_channel_traffic.order_items.refunded_revenue": {
@@ -2239,6 +2509,11 @@
     "label": "Internet Explorer Events",
     "view_label": "State Clickstream Events"
   },
+  "agentic_thelook.users_state_channel_traffic.state_events.latest_browser": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Latest Event Browser",
+    "view_label": "State Clickstream Events"
+  },
   "agentic_thelook.users_state_channel_traffic.state_events.max_sequence_number": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Max Sequence Number",
@@ -2264,6 +2539,16 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_user_sessions": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Browsing Sessions per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_user_url_depth": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Lifetime Clicks per User",
@@ -2284,6 +2569,11 @@
     "label": "Average Days to First Order",
     "view_label": "Customer Order Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_order_facts_users_fields.avg_user_lifetime_orders": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Lifetime Orders per User",
+    "view_label": "Customer Order Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Customer LTV",
@@ -2292,6 +2582,11 @@
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.blended_lifetime_margin_ratio": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Blended Customer Gross Margin",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts.count": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Active Paying Buyers",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.total_items_bought": {
@@ -2308,6 +2603,21 @@
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Total Customer Lifetime Spend",
     "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.avg_user_gross_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Gross Spend per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.avg_user_retained_profit": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.total_user_retained_profit": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Total Retained Net Profit (All Users)",
+    "view_label": "Users"
   },
   "agentic_thelook.users_state_channel_traffic.user_spend_trajectory_facts.avg_first_order_spend": {
     "explore_label": "Users (State & Channel Traffic Balance)",

@@ -214,3 +214,15 @@ test: events_distinct_traffic_sources_2024_01_01 {
     expression: ${events.count} = 880 ;;
   }
 }
+
+test: events_2024_01_01_latest_browser_metrics {
+  explore_source: events {
+    column: latest_browser { field: events.latest_browser }
+    column: count { field: events.count }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: latest_browser_and_count_match {
+    expression: ${events.latest_browser} = "Chrome"
+      AND ${events.count} = 880 ;;
+  }
+}

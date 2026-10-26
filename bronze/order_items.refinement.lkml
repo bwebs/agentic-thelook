@@ -42,6 +42,24 @@ view: +order_items {
     description: "Helper flag indicating whether the order item has status 'Returned' or a populated returned_at timestamp."
   }
 
+  dimension: is_reversed {
+    label: "Reversed Order Item (Returned or Cancelled)"
+    description: "Whether the ordered line item was reversed through cancellation or customer return (status in 'Returned' or 'Cancelled')."
+    synonyms: ["is reversed", "returned or cancelled item", "boomerang reversal"]
+    type: yesno
+    sql: ${status} IN ('Returned', 'Cancelled') ;;
+  }
+
+  dimension: created_year_utc {
+    label: "Created Calendar Year (UTC)"
+    group_label: "Created Date"
+    description: "UTC calendar year when the order item was created."
+    synonyms: ["order year", "created year utc", "item purchase year"]
+    type: number
+    value_format_name: id
+    sql: EXTRACT(YEAR FROM ${created_raw}) ;;
+  }
+
   dimension: created_day_of_week_num {
     label: "Created Day of Week Number"
     group_label: "Created Date"
@@ -311,6 +329,34 @@ view: +order_items {
     type: number
     tags: ["non_additive"]
     sql: 1.0 * ${returned_items} / NULLIF(${count}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: completed_items {
+    label: "Completed Line Items"
+    description: "Count of ordered line items settled in 'Complete' status."
+    synonyms: ["clean kept items", "completed items", "complete order items"]
+    type: count
+    filters: [status: "Complete"]
+  }
+
+  measure: recent_era_revenue {
+    label: "Recent-Era Revenue (2025+)"
+    description: "Gross dollar sales from order line items placed in calendar year 2025 or later (UTC)."
+    synonyms: ["recent era rev", "2025 plus revenue", "recent momentum revenue"]
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [created_year_utc: ">=2025"]
+    value_format_name: usd
+  }
+
+  measure: recent_era_revenue_share {
+    label: "Recent-Era Revenue Share (2025+)"
+    description: "Share of cumulative all-time gross sales generated in calendar year 2025 or later (recent_era_revenue / total_revenue)."
+    synonyms: ["recent era share", "recent momentum share", "recent revenue share"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${recent_era_revenue} / NULLIF(${total_revenue}, 0) ;;
     value_format_name: percent_2
   }
 }
