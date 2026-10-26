@@ -152,4 +152,14 @@ explore: users {
     ]
     sorts: [users.count: desc]
   }
+
+  query: hemisphere_and_equator_proximity_belts {
+    description: "Hemisphere and Equator Proximity Belt segments our global customer base by north-south latitude and east-west longitude into the Northern High-Latitude Frost Belt, Northern Temperate Zone, Equatorial Tropics, and Southern Hemisphere Down-Under. Regional merchandising teams use this geographic belt to swap winter coat banners and summer swimwear promotions between northern and southern hemisphere shoppers."
+    dimensions: [users.hemisphere_belt, users.longitude_sector]
+    measures: [users.count]
+    sorts: [
+      users.hemisphere_belt: asc,
+      users.count: desc
+    ]
+  }
 }

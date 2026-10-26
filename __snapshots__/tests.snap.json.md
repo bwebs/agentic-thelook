@@ -1484,6 +1484,50 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_ghost_account_metrics"
   },
+  "agentic_thelook.users_2024_01_01_hemisphere_belt_metrics": {
+    "assert": {
+      "equatorial_tropics_sectors_match": {
+        "expression": "index(${users.hemisphere_belt}, 5) = \"3. Equatorial Tropics (-23.5S to 23.5N)\" AND index(${users.longitude_sector}, 5) = \"Americas West\" AND index(${users.count}, 5) = 5 AND index(${users.longitude_sector}, 6) = \"Asia/Oceania East\" AND index(${users.count}, 6) = 3"
+      },
+      "frost_belt_europe_africa_matches": {
+        "expression": "index(${users.hemisphere_belt}, 1) = \"1. Northern High-Latitude Frost Belt (>=50N)\" AND index(${users.longitude_sector}, 1) = \"Europe/Africa Prime\" AND index(${users.count}, 1) = 4"
+      },
+      "northern_temperate_sectors_match": {
+        "expression": "index(${users.hemisphere_belt}, 2) = \"2. Northern Temperate Fashion Zone (23.5N to 50N)\" AND index(${users.longitude_sector}, 2) = \"Americas West\" AND index(${users.count}, 2) = 9 AND index(${users.longitude_sector}, 3) = \"Asia/Oceania East\" AND index(${users.count}, 3) = 8 AND index(${users.longitude_sector}, 4) = \"Europe/Africa Prime\" AND index(${users.count}, 4) = 5"
+      },
+      "southern_hemisphere_sectors_match": {
+        "expression": "index(${users.hemisphere_belt}, 7) = \"4. Southern Hemisphere Down-Under (<-23.5S)\" AND index(${users.longitude_sector}, 7) = \"Americas West\" AND index(${users.count}, 7) = 2 AND index(${users.longitude_sector}, 8) = \"Asia/Oceania East\" AND index(${users.count}, 8) = 2"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "hemisphere_belt": {
+            "field": "users.hemisphere_belt"
+          },
+          "longitude_sector": {
+            "field": "users.longitude_sector"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 116,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_hemisphere_belt_metrics"
+  },
   "agentic_thelook.users_2024_01_01_latitude_metrics": {
     "assert": {
       "avg_abs_latitude_matches": {

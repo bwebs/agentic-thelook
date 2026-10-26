@@ -112,3 +112,28 @@ test: users_2024_01_01_thoroughfare_tier_metrics {
     expression: sum(${users.count}) = 38 ;;
   }
 }
+
+test: users_2024_01_01_hemisphere_belt_metrics {
+  explore_source: users {
+    column: hemisphere_belt { field: users.hemisphere_belt }
+    column: longitude_sector { field: users.longitude_sector }
+    column: count { field: users.count }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    sorts: [users.hemisphere_belt: asc, users.longitude_sector: asc]
+  }
+  assert: frost_belt_europe_africa_matches {
+    expression: index(${users.hemisphere_belt}, 1) = "1. Northern High-Latitude Frost Belt (>=50N)" AND index(${users.longitude_sector}, 1) = "Europe/Africa Prime" AND index(${users.count}, 1) = 4 ;;
+  }
+  assert: northern_temperate_sectors_match {
+    expression: index(${users.hemisphere_belt}, 2) = "2. Northern Temperate Fashion Zone (23.5N to 50N)" AND index(${users.longitude_sector}, 2) = "Americas West" AND index(${users.count}, 2) = 9 AND index(${users.longitude_sector}, 3) = "Asia/Oceania East" AND index(${users.count}, 3) = 8 AND index(${users.longitude_sector}, 4) = "Europe/Africa Prime" AND index(${users.count}, 4) = 5 ;;
+  }
+  assert: equatorial_tropics_sectors_match {
+    expression: index(${users.hemisphere_belt}, 5) = "3. Equatorial Tropics (-23.5S to 23.5N)" AND index(${users.longitude_sector}, 5) = "Americas West" AND index(${users.count}, 5) = 5 AND index(${users.longitude_sector}, 6) = "Asia/Oceania East" AND index(${users.count}, 6) = 3 ;;
+  }
+  assert: southern_hemisphere_sectors_match {
+    expression: index(${users.hemisphere_belt}, 7) = "4. Southern Hemisphere Down-Under (<-23.5S)" AND index(${users.longitude_sector}, 7) = "Americas West" AND index(${users.count}, 7) = 2 AND index(${users.longitude_sector}, 8) = "Asia/Oceania East" AND index(${users.count}, 8) = 2 ;;
+  }
+}
