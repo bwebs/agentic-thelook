@@ -1,6 +1,11 @@
 include: "inventory_items.view.lkml"
 
 view: +inventory_items {
+  dimension: id {
+    description: "Unique identifier for a physical inventory item unit."
+    synonyms: ["inventory item id"]
+  }
+
   dimension: product_distribution_center_id {
     tags: ["foreign_key"]
   }
@@ -8,7 +13,8 @@ view: +inventory_items {
   dimension: is_sold {
     type: yesno
     sql: ${sold_raw} IS NOT NULL ;;
-    description: "Whether the inventory unit has been sold (sold_at is populated)."
+    description: "Whether the physical inventory unit has been sold to a customer (sold_at is populated); 'No' classifies Unsold Shelf-Sitter Inventory sitting in warehouse stock for live product availability and ready-to-ship counts."
+    synonyms: ["unsold shelf-sitter inventory", "shelf-sitter inventory", "live product availability"]
   }
 
   dimension_group: on_shelf {
