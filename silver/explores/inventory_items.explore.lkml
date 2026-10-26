@@ -57,4 +57,30 @@ explore: inventory_items {
     sorts: [inventory_items.created_time: asc]
     limit: 25
   }
+
+  query: inventory_by_aging_tier {
+    description: "Remaining unsold units, sold units, and total inventory cost across Vintage Dead-Stock Museum Artifact shelf aging tiers."
+    dimensions: [inventory_items.inventory_aging_tier]
+    measures: [
+      inventory_items.unsold_units,
+      inventory_items.sold_units,
+      inventory_items.total_cost
+    ]
+    sorts: [inventory_items.inventory_aging_tier: asc]
+  }
+
+  query: unsold_museum_fossil_inventory_by_category {
+    description: "Top 15 product categories ranked by unsold wholesale cash tied up in Museum Piece Fossil stock sitting on warehouse shelves for three or more years."
+    dimensions: [inventory_items.product_category]
+    measures: [
+      inventory_items.unsold_units,
+      inventory_items.sunk_dusty_shelf_cost
+    ]
+    filters: [
+      inventory_items.is_sold: "no",
+      inventory_items.inventory_aging_tier: "4. Museum Piece Fossil (3+ Years on Shelf)"
+    ]
+    sorts: [inventory_items.sunk_dusty_shelf_cost: desc]
+    limit: 15
+  }
 }

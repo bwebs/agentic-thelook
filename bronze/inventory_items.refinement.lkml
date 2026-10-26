@@ -26,6 +26,19 @@ view: +inventory_items {
     sql_end: ${sold_raw} ;;
   }
 
+  dimension: inventory_aging_tier {
+    label: "Vintage Dead-Stock Museum Artifact Tier"
+    description: "Vintage Dead-Stock Museum Artifact classifies warehouse inventory units by how long they have sat on the shelf: '1. Fresh Off the Truck (<90 Days)', '2. Seasoned Shelf Stock (90-365 Days)', '3. Clearance Rack Veteran (1-3 Years)', and '4. Museum Piece Fossil (3+ Years on Shelf)'. Inventory liquidators use this aging tier to bundle multi-year-old stock into deep-discount clearance sales."
+    synonyms: ["vintage dead-stock museum artifact", "inventory aging tier", "dead stock tier", "shelf aging tier", "museum piece fossil"]
+    type: string
+    sql: CASE
+      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 90 THEN '1. Fresh Off the Truck (<90 Days)'
+      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 365 THEN '2. Seasoned Shelf Stock (90-365 Days)'
+      WHEN TIMESTAMP_DIFF(COALESCE(${sold_raw}, CURRENT_TIMESTAMP()), ${created_raw}, DAY) < 1095 THEN '3. Clearance Rack Veteran (1-3 Years)'
+      ELSE '4. Museum Piece Fossil (3+ Years on Shelf)'
+    END ;;
+  }
+
   measure: count {
     label: "Inventory Units Count"
     description: "Total physical inventory units."

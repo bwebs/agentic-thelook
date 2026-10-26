@@ -173,4 +173,53 @@ explore: users {
     ]
     sorts: [users.count: desc]
   }
+
+  query: generational_age_buckets {
+    description: "Registered shopper count and average age across Generational Age Bucket life-stage cohorts."
+    dimensions: [users.age_bucket]
+    measures: [
+      users.count,
+      users.avg_customer_age
+    ]
+    sorts: [users.age_bucket: asc]
+  }
+
+  query: users_by_age_decade_and_gender {
+    description: "Registered shopper count broken down by ten-year Age Decade and gender."
+    dimensions: [
+      users.age_decade,
+      users.age_decade_label,
+      users.gender
+    ]
+    measures: [users.count]
+    sorts: [
+      users.age_decade: asc,
+      users.gender: asc
+    ]
+  }
+
+  query: users_by_global_macro_region {
+    description: "Registered shopper count across Global Macro Region commercial territories and individual countries."
+    dimensions: [
+      users.global_macro_region,
+      users.country
+    ]
+    measures: [users.count]
+    sorts: [
+      users.global_macro_region: asc,
+      users.count: desc
+    ]
+  }
+
+  query: us_users_by_super_region_and_postal_zone {
+    description: "Top 20 domestic US Super-Region and first-digit postal code zone combinations ranked by registered shopper count."
+    dimensions: [
+      users.us_super_region,
+      users.postal_code_zone
+    ]
+    measures: [users.count]
+    filters: [users.country: "United States"]
+    sorts: [users.count: desc]
+    limit: 20
+  }
 }

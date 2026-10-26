@@ -159,3 +159,32 @@ test: users_2024_01_01_postal_code_parity_metrics {
     expression: index(${users.postal_code_parity}, 3) = "Odd-Zip Rebel" AND index(${users.count}, 3) = 13 AND index(${users.distinct_countries}, 3) = 5 ;;
   }
 }
+
+test: users_2024_01_01_age_and_region_metrics {
+  explore_source: users {
+    column: age_bucket { field: users.age_bucket }
+    column: age_decade { field: users.age_decade }
+    column: age_decade_label { field: users.age_decade_label }
+    column: global_macro_region { field: users.global_macro_region }
+    column: us_super_region { field: users.us_super_region }
+    column: postal_code_zone { field: users.postal_code_zone }
+    column: count { field: users.count }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    sorts: [
+      users.global_macro_region: asc,
+      users.us_super_region: asc,
+      users.postal_code_zone: asc,
+      users.age_bucket: asc,
+      users.age_decade: asc
+    ]
+  }
+  assert: north_america_heartland_row_matches {
+    expression: index(${users.global_macro_region}, 1) = "1. North America" AND index(${users.us_super_region}, 1) = "US Heartland & Midwest" AND index(${users.postal_code_zone}, 1) = "6" AND index(${users.age_bucket}, 1) = "1. Teen & Gen-Z (<25)" AND index(${users.age_decade}, 1) = 20 AND index(${users.age_decade_label}, 1) = "20s Decade" AND index(${users.count}, 1) = 1 ;;
+  }
+  assert: north_america_sunbelt_row_matches {
+    expression: index(${users.global_macro_region}, 4) = "1. North America" AND index(${users.us_super_region}, 4) = "US Sunbelt & South" AND index(${users.postal_code_zone}, 4) = "3" AND index(${users.age_bucket}, 4) = "2. Millennial Hustler (25-39)" AND index(${users.age_decade}, 4) = 30 AND index(${users.age_decade_label}, 4) = "30s Decade" AND index(${users.count}, 4) = 2 ;;
+  }
+}

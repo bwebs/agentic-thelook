@@ -359,6 +359,21 @@
     "label": "Count",
     "view_label": "Products"
   },
+  "agentic_thelook.order_items.products.distinct_categories": {
+    "explore_label": "Order Items",
+    "label": "Distinct Categories",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items.products.max_retail_price": {
+    "explore_label": "Order Items",
+    "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items.products.min_retail_price": {
+    "explore_label": "Order Items",
+    "label": "Minimum Retail Price",
+    "view_label": "Products"
+  },
   "agentic_thelook.order_items.users.avg_abs_latitude": {
     "explore_label": "Order Items",
     "label": "Average Absolute Customer Latitude",
@@ -457,6 +472,21 @@
   "agentic_thelook.products.products.count": {
     "explore_label": "Products",
     "label": "Count",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.products.distinct_categories": {
+    "explore_label": "Products",
+    "label": "Distinct Categories",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.products.max_retail_price": {
+    "explore_label": "Products",
+    "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.products.min_retail_price": {
+    "explore_label": "Products",
+    "label": "Minimum Retail Price",
     "view_label": "Products"
   },
   "agentic_thelook.users.order_items.avg_hours_to_deliver": {

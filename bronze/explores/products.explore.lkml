@@ -45,4 +45,41 @@ explore: products {
     ]
     sorts: [products.price_tier: asc]
   }
+
+  query: products_by_gross_margin_tier {
+    description: "Catalog SKU count, average retail sticker price, and average unit dollar profit across Gross Margin Cash-Cow Tier quadrants."
+    dimensions: [products.gross_margin_tier]
+    measures: [
+      products.count,
+      products.avg_sticker_price,
+      products.avg_dollar_markup
+    ]
+    sorts: [products.gross_margin_tier: asc]
+  }
+
+  query: products_by_wardrobe_anatomy_zone {
+    description: "Distinct clothing categories, catalog SKU count, and average retail sticker price across Wardrobe Anatomy Zone body coverage zones."
+    dimensions: [products.wardrobe_anatomy_zone]
+    measures: [
+      products.distinct_categories,
+      products.count,
+      products.avg_sticker_price
+    ]
+    sorts: [products.wardrobe_anatomy_zone: asc]
+  }
+
+  query: top_categories_by_sku_count_and_price_range {
+    description: "Top 20 clothing category and department combinations ranked by SKU count alongside minimum and maximum retail sticker prices."
+    dimensions: [
+      products.category,
+      products.department
+    ]
+    measures: [
+      products.count,
+      products.min_retail_price,
+      products.max_retail_price
+    ]
+    sorts: [products.count: desc]
+    limit: 20
+  }
 }
