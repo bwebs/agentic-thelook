@@ -28,6 +28,19 @@ view: +orders {
     sql: ${created_raw} ;;
   }
 
+  dimension: circadian_chronotype {
+    label: "Circadian Shopping Chronotype"
+    description: "Circadian Shopping Chronotype classifies orders by the UTC time of day they were placed, grouping shoppers into Vampire Insomnia Shoppers (00-05 UTC), Morning Coffee Browsers (06-11 UTC), Work-From-Home Procrastinators (12-17 UTC), and Couch Prime-Time Bingers (18-23 UTC)."
+    synonyms: ["circadian chronotype", "shopping chronotype", "customer chronotype"]
+    type: string
+    sql: CASE
+      WHEN EXTRACT(HOUR FROM ${created_raw}) BETWEEN 0 AND 5 THEN '1. Vampire Insomnia Shopper (00-05 UTC)'
+      WHEN EXTRACT(HOUR FROM ${created_raw}) BETWEEN 6 AND 11 THEN '2. Morning Coffee Browser (06-11 UTC)'
+      WHEN EXTRACT(HOUR FROM ${created_raw}) BETWEEN 12 AND 17 THEN '3. Work-From-Home Procrastinator (12-17 UTC)'
+      ELSE '4. Couch Prime-Time Binger (18-23 UTC)'
+    END ;;
+  }
+
   measure: count {
     label: "Order Count"
     description: "Total volume of customer orders."
