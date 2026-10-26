@@ -12,6 +12,7 @@ include: "/bronze/inventory_items.refinement.lkml"
 include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/order_items_base.explore.lkml"
+include: "/silver/distribution_centers_order_items_users_fields.view.lkml"
 include: "/silver/inventory_items_order_items_fields.view.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
 include: "/silver/order_items_products_users_fields.view.lkml"
@@ -86,6 +87,89 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: distribution_centers_order_items_users_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: shipments_by_geospatial_haul_classification {
+    description: "Shipped item count, average straight-line distance (km), and total gross profit across Supply-Chain Mismatched Detour versus Local Direct Item haul classifications."
+    dimensions: [distribution_centers_order_items_users_fields.geospatial_haul_classification]
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      inventory_items.id: "NOT NULL",
+      products.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+    sorts: [distribution_centers_order_items_users_fields.geospatial_haul_classification: asc]
+  }
+
+  query: top_corridors_by_latitude_span {
+    description: "Top 15 origin warehouse to destination country corridors ranked by average latitude degrees crossed alongside shipment volume."
+    dimensions: [
+      distribution_centers.name,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_users_fields.avg_lat_degrees_crossed
+    ]
+    filters: [
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+    sorts: [distribution_centers_order_items_users_fields.avg_lat_degrees_crossed: desc]
+    limit: 15
+  }
+
+  query: shipments_by_trade_corridor_regime {
+    description: "Total shipments, origin warehouses used, average corridor distance (km), average doorstep delivery hours, gross revenue, and gross profit across Geospatial Fulfillment Corridor and Tariff Zone regimes."
+    dimensions: [distribution_centers_order_items_users_fields.trade_corridor_regime]
+    measures: [
+      order_items.count,
+      distribution_centers.count,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      order_items.avg_total_doorstep_wait_hours,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      products.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+    sorts: [distribution_centers_order_items_users_fields.trade_corridor_regime: asc]
+  }
+
+  query: top_warehouse_country_corridors_by_profit {
+    description: "Top 20 origin warehouse to destination country shipping lanes ranked by total gross profit alongside shipment volume and average distance (km)."
+    dimensions: [
+      distribution_centers.name,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+    sorts: [inventory_items_order_items_fields.total_gross_profit: desc]
+    limit: 20
   }
 
   query: top_monoculture_category_hoarder_baskets {

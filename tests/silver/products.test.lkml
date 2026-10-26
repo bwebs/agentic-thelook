@@ -98,3 +98,48 @@ test: products_id_le_1000_brand_lineup_roles {
     expression: ${product_sales_facts.total_units_sold} >= 0 AND ${product_sales_facts.total_sku_revenue} >= ${product_sales_facts.total_sku_profit} ;;
   }
 }
+
+test: products_jeans_outliers_and_inventory_invariants {
+  explore_source: products {
+    column: sku_count { field: products.count }
+    column: warehouse_count { field: distribution_centers.count }
+    column: avg_category_price_z_score { field: category_sku_price_facts.avg_category_price_z_score }
+    column: total_unsold_available_units { field: product_inventory_facts.total_unsold_available_units }
+    column: total_sold_units { field: product_inventory_facts.total_sold_units }
+    column: total_unsold_capital_value { field: product_inventory_facts.total_unsold_capital_value }
+    filters: {
+      field: products.category
+      value: "Jeans"
+    }
+    filters: {
+      field: distribution_centers.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: category_sku_price_facts.category_price_outlier_term
+      value: "-EMPTY"
+    }
+    filters: {
+      field: product_inventory_facts.replenishment_urgency_tier
+      value: "-EMPTY"
+    }
+  }
+  assert: jeans_z_score_mean_is_zero {
+    expression: round(${category_sku_price_facts.avg_category_price_z_score}, 4) = 0 ;;
+  }
+  assert: jeans_warehouses_matches {
+    expression: ${distribution_centers.count} = 10 ;;
+  }
+  assert: jeans_sku_count_positive {
+    expression: ${products.count} >= 1000 ;;
+  }
+  assert: unsold_units_non_negative {
+    expression: ${product_inventory_facts.total_unsold_available_units} >= 0 ;;
+  }
+  assert: sold_units_positive {
+    expression: ${product_inventory_facts.total_sold_units} >= 1 ;;
+  }
+  assert: unsold_capital_non_negative {
+    expression: ${product_inventory_facts.total_unsold_capital_value} >= 0 ;;
+  }
+}

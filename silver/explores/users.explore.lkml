@@ -7,6 +7,8 @@ include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/events.view.lkml"
 include: "/bronze/events.refinement.lkml"
+include: "/bronze/distribution_centers.view.lkml"
+include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/users_base.explore.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
 include: "/silver/orders_users_fields.view.lkml"
@@ -20,6 +22,7 @@ include: "/silver/user_spend_trajectory_facts.view.lkml"
 include: "/silver/user_click_facts.view.lkml"
 include: "/silver/user_click_facts_user_spend_facts_users_fields.view.lkml"
 include: "/silver/events_users_fields.view.lkml"
+include: "/silver/user_warehouse_proximity_facts.view.lkml"
 
 explore: users {
   extends: [users_base]
@@ -119,6 +122,61 @@ explore: users {
     view_label: "Customer Order Facts"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: _sdt_distribution_centers {
+    from: distribution_centers
+    sql: ;;
+    relationship: one_to_one
+    fields: []
+  }
+
+  join: user_warehouse_proximity_facts {
+    view_label: "Customer Warehouse Proximity Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_warehouse_proximity_facts.id} ;;
+    fields: [
+      user_warehouse_proximity_facts.id,
+      user_warehouse_proximity_facts.nearest_dc_km,
+      user_warehouse_proximity_facts.nearest_warehouse_name,
+      user_warehouse_proximity_facts.warehouse_proximity_tier,
+      user_warehouse_proximity_facts.avg_nearest_dc_km
+    ]
+  }
+
+  query: customers_by_warehouse_proximity_tier {
+    description: "Registered customer count and average distance to nearest warehouse (km) across Warehouse Local Neighbor versus Long-Haul Buyer proximity tiers."
+    dimensions: [user_warehouse_proximity_facts.warehouse_proximity_tier]
+    measures: [
+      users.count,
+      user_warehouse_proximity_facts.avg_nearest_dc_km
+    ]
+    sorts: [user_warehouse_proximity_facts.warehouse_proximity_tier: asc]
+  }
+
+  query: us_residents_by_natural_catchment_warehouse {
+    description: "US registered customer count and average catchment radius (km) grouped by closest natural catchment fulfillment warehouse."
+    dimensions: [user_warehouse_proximity_facts.nearest_warehouse_name]
+    measures: [
+      users.count,
+      user_warehouse_proximity_facts.avg_nearest_dc_km
+    ]
+    filters: [users.country: "United States"]
+    sorts: [users.count: desc]
+  }
+
+  query: geographic_reach_and_demographics_by_country {
+    description: "Distinct states or provinces, distinct cities, distinct postal codes, total registered residents, and average resident age across customer countries."
+    dimensions: [users.country]
+    measures: [
+      users.distinct_states,
+      users.distinct_cities,
+      users.distinct_postal_codes,
+      users.count,
+      users.avg_customer_age
+    ]
+    sorts: [users.count: desc]
   }
 
   query: customers_by_email_handle_persona {

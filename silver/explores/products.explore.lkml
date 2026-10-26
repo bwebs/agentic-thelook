@@ -1,10 +1,14 @@
 include: "/bronze/products.view.lkml"
 include: "/bronze/products.refinement.lkml"
+include: "/bronze/distribution_centers.view.lkml"
+include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/explores/products_base.explore.lkml"
 include: "/silver/explores/products_sales_base.explore.lkml"
 include: "/silver/product_sales_facts.view.lkml"
+include: "/silver/product_inventory_facts.view.lkml"
+include: "/silver/category_sku_price_facts.view.lkml"
 include: "/silver/brand_facts.view.lkml"
 include: "/silver/brand_sku_facts.view.lkml"
 
@@ -14,11 +18,31 @@ explore: products {
   view_name: products
   hidden: no
 
+  join: distribution_centers {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+  }
+
   join: product_sales_facts {
     view_label: "Product Sales Velocity Facts"
     type: left_outer
     relationship: one_to_one
     sql_on: ${products.id} = ${product_sales_facts.product_id} ;;
+  }
+
+  join: product_inventory_facts {
+    view_label: "Product Inventory & Replenishment Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${products.id} = ${product_inventory_facts.product_id} ;;
+  }
+
+  join: category_sku_price_facts {
+    view_label: "Category Price Outlier Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${products.id} = ${category_sku_price_facts.product_id} ;;
   }
 
   join: brand_facts {
@@ -33,6 +57,46 @@ explore: products {
     type: left_outer
     relationship: one_to_one
     sql_on: ${products.id} = ${brand_sku_facts.product_id} ;;
+  }
+
+  query: catalog_by_replenishment_urgency_tier {
+    description: "Catalog SKU count, remaining unsold units, historical sold units, and unsold wholesale capital value across Product Stockout Risk and Replenishment Urgency Tiers."
+    dimensions: [product_inventory_facts.replenishment_urgency_tier]
+    measures: [
+      products.count,
+      product_inventory_facts.total_unsold_available_units,
+      product_inventory_facts.total_sold_units,
+      product_inventory_facts.total_unsold_capital_value
+    ]
+    filters: [distribution_centers.id: "NOT NULL"]
+    sorts: [product_inventory_facts.replenishment_urgency_tier: asc]
+  }
+
+  query: catalog_by_category_price_outlier_term {
+    description: "Catalog SKU count, average retail sticker price, and average within-category Z-score across Category Price Outlier Taxonomy tiers."
+    dimensions: [category_sku_price_facts.category_price_outlier_term]
+    measures: [
+      products.count,
+      products.avg_sticker_price,
+      category_sku_price_facts.avg_category_price_z_score
+    ]
+    sorts: [category_sku_price_facts.category_price_outlier_term: asc]
+  }
+
+  query: top_category_price_outlier_unicorns {
+    description: "Top 15 Overpriced Category Unicorn SKUs sitting 2.5+ standard deviations above their category average retail price."
+    dimensions: [
+      products.id,
+      products.name,
+      products.brand,
+      products.category,
+      products.retail_price,
+      category_sku_price_facts.category_avg_retail_price,
+      category_sku_price_facts.category_price_z_score
+    ]
+    filters: [category_sku_price_facts.category_price_z_score: ">=2.5"]
+    sorts: [category_sku_price_facts.category_price_z_score: desc]
+    limit: 15
   }
 
   query: catalog_by_brand_lineup_strategic_role {

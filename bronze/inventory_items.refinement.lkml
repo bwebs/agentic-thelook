@@ -10,6 +10,10 @@ view: +inventory_items {
     tags: ["foreign_key"]
   }
 
+  dimension: product_id {
+    tags: ["foreign_key"]
+  }
+
   dimension: is_sold {
     type: yesno
     sql: ${sold_raw} IS NOT NULL ;;

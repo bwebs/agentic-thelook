@@ -237,3 +237,81 @@ test: order_items_department_units_2024_01_01 {
     expression: ${order_items_products_fields.mens_units} + ${order_items_products_fields.womens_units} = ${order_items.count} ;;
   }
 }
+
+test: order_items_2024_01_01_geospatial_haul_metrics {
+  explore_source: order_items {
+    column: geospatial_haul_classification { field: distribution_centers_order_items_users_fields.geospatial_haul_classification }
+    column: count { field: order_items.count }
+    column: avg_shipment_distance_km { field: distribution_centers_order_items_users_fields.avg_shipment_distance_km }
+    column: avg_lat_degrees_crossed { field: distribution_centers_order_items_users_fields.avg_lat_degrees_crossed }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: inventory_items.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: distribution_centers.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: users.id
+      value: "NOT NULL"
+    }
+    sorts: [distribution_centers_order_items_users_fields.geospatial_haul_classification: asc]
+  }
+  assert: local_regional_hop_row_matches {
+    expression: index(${distribution_centers_order_items_users_fields.geospatial_haul_classification}, 1) = "Local Regional Hop (<5 deg Lat & <10 deg Lon)" ;;
+  }
+  assert: local_regional_hop_count_matches {
+    expression: index(${order_items.count}, 1) = 2 ;;
+  }
+  assert: local_regional_hop_distance_matches {
+    expression: round(index(${distribution_centers_order_items_users_fields.avg_shipment_distance_km}, 1), 1) = 761.9 ;;
+  }
+  assert: local_regional_hop_lat_span_matches {
+    expression: round(index(${distribution_centers_order_items_users_fields.avg_lat_degrees_crossed}, 1), 2) = 2.40 ;;
+  }
+  assert: trans_oceanic_expedition_count_matches {
+    expression: index(${order_items.count}, 3) = 45 ;;
+  }
+}
+
+test: order_items_2024_01_01_trade_corridor_metrics {
+  explore_source: order_items {
+    column: trade_corridor_regime { field: distribution_centers_order_items_users_fields.trade_corridor_regime }
+    column: count { field: order_items.count }
+    column: avg_shipment_distance_km { field: distribution_centers_order_items_users_fields.avg_shipment_distance_km }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: inventory_items.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: distribution_centers.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: users.id
+      value: "NOT NULL"
+    }
+    sorts: [distribution_centers_order_items_users_fields.trade_corridor_regime: asc]
+  }
+  assert: domestic_short_haul_label_matches {
+    expression: index(${distribution_centers_order_items_users_fields.trade_corridor_regime}, 1) = "Domestic Short-Haul Trucking Corridor (<800 km US)" ;;
+  }
+  assert: domestic_short_haul_count_matches {
+    expression: index(${order_items.count}, 1) = 2 ;;
+  }
+  assert: transpacific_corridor_count_matches {
+    expression: index(${order_items.count}, 4) = 22 ;;
+  }
+  assert: transpacific_corridor_distance_matches {
+    expression: round(index(${distribution_centers_order_items_users_fields.avg_shipment_distance_km}, 4), 1) = 11894.4 ;;
+  }
+}

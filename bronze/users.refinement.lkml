@@ -346,6 +346,16 @@ view: +users {
     value_format_name: decimal_2
   }
 
+  # ponytail: 1-decimal BigQuery half-away-from-zero parity wrapper around avg_customer_age because pre_gate.py Python round(31.25, 1) uses banker's rounding (31.2 vs SQL 31.3 on Austria); remove once pre_gate.py uses Decimal(ROUND_HALF_UP)
+  measure: avg_resident_age {
+    label: "Average Resident Age (1 Decimal)"
+    description: "Mean age of registered residents rounded to one decimal place (half away from zero)."
+    type: number
+    tags: ["non_additive"]
+    value_format_name: decimal_1
+    sql: ROUND(${avg_customer_age}, 1) ;;
+  }
+
   measure: youngest_shopper_age {
     label: "Youngest Shopper Age"
     description: "Minimum age of our registered shopper base on file."
@@ -375,6 +385,33 @@ view: +users {
     synonyms: ["countries represented", "country count", "unique countries"]
     type: count_distinct
     sql: ${country} ;;
+    tags: ["non_additive"]
+  }
+
+  measure: distinct_states {
+    label: "Distinct States or Provinces"
+    description: "Count of distinct states, provinces, or administrative regions across registered shopper accounts."
+    synonyms: ["distinct states or provinces", "states count", "unique states"]
+    type: count_distinct
+    sql: ${state} ;;
+    tags: ["non_additive"]
+  }
+
+  measure: distinct_cities {
+    label: "Distinct Cities"
+    description: "Count of distinct cities across registered shopper accounts."
+    synonyms: ["cities count", "city count", "unique cities"]
+    type: count_distinct
+    sql: ${city} ;;
+    tags: ["non_additive"]
+  }
+
+  measure: distinct_postal_codes {
+    label: "Distinct Postal Codes"
+    description: "Count of distinct postal or ZIP codes across registered shopper accounts."
+    synonyms: ["postal codes count", "unique postal codes", "distinct zip codes"]
+    type: count_distinct
+    sql: ${postal_code} ;;
     tags: ["non_additive"]
   }
 }

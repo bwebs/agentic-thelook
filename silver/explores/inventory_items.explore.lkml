@@ -1,6 +1,8 @@
 include: "/bronze/common_helpers.view.lkml"
 include: "/bronze/inventory_items.view.lkml"
 include: "/bronze/inventory_items.refinement.lkml"
+include: "/bronze/products.view.lkml"
+include: "/bronze/products.refinement.lkml"
 include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/inventory_items_base.explore.lkml"
@@ -10,11 +12,46 @@ explore: inventory_items {
   label: "Inventory Items"
   view_name: inventory_items
   hidden: no
+  fields: [
+    ALL_FIELDS*,
+    -products.markup_greed_pct,
+    -products.avg_markup_greed_pct
+  ]
 
   join: distribution_centers {
     type: left_outer
     relationship: many_to_one
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
+  }
+
+  join: products {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_items.product_id} = ${products.id} ;;
+  }
+
+  query: top_high_velocity_skus_by_sell_through {
+    description: "Top 15 high-demand catalog SKUs (15+ units sold) ranked by sell-through rate and sold inventory volume alongside remaining unsold units."
+    dimensions: [
+      products.id,
+      products.name,
+      products.brand,
+      products.category
+    ]
+    measures: [
+      inventory_items.unsold_units,
+      inventory_items.sold_units,
+      inventory_items.sell_through_rate
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      inventory_items.sold_units: ">=15"
+    ]
+    sorts: [
+      inventory_items.sell_through_rate: desc,
+      inventory_items.sold_units: desc
+    ]
+    limit: 15
   }
 
   query: warehouse_hoarding_and_sell_through {
