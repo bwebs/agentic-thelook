@@ -96,3 +96,50 @@ test: users_2022_cohort_year_1_survival_metrics {
     expression: round(${order_items_user_cohort_facts_fields.revenue_per_cohort_user}, 2) = 24.57 ;;
   }
 }
+
+test: users_id_le_1000_oceanic_spend_invariants {
+  explore_source: users {
+    column: oceanic_spend_tier { field: user_spend_facts.oceanic_spend_tier }
+    column: buyers_count { field: users.count }
+    column: tier_total_revenue { field: order_items.total_revenue }
+    column: avg_customer_ltv { field: user_spend_facts.avg_customer_ltv }
+    filters: {
+      field: users.id
+      value: "<=1000"
+    }
+    filters: {
+      field: user_spend_facts.user_id
+      value: "NOT NULL"
+    }
+    sorts: [user_spend_facts.oceanic_spend_tier: asc]
+  }
+  assert: plankton_and_minnow_ltv_bounds_hold {
+    expression: index(${user_spend_facts.oceanic_spend_tier}, 1) = "Plankton (<$30 LTV)" AND index(${user_spend_facts.avg_customer_ltv}, 1) > 0 AND index(${user_spend_facts.avg_customer_ltv}, 1) < 30 AND index(${user_spend_facts.oceanic_spend_tier}, 2) = "Minnow ($30-$99 LTV)" AND index(${user_spend_facts.avg_customer_ltv}, 2) >= 30 AND index(${user_spend_facts.avg_customer_ltv}, 2) < 100 ;;
+  }
+  assert: dolphin_and_mega_whale_ltv_bounds_hold {
+    expression: index(${user_spend_facts.oceanic_spend_tier}, 3) = "Dolphin ($100-$299 LTV)" AND index(${user_spend_facts.avg_customer_ltv}, 3) >= 100 AND index(${user_spend_facts.avg_customer_ltv}, 3) < 300 AND index(${user_spend_facts.oceanic_spend_tier}, 4) = "Moby Dick Mega-Whale ($300+ LTV)" AND index(${user_spend_facts.avg_customer_ltv}, 4) >= 300 ;;
+  }
+}
+
+test: users_id_le_1000_loyalty_tier_invariants {
+  explore_source: users {
+    column: customer_loyalty_tier { field: user_order_facts.customer_loyalty_tier }
+    column: customer_count { field: users.count }
+    column: orders_contributed { field: orders.count }
+    column: items_contributed { field: orders.total_items }
+    filters: {
+      field: users.id
+      value: "<=1000"
+    }
+    sorts: [user_order_facts.customer_loyalty_tier: asc]
+  }
+  assert: user_slice_partitions_all_1000_customers {
+    expression: sum(${users.count}) = 1000 ;;
+  }
+  assert: ghost_and_tourist_order_bounds_hold {
+    expression: index(${user_order_facts.customer_loyalty_tier}, 1) = "Window-Shopping Ghost (0 Orders)" AND index(${orders.count}, 1) = 0 AND index(${orders.total_items}, 1) = 0 AND index(${user_order_facts.customer_loyalty_tier}, 2) = "One-and-Done Tourist (1 Order)" AND index(${orders.count}, 2) = index(${users.count}, 2) ;;
+  }
+  assert: double_dipper_and_regular_order_bounds_hold {
+    expression: index(${user_order_facts.customer_loyalty_tier}, 3) = "Repeat Double-Dipper (2 Orders)" AND index(${orders.count}, 3) = 2 * index(${users.count}, 3) AND index(${user_order_facts.customer_loyalty_tier}, 4) = "Cult Die-Hard Regular (3+ Orders)" AND index(${orders.count}, 4) >= 3 * index(${users.count}, 4) ;;
+  }
+}

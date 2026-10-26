@@ -1,10 +1,28 @@
-include: "../products.view.lkml"
-include: "../products.refinement.lkml"
+include: "/bronze/products.view.lkml"
+include: "/bronze/products.refinement.lkml"
+include: "/bronze/order_items.view.lkml"
+include: "/bronze/order_items.refinement.lkml"
+include: "/bronze/explores/products_base.explore.lkml"
+include: "/silver/product_sales_facts.view.lkml"
 
 explore: products {
+  extends: [products_base]
   label: "Products"
   view_name: products
   hidden: no
+
+  join: order_items {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${products.id} = ${order_items.product_id} ;;
+  }
+
+  join: product_sales_facts {
+    view_label: "Product Sales Velocity Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${products.id} = ${product_sales_facts.product_id} ;;
+  }
 
   query: avg_sticker_price {
     description: "Average Sticker Shock measures the simple average retail sticker price across every item in our product catalog, regardless of how often it sells. The merchandising team uses this benchmark in board meetings to position the store as an affordable luxury destination."
@@ -81,5 +99,36 @@ explore: products {
     ]
     sorts: [products.count: desc]
     limit: 20
+  }
+
+  query: catalog_by_sku_velocity_tier {
+    description: "Catalog SKU count, total units sold, and gross revenue across Bestseller Hero versus Zero-Sale Wallflower velocity tiers."
+    dimensions: [product_sales_facts.sku_velocity_tier]
+    measures: [
+      products.count,
+      order_items.count,
+      order_items.total_revenue
+    ]
+    sorts: [product_sales_facts.sku_velocity_tier: asc]
+  }
+
+  query: top_selling_hero_skus {
+    description: "Top 15 best-selling catalog product SKUs ranked by units sold and gross revenue."
+    dimensions: [
+      products.id,
+      products.name,
+      products.brand,
+      products.category
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue
+    ]
+    filters: [order_items.id: "NOT NULL"]
+    sorts: [
+      order_items.count: desc,
+      order_items.total_revenue: desc
+    ]
+    limit: 15
   }
 }

@@ -212,3 +212,22 @@ test: users_2024_01_name_phonetics_and_tokens {
     expression: ${users__name_tokens.count} = ${users.count} * 2 ;;
   }
 }
+
+test: users_id_le_5_full_name_metrics {
+  explore_source: users {
+    column: id { field: users.id }
+    column: full_name { field: users.full_name }
+    column: count { field: users.count }
+    filters: {
+      field: users.id
+      value: "<=5"
+    }
+    sorts: [users.id: asc]
+  }
+  assert: first_user_full_name_matches {
+    expression: index(${users.id}, 1) = 1 AND index(${users.full_name}, 1) = "Valerie Lowe" AND index(${users.count}, 1) = 1 ;;
+  }
+  assert: fifth_user_full_name_matches {
+    expression: index(${users.id}, 5) = 5 AND index(${users.full_name}, 5) = "Nicholas Turner" AND sum(${users.count}) = 5 ;;
+  }
+}

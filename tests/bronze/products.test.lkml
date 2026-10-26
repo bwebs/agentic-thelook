@@ -1,4 +1,4 @@
-include: "../../bronze/explores/products.explore.lkml"
+include: "../../silver/explores/products.explore.lkml"
 
 test: products_refinement_metrics {
   explore_source: products {

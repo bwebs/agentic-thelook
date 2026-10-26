@@ -65,6 +65,40 @@ view: +order_items {
     sql: EXTRACT(HOUR FROM ${created_raw}) ;;
   }
 
+  dimension: created_month_num {
+    label: "Created Calendar Month"
+    group_label: "Created Date"
+    description: "Numeric UTC calendar month when the order item was created (1 = January through 12 = December)."
+    synonyms: ["calendar month", "created month number", "order month"]
+    type: number
+    sql: EXTRACT(MONTH FROM ${created_raw}) ;;
+  }
+
+  dimension: retail_seasonal_vintage {
+    label: "Retail Seasonal Order Vintage"
+    description: "Retail Seasonal Order Vintage groups transactions into five commercial fashion seasons across the calendar year: 'Q4 Cyber-Holiday Frenzy (Nov-Dec)', 'Back-to-School & Fall Layering (Aug-Oct)', 'Spring Wardrobe Reboot (Mar-May)', 'Mid-Summer Fiesta (Jun-Jul)', and 'New-Year Resolution Rush (Jan-Feb)'. Seasonal buyers use these retail vintages to align activewear, swimwear, and winter coat inventory with peak seasonal demand."
+    synonyms: ["retail seasonal vintage", "retail seasonal order vintage", "commercial fashion season", "order season vintage"]
+    case: {
+      when: {
+        sql: ${created_month_num} IN (11, 12) ;;
+        label: "Q4 Cyber-Holiday Frenzy (Nov-Dec)"
+      }
+      when: {
+        sql: ${created_month_num} IN (8, 9, 10) ;;
+        label: "Back-to-School & Fall Layering (Aug-Oct)"
+      }
+      when: {
+        sql: ${created_month_num} IN (3, 4, 5) ;;
+        label: "Spring Wardrobe Reboot (Mar-May)"
+      }
+      when: {
+        sql: ${created_month_num} IN (6, 7) ;;
+        label: "Mid-Summer Fiesta (Jun-Jul)"
+      }
+      else: "New-Year Resolution Rush (Jan-Feb)"
+    }
+  }
+
   dimension: is_high_roller_single_item {
     label: "High-Roller Single Item"
     description: "High-Roller Single Item identifies any individual order item sold for a hundred dollars or more (sale_price >= 100.0). Merchandising and fulfillment teams use this label to spot premium-ticket purchases that qualify for upgraded packaging and VIP post-purchase follow-up."

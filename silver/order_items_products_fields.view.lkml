@@ -63,4 +63,28 @@ view: order_items_products_fields {
     sql: 1.0 * ${total_warm_clothing_revenue} / NULLIF(${order_items.total_revenue}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: activewear_units {
+    label: "Activewear Units Sold"
+    description: "Total order line item units sold in the 'Active' product category."
+    synonyms: ["activewear units", "active category units"]
+    type: count
+    filters: [products.category: "Active"]
+  }
+
+  measure: swimwear_units {
+    label: "Swimwear Units Sold"
+    description: "Total order line item units sold in the 'Swim' product category."
+    synonyms: ["swimwear units", "swim category units"]
+    type: count
+    filters: [products.category: "Swim"]
+  }
+
+  measure: winter_cozy_units {
+    label: "Sweaters & Outerwear Units Sold"
+    description: "Total order line item units sold across the 'Sweaters' and 'Outerwear & Coats' winter categories."
+    synonyms: ["winter cozy units", "sweater and coat units", "winter outerwear units"]
+    type: count
+    filters: [products.category: "Sweaters,Outerwear & Coats"]
+  }
 }

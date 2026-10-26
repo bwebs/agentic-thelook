@@ -152,3 +152,32 @@ test: order_items_2024_01_01_cross_shopping_metrics {
   }
 }
 
+
+test: order_items_2024_01_seasonal_category_metrics {
+  explore_source: order_items {
+    column: activewear_units { field: order_items_products_fields.activewear_units }
+    column: swimwear_units { field: order_items_products_fields.swimwear_units }
+    column: winter_cozy_units { field: order_items_products_fields.winter_cozy_units }
+    column: total_revenue { field: order_items.total_revenue }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01 to 2024-02-01"
+    }
+    filters: {
+      field: products.id
+      value: "NOT NULL"
+    }
+  }
+  assert: activewear_units_matches {
+    expression: ${order_items_products_fields.activewear_units} = 107 ;;
+  }
+  assert: swimwear_units_matches {
+    expression: ${order_items_products_fields.swimwear_units} = 118 ;;
+  }
+  assert: winter_cozy_units_matches {
+    expression: ${order_items_products_fields.winter_cozy_units} = 238 ;;
+  }
+  assert: total_revenue_matches {
+    expression: round(${order_items.total_revenue}, 2) = 123613.15 ;;
+  }
+}
