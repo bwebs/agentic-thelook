@@ -58,6 +58,31 @@ view: +users {
     END ;;
   }
 
+  dimension: hemisphere_belt {
+    label: "Hemisphere and Equator Proximity Belt"
+    description: "Hemisphere and Equator Proximity Belt segments our global customer base by north-south latitude into '1. Northern High-Latitude Frost Belt (>=50N)', '2. Northern Temperate Fashion Zone (23.5N to 50N)', '3. Equatorial Tropics (-23.5S to 23.5N)', and '4. Southern Hemisphere Down-Under (<-23.5S)'. Regional merchandising teams use this geographic belt to swap winter coat banners and summer swimwear promotions between northern and southern hemisphere shoppers."
+    synonyms: ["hemisphere and equator proximity belt", "equator proximity belt", "latitude belt", "hemisphere zone"]
+    type: string
+    sql: CASE
+      WHEN ${latitude} >= 50.0 THEN '1. Northern High-Latitude Frost Belt (>=50N)'
+      WHEN ${latitude} >= 23.5 THEN '2. Northern Temperate Fashion Zone (23.5N to 50N)'
+      WHEN ${latitude} >= -23.5 THEN '3. Equatorial Tropics (-23.5S to 23.5N)'
+      ELSE '4. Southern Hemisphere Down-Under (<-23.5S)'
+    END ;;
+  }
+
+  dimension: longitude_sector {
+    label: "Longitude Sector"
+    description: "East-west geographic longitude sector grouping customers into 'Americas West' (< -30.0 deg), 'Europe/Africa Prime' (-30.0 to < 60.0 deg), and 'Asia/Oceania East' (>= 60.0 deg) for regional merchandising analysis."
+    synonyms: ["east-west longitude sector", "longitude region", "global longitude band"]
+    type: string
+    sql: CASE
+      WHEN ${longitude} < -30.0 THEN 'Americas West'
+      WHEN ${longitude} < 60.0 THEN 'Europe/Africa Prime'
+      ELSE 'Asia/Oceania East'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
