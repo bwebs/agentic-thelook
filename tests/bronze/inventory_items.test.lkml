@@ -49,3 +49,33 @@ test: inventory_items_2024_01_01_turnover_metrics {
     expression: round(${inventory_items.total_cost}, 2) = 2152.29 ;;
   }
 }
+
+test: inventory_items_2024_01_01_unsold_shelf_sitter_invariants {
+  explore_source: inventory_items {
+    column: count { field: inventory_items.count }
+    column: unsold_units { field: inventory_items.unsold_units }
+    column: sold_units { field: inventory_items.sold_units }
+    column: total_cost { field: inventory_items.total_cost }
+    column: sunk_dusty_shelf_cost { field: inventory_items.sunk_dusty_shelf_cost }
+    filters: {
+      field: inventory_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: inventory_items.is_sold
+      value: "no"
+    }
+  }
+  assert: shelf_sitter_count_non_negative {
+    expression: ${inventory_items.count} >= 0 ;;
+  }
+  assert: unsold_units_match_shelf_sitter_count {
+    expression: ${inventory_items.unsold_units} = ${inventory_items.count} ;;
+  }
+  assert: zero_sold_units_in_shelf_sitter_slice {
+    expression: ${inventory_items.sold_units} = 0 ;;
+  }
+  assert: shelf_sitter_cost_matches_sunk_cost {
+    expression: coalesce(round(${inventory_items.total_cost}, 2), 0) = coalesce(round(${inventory_items.sunk_dusty_shelf_cost}, 2), 0) AND coalesce(${inventory_items.total_cost}, 0) >= 0 ;;
+  }
+}

@@ -42,4 +42,19 @@ explore: inventory_items {
     ]
     sorts: [inventory_items.avg_days_on_shelf: asc]
   }
+
+  query: unsold_shelf_sitter_inventory {
+    description: "Unsold Shelf-Sitter Inventory lists the oldest 25 physical stock units currently sitting unsold in a warehouse (sold_at is null) to determine live product availability."
+    dimensions: [
+      inventory_items.id,
+      inventory_items.product_id,
+      inventory_items.product_name,
+      inventory_items.product_brand,
+      inventory_items.cost,
+      inventory_items.created_time
+    ]
+    filters: [inventory_items.is_sold: "no"]
+    sorts: [inventory_items.created_time: asc]
+    limit: 25
+  }
 }

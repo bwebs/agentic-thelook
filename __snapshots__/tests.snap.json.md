@@ -389,6 +389,57 @@
     "model": "agentic_thelook",
     "name": "inventory_items_2024_01_01_turnover_metrics"
   },
+  "agentic_thelook.inventory_items_2024_01_01_unsold_shelf_sitter_invariants": {
+    "assert": {
+      "shelf_sitter_cost_matches_sunk_cost": {
+        "expression": "coalesce(round(${inventory_items.total_cost}, 2), 0) = coalesce(round(${inventory_items.sunk_dusty_shelf_cost}, 2), 0) AND coalesce(${inventory_items.total_cost}, 0) >= 0"
+      },
+      "shelf_sitter_count_non_negative": {
+        "expression": "${inventory_items.count} >= 0"
+      },
+      "unsold_units_match_shelf_sitter_count": {
+        "expression": "${inventory_items.unsold_units} = ${inventory_items.count}"
+      },
+      "zero_sold_units_in_shelf_sitter_slice": {
+        "expression": "${inventory_items.sold_units} = 0"
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "count": {
+            "field": "inventory_items.count"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          },
+          "sunk_dusty_shelf_cost": {
+            "field": "inventory_items.sunk_dusty_shelf_cost"
+          },
+          "total_cost": {
+            "field": "inventory_items.total_cost"
+          },
+          "unsold_units": {
+            "field": "inventory_items.unsold_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.created_date": "2024-01-01",
+          "inventory_items.is_sold": "no",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/inventory_items.test.lkml",
+    "line": 53,
+    "model": "agentic_thelook",
+    "name": "inventory_items_2024_01_01_unsold_shelf_sitter_invariants"
+  },
   "agentic_thelook.inventory_items_2024_01_01_warehouse_turnover_metrics": {
     "assert": {
       "avg_days_on_shelf_matches": {
