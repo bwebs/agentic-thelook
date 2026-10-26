@@ -29,4 +29,21 @@ explore: orders {
     measures: [orders.count, orders.total_items]
     sorts: [orders.count: desc]
   }
+
+  query: mega_basket_bulk_orders {
+    description: "Mega-Basket Bulk Order flags any single checkout where the customer packed three or more items into their order. Warehouse fulfillment teams use this tag to route multi-item purchases to larger box-packing stations."
+    dimensions: [
+      orders.order_id,
+      orders.user_id,
+      orders.num_of_item,
+      orders.status,
+      orders.created_timestamp
+    ]
+    filters: [orders.is_mega_basket_bulk_order: "yes"]
+    sorts: [
+      orders.num_of_item: desc,
+      orders.created_timestamp: desc
+    ]
+    limit: 25
+  }
 }
