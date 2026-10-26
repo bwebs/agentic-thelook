@@ -1286,6 +1286,50 @@
     "model": "agentic_thelook",
     "name": "orders_refinement_metrics"
   },
+  "agentic_thelook.products_id_le_1000_price_tier_metrics": {
+    "assert": {
+      "couture_tier_matches": {
+        "expression": "index(${products.price_tier}, 4) = \"4. Trust-Fund Couture ($200+)\" AND index(${products.count}, 4) = 18 AND round(index(${products.avg_wholesale_cost}, 4), 2) = 131.58"
+      },
+      "designer_tier_matches": {
+        "expression": "index(${products.price_tier}, 3) = \"3. Treat-Yo-Self Designer ($75-$200)\" AND index(${products.count}, 3) = 140 AND round(index(${products.avg_wholesale_cost}, 3), 2) = 54.80"
+      },
+      "impulse_tier_matches": {
+        "expression": "index(${products.price_tier}, 1) = \"1. Impulse Pocket Change (<$25)\" AND index(${products.count}, 1) = 350 AND round(index(${products.avg_wholesale_cost}, 1), 2) = 8.77"
+      },
+      "staple_tier_matches": {
+        "expression": "index(${products.price_tier}, 2) = \"2. Everyday Mall Staple ($25-$75)\" AND index(${products.count}, 2) = 492 AND round(index(${products.avg_wholesale_cost}, 2), 2) = 22.67"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "avg_wholesale_cost": {
+            "field": "products.avg_wholesale_cost"
+          },
+          "count": {
+            "field": "products.count"
+          },
+          "price_tier": {
+            "field": "products.price_tier"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "products.id": "<=1000",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/products.test.lkml",
+    "line": 28,
+    "model": "agentic_thelook",
+    "name": "products_id_le_1000_price_tier_metrics"
+  },
   "agentic_thelook.products_refinement_metrics": {
     "assert": {
       "avg_dollar_markup_matches": {
