@@ -8,15 +8,25 @@ view: user_order_facts {
       column: user_id { field: orders.user_id }
       column: lifetime_orders { field: orders.count }
       column: lifetime_items { field: orders.total_items }
+      column: first_order_micros { field: orders._first_order_micros }
       filters: [orders.user_id: "NOT NULL"]
     }
   }
 
   dimension: user_id {
     primary_key: yes
-    hidden: yes
+    label: "Ordering Customer User ID"
+    description: "Unique customer identifier for shoppers who have placed at least one order."
     type: number
     sql: ${TABLE}.user_id ;;
+  }
+
+  dimension_group: first_order {
+    label: "Customer First Order"
+    description: "Timestamp of the customer's very first order."
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: TIMESTAMP_MICROS(${TABLE}.first_order_micros) ;;
   }
 
   dimension: lifetime_orders {

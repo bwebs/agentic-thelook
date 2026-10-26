@@ -198,3 +198,24 @@ test: order_items_2024_01_01_dc_1_join_metrics {
     expression: round(${order_items.total_revenue}, 2) = 194.97 ;;
   }
 }
+
+test: order_items_2024_01_complete_gross_profit {
+  explore_source: order_items {
+    column: total_gross_profit { field: inventory_items_order_items_fields.total_gross_profit }
+    column: gross_margin_ratio { field: inventory_items_order_items_fields.gross_margin_ratio }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01"
+    }
+    filters: {
+      field: order_items.status
+      value: "Complete"
+    }
+  }
+  assert: total_gross_profit_matches {
+    expression: round(${inventory_items_order_items_fields.total_gross_profit}, 2) = 16633.21 ;;
+  }
+  assert: gross_margin_ratio_matches {
+    expression: round(${inventory_items_order_items_fields.gross_margin_ratio}, 4) = 0.5221 ;;
+  }
+}

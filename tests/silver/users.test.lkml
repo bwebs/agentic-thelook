@@ -182,3 +182,58 @@ test: users_id_le_5000_clickstream_intent_and_ratio_invariants {
       ) ;;
   }
 }
+
+test: users_2024_01_complete_post_signup_order_lag {
+  explore_source: users {
+    column: avg_days_from_signup_to_order { field: orders_users_fields.avg_days_from_signup_to_order }
+    filters: {
+      field: orders.created_date
+      value: "2024-01"
+    }
+    filters: {
+      field: orders.status
+      value: "Complete"
+    }
+    filters: {
+      field: orders_users_fields.is_post_signup_order
+      value: "yes"
+    }
+  }
+  assert: avg_days_from_signup_to_order_matches {
+    expression: round(${orders_users_fields.avg_days_from_signup_to_order}, 1) = 771.3 ;;
+  }
+}
+
+test: users_id_le_1000_buyer_personas_invariants {
+  explore_source: users {
+    column: activation_velocity_persona { field: user_order_facts_users_fields.activation_velocity_persona }
+    column: return_behavior_persona { field: user_spend_facts.return_behavior_persona }
+    column: customer_margin_archetype { field: user_spend_facts.customer_margin_archetype }
+    column: national_wealth_tier { field: user_spend_facts.national_wealth_tier }
+    column: buyer_count { field: users.count }
+    column: total_lifetime_spend { field: user_spend_facts.total_lifetime_spend }
+    column: total_lifetime_profit { field: user_spend_facts.total_lifetime_profit }
+    column: blended_lifetime_margin_ratio { field: user_spend_facts.blended_lifetime_margin_ratio }
+    filters: {
+      field: users.id
+      value: "<=1000"
+    }
+    filters: {
+      field: user_spend_facts.user_id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: user_order_facts.user_id
+      value: "NOT NULL"
+    }
+  }
+  assert: personas_populated_for_buyers {
+    expression: NOT is_null(${user_order_facts_users_fields.activation_velocity_persona}) AND NOT is_null(${user_spend_facts.return_behavior_persona}) AND NOT is_null(${user_spend_facts.customer_margin_archetype}) AND NOT is_null(${user_spend_facts.national_wealth_tier}) ;;
+  }
+  assert: buyer_count_positive {
+    expression: ${users.count} > 0 ;;
+  }
+  assert: blended_margin_consistent {
+    expression: ${user_spend_facts.total_lifetime_spend} > 0 AND ${user_spend_facts.total_lifetime_spend} >= ${user_spend_facts.total_lifetime_profit} AND round(${user_spend_facts.blended_lifetime_margin_ratio}, 6) = round(${user_spend_facts.total_lifetime_profit} / ${user_spend_facts.total_lifetime_spend}, 6) ;;
+  }
+}

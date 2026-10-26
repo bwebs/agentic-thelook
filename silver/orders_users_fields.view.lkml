@@ -6,6 +6,33 @@ view: orders_users_fields {
     sql: CONCAT(CAST(${users.id} AS STRING), '_', CAST(COALESCE(${orders.order_id}, 0) AS STRING)) ;;
   }
 
+  dimension_group: from_signup_to_order {
+    label: "From Signup to Order"
+    description: "Elapsed time between customer account creation and order placement."
+    type: duration
+    intervals: [day]
+    sql_start: ${users.created_raw} ;;
+    sql_end: ${orders.created_raw} ;;
+  }
+
+  dimension: is_post_signup_order {
+    label: "Post-Signup Order"
+    description: "Whether the order timestamp occurred on or after the customer's account creation timestamp."
+    synonyms: ["order on or after signup", "post signup order"]
+    type: yesno
+    sql: ${orders.created_raw} >= ${users.created_raw} ;;
+  }
+
+  measure: avg_days_from_signup_to_order {
+    label: "Average Days from Signup to Order"
+    description: "Mean whole days elapsed from customer account signup to order placement across orders."
+    synonyms: ["avg days from signup to order", "mean signup to order days"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${days_from_signup_to_order} ;;
+    value_format_name: decimal_1
+  }
+
   measure: ghost_users {
     label: "Ghost Users"
     description: "Number of registered customers who created an account on the site but have never placed a single order."

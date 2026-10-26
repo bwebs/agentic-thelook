@@ -70,3 +70,31 @@ test: products_id_le_5000_brand_prestige_invariants {
       AND ${products.count} >= ${products.distinct_brands} ;;
   }
 }
+
+test: products_id_le_1000_brand_lineup_roles {
+  explore_source: products {
+    column: brand_lineup_strategic_role { field: brand_sku_facts.brand_lineup_strategic_role }
+    column: sku_count { field: products.count }
+    column: total_units_sold { field: product_sales_facts.total_units_sold }
+    column: total_sku_revenue { field: product_sales_facts.total_sku_revenue }
+    column: total_sku_profit { field: product_sales_facts.total_sku_profit }
+    filters: {
+      field: products.id
+      value: "<=1000"
+    }
+    filters: {
+      field: products.brand
+      value: "-NULL"
+    }
+    sorts: [brand_sku_facts.brand_lineup_strategic_role: asc]
+  }
+  assert: strategic_role_populated {
+    expression: NOT is_null(${brand_sku_facts.brand_lineup_strategic_role}) ;;
+  }
+  assert: sku_count_positive {
+    expression: ${products.count} > 0 ;;
+  }
+  assert: lineup_metrics_consistent {
+    expression: ${product_sales_facts.total_units_sold} >= 0 AND ${product_sales_facts.total_sku_revenue} >= ${product_sales_facts.total_sku_profit} ;;
+  }
+}
