@@ -46,4 +46,11 @@ explore: orders {
     ]
     limit: 25
   }
+
+  query: orders_by_circadian_chronotype {
+    description: "Order count and total items ordered grouped by Circadian Shopping Chronotype (UTC hour-of-day shopper persona)."
+    dimensions: [orders.circadian_chronotype]
+    measures: [orders.count, orders.total_items]
+    sorts: [orders.circadian_chronotype: asc]
+  }
 }

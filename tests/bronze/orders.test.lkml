@@ -84,3 +84,36 @@ test: orders_2024_01_01_mega_basket_bulk_orders_metrics {
     expression: ${orders.max_items_per_order} = 4 ;;
   }
 }
+
+test: orders_2024_01_01_circadian_chronotype_metrics {
+  explore_source: orders {
+    column: circadian_chronotype { field: orders.circadian_chronotype }
+    column: order_count { field: orders.count }
+    column: total_items { field: orders.total_items }
+    filters: {
+      field: orders.created_date
+      value: "2024-01-01"
+    }
+    sorts: [orders.circadian_chronotype: asc]
+  }
+  assert: vampire_insomnia_shopper_matches {
+    expression: index(${orders.circadian_chronotype}, 1) = "1. Vampire Insomnia Shopper (00-05 UTC)"
+      AND index(${orders.count}, 1) = 13
+      AND index(${orders.total_items}, 1) = 19 ;;
+  }
+  assert: morning_coffee_browser_matches {
+    expression: index(${orders.circadian_chronotype}, 2) = "2. Morning Coffee Browser (06-11 UTC)"
+      AND index(${orders.count}, 2) = 11
+      AND index(${orders.total_items}, 2) = 13 ;;
+  }
+  assert: wfh_procrastinator_matches {
+    expression: index(${orders.circadian_chronotype}, 3) = "3. Work-From-Home Procrastinator (12-17 UTC)"
+      AND index(${orders.count}, 3) = 13
+      AND index(${orders.total_items}, 3) = 20 ;;
+  }
+  assert: couch_prime_time_binger_matches {
+    expression: index(${orders.circadian_chronotype}, 4) = "4. Couch Prime-Time Binger (18-23 UTC)"
+      AND index(${orders.count}, 4) = 15
+      AND index(${orders.total_items}, 4) = 24 ;;
+  }
+}
