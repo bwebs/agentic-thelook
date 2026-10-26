@@ -65,6 +65,14 @@ view: +order_items {
     sql: EXTRACT(HOUR FROM ${created_raw}) ;;
   }
 
+  dimension: is_high_roller_single_item {
+    label: "High-Roller Single Item"
+    description: "High-Roller Single Item identifies any individual order item sold for a hundred dollars or more (sale_price >= 100.0). Merchandising and fulfillment teams use this label to spot premium-ticket purchases that qualify for upgraded packaging and VIP post-purchase follow-up."
+    synonyms: ["high roller single item", "high-roller item", "high roller item", "premium-ticket purchase"]
+    type: yesno
+    sql: ${sale_price} >= 100.0 ;;
+  }
+
   dimension_group: to_ship {
     label: "To Ship"
     description: "Elapsed time an order sits waiting inside the warehouse before being handed to a shipping carrier (created_at to shipped_at)."

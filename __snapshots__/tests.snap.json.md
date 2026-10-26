@@ -616,6 +616,48 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_cross_shopping_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_high_roller_single_item_metrics": {
+    "assert": {
+      "high_roller_avg_item_price_matches": {
+        "expression": "round(${order_items.avg_item_price}, 2) = 199.62"
+      },
+      "high_roller_item_count_matches": {
+        "expression": "${order_items.count} = 11"
+      },
+      "high_roller_total_revenue_matches": {
+        "expression": "round(${order_items.total_revenue}, 2) = 2195.79"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_item_price": {
+            "field": "order_items.avg_item_price"
+          },
+          "order_item_count": {
+            "field": "order_items.count"
+          },
+          "total_revenue": {
+            "field": "order_items.total_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "order_items.is_high_roller_single_item": "yes",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 133,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_high_roller_single_item_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_orders_join_metrics": {
     "assert": {
       "ever_returned_items_matches": {
