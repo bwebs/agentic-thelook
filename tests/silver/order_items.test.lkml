@@ -315,3 +315,43 @@ test: order_items_2024_01_01_trade_corridor_metrics {
     expression: round(index(${distribution_centers_order_items_users_fields.avg_shipment_distance_km}, 4), 1) = 11894.4 ;;
   }
 }
+
+test: order_items_2024_w1_retained_profit_and_archetype_metrics {
+  explore_source: order_items {
+    column: retained_net_profit { field: inventory_items_order_items_fields.retained_net_profit }
+    column: avg_order_shelf_age_days { field: inventory_items_order_items_fields.avg_order_shelf_age_days }
+    filters: [
+      order_items.created_date: "2024-01-01 to 2024-01-07",
+      order_items.status: "Complete,Returned,Cancelled",
+      inventory_items.id: "NOT NULL"
+    ]
+  }
+  assert: retained_profit_and_shelf_age_match {
+    expression: round(${inventory_items_order_items_fields.retained_net_profit}, 2) = 3979.11
+      AND round(${inventory_items_order_items_fields.avg_order_shelf_age_days}, 1) = 0 ;;
+  }
+}
+
+test: order_items_2024_w1_archetype_invariants {
+  explore_source: order_items {
+    column: order_line_archetype { field: category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.order_line_archetype }
+    column: count { field: order_items.count }
+    column: retained_net_profit { field: inventory_items_order_items_fields.retained_net_profit }
+    column: avg_item_buyer_clicks { field: order_items_user_click_facts_fields.avg_item_buyer_clicks }
+    filters: [
+      order_items.created_date: "2024-01-01 to 2024-01-07",
+      order_items.status: "Complete,Returned,Cancelled",
+      inventory_items.id: "NOT NULL"
+    ]
+  }
+  assert: archetype_exhaustive_and_reversal_zero_profit {
+    expression: NOT is_null(${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.order_line_archetype})
+      AND ${order_items.count} > 0
+      AND ${order_items_user_click_facts_fields.avg_item_buyer_clicks} >= 0
+      AND if(
+        contains(${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.order_line_archetype}, "Boomerang"),
+        coalesce(${inventory_items_order_items_fields.retained_net_profit}, 0) = 0,
+        ${inventory_items_order_items_fields.retained_net_profit} > 0
+      ) ;;
+  }
+}

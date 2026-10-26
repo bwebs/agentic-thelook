@@ -11,8 +11,10 @@ view: user_spend_facts {
       column: mens_items_bought { field: order_items_products_fields.mens_units }
       column: womens_items_bought { field: order_items_products_fields.womens_units }
       column: items_returned { field: order_items.ever_returned_items }
+      column: status_returned_items { field: order_items.returned_items }
       column: lifetime_spend { field: order_items.total_revenue }
       column: lifetime_profit { field: inventory_items_order_items_fields.total_gross_profit }
+      column: retained_net_profit { field: inventory_items_order_items_fields.retained_net_profit }
       filters: [order_items.user_id: "NOT NULL"]
       derived_column: country_spend_quartile {
         sql: NTILE(4) OVER (PARTITION BY country ORDER BY lifetime_spend DESC) ;;
@@ -289,5 +291,29 @@ view: user_spend_facts {
     type: number
     sql: 1.0 * ${total_lifetime_profit} / NULLIF(${total_lifetime_spend}, 0) ;;
     value_format_name: percent_2
+  }
+
+  dimension: status_returned_items {
+    hidden: yes
+    type: number
+    sql: COALESCE(${TABLE}.status_returned_items, 0) ;;
+  }
+
+  dimension: retained_net_profit {
+    label: "Customer Retained Net Profit"
+    group_label: "Profitability"
+    description: "Cumulative retained net dollar profit across non-reversed order items purchased by the customer (excluding Returned and Cancelled items)."
+    synonyms: ["customer retained profit", "retained buyer profit"]
+    type: number
+    value_format_name: usd
+    sql: COALESCE(${TABLE}.retained_net_profit, 0) ;;
+  }
+
+  measure: count {
+    label: "Active Paying Buyers"
+    description: "Number of distinct paying customers who have purchased at least one order item."
+    synonyms: ["active buyers", "paying customers count"]
+    type: count
+    filters: [user_id: "NOT NULL"]
   }
 }

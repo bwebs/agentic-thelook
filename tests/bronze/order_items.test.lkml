@@ -201,3 +201,31 @@ test: order_items_2024_seasonal_vintage_metrics {
     expression: index(${order_items.retail_seasonal_vintage}, 5) = "New-Year Resolution Rush (Jan-Feb)" AND index(${order_items.created_month_num}, 5) = 1 AND index(${order_items.count}, 5) = 60 ;;
   }
 }
+
+test: order_items_2024_2025_boundary_era_and_reversed_metrics {
+  explore_source: order_items {
+    column: is_reversed { field: order_items.is_reversed }
+    column: completed_items { field: order_items.completed_items }
+    column: recent_era_revenue { field: order_items.recent_era_revenue }
+    column: recent_era_revenue_share { field: order_items.recent_era_revenue_share }
+    filters: [
+      order_items.created_date: "2024-12-31,2025-01-01",
+      order_items.status: "Complete,Returned,Cancelled"
+    ]
+    sorts: [order_items.is_reversed: asc]
+  }
+  assert: is_reversed_partition_matches {
+    expression: NOT index(${order_items.is_reversed}, 1)
+      AND index(${order_items.is_reversed}, 2)
+      AND index(${order_items.completed_items}, 1) = 45
+      AND index(${order_items.completed_items}, 2) = 0 ;;
+  }
+  assert: recent_era_revenue_matches {
+    expression: round(index(${order_items.recent_era_revenue}, 1), 2) = 1183.18
+      AND round(index(${order_items.recent_era_revenue}, 2), 2) = 853.92 ;;
+  }
+  assert: recent_era_revenue_share_matches {
+    expression: round(index(${order_items.recent_era_revenue_share}, 1), 4) = 0.389
+      AND round(index(${order_items.recent_era_revenue_share}, 2), 4) = 0.4279 ;;
+  }
+}

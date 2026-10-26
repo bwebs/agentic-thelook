@@ -7,6 +7,11 @@ view: user_click_facts {
     explore_source: events {
       column: user_id { field: events.user_id }
       column: total_clicks { field: events.count }
+      column: lifetime_sessions { field: events.unique_chaotic_sessions }
+      column: avg_url_depth { field: events.avg_url_path_depth }
+      column: cart_events { field: events.cart_events }
+      column: cancel_events { field: events.cancel_events }
+      column: latest_browser { field: events.latest_browser }
       column: distinct_event_sources { field: events.distinct_traffic_sources }
       column: mismatched_source_events { field: events_users_fields.channel_crossover_events }
       filters: [events.user_id: "NOT NULL"]
@@ -15,7 +20,8 @@ view: user_click_facts {
 
   dimension: user_id {
     primary_key: yes
-    hidden: yes
+    label: "Clicking Customer User ID"
+    description: "Unique customer identifier for shoppers who have generated at least one recorded clickstream event."
     type: number
     sql: ${TABLE}.user_id ;;
   }
@@ -26,6 +32,52 @@ view: user_click_facts {
     synonyms: ["lifetime clicks", "user total clicks", "customer click count"]
     type: number
     sql: COALESCE(${TABLE}.total_clicks, 0) ;;
+  }
+
+  dimension: lifetime_sessions {
+    label: "Customer Lifetime Sessions"
+    group_label: "Clickstream Friction & Load"
+    description: "Cumulative distinct browsing sessions recorded across the customer's clickstream history."
+    synonyms: ["sessions cnt", "user sessions", "customer session count"]
+    type: number
+    sql: ${TABLE}.lifetime_sessions ;;
+  }
+
+  dimension: avg_url_depth {
+    label: "Customer Average URL Depth"
+    group_label: "Clickstream Friction & Load"
+    description: "Mean URL directory path depth across all pages visited by the customer."
+    synonyms: ["avg uri depth", "user avg url depth"]
+    type: number
+    value_format_name: decimal_2
+    sql: ${TABLE}.avg_url_depth ;;
+  }
+
+  dimension: cart_events {
+    label: "Customer Cart Events"
+    group_label: "Clickstream Friction & Load"
+    description: "Cumulative add-to-cart clickstream events recorded for the customer."
+    synonyms: ["user cart clicks", "customer cart count"]
+    type: number
+    sql: COALESCE(${TABLE}.cart_events, 0) ;;
+  }
+
+  dimension: cancel_events {
+    label: "Customer Cancel Events"
+    group_label: "Clickstream Friction & Load"
+    description: "Cumulative checkout or browsing cancel clickstream events recorded for the customer."
+    synonyms: ["user cancel clicks", "customer cancel count"]
+    type: number
+    sql: COALESCE(${TABLE}.cancel_events, 0) ;;
+  }
+
+  dimension: latest_browser {
+    label: "Customer Latest Browser"
+    group_label: "Clickstream Friction & Load"
+    description: "Browser recorded on the customer's most recent website clickstream event."
+    synonyms: ["primary user browser", "most recent customer browser"]
+    type: string
+    sql: ${TABLE}.latest_browser ;;
   }
 
   dimension: distinct_event_sources {
@@ -74,6 +126,26 @@ view: user_click_facts {
     tags: ["non_additive"]
     type: average
     sql: ${distinct_event_sources} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_user_sessions {
+    label: "Average Browsing Sessions per Clicking User"
+    description: "Mean number of distinct browsing sessions recorded across clicking customers."
+    synonyms: ["avg sessions", "average sessions per customer"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${lifetime_sessions} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: avg_user_url_depth {
+    label: "Average URL Depth per Clicking User"
+    description: "Mean per-customer average URL path depth across clicking customers."
+    synonyms: ["avg url depth", "average customer url depth"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${avg_url_depth} ;;
     value_format_name: decimal_2
   }
 }

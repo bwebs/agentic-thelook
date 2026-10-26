@@ -9,7 +9,12 @@ view: user_order_facts {
       column: lifetime_orders { field: orders.count }
       column: lifetime_items { field: orders.total_items }
       column: first_order_micros { field: orders._first_order_micros }
+      column: last_order_micros { field: orders._last_order_micros }
+      column: max_inter_order_gap_days { field: orders_sequenced.max_inter_order_gap_days }
       filters: [orders.user_id: "NOT NULL"]
+      derived_column: dataset_latest_order_micros {
+        sql: MAX(last_order_micros) OVER () ;;
+      }
     }
   }
 
@@ -27,6 +32,47 @@ view: user_order_facts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: TIMESTAMP_MICROS(${TABLE}.first_order_micros) ;;
+  }
+
+  dimension_group: last_order {
+    label: "Customer Latest Order"
+    description: "Timestamp of the customer's most recent order."
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: TIMESTAMP_MICROS(${TABLE}.last_order_micros) ;;
+  }
+
+  dimension_group: dataset_latest_order {
+    hidden: yes
+    type: time
+    timeframes: [raw]
+    sql: TIMESTAMP_MICROS(${TABLE}.dataset_latest_order_micros) ;;
+  }
+
+  dimension_group: since_first_order_ref {
+    label: "Since First Order (Dataset Clock)"
+    description: "Elapsed days from the customer's first order to the latest order timestamp recorded in the store ledger."
+    type: duration
+    intervals: [day]
+    sql_start: ${first_order_raw} ;;
+    sql_end: ${dataset_latest_order_raw} ;;
+  }
+
+  dimension_group: since_last_order_ref {
+    label: "Since Latest Order (Dataset Clock)"
+    description: "Elapsed days from the customer's most recent order to the latest order timestamp recorded in the store ledger."
+    type: duration
+    intervals: [day]
+    sql_start: ${last_order_raw} ;;
+    sql_end: ${dataset_latest_order_raw} ;;
+  }
+
+  dimension: max_inter_order_gap_days {
+    label: "Customer Max Inter-Order Gap (Days)"
+    description: "Longest dormancy gap in whole days between consecutive orders in the customer's order history (0 for single-order or non-ordering users)."
+    synonyms: ["max inter order gap days", "max hibernation gap days"]
+    type: number
+    sql: COALESCE(${TABLE}.max_inter_order_gap_days, 0) ;;
   }
 
   dimension: lifetime_orders {

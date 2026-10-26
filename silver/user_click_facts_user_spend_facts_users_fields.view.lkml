@@ -27,6 +27,35 @@ view: user_click_facts_user_spend_facts_users_fields {
     }
   }
 
+  dimension: cognitive_friction_tier {
+    label: "Clickstream Session Cognitive Load and Friction Tier"
+    description: "Clickstream Session Cognitive Load and Friction Tier combines a customer's browsing depth, page dwell time, checkout cancel clicks, and completed orders to classify clicking users into Frictionless Flow-State Closers, High-Cognitive-Load Comparison Grinders, Frustrated Checkout Abandoners who hit cart or cancel with zero completed spend, and Disoriented Casual Wanderers (returns NULL for accounts with zero clickstream events). Product engineering teams use this friction taxonomy alongside browser cancel rates to prioritize checkout simplifications."
+    synonyms: [
+      "cognitive friction tier",
+      "clickstream session cognitive load and friction tier",
+      "session friction tier",
+      "checkout friction persona"
+    ]
+    case: {
+      when: {
+        sql: ${user_click_facts.user_id} IS NOT NULL AND COALESCE(${user_spend_facts.items_bought}, 0) > 0 AND ${user_click_facts.cancel_events} = 0 AND ${user_click_facts.total_clicks} <= 15 ;;
+        label: "Frictionless Flow-State Closer (Bought Smoothly, 0 Cancels)"
+      }
+      when: {
+        sql: ${user_click_facts.user_id} IS NOT NULL AND COALESCE(${user_spend_facts.items_bought}, 0) > 0 ;;
+        label: "High-Cognitive-Load Comparison Grinder (Bought After Heavy Research/Cancels)"
+      }
+      when: {
+        sql: ${user_click_facts.user_id} IS NOT NULL AND COALESCE(${user_spend_facts.items_bought}, 0) = 0 AND (${user_click_facts.cart_events} > 0 OR ${user_click_facts.cancel_events} > 0) ;;
+        label: "Frustrated Checkout Abandoner (Reached Cart/Cancel, $0 Ledger Spend)"
+      }
+      when: {
+        sql: ${user_click_facts.user_id} IS NOT NULL ;;
+        label: "Disoriented Casual Wanderer (Top-of-Funnel Browsing Only)"
+      }
+    }
+  }
+
   measure: avg_user_clicks {
     label: "Average Lifetime Clicks per User"
     description: "Mean cumulative website clicks across registered customers (counting zero-click accounts as 0)."

@@ -63,6 +63,13 @@ view: +orders {
     sql: UNIX_MICROS(${created_raw}) ;;
   }
 
+  measure: _last_order_micros {
+    hidden: yes
+    type: max
+    tags: ["non_additive"]
+    sql: UNIX_MICROS(${created_raw}) ;;
+  }
+
   measure: avg_items_per_order {
     label: "Average Items per Order"
     description: "Cart Stuffing Velocity: average number of items customers pack into a single order."

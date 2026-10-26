@@ -36,3 +36,18 @@ test: orders_complete_basket_diversity_2024_01_01 {
       AND round(index(${order_basket_facts.total_basket_revenue}, 3), 2) = 675.14 ;;
   }
 }
+
+test: orders_2024_06_01_inter_order_gap_metrics {
+  explore_source: orders {
+    column: max_inter_order_gap_days { field: orders_sequenced.max_inter_order_gap_days }
+    column: count { field: orders.count }
+    filters: [
+      orders.created_date: "2024-06-01",
+      orders.status: "Complete,Returned,Cancelled"
+    ]
+  }
+  assert: max_inter_order_gap_and_count_match {
+    expression: ${orders_sequenced.max_inter_order_gap_days} = 663
+      AND ${orders.count} = 21 ;;
+  }
+}

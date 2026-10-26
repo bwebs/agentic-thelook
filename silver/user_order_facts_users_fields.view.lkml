@@ -48,4 +48,14 @@ view: user_order_facts_users_fields {
     sql: ${days_to_first_order} ;;
     value_format_name: decimal_1
   }
+
+  measure: avg_user_lifetime_orders {
+    label: "Average Lifetime Orders per User"
+    description: "Mean cumulative orders placed across registered customers (counting non-ordering accounts as 0)."
+    synonyms: ["avg orders", "average orders per user", "mean customer orders"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${user_order_facts.lifetime_orders} ;;
+    value_format_name: decimal_2
+  }
 }

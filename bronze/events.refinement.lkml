@@ -268,4 +268,13 @@ view: +events {
     type: string
     sql: STRING_AGG(${event_type}, '>' ORDER BY ${sequence_number}) ;;
   }
+
+  measure: latest_browser {
+    label: "Latest Event Browser"
+    description: "Most recently recorded browser across clickstream events ordered by event timestamp."
+    synonyms: ["most recent browser", "last event browser"]
+    tags: ["non_additive"]
+    type: string
+    sql: ARRAY_AGG(${browser} ORDER BY ${created_raw} DESC LIMIT 1)[OFFSET(0)] ;;
+  }
 }

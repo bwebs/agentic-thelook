@@ -55,6 +55,31 @@ explore: events {
     ]
   }
 
+  query: browser_cart_to_cancel_friction {
+    description: "Unique browsing sessions, cart events, cancel events, purchase events, and cart-to-cancel abandonment ratio broken down by browser."
+    dimensions: [events.browser]
+    measures: [
+      events.unique_chaotic_sessions,
+      events.cart_events,
+      events.cancel_events,
+      events.purchase_events,
+      events.cancel_to_cart_ratio
+    ]
+    sorts: [events.cancel_to_cart_ratio: desc]
+  }
+
+  query: sessions_and_url_depth_by_country {
+    description: "Total browsing sessions, average URL path depth, and purchase events for signed-in shoppers across countries."
+    dimensions: [users.country]
+    measures: [
+      events.unique_chaotic_sessions,
+      events.avg_url_path_depth,
+      events.purchase_events
+    ]
+    filters: [users.id: "NOT NULL"]
+    sorts: [events.unique_chaotic_sessions: desc]
+  }
+
   query: channel_crossover_events_by_source {
     description: "Top 15 customer signup-to-session channel crossover pairs ranked by crossover clickstream event volume."
     dimensions: [users.traffic_source, events.traffic_source]

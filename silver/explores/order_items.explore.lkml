@@ -17,6 +17,12 @@ include: "/silver/inventory_items_order_items_fields.view.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
 include: "/silver/order_items_products_users_fields.view.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
+include: "/silver/category_sku_price_facts.view.lkml"
+include: "/silver/user_warehouse_proximity_facts.view.lkml"
+include: "/silver/user_click_facts.view.lkml"
+include: "/silver/user_item_volume_facts.view.lkml"
+include: "/silver/order_items_user_click_facts_fields.view.lkml"
+include: "/silver/category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.view.lkml"
 
 explore: order_items {
   extends: [order_items_base]
@@ -93,6 +99,199 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: category_sku_price_facts {
+    view_label: "Category Price Outlier Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.id} = ${category_sku_price_facts.product_id} ;;
+    fields: [
+      category_sku_price_facts.product_id,
+      category_sku_price_facts.category_price_z_score,
+      category_sku_price_facts.category_price_outlier_term
+    ]
+  }
+
+  join: _sdt_distribution_centers {
+    from: distribution_centers
+    sql: ;;
+    relationship: one_to_one
+    fields: []
+  }
+
+  join: user_warehouse_proximity_facts {
+    view_label: "Customer Warehouse Proximity Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${users.id} = ${user_warehouse_proximity_facts.id} ;;
+    fields: [
+      user_warehouse_proximity_facts.id,
+      user_warehouse_proximity_facts.nearest_dc_km,
+      user_warehouse_proximity_facts.nearest_warehouse_name,
+      user_warehouse_proximity_facts.warehouse_proximity_tier
+    ]
+  }
+
+  join: user_click_facts {
+    view_label: "Customer Clickstream Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${users.id} = ${user_click_facts.user_id} ;;
+    fields: [
+      user_click_facts.user_id,
+      user_click_facts.total_clicks,
+      user_click_facts.distinct_event_sources,
+      user_click_facts.latest_browser
+    ]
+  }
+
+  join: user_item_volume_facts {
+    view_label: "Customer Item Volume Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.user_id} = ${user_item_volume_facts.user_id} ;;
+  }
+
+  join: order_items_user_click_facts_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: top_categories_by_recent_era_revenue_share {
+    description: "Top 15 department-category lines ranked by 2025+ recent-era revenue momentum share alongside all-time revenue, recent-era revenue, and gross profit."
+    dimensions: [products.department, products.category]
+    measures: [
+      order_items.total_revenue,
+      order_items.recent_era_revenue,
+      order_items.recent_era_revenue_share,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL"
+    ]
+    sorts: [order_items.recent_era_revenue_share: desc]
+    limit: 15
+  }
+
+  query: annual_department_sales_and_profit {
+    description: "Annual units sold, gross revenue, and gross profit broken down by UTC calendar year and product department."
+    dimensions: [order_items.created_year_utc, products.department]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL"
+    ]
+    sorts: [
+      order_items.created_year_utc: desc,
+      products.department: asc
+    ]
+  }
+
+  query: top_zero_return_unicorn_vips {
+    description: "Top 15 high-spend ($250+) zero-return VIP customers ranked by net gross profit alongside items kept and gross spend."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      order_items.returned_items: "0",
+      order_items.total_revenue: ">=250"
+    ]
+    sorts: [inventory_items_order_items_fields.total_gross_profit: desc]
+    limit: 15
+  }
+
+  query: order_items_by_full_stack_archetype {
+    description: "Transaction item count, distinct buyers, average buyer age, gross revenue, retained net profit, average shipment distance, average shelf age, and average buyer clicks across Grand Unified Full-Stack Order-Line Archetypes."
+    dimensions: [category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.order_line_archetype]
+    measures: [
+      order_items.count,
+      order_items.distinct_users,
+      users.avg_customer_age,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.retained_net_profit,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      inventory_items_order_items_fields.avg_order_shelf_age_days,
+      order_items_user_click_facts_fields.avg_item_buyer_clicks
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      users.id: "NOT NULL",
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL"
+    ]
+    sorts: [category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.order_line_archetype: asc]
+  }
+
+  query: warehouse_department_routing_performance {
+    description: "Outbound items shipped, completed items, gross profit margin, average days on shelf, and average shipment distance (km) by origin warehouse and product department."
+    dimensions: [distribution_centers.name, products.department]
+    measures: [
+      order_items.count,
+      order_items.completed_items,
+      inventory_items_order_items_fields.total_gross_profit,
+      inventory_items.avg_days_on_shelf,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km
+    ]
+    filters: [
+      orders.order_id: "NOT NULL",
+      users.id: "NOT NULL",
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL"
+    ]
+    sorts: [
+      products.department: asc,
+      inventory_items_order_items_fields.total_gross_profit: desc
+    ]
+  }
+
+  query: top_country_browser_department_segments {
+    description: "Top 20 country, latest customer browser, and product department segments ranked by net gross profit alongside active buyers, average buyer age, order count, and gross revenue."
+    dimensions: [
+      users.country,
+      user_click_facts.latest_browser,
+      products.department
+    ]
+    measures: [
+      order_items.distinct_users,
+      users.avg_customer_age,
+      order_items.distinct_orders,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      orders.order_id: "NOT NULL",
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      user_click_facts.user_id: "NOT NULL"
+    ]
+    sorts: [inventory_items_order_items_fields.total_gross_profit: desc]
+    limit: 20
   }
 
   query: shipments_by_geospatial_haul_classification {

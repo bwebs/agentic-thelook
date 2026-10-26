@@ -20,7 +20,9 @@ include: "/silver/user_order_facts.view.lkml"
 include: "/silver/user_order_facts_users_fields.view.lkml"
 include: "/silver/user_spend_trajectory_facts.view.lkml"
 include: "/silver/user_click_facts.view.lkml"
+include: "/silver/user_click_facts_user_order_facts_users_fields.view.lkml"
 include: "/silver/user_click_facts_user_spend_facts_users_fields.view.lkml"
+include: "/silver/user_spend_facts_users_fields.view.lkml"
 include: "/silver/events_users_fields.view.lkml"
 include: "/silver/user_warehouse_proximity_facts.view.lkml"
 
@@ -143,6 +145,70 @@ explore: users {
       user_warehouse_proximity_facts.warehouse_proximity_tier,
       user_warehouse_proximity_facts.avg_nearest_dc_km
     ]
+  }
+
+  join: user_click_facts_user_order_facts_users_fields {
+    view_label: "Users"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: user_spend_facts_users_fields {
+    view_label: "Users"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: users_by_lifecycle_resurrection_state {
+    description: "Registered customer count, average age, average lifetime orders, and average lifetime clicks across Customer Churn Hibernation and Resurrection State segments."
+    dimensions: [user_click_facts_user_order_facts_users_fields.lifecycle_resurrection_state]
+    measures: [
+      users.count,
+      users.avg_resident_age,
+      user_order_facts_users_fields.avg_user_lifetime_orders,
+      user_click_facts_user_spend_facts_users_fields.avg_user_clicks
+    ]
+    sorts: [user_click_facts_user_order_facts_users_fields.lifecycle_resurrection_state: asc]
+  }
+
+  query: users_by_cognitive_friction_tier {
+    description: "Clicking customer count, average age, average browsing sessions, average clicks, average URL depth, and average gross spend across Clickstream Session Cognitive Load and Friction Tiers."
+    dimensions: [user_click_facts_user_spend_facts_users_fields.cognitive_friction_tier]
+    measures: [
+      users.count,
+      users.avg_resident_age,
+      user_click_facts.avg_user_sessions,
+      user_click_facts_user_spend_facts_users_fields.avg_user_clicks,
+      user_click_facts.avg_user_url_depth,
+      user_spend_facts_users_fields.avg_user_gross_spend
+    ]
+    filters: [user_click_facts.user_id: "NOT NULL"]
+    sorts: [user_click_facts_user_spend_facts_users_fields.cognitive_friction_tier: asc]
+  }
+
+  query: users_by_four_d_customer_persona {
+    description: "Customer count, average age, average gross spend, average retained net profit, average clicks, and total retained profit across 4D Customer Persona Matrix segments."
+    dimensions: [user_spend_facts_users_fields.four_d_customer_persona]
+    measures: [
+      users.count,
+      users.avg_resident_age,
+      user_spend_facts_users_fields.avg_user_gross_spend,
+      user_spend_facts_users_fields.avg_user_retained_profit,
+      user_click_facts_user_spend_facts_users_fields.avg_user_clicks,
+      user_spend_facts_users_fields.total_user_retained_profit
+    ]
+    sorts: [user_spend_facts_users_fields.four_d_customer_persona: asc]
+  }
+
+  query: channel_acquisition_and_retained_profit {
+    description: "Total registered users, active paying buyers, and retained net profit broken down by customer signup traffic source."
+    dimensions: [users.traffic_source]
+    measures: [
+      users.count,
+      user_spend_facts.count,
+      user_spend_facts_users_fields.total_user_retained_profit
+    ]
+    sorts: [user_spend_facts_users_fields.total_user_retained_profit: desc]
   }
 
   query: customers_by_warehouse_proximity_tier {
