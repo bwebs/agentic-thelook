@@ -15,6 +15,7 @@ include: "/silver/user_cohort_facts.view.lkml"
 include: "/silver/order_items_user_cohort_facts_fields.view.lkml"
 include: "/silver/user_spend_facts.view.lkml"
 include: "/silver/user_order_facts.view.lkml"
+include: "/silver/user_order_facts_users_fields.view.lkml"
 include: "/silver/user_spend_trajectory_facts.view.lkml"
 include: "/silver/user_click_facts.view.lkml"
 include: "/silver/user_click_facts_user_spend_facts_users_fields.view.lkml"
@@ -105,6 +106,110 @@ explore: users {
     view_label: "Users"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: user_order_facts_users_fields {
+    view_label: "Customer Order Facts"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: customers_by_activation_velocity_persona {
+    description: "Paying customer count, average customer age, and average days from signup to first order across Same-Day Signup-to-Swipe Impulse Buyer versus Slow Burner personas."
+    dimensions: [user_order_facts_users_fields.activation_velocity_persona]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      user_order_facts_users_fields.avg_days_to_first_order
+    ]
+    filters: [user_order_facts.user_id: "NOT NULL"]
+    sorts: [user_order_facts_users_fields.activation_velocity_persona: asc]
+  }
+
+  query: signup_to_order_lag_by_traffic_source {
+    description: "Buying user count and average days from signup to order across acquisition traffic sources for post-signup orders."
+    dimensions: [users.traffic_source]
+    measures: [
+      users.count,
+      orders_users_fields.avg_days_from_signup_to_order
+    ]
+    filters: [orders_users_fields.is_post_signup_order: "yes"]
+    sorts: [orders_users_fields.avg_days_from_signup_to_order: asc]
+  }
+
+  query: customers_by_return_behavior_persona {
+    description: "Paying customer count, average age, items bought, items returned, and gross spend at risk across Chronic Boomerang Wardrober personas."
+    dimensions: [user_spend_facts.return_behavior_persona]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      order_items.count,
+      order_items.ever_returned_items,
+      order_items.total_revenue
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_spend_facts.return_behavior_persona: asc]
+  }
+
+  query: top_boomerang_wardrobers {
+    description: "Top 15 habitual 100%-return wardrobers with 3+ items ordered ranked by total refunded spend."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue
+    ]
+    filters: [
+      user_spend_facts.return_behavior_persona: "Free-Rental Boomerang Wardrober (100^% Returned)",
+      order_items.count: ">=3"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 15
+  }
+
+  query: customers_by_margin_archetype {
+    description: "Paying customer count, average age, group revenue, group profit, and blended gross profit margin across Margin Vampire versus High-Margin Profit Angel archetypes."
+    dimensions: [user_spend_facts.customer_margin_archetype]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      user_spend_facts.total_lifetime_spend,
+      user_spend_facts.total_lifetime_profit,
+      user_spend_facts.blended_lifetime_margin_ratio
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_spend_facts.customer_margin_archetype: asc]
+  }
+
+  query: customers_by_national_wealth_tier {
+    description: "Paying customer count, average age, distinct countries covered, average customer LTV, and total tier revenue across Country-Relative Wealth Quartile Tiers."
+    dimensions: [user_spend_facts.national_wealth_tier]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      users.distinct_countries,
+      user_spend_facts.avg_customer_ltv,
+      order_items.total_revenue
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_spend_facts.national_wealth_tier: asc]
+  }
+
+  query: top_spender_by_country {
+    description: "National #1 top-spending customer leaderboard across every country ranked by lifetime spend."
+    dimensions: [
+      users.country,
+      users.full_name,
+      users.age,
+      user_spend_facts.lifetime_spend,
+      user_spend_facts.country_spend_rank
+    ]
+    filters: [user_spend_facts.country_spend_rank: "1"]
+    sorts: [user_spend_facts.lifetime_spend: desc]
   }
 
   query: repeat_customers_by_spend_trajectory {

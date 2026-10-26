@@ -6,6 +6,7 @@ include: "/bronze/explores/products_base.explore.lkml"
 include: "/silver/explores/products_sales_base.explore.lkml"
 include: "/silver/product_sales_facts.view.lkml"
 include: "/silver/brand_facts.view.lkml"
+include: "/silver/brand_sku_facts.view.lkml"
 
 explore: products {
   extends: [products_sales_base]
@@ -25,6 +26,27 @@ explore: products {
     type: left_outer
     relationship: many_to_one
     sql_on: ${products.brand} = ${brand_facts.brand} ;;
+  }
+
+  join: brand_sku_facts {
+    view_label: "Brand Lineup SKU Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${products.id} = ${brand_sku_facts.product_id} ;;
+  }
+
+  query: catalog_by_brand_lineup_strategic_role {
+    description: "Catalog SKU count, average retail sticker price, total units sold, gross revenue, and gross profit across Brand Price-Anchoring Decoy versus Volume Workhorse Roles."
+    dimensions: [brand_sku_facts.brand_lineup_strategic_role]
+    measures: [
+      products.count,
+      products.avg_sticker_price,
+      product_sales_facts.total_units_sold,
+      product_sales_facts.total_sku_revenue,
+      product_sales_facts.total_sku_profit
+    ]
+    filters: [products.brand: "-NULL"]
+    sorts: [brand_sku_facts.brand_lineup_strategic_role: asc]
   }
 
   query: catalog_by_brand_prestige_tier {

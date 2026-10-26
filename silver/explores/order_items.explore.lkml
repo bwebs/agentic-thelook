@@ -12,6 +12,7 @@ include: "/bronze/inventory_items.refinement.lkml"
 include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/order_items_base.explore.lkml"
+include: "/silver/inventory_items_order_items_fields.view.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
 include: "/silver/order_items_products_users_fields.view.lkml"
 include: "/silver/order_items_users_fields.view.lkml"
@@ -79,6 +80,37 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: inventory_items_order_items_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: top_profit_angel_customers {
+    description: "Top 15 multi-item customers (3+ items bought) ranked by blended gross profit margin and net dollar profit."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit,
+      inventory_items_order_items_fields.gross_margin_ratio
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      order_items.count: ">=3"
+    ]
+    sorts: [
+      inventory_items_order_items_fields.gross_margin_ratio: desc,
+      inventory_items_order_items_fields.total_gross_profit: desc
+    ]
+    limit: 15
   }
 
   query: socks_and_hosiery_obsession_index {

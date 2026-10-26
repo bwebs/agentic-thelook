@@ -289,6 +289,16 @@
     "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.gross_margin_ratio": {
+    "explore_label": "Order Items",
+    "label": "Gross Profit Margin",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.total_gross_profit": {
+    "explore_label": "Order Items",
+    "label": "Total Gross Profit",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.avg_hours_to_deliver": {
     "explore_label": "Order Items",
     "label": "Average Hours to Deliver",
@@ -694,6 +704,21 @@
     "label": "Average Activity-Weighted Retail Price",
     "view_label": "Products"
   },
+  "agentic_thelook.products.product_sales_facts.total_sku_profit": {
+    "explore_label": "Products",
+    "label": "Total Catalog SKU Gross Profit",
+    "view_label": "Product Sales Velocity Facts"
+  },
+  "agentic_thelook.products.product_sales_facts.total_sku_revenue": {
+    "explore_label": "Products",
+    "label": "Total Catalog SKU Revenue",
+    "view_label": "Product Sales Velocity Facts"
+  },
+  "agentic_thelook.products.product_sales_facts.total_units_sold": {
+    "explore_label": "Products",
+    "label": "Total Catalog SKU Units Sold",
+    "view_label": "Product Sales Velocity Facts"
+  },
   "agentic_thelook.products.products.avg_dollar_markup": {
     "explore_label": "Products",
     "label": "Average Dollar Markup",
@@ -1004,6 +1029,11 @@
     "label": "Total Items in Orders",
     "view_label": "Orders"
   },
+  "agentic_thelook.users.orders_users_fields.avg_days_from_signup_to_order": {
+    "explore_label": "Users",
+    "label": "Average Days from Signup to Order",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.orders_users_fields.ghost_account_rate": {
     "explore_label": "Users",
     "label": "Ghost Account Window-Shopper Rate",
@@ -1029,9 +1059,29 @@
     "label": "Initial Cohort Users",
     "view_label": "User Cohort Facts"
   },
+  "agentic_thelook.users.user_order_facts_users_fields.avg_days_to_first_order": {
+    "explore_label": "Users",
+    "label": "Average Days to First Order",
+    "view_label": "Customer Order Facts"
+  },
   "agentic_thelook.users.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users",
     "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.blended_lifetime_margin_ratio": {
+    "explore_label": "Users",
+    "label": "Blended Customer Gross Margin",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.total_lifetime_profit": {
+    "explore_label": "Users",
+    "label": "Total Customer Lifetime Gross Profit",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.total_lifetime_spend": {
+    "explore_label": "Users",
+    "label": "Total Customer Lifetime Spend",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users.user_spend_trajectory_facts.avg_first_order_spend": {
@@ -1076,6 +1126,406 @@
   },
   "agentic_thelook.users.users__name_tokens.count": {
     "explore_label": "Users",
+    "label": "Name Token Occurrences",
+    "view_label": "Users: Name Tokens"
+  },
+  "agentic_thelook.users_signup_activation.events.approx_unique_sessions": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Approximate Unique Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.avg_url_path_depth": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average URL Path Depth",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.brand_url_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Brand Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.cancel_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Rage-Quit Cancel Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.cancel_to_cart_ratio": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Rage-Quit Cart Abandonment Ratio",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.cart_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Cart Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.carts_per_purchase_ratio": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Carts per Purchase Ratio",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.category_url_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Category Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.click_trail": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Clickstream Event Trail",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Click Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.department_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Department Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.department_url_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Department Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.distinct_clicking_humans": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.event_span_minutes": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Event Span Duration (Minutes)",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.home_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Home Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.ie_event_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Internet Explorer Traffic Share (Dinosaur Tax)",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.ie_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.max_sequence_number": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Max Sequence Number",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.product_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Product Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.purchase_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Purchase Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.unique_chaotic_sessions": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Unique Browsing Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events_order_items_fields.clicks_per_item_bought": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Clicks per Item Bought",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_hours_to_deliver": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_hours_to_ship": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_item_price": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_truck_transit_hours": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.distinct_orders": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Orders",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.distinct_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.ever_return_rate": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.ever_returned_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.late_night_revenue": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.late_night_revenue_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.refunded_revenue": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.return_rate": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.returned_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.total_revenue": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items_user_cohort_facts_fields.buyer_activation_survival_rate": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Buyer Activation Survival Rate",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_user_cohort_facts_fields.revenue_per_cohort_user": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Revenue per Original Cohort User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_users_fields.age_price_correlation": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Age-Price Correlation",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_users_fields.avg_activity_weighted_abs_latitude": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Activity-Weighted Absolute Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_users_fields.avg_activity_weighted_user_age": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Activity-Weighted User Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_users_fields.latitude_price_correlation": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Latitude-Price Correlation",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.order_items_users_fields.revenue_per_registered_user": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Revenue per Registered User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.orders.avg_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.cancelled_or_returned_orders": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.distinct_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.max_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.stddev_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders.total_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Items in Orders",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.users_signup_activation.orders_users_fields.avg_days_from_signup_to_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Days from Signup to Order",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.orders_users_fields.ghost_account_rate": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Ghost Account Window-Shopper Rate",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.orders_users_fields.ghost_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Ghost Users",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.avg_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Items per Order",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.cancelled_or_returned_orders": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Order Count",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.distinct_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Buying Users",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.max_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Max Items per Order",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.stddev_items_per_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.rolling_7d_orders.total_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Items in Orders",
+    "view_label": "7-Day Rolling Window Orders"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Lifetime Clicks per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.avg_user_items_bought": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Lifetime Items Bought per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_cohort_facts.initial_cohort_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Initial Cohort Users",
+    "view_label": "User Cohort Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_order_facts_users_fields.avg_days_to_first_order": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Days to First Order",
+    "view_label": "Customer Order Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.avg_customer_ltv": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.blended_lifetime_margin_ratio": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Blended Customer Gross Margin",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.total_lifetime_profit": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Customer Lifetime Gross Profit",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.total_lifetime_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Customer Lifetime Spend",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_first_order_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average First Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_latest_order_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Latest Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_signup_activation.users.avg_abs_latitude": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.avg_customer_age": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Customer Wisdom Level",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.distinct_countries": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.oldest_shopper_age": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Oldest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users.youngest_shopper_age": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Youngest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.users__name_tokens.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
     "label": "Name Token Occurrences",
     "view_label": "Users: Name Tokens"
   }
