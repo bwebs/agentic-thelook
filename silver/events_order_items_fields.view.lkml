@@ -15,4 +15,13 @@ view: events_order_items_fields {
     sql: 1.0 * ${events.count} / NULLIF(${order_items.count}, 0) ;;
     value_format_name: decimal_2
   }
+
+  measure: total_event_weighted_revenue {
+    label: "Total Event-Weighted Item Revenue"
+    description: "Un-deduplicated FLOAT64 sum of ordered item sale prices weighted across joined user clickstream events and order-item rows."
+    tags: ["non_additive"]
+    type: number
+    sql: COALESCE(SUM(${order_items.sale_price}), 0) ;;
+    value_format_name: usd
+  }
 }

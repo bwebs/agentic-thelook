@@ -1,10 +1,34 @@
-include: "../orders.view.lkml"
-include: "../orders.refinement.lkml"
+include: "/bronze/orders.view.lkml"
+include: "/bronze/orders.refinement.lkml"
+include: "/bronze/explores/orders_base.explore.lkml"
+include: "/silver/order_basket_facts.view.lkml"
 
 explore: orders {
+  extends: [orders_base]
   label: "Orders"
   view_name: orders
   hidden: no
+
+  join: order_basket_facts {
+    view_label: "Order Basket Composition Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${orders.order_id} = ${order_basket_facts.order_id} ;;
+  }
+
+  query: orders_by_basket_diversity_archetype {
+    description: "Order volume, average units in basket, average distinct brands, average basket spend, and total revenue across Outfit Builder versus Monoculture Hoarder Basket Archetypes."
+    dimensions: [order_basket_facts.basket_diversity_archetype]
+    measures: [
+      orders.count,
+      order_basket_facts.avg_basket_units,
+      order_basket_facts.avg_basket_distinct_brands,
+      order_basket_facts.avg_basket_spend,
+      order_basket_facts.total_basket_revenue
+    ]
+    filters: [order_basket_facts.order_id: "NOT NULL"]
+    sorts: [order_basket_facts.basket_diversity_archetype: asc]
+  }
 
   query: cart_stuffing_velocity {
     description: "Cart Stuffing Velocity measures the average, maximum, and spread of how many items customers pack into a single order."

@@ -95,6 +95,15 @@ view: +events {
     sql: ${user_id} ;;
   }
 
+  measure: distinct_traffic_sources {
+    label: "Distinct Traffic Sources"
+    description: "Count of distinct marketing traffic channels recorded across clickstream events."
+    synonyms: ["distinct event sources", "channels touched", "unique traffic sources"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${traffic_source} ;;
+  }
+
   measure: cart_events {
     label: "Cart Events"
     description: "Number of clickstream events where shoppers add items to their cart (event_type = 'cart')."

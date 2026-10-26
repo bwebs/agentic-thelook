@@ -1,4 +1,4 @@
-include: "/bronze/explores/orders.explore.lkml"
+include: "/silver/explores/orders.explore.lkml"
 
 view: user_order_facts {
   label: "Customer Order Facts"

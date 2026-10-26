@@ -8,6 +8,8 @@ view: user_spend_facts {
       column: user_id { field: order_items.user_id }
       column: country { field: users.country }
       column: items_bought { field: order_items.count }
+      column: mens_items_bought { field: order_items_products_fields.mens_units }
+      column: womens_items_bought { field: order_items_products_fields.womens_units }
       column: items_returned { field: order_items.ever_returned_items }
       column: lifetime_spend { field: order_items.total_revenue }
       column: lifetime_profit { field: inventory_items_order_items_fields.total_gross_profit }
@@ -41,6 +43,45 @@ view: user_spend_facts {
     synonyms: ["items bought", "lifetime items purchased"]
     type: number
     sql: ${TABLE}.items_bought ;;
+  }
+
+  dimension: mens_items_bought {
+    label: "Customer Lifetime Menswear Items Bought"
+    group_label: "Department Allegiance"
+    description: "Cumulative number of order items purchased in the 'Men' product department across the customer's lifetime."
+    synonyms: ["mens items", "customer menswear units"]
+    type: number
+    sql: ${TABLE}.mens_items_bought ;;
+  }
+
+  dimension: womens_items_bought {
+    label: "Customer Lifetime Womenswear Items Bought"
+    group_label: "Department Allegiance"
+    description: "Cumulative number of order items purchased in the 'Women' product department across the customer's lifetime."
+    synonyms: ["womens items", "customer womenswear units"]
+    type: number
+    sql: ${TABLE}.womens_items_bought ;;
+  }
+
+  dimension: department_allegiance {
+    label: "Department Loyalist versus Cross-Department Switch-Hitter"
+    group_label: "Department Allegiance"
+    description: "Department Loyalist versus Cross-Department Switch-Hitter classifies customers and high-volume postal codes by whether their purchases stay strictly inside the Men's department, stay strictly inside the Women's department, or cross over between both departments (returns NULL for non-purchasing accounts). Email newsletter editors use this department allegiance tag to decide who receives the menswear lookbook, the womenswear lookbook, or the combined household edition."
+    synonyms: ["department allegiance term", "department loyalist vs cross-department switch-hitter", "department allegiance", "menswear vs womenswear loyalist"]
+    case: {
+      when: {
+        sql: ${mens_items_bought} > 0 AND ${womens_items_bought} = 0 ;;
+        label: "Strictly Menswear Purist"
+      }
+      when: {
+        sql: ${user_id} IS NOT NULL AND ${mens_items_bought} = 0 ;;
+        label: "Strictly Womenswear Purist"
+      }
+      when: {
+        sql: ${mens_items_bought} > 0 AND ${womens_items_bought} > 0 ;;
+        label: "Cross-Department Switch-Hitter (Buys Both Men & Women)"
+      }
+    }
   }
 
   dimension: lifetime_spend {
@@ -212,6 +253,14 @@ view: user_spend_facts {
     type: average
     sql: ${lifetime_spend} ;;
     value_format_name: usd
+  }
+
+  measure: total_items_bought {
+    label: "Total Customer Lifetime Items Bought"
+    description: "Cumulative number of order items purchased summed across paying customers."
+    synonyms: ["total items bought", "buyer items bought"]
+    type: sum
+    sql: ${items_bought} ;;
   }
 
   measure: total_lifetime_spend {

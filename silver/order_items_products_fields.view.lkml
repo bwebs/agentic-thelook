@@ -96,4 +96,29 @@ view: order_items_products_fields {
     type: count
     filters: [products.category: "Sweaters,Outerwear & Coats"]
   }
+
+  measure: mens_units {
+    label: "Menswear Units Sold"
+    description: "Total order line item units sold in the 'Men' product department."
+    synonyms: ["mens items", "mens units", "menswear items"]
+    type: count
+    filters: [products.department: "Men"]
+  }
+
+  measure: womens_units {
+    label: "Womenswear Units Sold"
+    description: "Total order line item units sold in the 'Women' product department."
+    synonyms: ["womens items", "womens units", "womenswear items"]
+    type: count
+    filters: [products.department: "Women"]
+  }
+
+  measure: ordered_item_categories {
+    label: "Ordered Item Categories List"
+    description: "Comma-separated alphabetical list of clothing categories across all ordered line items in the basket or grouping (repeating duplicate categories)."
+    synonyms: ["full item categories", "basket item categories", "ordered categories list"]
+    tags: ["non_additive"]
+    type: string
+    sql: STRING_AGG(${products.category}, ', ' ORDER BY ${products.category}) ;;
+  }
 }

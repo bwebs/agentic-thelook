@@ -260,9 +260,81 @@ view: +users {
     sql: [${first_name}, ${last_name}] ;;
   }
 
+  dimension: us_state {
+    label: "US State"
+    group_label: "Location"
+    description: "Domestic state name for shoppers in the United States (returns NULL for international shoppers)."
+    synonyms: ["domestic state", "united states state"]
+    type: string
+    sql: CASE WHEN ${country} = 'United States' THEN ${state} END ;;
+  }
+
+  dimension: email_handle {
+    label: "Email Handle"
+    group_label: "Email"
+    description: "Email username prefix before the at-sign (@)."
+    synonyms: ["email username", "email local part"]
+    tags: ["pii", "email"]
+    type: string
+    sql: SPLIT(${email}, '@')[SAFE_OFFSET(0)] ;;
+  }
+
+  dimension: email_domain {
+    label: "Email Domain"
+    group_label: "Email"
+    description: "Email provider domain following the at-sign (@)."
+    synonyms: ["email provider", "domain name", "mailbox provider"]
+    type: string
+    sql: SPLIT(${email}, '@')[SAFE_OFFSET(1)] ;;
+  }
+
+  dimension: email_handle_length {
+    label: "Email Handle Length"
+    group_label: "Email"
+    description: "Character length of the customer's email handle before the at-sign (@)."
+    synonyms: ["handle length", "email username length"]
+    type: number
+    sql: LENGTH(${email_handle}) ;;
+  }
+
+  dimension: has_digits_in_email_handle {
+    label: "Email Handle Contains Digits"
+    group_label: "Email"
+    description: "Whether the customer's email handle before the at-sign (@) contains one or more numeric digits."
+    synonyms: ["has digits in handle", "numeric email handle"]
+    type: yesno
+    sql: REGEXP_CONTAINS(${email_handle}, r'[0-9]') ;;
+  }
+
+  dimension: email_handle_persona {
+    label: "Email Provider and Handle Numerology Persona"
+    group_label: "Email"
+    description: "Email Provider and Handle Numerology Persona classifies customers by the structure of their email username before the at-sign, separating Short Clean Alphabetic Handles from Numeric Birth-Year Handles containing digits and Long Aristocratic Handles with sixteen or more letters. Account security and CRM teams use email handle patterns and domain breakdowns to spot automated signup patterns and segment email deliverability."
+    synonyms: ["email handle persona", "email provider and handle numerology persona", "handle numerology persona", "email username persona"]
+    case: {
+      when: {
+        sql: NOT COALESCE(${has_digits_in_email_handle}, FALSE) AND COALESCE(${email_handle_length}, 0) < 16 ;;
+        label: "Short Clean Alphabetic Handle (<16 Letters, No Digits)"
+      }
+      when: {
+        sql: ${has_digits_in_email_handle} ;;
+        label: "Numeric / Birth-Year Handle (Contains Digits)"
+      }
+      else: "Long Aristocratic Handle (16+ Letters, No Digits)"
+    }
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
+  }
+
+  measure: us_registered_users {
+    label: "US State Registered Users"
+    description: "Number of registered shopper accounts located in the United States with a populated state."
+    synonyms: ["us registered users", "domestic state registered users"]
+    type: count
+    filters: [country: "United States", state: "-NULL"]
   }
 
   measure: avg_customer_age {

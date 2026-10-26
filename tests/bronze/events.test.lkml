@@ -200,3 +200,17 @@ test: events_2024_01_01_funnel_page_events {
     expression: ${events.product_events} = 308 ;;
   }
 }
+
+test: events_distinct_traffic_sources_2024_01_01 {
+  explore_source: events {
+    column: distinct_traffic_sources { field: events.distinct_traffic_sources }
+    column: count { field: events.count }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: distinct_traffic_sources_matches {
+    expression: ${events.distinct_traffic_sources} = 5 ;;
+  }
+  assert: event_count_matches {
+    expression: ${events.count} = 880 ;;
+  }
+}

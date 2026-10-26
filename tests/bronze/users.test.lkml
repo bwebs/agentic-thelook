@@ -231,3 +231,23 @@ test: users_id_le_5_full_name_metrics {
     expression: index(${users.id}, 5) = 5 AND index(${users.full_name}, 5) = "Nicholas Turner" AND sum(${users.count}) = 5 ;;
   }
 }
+
+test: users_email_persona_and_us_state_2024_01_01 {
+  explore_source: users {
+    column: email_handle_persona { field: users.email_handle_persona }
+    column: count { field: users.count }
+    column: us_registered_users { field: users.us_registered_users }
+    filters: [users.created_date: "2024-01-01"]
+    sorts: [users.email_handle_persona: asc]
+  }
+  assert: short_alphabetic_handle_slice_matches {
+    expression: index(${users.email_handle_persona}, 1) = "Short Clean Alphabetic Handle (<16 Letters, No Digits)"
+      AND index(${users.count}, 1) = 36
+      AND index(${users.us_registered_users}, 1) = 8 ;;
+  }
+  assert: long_aristocratic_handle_slice_matches {
+    expression: index(${users.email_handle_persona}, 2) = "Long Aristocratic Handle (16+ Letters, No Digits)"
+      AND index(${users.count}, 2) = 2
+      AND index(${users.us_registered_users}, 2) = 1 ;;
+  }
+}
