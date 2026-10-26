@@ -1525,6 +1525,50 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_per_capita_spend_metrics"
   },
+  "agentic_thelook.users_2024_01_01_thoroughfare_tier_metrics": {
+    "assert": {
+      "cul_de_sac_tier_matches": {
+        "expression": "index(${users.thoroughfare_tier}, 1) = \"2. Cul-de-Sac Court Royalty\" AND index(${users.count}, 1) = 8 AND round(index(${users.avg_customer_age}, 1), 2) = 44"
+      },
+      "mystery_lane_tier_matches": {
+        "expression": "index(${users.thoroughfare_tier}, 3) = \"4. Mystery Lane / International Address\" AND index(${users.count}, 3) = 25 AND round(index(${users.avg_customer_age}, 3), 2) = 46.96"
+      },
+      "standard_street_tier_matches": {
+        "expression": "index(${users.thoroughfare_tier}, 2) = \"3. Standard Street & Road Citizen\" AND index(${users.count}, 2) = 5 AND round(index(${users.avg_customer_age}, 2), 2) = 26.2"
+      },
+      "total_slice_users_matches": {
+        "expression": "sum(${users.count}) = 38"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_customer_age": {
+            "field": "users.avg_customer_age"
+          },
+          "thoroughfare_tier": {
+            "field": "users.thoroughfare_tier"
+          },
+          "user_count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 91,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_thoroughfare_tier_metrics"
+  },
   "agentic_thelook.users_2024_01_01_young_customers_metrics": {
     "assert": {
       "avg_young_customer_age_matches": {
