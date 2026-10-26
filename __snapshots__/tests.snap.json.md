@@ -1019,6 +1019,54 @@
     "model": "agentic_thelook",
     "name": "orders_2024_01_01_distinct_users_metrics"
   },
+  "agentic_thelook.orders_2024_01_01_mega_basket_bulk_orders_metrics": {
+    "assert": {
+      "mega_basket_avg_items_per_order_matches": {
+        "expression": "round(${orders.avg_items_per_order}, 3) = 3.429"
+      },
+      "mega_basket_max_items_per_order_matches": {
+        "expression": "${orders.max_items_per_order} = 4"
+      },
+      "mega_basket_order_count_matches": {
+        "expression": "${orders.count} = 7"
+      },
+      "mega_basket_total_items_matches": {
+        "expression": "${orders.total_items} = 24"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "avg_items_per_order": {
+            "field": "orders.avg_items_per_order"
+          },
+          "max_items_per_order": {
+            "field": "orders.max_items_per_order"
+          },
+          "order_count": {
+            "field": "orders.count"
+          },
+          "total_items": {
+            "field": "orders.total_items"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "orders.created_date": "2024-01-01",
+          "orders.is_mega_basket_bulk_order": "yes",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/orders.test.lkml",
+    "line": 59,
+    "model": "agentic_thelook",
+    "name": "orders_2024_01_01_mega_basket_bulk_orders_metrics"
+  },
   "agentic_thelook.orders_2024_01_01_remorse_metrics": {
     "assert": {
       "cancelled_or_returned_orders_matches": {

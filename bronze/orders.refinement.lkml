@@ -11,6 +11,23 @@ view: +orders {
     synonyms: ["basket size"]
   }
 
+  dimension: is_mega_basket_bulk_order {
+    label: "Mega-Basket Bulk Order"
+    description: "Mega-Basket Bulk Order flags any single checkout where the customer packed three or more items into their order. Warehouse fulfillment teams use this tag to route multi-item purchases to larger box-packing stations."
+    synonyms: ["is mega-basket bulk order", "mega basket bulk order", "mega-basket bulk orders", "bulk order", "multi-item purchase"]
+    type: yesno
+    sql: ${num_of_item} >= 3 ;;
+  }
+
+  # ponytail: raw UTC TIMESTAMP projection/sort key for microsecond SQL parity; remove once pre_gate.py normalizes BigQuery TIMESTAMP strings against created_time
+  dimension: created_timestamp {
+    label: "Created Timestamp (UTC)"
+    group_label: "Created Date"
+    description: "Exact UTC microsecond timestamp when the order was created."
+    synonyms: ["order created timestamp"]
+    sql: ${created_raw} ;;
+  }
+
   measure: count {
     label: "Order Count"
     description: "Total volume of customer orders."
