@@ -1,4 +1,35 @@
 {
+  "agentic_thelook.distribution_centers_id_le_10_logistics_belt": {
+    "assert": {
+      "logistics_belt_counts_match": {
+        "expression": "index(${distribution_centers.logistics_belt}, 1) = \"East Coast Atlantic Port\" AND index(${distribution_centers.count}, 1) = 2 AND index(${distribution_centers.logistics_belt}, 2) = \"Midwest Heartland Freight Titan\" AND index(${distribution_centers.count}, 2) = 2 AND index(${distribution_centers.logistics_belt}, 3) = \"Pacific West Coast Gateway\" AND index(${distribution_centers.count}, 3) = 1 AND index(${distribution_centers.logistics_belt}, 4) = \"Southern Gulf & Sunbelt Hub\" AND index(${distribution_centers.count}, 4) = 5"
+      }
+    },
+    "explore_source": {
+      "distribution_centers": {
+        "column": {
+          "count": {
+            "field": "distribution_centers.count"
+          },
+          "logistics_belt": {
+            "field": "distribution_centers.logistics_belt"
+          }
+        },
+        "derived_column": null,
+        "explore": "distribution_centers",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "<=10"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/distribution_centers.test.lkml",
+    "line": 20,
+    "model": "agentic_thelook",
+    "name": "distribution_centers_id_le_10_logistics_belt"
+  },
   "agentic_thelook.distribution_centers_refinement_metrics": {
     "assert": {
       "mean_warehouse_latitude_matches": {
@@ -33,6 +64,37 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_browser_persona": {
+    "assert": {
+      "browser_persona_counts_match": {
+        "expression": "index(${events.browser_persona}, 1) = \"Google Chrome RAM Eater\" AND index(${events.count}, 1) = 428 AND index(${events.browser_persona}, 2) = \"Apple Walled-Garden Safari Snob\" AND index(${events.count}, 2) = 193 AND index(${events.browser_persona}, 3) = \"Open-Source Firefox Privacy Nerd\" AND index(${events.count}, 3) = 187 AND index(${events.browser_persona}, 4) = \"Time-Traveler Internet Explorer Dinosaur\" AND index(${events.count}, 4) = 22 AND index(${events.browser_persona}, 5) = \"Mystery Smart-Fridge / Other Browser\" AND index(${events.count}, 5) = 50"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "browser_persona": {
+            "field": "events.browser_persona"
+          },
+          "count": {
+            "field": "events.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 141,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_browser_persona"
   },
   "agentic_thelook.events_2024_01_01_deep_link_metrics": {
     "assert": {
@@ -115,6 +177,37 @@
     "line": 74,
     "model": "agentic_thelook",
     "name": "events_2024_01_01_max_sequence_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_session_structural_role": {
+    "assert": {
+      "session_structural_role_counts_match": {
+        "expression": "index(${event_session_steps.session_structural_role}, 1) = \"Solo Single-Click Bounce Event\" AND index(${events.count}, 1) = 46 AND index(${event_session_steps.session_structural_role}, 2) = \"Doorway Opener (Session First Touch)\" AND index(${events.count}, 2) = 202 AND index(${event_session_steps.session_structural_role}, 3) = \"Middle-Funnel Meandering Step\" AND index(${events.count}, 3) = 449 AND index(${event_session_steps.session_structural_role}, 4) = \"Curtain Closer (Session Last Touch)\" AND index(${events.count}, 4) = 183"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "count": {
+            "field": "events.count"
+          },
+          "session_structural_role": {
+            "field": "event_session_steps.session_structural_role"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/events.test.lkml",
+    "line": 32,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_session_structural_role"
   },
   "agentic_thelook.events_2024_01_01_speed_runner_checkout_metrics": {
     "assert": {
@@ -568,6 +661,37 @@
     "model": "agentic_thelook",
     "name": "inventory_items_sold_2024_01_01_aging_tier_metrics"
   },
+  "agentic_thelook.logistics_network_nodes_warehouse_hubs_by_belt": {
+    "assert": {
+      "warehouse_hub_belt_counts_match": {
+        "expression": "index(${logistics_network_nodes.logistics_belt}, 1) = \"East Coast Atlantic Port\" AND index(${logistics_network_nodes.count}, 1) = 2 AND index(${logistics_network_nodes.logistics_belt}, 2) = \"Midwest Heartland Freight Titan\" AND index(${logistics_network_nodes.count}, 2) = 2 AND index(${logistics_network_nodes.logistics_belt}, 3) = \"Pacific West Coast Gateway\" AND index(${logistics_network_nodes.count}, 3) = 1 AND index(${logistics_network_nodes.logistics_belt}, 4) = \"Southern Gulf & Sunbelt Hub\" AND index(${logistics_network_nodes.count}, 4) = 5"
+      }
+    },
+    "explore_source": {
+      "logistics_network_nodes": {
+        "column": {
+          "count": {
+            "field": "logistics_network_nodes.count"
+          },
+          "logistics_belt": {
+            "field": "logistics_network_nodes.logistics_belt"
+          }
+        },
+        "derived_column": null,
+        "explore": "logistics_network_nodes",
+        "expression_custom_filter": null,
+        "filters": {
+          "logistics_network_nodes.network_node_type": "Physical Warehouse Hub"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/logistics_network_nodes.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "logistics_network_nodes_warehouse_hubs_by_belt"
+  },
   "agentic_thelook.order_items_2024_01_01_active_buyers_metrics": {
     "assert": {
       "distinct_users_matches": {
@@ -923,6 +1047,37 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_thermal_chill_metrics"
   },
+  "agentic_thelook.order_items_2024_01_fulfillment_speed_tier": {
+    "assert": {
+      "fulfillment_speed_tier_counts_match": {
+        "expression": "index(${order_items.fulfillment_speed_tier}, 1) = \"Supersonic Drone Speed (<24h)\" AND index(${order_items.count}, 1) = 118 AND index(${order_items.fulfillment_speed_tier}, 2) = \"Prime-ish Express (24-72h)\" AND index(${order_items.count}, 2) = 189 AND index(${order_items.fulfillment_speed_tier}, 3) = \"Standard Pony Express (72-120h)\" AND index(${order_items.count}, 3) = 248 AND index(${order_items.fulfillment_speed_tier}, 4) = \"Lost-at-Sea Snail Mail (120h+)\" AND index(${order_items.count}, 4) = 146"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "count": {
+            "field": "order_items.count"
+          },
+          "fulfillment_speed_tier": {
+            "field": "order_items.fulfillment_speed_tier"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.delivered_date": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 158,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_fulfillment_speed_tier"
+  },
   "agentic_thelook.order_items_midnight_owl_metrics": {
     "assert": {
       "late_night_revenue_matches": {
@@ -1118,6 +1273,38 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "order_shards_2024_01_01_metrics"
+  },
+  "agentic_thelook.order_shards_2024_01_01_wildcard_table_grain": {
+    "assert": {
+      "wildcard_table_grain_counts_match": {
+        "expression": "index(${order_shards.wildcard_table_grain}, 1) = \"Order Header Shard (orders)\" AND index(${order_shards.count}, 1) = 52 AND index(${order_shards.wildcard_table_grain}, 2) = \"Order Line-Item Shard (order_items)\" AND index(${order_shards.count}, 2) = 55"
+      }
+    },
+    "explore_source": {
+      "order_shards": {
+        "column": {
+          "count": {
+            "field": "order_shards.count"
+          },
+          "wildcard_table_grain": {
+            "field": "order_shards.wildcard_table_grain"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_shards",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_shards.created_date": "2024-01-01",
+          "order_shards.table_suffix": "s, ^_items"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_shards.test.lkml",
+    "line": 24,
+    "model": "agentic_thelook",
+    "name": "order_shards_2024_01_01_wildcard_table_grain"
   },
   "agentic_thelook.orders_2024_01_01_circadian_chronotype_metrics": {
     "assert": {
@@ -1928,6 +2115,43 @@
     "line": 45,
     "model": "agentic_thelook",
     "name": "users_2024_01_01_young_customers_metrics"
+  },
+  "agentic_thelook.users_2024_01_name_phonetics_and_tokens": {
+    "assert": {
+      "name_phonetics_club_counts_match": {
+        "expression": "index(${users.name_phonetics_club}, 1) = \"Marvel Superhero Alliterative Name (Same Initials)\" AND index(${users.count}, 1) = 66 AND index(${users.name_phonetics_club}, 2) = \"Double-Letter Geminate Name Club\" AND index(${users.count}, 2) = 375 AND index(${users.name_phonetics_club}, 3) = \"Regular Non-Alliterative Civilian\" AND index(${users.count}, 3) = 623"
+      },
+      "unnested_name_tokens_double_users": {
+        "expression": "${users__name_tokens.count} = ${users.count} * 2"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "name_phonetics_club": {
+            "field": "users.name_phonetics_club"
+          },
+          "token_count": {
+            "field": "users__name_tokens.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "users.created_date": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 195,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_name_phonetics_and_tokens"
   },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {

@@ -137,3 +137,24 @@ test: events_2024_01_01_uri_segment_metrics {
     expression: ${events.approx_unique_sessions} = 152 ;;
   }
 }
+
+test: events_2024_01_01_browser_persona {
+  explore_source: events {
+    column: browser_persona { field: events.browser_persona }
+    column: count { field: events.count }
+    filters: [events.created_date: "2024-01-01"]
+    sorts: [events.browser_persona: asc]
+  }
+  assert: browser_persona_counts_match {
+    expression: index(${events.browser_persona}, 1) = "Google Chrome RAM Eater"
+      AND index(${events.count}, 1) = 428
+      AND index(${events.browser_persona}, 2) = "Apple Walled-Garden Safari Snob"
+      AND index(${events.count}, 2) = 193
+      AND index(${events.browser_persona}, 3) = "Open-Source Firefox Privacy Nerd"
+      AND index(${events.count}, 3) = 187
+      AND index(${events.browser_persona}, 4) = "Time-Traveler Internet Explorer Dinosaur"
+      AND index(${events.count}, 4) = 22
+      AND index(${events.browser_persona}, 5) = "Mystery Smart-Fridge / Other Browser"
+      AND index(${events.count}, 5) = 50 ;;
+  }
+}

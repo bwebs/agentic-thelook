@@ -3,6 +3,7 @@ include: "/bronze/events.refinement.lkml"
 include: "/bronze/events__uri_segments.view.lkml"
 include: "/bronze/explores/events_base.explore.lkml"
 include: "/silver/event_session_facts.view.lkml"
+include: "/silver/event_session_steps.view.lkml"
 
 explore: events {
   extends: [events_base]
@@ -15,6 +16,20 @@ explore: events {
     type: left_outer
     relationship: many_to_one
     sql_on: ${events.session_id} = ${event_session_facts.session_id} ;;
+  }
+
+  join: event_session_steps {
+    view_label: "Events"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.id} = ${event_session_steps.id} ;;
+    fields: [
+      id,
+      step_asc,
+      step_desc,
+      session_total_events,
+      session_structural_role
+    ]
   }
 
   query: speed_runner_checkout_score {
@@ -37,5 +52,27 @@ explore: events {
     ]
     filters: [event_session_facts.session_id: "-NULL"]
     sorts: [event_session_facts.max_steps: asc]
+  }
+
+  query: session_structural_role_by_event_type {
+    description: "Clickstream event volume broken down by First-Touch versus Last-Touch Session Event Role and event type."
+    dimensions: [event_session_steps.session_structural_role, events.event_type]
+    measures: [events.count]
+    sorts: [event_session_steps.session_structural_role: asc, events.count: desc]
+  }
+
+  query: browser_modernity_personas {
+    description: "Total clickstream events and unique browsing sessions broken down by Browser Modernity Persona."
+    dimensions: [events.browser_persona]
+    measures: [events.count, events.unique_chaotic_sessions]
+    sorts: [events.count: desc]
+  }
+
+  query: browser_persona_by_traffic_source_2025 {
+    description: "Clickstream event volume since 2025-01-01 broken down by Browser Modernity Persona and traffic source."
+    dimensions: [events.browser_persona, events.traffic_source]
+    measures: [events.count]
+    filters: [events.created_date: "after 2025/01/01"]
+    sorts: [events.count: desc]
   }
 }

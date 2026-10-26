@@ -201,6 +201,56 @@ view: +users {
     END ;;
   }
 
+  dimension: first_name {
+    group_label: "Name"
+  }
+
+  dimension: last_name {
+    group_label: "Name"
+  }
+
+  dimension: is_alliterative_name {
+    label: "Alliterative Name"
+    group_label: "Name"
+    description: "Whether the customer's first and last names share the exact same uppercase starting initial."
+    synonyms: ["is alliterative name", "matching initials", "same first and last initial"]
+    type: yesno
+    sql: SUBSTR(UPPER(${first_name}), 1, 1) = SUBSTR(UPPER(${last_name}), 1, 1) ;;
+  }
+
+  dimension: name_phonetics_club {
+    label: "Alliterative and Geminate Name VIP Club"
+    group_label: "Name"
+    description: "Alliterative and Geminate Name VIP Club classifies customers by phonetic patterns in their names into 'Marvel Superhero Alliterative Name (Same Initials)', 'Double-Letter Geminate Name Club', and 'Regular Non-Alliterative Civilian'. Creative marketing teams use this segment for novelty name-day promotions and monogrammed apparel campaigns."
+    synonyms: ["name phonetics club", "alliterative and geminate name vip club", "phonetic name segment", "name vip club"]
+    case: {
+      when: {
+        sql: ${is_alliterative_name} ;;
+        label: "Marvel Superhero Alliterative Name (Same Initials)"
+      }
+      when: {
+        sql: REGEXP_CONTAINS(LOWER(CONCAT(${first_name}, ${last_name})), r'(aa|ee|ll|oo|ss|tt|nn|mm|rr)') ;;
+        label: "Double-Letter Geminate Name Club"
+      }
+      else: "Regular Non-Alliterative Civilian"
+    }
+  }
+
+  dimension: monogram {
+    label: "Name Monogram"
+    group_label: "Name"
+    description: "Two-initial customer monogram formatted with trailing periods (e.g., 'P.P.') from first_name and last_name."
+    synonyms: ["monogram", "customer initials", "initial monogram"]
+    type: string
+    sql: CONCAT(SUBSTR(${first_name}, 1, 1), '.', SUBSTR(${last_name}, 1, 1), '.') ;;
+  }
+
+  dimension: name_tokens {
+    hidden: yes
+    description: "Two-element array [first_name, last_name] for unnested given-name and surname token analysis."
+    sql: [${first_name}, ${last_name}] ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]

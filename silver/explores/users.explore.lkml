@@ -1,5 +1,6 @@
 include: "/bronze/users.view.lkml"
 include: "/bronze/users.refinement.lkml"
+include: "/bronze/users__name_tokens.view.lkml"
 include: "/bronze/orders.view.lkml"
 include: "/bronze/orders.refinement.lkml"
 include: "/bronze/order_items.view.lkml"
@@ -220,6 +221,45 @@ explore: users {
     measures: [users.count]
     filters: [users.country: "United States"]
     sorts: [users.count: desc]
+    limit: 20
+  }
+
+  query: name_phonetics_club_breakdown {
+    description: "Registered shopper count and average age across Alliterative and Geminate Name VIP Club segments."
+    dimensions: [users.name_phonetics_club]
+    measures: [
+      users.count,
+      users.avg_customer_age
+    ]
+    sorts: [users.name_phonetics_club: asc]
+  }
+
+  query: alliterative_name_members {
+    description: "Sample of 20 shoppers with matching first and last name initials, showing full name, age, monogram, and country."
+    dimensions: [
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.age,
+      users.monogram,
+      users.country
+    ]
+    filters: [users.is_alliterative_name: "yes"]
+    sorts: [
+      users.first_name: asc,
+      users.last_name: asc
+    ]
+    limit: 20
+  }
+
+  query: top_unnested_name_starting_letters {
+    description: "Top 20 given first-name and family surname starting initials ranked by unnested token occurrences."
+    dimensions: [
+      users__name_tokens.name_slot,
+      users__name_tokens.starting_letter
+    ]
+    measures: [users__name_tokens.count]
+    sorts: [users__name_tokens.count: desc]
     limit: 20
   }
 }

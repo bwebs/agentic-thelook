@@ -159,6 +159,11 @@
     "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.logistics_network_nodes.logistics_network_nodes.count": {
+    "explore_label": "Logistics Network Nodes",
+    "label": "Network Node Count",
+    "view_label": "Logistics Network Nodes"
+  },
   "agentic_thelook.order_items.order_items.avg_hours_to_deliver": {
     "explore_label": "Order Items",
     "label": "Average Hours to Deliver",
@@ -688,5 +693,10 @@
     "explore_label": "Users",
     "label": "Youngest Shopper Age",
     "view_label": "Users"
+  },
+  "agentic_thelook.users.users__name_tokens.count": {
+    "explore_label": "Users",
+    "label": "Name Token Occurrences",
+    "view_label": "Users: Name Tokens"
   }
 }

@@ -9,6 +9,23 @@ view: +order_shards {
     sql: ${TABLE}._TABLE_SUFFIX ;;
   }
 
+  dimension: wildcard_table_grain {
+    label: "Wildcard Order Shard Grain"
+    description: "Classifies records from the order* wildcard table by _TABLE_SUFFIX into 'Order Header Shard (orders)', 'Order Line-Item Shard (order_items)', and 'Other Wildcard Shard'."
+    synonyms: ["wildcard table grain", "order shard grain", "shard table type"]
+    case: {
+      when: {
+        sql: ${table_suffix} = 's' ;;
+        label: "Order Header Shard (orders)"
+      }
+      when: {
+        sql: ${table_suffix} = '_items' ;;
+        label: "Order Line-Item Shard (order_items)"
+      }
+      else: "Other Wildcard Shard"
+    }
+  }
+
   dimension_group: created {
     description: "Timestamp when the order or line item record was created (use SARGable date range filters rather than DATE() wrappers; required default window via always_filter)."
   }
