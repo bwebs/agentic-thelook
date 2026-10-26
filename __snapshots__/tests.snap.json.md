@@ -1657,6 +1657,47 @@
     "model": "agentic_thelook",
     "name": "users_2024_01_01_per_capita_spend_metrics"
   },
+  "agentic_thelook.users_2024_01_01_postal_code_parity_metrics": {
+    "assert": {
+      "alphanumeric_postcode_metrics_match": {
+        "expression": "index(${users.postal_code_parity}, 1) = \"Alphanumeric International Postcode\" AND index(${users.count}, 1) = 11 AND index(${users.distinct_countries}, 1) = 3"
+      },
+      "even_zip_aristocrat_metrics_match": {
+        "expression": "index(${users.postal_code_parity}, 2) = \"Even-Zip Aristocrat\" AND index(${users.count}, 2) = 14 AND index(${users.distinct_countries}, 2) = 5"
+      },
+      "odd_zip_rebel_metrics_match": {
+        "expression": "index(${users.postal_code_parity}, 3) = \"Odd-Zip Rebel\" AND index(${users.count}, 3) = 13 AND index(${users.distinct_countries}, 3) = 5"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "distinct_countries": {
+            "field": "users.distinct_countries"
+          },
+          "postal_code_parity": {
+            "field": "users.postal_code_parity"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 141,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_postal_code_parity_metrics"
+  },
   "agentic_thelook.users_2024_01_01_thoroughfare_tier_metrics": {
     "assert": {
       "cul_de_sac_tier_matches": {

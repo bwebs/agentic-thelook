@@ -162,4 +162,15 @@ explore: users {
       users.count: desc
     ]
   }
+
+  query: zip_code_numeric_parity_tribes {
+    description: "Zip Code Numeric Parity Tribe divides customers into Even-Zip Aristocrats, Odd-Zip Rebels, and Alphanumeric International Postcode residents based on whether their postal code is an even number, an odd number, or contains letters, tracking user counts, average shopper age, and distinct countries represented."
+    dimensions: [users.postal_code_parity]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      users.distinct_countries
+    ]
+    sorts: [users.count: desc]
+  }
 }
