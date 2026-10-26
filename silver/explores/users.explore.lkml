@@ -142,4 +142,14 @@ explore: users {
     sorts: [users.created_time: desc]
     limit: 25
   }
+
+  query: thoroughfare_aristocracy_tiers {
+    description: "Street Address Thoroughfare Aristocracy Tier groups customers by the kind of road named in their home street address, separating grand boulevards and avenues from quiet cul-de-sac courts, standard streets and roads, and international lanes. Direct-mail marketers use this playful neighborhood taxonomy to slice regional catalog mailings."
+    dimensions: [users.thoroughfare_tier]
+    measures: [
+      users.count,
+      users.avg_customer_age
+    ]
+    sorts: [users.count: desc]
+  }
 }

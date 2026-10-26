@@ -87,3 +87,28 @@ test: users_2024_01_01_new_customer_created_year_metrics {
     expression: ${users.count} = 38 ;;
   }
 }
+
+test: users_2024_01_01_thoroughfare_tier_metrics {
+  explore_source: users {
+    column: thoroughfare_tier { field: users.thoroughfare_tier }
+    column: user_count { field: users.count }
+    column: avg_customer_age { field: users.avg_customer_age }
+    filters: {
+      field: users.created_date
+      value: "2024-01-01"
+    }
+    sorts: [users.thoroughfare_tier: asc]
+  }
+  assert: cul_de_sac_tier_matches {
+    expression: index(${users.thoroughfare_tier}, 1) = "2. Cul-de-Sac Court Royalty" AND index(${users.count}, 1) = 8 AND round(index(${users.avg_customer_age}, 1), 2) = 44 ;;
+  }
+  assert: standard_street_tier_matches {
+    expression: index(${users.thoroughfare_tier}, 2) = "3. Standard Street & Road Citizen" AND index(${users.count}, 2) = 5 AND round(index(${users.avg_customer_age}, 2), 2) = 26.2 ;;
+  }
+  assert: mystery_lane_tier_matches {
+    expression: index(${users.thoroughfare_tier}, 3) = "4. Mystery Lane / International Address" AND index(${users.count}, 3) = 25 AND round(index(${users.avg_customer_age}, 3), 2) = 46.96 ;;
+  }
+  assert: total_slice_users_matches {
+    expression: sum(${users.count}) = 38 ;;
+  }
+}

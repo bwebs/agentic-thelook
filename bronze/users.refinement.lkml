@@ -45,6 +45,19 @@ view: +users {
     sql: ${age} < 25 ;;
   }
 
+  dimension: thoroughfare_tier {
+    label: "Street Address Thoroughfare Aristocracy Tier"
+    description: "Street Address Thoroughfare Aristocracy Tier groups customers by the kind of road named in their home street address, separating grand boulevards and avenues from quiet cul-de-sac courts, standard streets and roads, and international lanes. Direct-mail marketers use this playful neighborhood taxonomy to slice regional catalog mailings."
+    synonyms: ["thoroughfare aristocracy tier", "street address tier", "road type tier", "neighborhood taxonomy"]
+    type: string
+    sql: CASE
+      WHEN REGEXP_CONTAINS(LOWER(${street_address}), r'(boulevard|blvd|avenue|ave|parkway|pkwy)') THEN '1. Boulevard & Avenue Flaneur'
+      WHEN REGEXP_CONTAINS(LOWER(${street_address}), r'(court|ct|place|pl|circle|cir|terrace|way)') THEN '2. Cul-de-Sac Court Royalty'
+      WHEN REGEXP_CONTAINS(LOWER(${street_address}), r'(street|st|road|rd|drive|dr)') THEN '3. Standard Street & Road Citizen'
+      ELSE '4. Mystery Lane / International Address'
+    END ;;
+  }
+
   measure: count {
     description: "Total number of registered shopper accounts."
     synonyms: ["registered users", "registered customers", "total users"]
