@@ -181,3 +181,20 @@ test: order_items_2024_01_seasonal_category_metrics {
     expression: round(${order_items.total_revenue}, 2) = 123613.15 ;;
   }
 }
+
+test: order_items_2024_01_01_dc_1_join_metrics {
+  explore_source: order_items {
+    column: item_count { field: order_items.count }
+    column: total_revenue { field: order_items.total_revenue }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      distribution_centers.id: "1"
+    ]
+  }
+  assert: dc_1_item_count_matches {
+    expression: ${order_items.count} = 4 ;;
+  }
+  assert: dc_1_total_revenue_matches {
+    expression: round(${order_items.total_revenue}, 2) = 194.97 ;;
+  }
+}

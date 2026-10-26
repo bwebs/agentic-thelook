@@ -13,6 +13,10 @@ view: +order_items {
     tags: ["foreign_key"]
   }
 
+  dimension: inventory_item_id {
+    tags: ["foreign_key"]
+  }
+
   dimension: is_shipped {
     type: yesno
     sql: ${shipped_raw} IS NOT NULL ;;

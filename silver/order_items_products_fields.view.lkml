@@ -2,8 +2,17 @@ view: order_items_products_fields {
   dimension: pk {
     primary_key: yes
     hidden: yes
-    type: number
-    sql: ${order_items.id} ;;
+    type: string
+    sql: CONCAT(CAST(${products.id} AS STRING), '_', CAST(COALESCE(${order_items.id}, 0) AS STRING)) ;;
+  }
+
+  measure: avg_activity_weighted_retail_price {
+    label: "Average Activity-Weighted Retail Price"
+    description: "Mean product retail sticker price across joined product and order-item rows (weights multi-sale SKUs by item count and unsold SKUs once)."
+    type: average
+    tags: ["non_additive"]
+    sql: ${products.retail_price} ;;
+    value_format_name: usd
   }
 
   measure: sock_units_sold {

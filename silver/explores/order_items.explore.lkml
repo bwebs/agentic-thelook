@@ -1,3 +1,4 @@
+include: "/bronze/common_helpers.view.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/orders.view.lkml"
@@ -6,6 +7,10 @@ include: "/bronze/products.view.lkml"
 include: "/bronze/products.refinement.lkml"
 include: "/bronze/users.view.lkml"
 include: "/bronze/users.refinement.lkml"
+include: "/bronze/inventory_items.view.lkml"
+include: "/bronze/inventory_items.refinement.lkml"
+include: "/bronze/distribution_centers.view.lkml"
+include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/order_items_base.explore.lkml"
 include: "/silver/order_items_products_fields.view.lkml"
 include: "/silver/order_items_products_users_fields.view.lkml"
@@ -23,6 +28,11 @@ explore: order_items {
     -order_items_users_fields.revenue_per_registered_user
   ]
 
+  join: common_helpers {
+    sql: ;;
+    relationship: one_to_one
+  }
+
   join: orders {
     type: left_outer
     relationship: many_to_one
@@ -39,6 +49,18 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
     sql_on: ${order_items.user_id} = ${users.id} ;;
+  }
+
+  join: inventory_items {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+  }
+
+  join: distribution_centers {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
   }
 
   join: order_items_products_fields {

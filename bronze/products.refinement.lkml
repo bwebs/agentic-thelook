@@ -90,6 +90,15 @@ view: +products {
     tags: ["non_additive"]
   }
 
+  measure: distinct_brands {
+    label: "Distinct Brands"
+    description: "Count of distinct brands in the product catalog."
+    synonyms: ["brands count", "brand count", "unique brands"]
+    type: count_distinct
+    sql: ${brand} ;;
+    tags: ["non_additive"]
+  }
+
   measure: avg_sticker_price {
     label: "Average Sticker Shock"
     description: "Average Sticker Shock measures the simple average retail sticker price across every item in our product catalog, regardless of how often it sells. The merchandising team uses this benchmark in board meetings to position the store as an affordable luxury destination."

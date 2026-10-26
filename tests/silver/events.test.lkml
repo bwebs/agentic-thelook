@@ -67,3 +67,20 @@ test: events_2024_01_01_marathon_tier_metrics {
     expression: index(${browsing_session_facts.session_marathon_tier}, 3) = "Serious Closet Audit (5-9 Events)" AND index(${browsing_session_facts.count}, 3) = 71 AND index(${browsing_session_facts.converted_sessions}, 3) = 71 AND round(index(${browsing_session_facts.session_conversion_rate}, 3), 4) = 1 AND index(${browsing_session_facts.session_marathon_tier}, 4) = "Doom-Scroll Fashion Marathon (10+ Events)" AND index(${browsing_session_facts.count}, 4) = 23 AND index(${browsing_session_facts.converted_sessions}, 4) = 23 AND round(index(${browsing_session_facts.session_conversion_rate}, 4), 4) = 1 ;;
   }
 }
+
+test: events_2024_01_01_funnel_archetype_invariants {
+  explore_source: events {
+    column: total_sessions { field: browsing_session_facts.count }
+    column: silent_cart_abandon_sessions { field: browsing_session_facts.silent_cart_abandon_sessions }
+    column: explicit_cancel_sessions { field: browsing_session_facts.explicit_cancel_sessions }
+    column: converted_sessions { field: browsing_session_facts.converted_sessions }
+    column: avg_events_per_session { field: browsing_session_facts.avg_events_per_session }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: funnel_session_invariants_hold {
+    expression: ${browsing_session_facts.silent_cart_abandon_sessions} > 0
+      AND ${browsing_session_facts.explicit_cancel_sessions} > 0
+      AND ${browsing_session_facts.count} >= ${browsing_session_facts.converted_sessions} + ${browsing_session_facts.silent_cart_abandon_sessions}
+      AND ${browsing_session_facts.avg_events_per_session} >= 1 ;;
+  }
+}

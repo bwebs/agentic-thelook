@@ -3,25 +3,58 @@ include: "/bronze/products.refinement.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/explores/products_base.explore.lkml"
+include: "/silver/explores/products_sales_base.explore.lkml"
 include: "/silver/product_sales_facts.view.lkml"
+include: "/silver/brand_facts.view.lkml"
 
 explore: products {
-  extends: [products_base]
+  extends: [products_sales_base]
   label: "Products"
   view_name: products
   hidden: no
-
-  join: order_items {
-    type: left_outer
-    relationship: one_to_many
-    sql_on: ${products.id} = ${order_items.product_id} ;;
-  }
 
   join: product_sales_facts {
     view_label: "Product Sales Velocity Facts"
     type: left_outer
     relationship: one_to_one
     sql_on: ${products.id} = ${product_sales_facts.product_id} ;;
+  }
+
+  join: brand_facts {
+    view_label: "Brand Prestige Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.brand} = ${brand_facts.brand} ;;
+  }
+
+  query: catalog_by_brand_prestige_tier {
+    description: "Distinct brands, catalog SKU count, total units sold, and gross revenue across Fast-Fashion versus Ultra-Luxury Brand Tiers."
+    dimensions: [brand_facts.brand_prestige_tier]
+    measures: [
+      products.distinct_brands,
+      products.count,
+      order_items.count,
+      order_items.total_revenue
+    ]
+    filters: [products.brand: "-NULL"]
+    sorts: [brand_facts.brand_prestige_tier: asc]
+  }
+
+  query: top_selling_brands_by_retail_price {
+    description: "Top 15 active selling brands (15+ units sold) ranked by average retail price alongside catalog SKUs, units sold, and total revenue."
+    dimensions: [products.brand]
+    measures: [
+      products.count,
+      order_items.count,
+      products.avg_sticker_price,
+      order_items.total_revenue
+    ]
+    filters: [
+      order_items.id: "NOT NULL",
+      order_items.count: ">=15"
+    ]
+    sorts: [products.avg_sticker_price: desc]
+    limit: 15
   }
 
   query: avg_sticker_price {

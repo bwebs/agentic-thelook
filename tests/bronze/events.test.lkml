@@ -182,3 +182,21 @@ test: events_2024_01_01_session_span_and_click_trail_metrics {
     expression: index(${events.session_id}, 2) = "0419867a-8983-474c-8982-c19c5ed7b378" AND index(${events.count}, 2) = 5 AND index(${events.event_span_minutes}, 2) = 7 AND index(${events.click_trail}, 2) = "home>department>product>cart>purchase" ;;
   }
 }
+
+test: events_2024_01_01_funnel_page_events {
+  explore_source: events {
+    column: home_events { field: events.home_events }
+    column: department_events { field: events.department_events }
+    column: product_events { field: events.product_events }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: home_events_matches {
+    expression: ${events.home_events} = 30 ;;
+  }
+  assert: department_events_matches {
+    expression: ${events.department_events} = 223 ;;
+  }
+  assert: product_events_matches {
+    expression: ${events.product_events} = 308 ;;
+  }
+}
