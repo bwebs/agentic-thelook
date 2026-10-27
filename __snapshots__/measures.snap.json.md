@@ -384,6 +384,16 @@
     "label": "Network Node Count",
     "view_label": "Logistics Network Nodes"
   },
+  "agentic_thelook.monthly_revenue_facts.monthly_revenue_facts.count": {
+    "explore_label": "Monthly Revenue Whiplash & Rolling Momentum",
+    "label": "Evaluated Months",
+    "view_label": "Monthly Revenue Momentum Facts"
+  },
+  "agentic_thelook.monthly_revenue_facts.monthly_revenue_facts.total_monthly_revenue": {
+    "explore_label": "Monthly Revenue Whiplash & Rolling Momentum",
+    "label": "Total Revenue Across Selected Months",
+    "view_label": "Monthly Revenue Momentum Facts"
+  },
   "agentic_thelook.order_items.distribution_centers.count": {
     "explore_label": "Order Items",
     "label": "Total Warehouse Empire Count",
@@ -444,6 +454,11 @@
     "label": "Remaining Unsold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.avg_gross_profit": {
+    "explore_label": "Order Items",
+    "label": "Average Unit Gross Profit",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.inventory_items_order_items_fields.avg_order_shelf_age_days": {
     "explore_label": "Order Items",
     "label": "Average Order Shelf Age (Days, Zero-Defaulted)",
@@ -457,6 +472,11 @@
   "agentic_thelook.order_items.inventory_items_order_items_fields.retained_net_profit": {
     "explore_label": "Order Items",
     "label": "Retained Net Profit",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.total_cogs": {
+    "explore_label": "Order Items",
+    "label": "Total Wholesale COGS",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.inventory_items_order_items_fields.total_gross_profit": {
@@ -574,6 +594,11 @@
     "label": "Average Activity-Weighted Retail Price",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items_products_fields.luxury_spend_share": {
+    "explore_label": "Order Items",
+    "label": "Midlife Crisis Luxury Splurge Share ($150+ Retail)",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items_products_fields.mens_units": {
     "explore_label": "Order Items",
     "label": "Menswear Units Sold",
@@ -602,6 +627,11 @@
   "agentic_thelook.order_items.order_items_products_fields.swimwear_units": {
     "explore_label": "Order Items",
     "label": "Swimwear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.total_luxury_150plus_revenue": {
+    "explore_label": "Order Items",
+    "label": "Luxury High-Ticket Spend ($150+ Retail)",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_products_fields.total_sock_revenue": {
@@ -794,6 +824,111 @@
     "label": "Youngest Shopper Age",
     "view_label": "Users"
   },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_hours_to_deliver": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_hours_to_ship": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_item_price": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Item Price",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_total_doorstep_wait_hours": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_truck_transit_hours": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_warehouse_procrastination_hours": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.completed_items": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Completed Line Items",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.count": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Ledger Line Item Count",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.distinct_orders": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Distinct Orders",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.distinct_users": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Active Buyers",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.ever_return_rate": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.ever_returned_items": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.late_night_revenue": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.late_night_revenue_share": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.recent_era_revenue": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.recent_era_revenue_share": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Recent-Era Revenue Share (2025+)",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.refunded_revenue": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.return_rate": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Item Return Rate",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.returned_items": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Returned Items",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.total_ledger_dollars": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Ledger Dollars",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.total_revenue": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Total Revenue",
+    "view_label": "Order Items Financial Ledger"
+  },
   "agentic_thelook.order_shards.order_shards.approx_distinct_users": {
     "explore_label": "Order Shards (Wildcard)",
     "label": "Approximate Distinct Users",
@@ -863,6 +998,31 @@
     "explore_label": "Orders",
     "label": "Max Inter-Order Gap (Days)",
     "view_label": "Orders"
+  },
+  "agentic_thelook.orders.user_spend_trajectory_facts.avg_first_order_spend": {
+    "explore_label": "Orders",
+    "label": "Average First Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.orders.user_spend_trajectory_facts.avg_latest_order_spend": {
+    "explore_label": "Orders",
+    "label": "Average Latest Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.orders.user_spend_trajectory_facts.avg_order_spend": {
+    "explore_label": "Orders",
+    "label": "Average Step Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.orders.user_spend_trajectory_facts.avg_spend_escalation_multiplier": {
+    "explore_label": "Orders",
+    "label": "Second-Order Price Escalation Multiplier",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.orders.user_spend_trajectory_facts.count": {
+    "explore_label": "Orders",
+    "label": "Evaluated Trajectory Orders",
+    "view_label": "Customer Spend Trajectory Facts"
   },
   "agentic_thelook.orders.users.avg_abs_latitude": {
     "explore_label": "Orders",
@@ -1524,6 +1684,21 @@
     "label": "Average Latest Order Spend",
     "view_label": "Customer Spend Trajectory Facts"
   },
+  "agentic_thelook.users.user_spend_trajectory_facts.avg_order_spend": {
+    "explore_label": "Users",
+    "label": "Average Step Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users.user_spend_trajectory_facts.avg_spend_escalation_multiplier": {
+    "explore_label": "Users",
+    "label": "Second-Order Price Escalation Multiplier",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users.user_spend_trajectory_facts.count": {
+    "explore_label": "Users",
+    "label": "Evaluated Trajectory Orders",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
   "agentic_thelook.users.user_warehouse_proximity_facts.avg_nearest_dc_km": {
     "explore_label": "Users",
     "label": "Average Distance to Nearest Warehouse (km)",
@@ -2032,6 +2207,21 @@
   "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_latest_order_spend": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Latest Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_order_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Step Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.avg_spend_escalation_multiplier": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Second-Order Price Escalation Multiplier",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_trajectory_facts.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Evaluated Trajectory Orders",
     "view_label": "Customer Spend Trajectory Facts"
   },
   "agentic_thelook.users_signup_activation.user_warehouse_proximity_facts.avg_nearest_dc_km": {
@@ -2627,6 +2817,21 @@
   "agentic_thelook.users_state_channel_traffic.user_spend_trajectory_facts.avg_latest_order_spend": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Latest Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_trajectory_facts.avg_order_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Step Order Spend",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_trajectory_facts.avg_spend_escalation_multiplier": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Second-Order Price Escalation Multiplier",
+    "view_label": "Customer Spend Trajectory Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_trajectory_facts.count": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Evaluated Trajectory Orders",
     "view_label": "Customer Spend Trajectory Facts"
   },
   "agentic_thelook.users_state_channel_traffic.user_warehouse_proximity_facts.avg_nearest_dc_km": {

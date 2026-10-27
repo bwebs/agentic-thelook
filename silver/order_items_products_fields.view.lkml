@@ -121,4 +121,24 @@ view: order_items_products_fields {
     type: string
     sql: STRING_AGG(${products.category}, ', ' ORDER BY ${products.category}) ;;
   }
+
+  measure: total_luxury_150plus_revenue {
+    label: "Luxury High-Ticket Spend ($150+ Retail)"
+    description: "Gross dollar sales from ordered line items whose catalog retail sticker price is $150 or more (products.retail_price >= 150)."
+    synonyms: ["luxury 150plus spend", "high-ticket spend", "luxury item spend", "150 plus luxury revenue"]
+    type: sum
+    sql: ${order_items.sale_price} ;;
+    filters: [products.retail_price: ">=150"]
+    value_format_name: usd
+  }
+
+  measure: luxury_spend_share {
+    label: "Midlife Crisis Luxury Splurge Share ($150+ Retail)"
+    description: "Midlife Crisis Luxury Splurge Multiplier share of total gross clothing spend going toward high-ticket catalog items priced at $150 or more (total_luxury_150plus_revenue / total_revenue)."
+    synonyms: ["luxury spend share", "luxury spend share pct", "midlife crisis luxury splurge multiplier", "high-ticket spend share"]
+    type: number
+    tags: ["non_additive"]
+    sql: 1.0 * ${total_luxury_150plus_revenue} / NULLIF(${order_items.total_revenue}, 0) ;;
+    value_format_name: percent_2
+  }
 }

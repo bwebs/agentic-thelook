@@ -20,7 +20,7 @@
       "field_type": "dimension",
       "file": "bronze/users.refinement.lkml",
       "hidden": false,
-      "line": 272,
+      "line": 312,
       "model": "agentic_thelook",
       "pii": true,
       "required_access_grants": [],

@@ -51,3 +51,24 @@ test: orders_2024_06_01_inter_order_gap_metrics {
       AND ${orders.count} = 21 ;;
   }
 }
+
+test: orders_2024_01_repeat_spend_escalation {
+  explore_source: orders {
+    column: order_sequence_number { field: user_spend_trajectory_facts.order_sequence_number }
+    column: distinct_users { field: orders.distinct_users }
+    column: avg_order_spend { field: user_spend_trajectory_facts.avg_order_spend }
+    column: avg_first_order_spend { field: user_spend_trajectory_facts.avg_first_order_spend }
+    column: avg_spend_escalation_multiplier { field: user_spend_trajectory_facts.avg_spend_escalation_multiplier }
+    filters: [
+      orders.created_month: "2024-01",
+      user_spend_trajectory_facts.user_order_count: ">=2"
+    ]
+    sorts: [user_spend_trajectory_facts.order_sequence_number: asc]
+  }
+  assert: step_one_baseline_identity {
+    expression: index(${user_spend_trajectory_facts.order_sequence_number}, 1) = 1 AND round(index(${user_spend_trajectory_facts.avg_spend_escalation_multiplier}, 1), 3) = 1 AND round(index(${user_spend_trajectory_facts.avg_order_spend}, 1), 2) = round(index(${user_spend_trajectory_facts.avg_first_order_spend}, 1), 2) ;;
+  }
+  assert: step_two_escalation_populated {
+    expression: index(${user_spend_trajectory_facts.order_sequence_number}, 2) = 2 AND index(${orders.distinct_users}, 2) > 0 AND index(${user_spend_trajectory_facts.avg_spend_escalation_multiplier}, 2) > 0 ;;
+  }
+}

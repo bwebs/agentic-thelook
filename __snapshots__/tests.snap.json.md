@@ -1092,6 +1092,58 @@
     "model": "agentic_thelook",
     "name": "logistics_network_nodes_warehouse_hubs_by_belt"
   },
+  "agentic_thelook.monthly_revenue_facts_2024_01_momentum": {
+    "assert": {
+      "monthly_volume_and_revenue_match": {
+        "expression": "${monthly_revenue_facts.orders_count} = 1436 AND ${monthly_revenue_facts.items_count} = 1975 AND round(${monthly_revenue_facts.monthly_revenue}, 2) = 119747.25"
+      },
+      "prior_month_and_whiplash_match": {
+        "expression": "round(${monthly_revenue_facts.prev_month_revenue}, 2) = 121554.86 AND round(${monthly_revenue_facts.mom_revenue_growth_rate}, 4) = -0.0149"
+      },
+      "rolling_and_cumulative_revenue_match": {
+        "expression": "round(${monthly_revenue_facts.rolling_3m_avg_revenue}, 2) = 117578.07 AND round(${monthly_revenue_facts.cumulative_all_time_revenue}, 2) = 2970882.55"
+      }
+    },
+    "explore_source": {
+      "monthly_revenue_facts": {
+        "column": {
+          "cumulative_all_time_revenue": {
+            "field": "monthly_revenue_facts.cumulative_all_time_revenue"
+          },
+          "items_count": {
+            "field": "monthly_revenue_facts.items_count"
+          },
+          "mom_revenue_growth_rate": {
+            "field": "monthly_revenue_facts.mom_revenue_growth_rate"
+          },
+          "monthly_revenue": {
+            "field": "monthly_revenue_facts.monthly_revenue"
+          },
+          "orders_count": {
+            "field": "monthly_revenue_facts.orders_count"
+          },
+          "prev_month_revenue": {
+            "field": "monthly_revenue_facts.prev_month_revenue"
+          },
+          "rolling_3m_avg_revenue": {
+            "field": "monthly_revenue_facts.rolling_3m_avg_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "monthly_revenue_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "monthly_revenue_facts.created_month": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/monthly_revenue_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "monthly_revenue_facts_2024_01_momentum"
+  },
   "agentic_thelook.order_items_2024_01_01_active_buyers_metrics": {
     "assert": {
       "distinct_users_matches": {
@@ -1648,6 +1700,51 @@
     "line": 158,
     "model": "agentic_thelook",
     "name": "order_items_2024_01_fulfillment_speed_tier"
+  },
+  "agentic_thelook.order_items_2024_01_margin_and_luxury_metrics": {
+    "assert": {
+      "avg_gross_profit_matches": {
+        "expression": "round(${inventory_items_order_items_fields.avg_gross_profit}, 2) = 31.41"
+      },
+      "luxury_spend_matches": {
+        "expression": "round(${order_items_products_fields.total_luxury_150plus_revenue}, 2) = 37209.72 AND round(${order_items_products_fields.luxury_spend_share}, 4) = 0.3107"
+      },
+      "total_cogs_matches": {
+        "expression": "round(${inventory_items_order_items_fields.total_cogs}, 2) = 57712.62"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_gross_profit": {
+            "field": "inventory_items_order_items_fields.avg_gross_profit"
+          },
+          "luxury_spend_share": {
+            "field": "order_items_products_fields.luxury_spend_share"
+          },
+          "total_cogs": {
+            "field": "inventory_items_order_items_fields.total_cogs"
+          },
+          "total_luxury_150plus_revenue": {
+            "field": "order_items_products_fields.total_luxury_150plus_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.id": "NOT NULL",
+          "order_items.created_month": "2024-01",
+          "products.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 359,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_margin_and_luxury_metrics"
   },
   "agentic_thelook.order_items_2024_01_seasonal_category_metrics": {
     "assert": {
@@ -2286,6 +2383,50 @@
     "line": 28,
     "model": "agentic_thelook",
     "name": "orders_2024_01_01_remorse_metrics"
+  },
+  "agentic_thelook.orders_2024_01_repeat_spend_escalation": {
+    "assert": {
+      "step_one_baseline_identity": {
+        "expression": "index(${user_spend_trajectory_facts.order_sequence_number}, 1) = 1 AND round(index(${user_spend_trajectory_facts.avg_spend_escalation_multiplier}, 1), 3) = 1 AND round(index(${user_spend_trajectory_facts.avg_order_spend}, 1), 2) = round(index(${user_spend_trajectory_facts.avg_first_order_spend}, 1), 2)"
+      },
+      "step_two_escalation_populated": {
+        "expression": "index(${user_spend_trajectory_facts.order_sequence_number}, 2) = 2 AND index(${orders.distinct_users}, 2) > 0 AND index(${user_spend_trajectory_facts.avg_spend_escalation_multiplier}, 2) > 0"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "avg_first_order_spend": {
+            "field": "user_spend_trajectory_facts.avg_first_order_spend"
+          },
+          "avg_order_spend": {
+            "field": "user_spend_trajectory_facts.avg_order_spend"
+          },
+          "avg_spend_escalation_multiplier": {
+            "field": "user_spend_trajectory_facts.avg_spend_escalation_multiplier"
+          },
+          "distinct_users": {
+            "field": "orders.distinct_users"
+          },
+          "order_sequence_number": {
+            "field": "user_spend_trajectory_facts.order_sequence_number"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "orders.created_month": "2024-01",
+          "user_spend_trajectory_facts.user_order_count": ">=2"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/orders.test.lkml",
+    "line": 55,
+    "model": "agentic_thelook",
+    "name": "orders_2024_01_repeat_spend_escalation"
   },
   "agentic_thelook.orders_2024_06_01_inter_order_gap_metrics": {
     "assert": {
@@ -3312,6 +3453,46 @@
     "line": 91,
     "model": "agentic_thelook",
     "name": "users_2024_01_01_thoroughfare_tier_metrics"
+  },
+  "agentic_thelook.users_2024_01_01_vanity_and_life_stage_dims": {
+    "assert": {
+      "career_builder_row_matches": {
+        "expression": "index(${users.life_stage_zone}, 8) = \"Career Builder (25-39)\" AND index(${users.first_initial}, 8) = \"J\" AND index(${users.full_name_letter_count}, 8) = 12"
+      },
+      "first_row_youth_vanity_matches": {
+        "expression": "index(${users.life_stage_zone}, 1) = \"Youth Budget (<25)\" AND index(${users.first_initial}, 1) = \"A\" AND index(${users.full_name_letter_count}, 1) = 10 AND index(${users.count}, 1) = 1"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "count": {
+            "field": "users.count"
+          },
+          "first_initial": {
+            "field": "users.first_initial"
+          },
+          "full_name_letter_count": {
+            "field": "users.full_name_letter_count"
+          },
+          "life_stage_zone": {
+            "field": "users.life_stage_zone"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "users.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/users.test.lkml",
+    "line": 287,
+    "model": "agentic_thelook",
+    "name": "users_2024_01_01_vanity_and_life_stage_dims"
   },
   "agentic_thelook.users_2024_01_01_warehouse_proximity_metrics": {
     "assert": {

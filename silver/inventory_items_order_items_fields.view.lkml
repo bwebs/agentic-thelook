@@ -24,11 +24,30 @@ view: inventory_items_order_items_fields {
     sql: SAFE_DIVIDE(${gross_profit}, ${order_items.sale_price}) ;;
   }
 
+  measure: total_cogs {
+    label: "Total Wholesale COGS"
+    description: "Total wholesale inventory cost of goods sold summed across ordered line items."
+    synonyms: ["total cogs", "wholesale inventory cogs", "cost of goods sold"]
+    type: sum
+    value_format_name: usd
+    sql: ${inventory_items.cost} ;;
+  }
+
   measure: total_gross_profit {
     label: "Total Gross Profit"
-    description: "Total gross dollar profit across ordered line items (sum of sale_price minus inventory wholesale cost)."
-    synonyms: ["total profit", "net profit", "group profit", "sku profit", "gross margin"]
+    description: "Realized gross dollar profit across ordered line items after subtracting wholesale inventory cost from checkout sale price (SUM(sale_price - cost))."
+    synonyms: ["total profit", "net profit", "group profit", "sku profit", "gross margin", "realized gross profit", "department profit"]
     type: sum
+    value_format_name: usd
+    sql: ${gross_profit} ;;
+  }
+
+  measure: avg_gross_profit {
+    label: "Average Unit Gross Profit"
+    description: "Mean realized gross dollar profit per ordered line item (AVG(sale_price - cost))."
+    synonyms: ["profit per unit", "avg net margin", "average unit profit", "unit realized profit"]
+    tags: ["non_additive"]
+    type: average
     value_format_name: usd
     sql: ${gross_profit} ;;
   }
@@ -45,8 +64,8 @@ view: inventory_items_order_items_fields {
 
   measure: gross_margin_ratio {
     label: "Gross Profit Margin"
-    description: "Blended gross profit margin share across ordered line items, calculated as total gross profit divided by total gross revenue."
-    synonyms: ["gross margin", "blended margin", "blended margin pct", "margin pct", "gross profit margin share"]
+    description: "Realized gross profit margin share across ordered line items, calculated as total gross profit divided by total gross revenue."
+    synonyms: ["gross margin", "blended margin", "blended margin pct", "margin pct", "gross profit margin share", "realized margin pct", "realized gross margin"]
     tags: ["non_additive"]
     type: number
     value_format_name: percent_2
