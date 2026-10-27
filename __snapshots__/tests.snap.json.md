@@ -195,6 +195,52 @@
     "model": "agentic_thelook",
     "name": "distribution_centers_refinement_metrics"
   },
+  "agentic_thelook.event_transition_matrix_probability_invariants": {
+    "assert": {
+      "dwell_seconds_non_negative": {
+        "expression": "${event_transition_matrix_facts.avg_seconds_before_transition} >= 0"
+      },
+      "transition_probability_matches_ratio": {
+        "expression": "${event_transition_matrix_facts.transition_probability} > 0 AND ${event_transition_matrix_facts.transition_probability} <= 1 AND round(${event_transition_matrix_facts.transition_probability}, 6) = round(${event_transition_matrix_facts.transition_count} / ${event_transition_matrix_facts.total_departures_from_state}, 6)"
+      }
+    },
+    "explore_source": {
+      "event_transition_matrix_facts": {
+        "column": {
+          "avg_seconds_before_transition": {
+            "field": "event_transition_matrix_facts.avg_seconds_before_transition"
+          },
+          "from_state": {
+            "field": "event_transition_matrix_facts.from_state"
+          },
+          "to_state": {
+            "field": "event_transition_matrix_facts.to_state"
+          },
+          "total_departures_from_state": {
+            "field": "event_transition_matrix_facts.total_departures_from_state"
+          },
+          "transition_count": {
+            "field": "event_transition_matrix_facts.transition_count"
+          },
+          "transition_probability": {
+            "field": "event_transition_matrix_facts.transition_probability"
+          }
+        },
+        "derived_column": null,
+        "explore": "event_transition_matrix_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "event_transition_matrix_facts.from_state": "cart"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/event_transition_matrix_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "event_transition_matrix_probability_invariants"
+  },
   "agentic_thelook.events_2024_01_01_away_from_home_events": {
     "assert": {
       "away_from_home_events_matches": {
@@ -541,6 +587,49 @@
     "model": "agentic_thelook",
     "name": "events_2024_01_01_nomad_and_browser_metrics"
   },
+  "agentic_thelook.events_2024_01_01_session_purchase_metrics": {
+    "assert": {
+      "click_journey_path_populated": {
+        "expression": "length(${events.click_journey_path}) > 0"
+      },
+      "purchasing_sessions_matches": {
+        "expression": "${events.purchasing_sessions} = 63"
+      },
+      "session_purchase_rate_matches": {
+        "expression": "round(${events.session_purchase_rate}, 4) = 0.2461"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "click_journey_path": {
+            "field": "events.click_journey_path"
+          },
+          "purchasing_sessions": {
+            "field": "events.purchasing_sessions"
+          },
+          "session_purchase_rate": {
+            "field": "events.session_purchase_rate"
+          },
+          "unique_chaotic_sessions": {
+            "field": "events.unique_chaotic_sessions"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 252,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_session_purchase_metrics"
+  },
   "agentic_thelook.events_2024_01_01_session_span_and_click_trail_metrics": {
     "assert": {
       "first_session_span_and_trail_matches": {
@@ -661,6 +750,43 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "events_2024_01_01_speed_runner_checkout_metrics"
+  },
+  "agentic_thelook.events_2024_01_01_step_transition_metrics": {
+    "assert": {
+      "cancel_step_dwell_matches": {
+        "expression": "index(${event_step_transitions.to_state}, 2) = \"cancel\" AND index(${events.count}, 2) = 41 AND round(index(${event_step_transitions.avg_seconds_before_transition}, 2), 1) = 1112.2"
+      },
+      "session_exit_zero_dwell_matches": {
+        "expression": "index(${event_step_transitions.to_state}, 1) = \"SESSION_EXIT\" AND index(${events.count}, 1) = 239 AND index(${event_step_transitions.avg_seconds_before_transition}, 1) = 0"
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "avg_seconds_before_transition": {
+            "field": "event_step_transitions.avg_seconds_before_transition"
+          },
+          "count": {
+            "field": "events.count"
+          },
+          "to_state": {
+            "field": "event_step_transitions.to_state"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/events.test.lkml",
+    "line": 128,
+    "model": "agentic_thelook",
+    "name": "events_2024_01_01_step_transition_metrics"
   },
   "agentic_thelook.events_2024_01_01_uri_segment_metrics": {
     "assert": {
@@ -1908,6 +2034,40 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_trade_corridor_metrics"
   },
+  "agentic_thelook.order_items_2024_01_boomeranged_refund_metrics": {
+    "assert": {
+      "ever_returned_items_matches": {
+        "expression": "${order_items.ever_returned_items} = 187"
+      },
+      "ever_returned_revenue_matches": {
+        "expression": "round(${order_items.ever_returned_revenue}, 2) = 11430.93"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "ever_returned_items": {
+            "field": "order_items.ever_returned_items"
+          },
+          "ever_returned_revenue": {
+            "field": "order_items.ever_returned_revenue"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 248,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_boomeranged_refund_metrics"
+  },
   "agentic_thelook.order_items_2024_01_complete_gross_profit": {
     "assert": {
       "gross_margin_ratio_matches": {
@@ -2696,6 +2856,59 @@
     "model": "agentic_thelook",
     "name": "orders_2024_01_01_remorse_metrics"
   },
+  "agentic_thelook.orders_2024_01_purchase_cooldown_metrics": {
+    "assert": {
+      "avg_dopamine_cooldown_days_matches": {
+        "expression": "round(${order_purchase_cooldowns.avg_dopamine_cooldown_days}, 2) = 428.95"
+      },
+      "avg_whole_cooldown_days_matches": {
+        "expression": "round(${order_purchase_cooldowns.avg_whole_cooldown_days}, 2) = 428.45"
+      },
+      "max_cooldown_days_matches": {
+        "expression": "${order_purchase_cooldowns.max_cooldown_days} = 1618"
+      },
+      "min_cooldown_hours_matches": {
+        "expression": "round(${order_purchase_cooldowns.min_cooldown_hours}, 2) = 30.78"
+      },
+      "repeat_orders_matches": {
+        "expression": "${order_purchase_cooldowns.repeat_orders} = 462"
+      }
+    },
+    "explore_source": {
+      "orders": {
+        "column": {
+          "avg_dopamine_cooldown_days": {
+            "field": "order_purchase_cooldowns.avg_dopamine_cooldown_days"
+          },
+          "avg_whole_cooldown_days": {
+            "field": "order_purchase_cooldowns.avg_whole_cooldown_days"
+          },
+          "max_cooldown_days": {
+            "field": "order_purchase_cooldowns.max_cooldown_days"
+          },
+          "min_cooldown_hours": {
+            "field": "order_purchase_cooldowns.min_cooldown_hours"
+          },
+          "repeat_orders": {
+            "field": "order_purchase_cooldowns.repeat_orders"
+          }
+        },
+        "derived_column": null,
+        "explore": "orders",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_purchase_cooldowns.is_repeat_order": "yes",
+          "orders.created_date": "2024-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/orders.test.lkml",
+    "line": 76,
+    "model": "agentic_thelook",
+    "name": "orders_2024_01_purchase_cooldown_metrics"
+  },
   "agentic_thelook.orders_2024_01_repeat_spend_escalation": {
     "assert": {
       "step_one_baseline_identity": {
@@ -3380,6 +3593,40 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "products_refinement_metrics"
+  },
+  "agentic_thelook.session_journey_path_share_invariants": {
+    "assert": {
+      "converted_journey_share_bounds": {
+        "expression": "${session_journey_path_facts.session_frequency} > 0 AND ${session_journey_path_facts.share_of_all_sessions} > 0 AND ${session_journey_path_facts.share_of_all_sessions} < 1"
+      }
+    },
+    "explore_source": {
+      "session_journey_path_facts": {
+        "column": {
+          "is_converted_to_purchase": {
+            "field": "session_journey_path_facts.is_converted_to_purchase"
+          },
+          "session_frequency": {
+            "field": "session_journey_path_facts.session_frequency"
+          },
+          "share_of_all_sessions": {
+            "field": "session_journey_path_facts.share_of_all_sessions"
+          }
+        },
+        "derived_column": null,
+        "explore": "session_journey_path_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "session_journey_path_facts.is_converted_to_purchase": "yes"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/session_journey_path_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "session_journey_path_share_invariants"
   },
   "agentic_thelook.users_2022_cohort_year_1_survival_metrics": {
     "assert": {
@@ -4620,5 +4867,69 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "users_refinement_metrics"
+  },
+  "agentic_thelook.users_return_concentration_conversion_and_click_efficiency_invariants": {
+    "assert": {
+      "clicks_per_dollar_reciprocal_identity": {
+        "expression": "${user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent} > 0 AND round(${user_click_facts_user_spend_facts_users_fields.clicks_per_dollar} * ${user_click_facts_user_spend_facts_users_fields.revenue_per_click}, 4) = 1"
+      },
+      "serial_returner_concentration_invariants": {
+        "expression": "${user_spend_facts.serial_returner_users} <= ${user_spend_facts.any_returner_users} AND ${user_spend_facts.serial_returner_refund_dollars} <= ${user_spend_facts.total_refund_dollars} AND round(${user_spend_facts.serial_returner_refund_share}, 6) = round(${user_spend_facts.serial_returner_refund_dollars} / ${user_spend_facts.total_refund_dollars}, 6)"
+      },
+      "user_conversion_rate_algebraic_identity": {
+        "expression": "${order_items_users_fields.user_conversion_rate} >= 0 AND ${order_items_users_fields.user_conversion_rate} <= 1 AND round(${order_items_users_fields.user_conversion_rate}, 6) = round(${order_items.distinct_users} / ${users.count}, 6)"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "any_returner_users": {
+            "field": "user_spend_facts.any_returner_users"
+          },
+          "avg_clicks_per_dollar_spent": {
+            "field": "user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent"
+          },
+          "clicks_per_dollar": {
+            "field": "user_click_facts_user_spend_facts_users_fields.clicks_per_dollar"
+          },
+          "converting_buyers": {
+            "field": "order_items.distinct_users"
+          },
+          "revenue_per_click": {
+            "field": "user_click_facts_user_spend_facts_users_fields.revenue_per_click"
+          },
+          "serial_returner_refund_dollars": {
+            "field": "user_spend_facts.serial_returner_refund_dollars"
+          },
+          "serial_returner_refund_share": {
+            "field": "user_spend_facts.serial_returner_refund_share"
+          },
+          "serial_returner_users": {
+            "field": "user_spend_facts.serial_returner_users"
+          },
+          "total_refund_dollars": {
+            "field": "user_spend_facts.total_refund_dollars"
+          },
+          "user_conversion_rate": {
+            "field": "order_items_users_fields.user_conversion_rate"
+          },
+          "user_count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "users.id": "<=2000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 389,
+    "model": "agentic_thelook",
+    "name": "users_return_concentration_conversion_and_click_efficiency_invariants"
   }
 }

@@ -313,4 +313,33 @@ view: +events {
     type: string
     sql: STRING_AGG(DISTINCT ${browser}, ' + ' ORDER BY ${browser}) ;;
   }
+
+  measure: click_journey_path {
+    label: "Clickstream Journey Path"
+    description: "Chronological sequence of event_type steps joined with ' -> ' ordered by sequence_number across events in the grouping."
+    synonyms: ["click journey path", "arrow click path", "session journey path"]
+    tags: ["non_additive"]
+    type: string
+    sql: STRING_AGG(${event_type}, ' -> ' ORDER BY ${sequence_number}) ;;
+  }
+
+  measure: purchasing_sessions {
+    label: "Purchasing Sessions"
+    description: "Number of distinct browsing sessions containing a completed purchase event (event_type = 'purchase')."
+    synonyms: ["purchasing sessions", "converting clickstream sessions"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${session_id} ;;
+    filters: [event_type: "purchase"]
+  }
+
+  measure: session_purchase_rate {
+    label: "Session Purchase Rate"
+    description: "Share of distinct browsing sessions that include a completed purchase event (purchasing_sessions / unique_chaotic_sessions)."
+    synonyms: ["session purchase rate", "traffic session purchase rate"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${purchasing_sessions} / NULLIF(${unique_chaotic_sessions}, 0) ;;
+    value_format_name: percent_2
+  }
 }

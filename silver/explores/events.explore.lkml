@@ -7,6 +7,7 @@ include: "/silver/explores/events_steps_base.explore.lkml"
 include: "/silver/browsing_session_facts.view.lkml"
 include: "/silver/event_session_facts.view.lkml"
 include: "/silver/event_session_steps.view.lkml"
+include: "/silver/event_step_transitions.view.lkml"
 include: "/silver/events_users_fields.view.lkml"
 
 explore: events {
@@ -53,6 +54,30 @@ explore: events {
       session_total_events,
       session_structural_role
     ]
+  }
+
+  join: event_step_transitions {
+    view_label: "Events"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.id} = ${event_step_transitions.id} ;;
+    fields: [
+      id,
+      to_state,
+      step_dwell_seconds,
+      avg_seconds_before_transition
+    ]
+  }
+
+  query: session_purchase_rate_by_traffic_source {
+    description: "Total browsing sessions, purchasing sessions, and session purchase conversion rate broken down by session traffic source."
+    dimensions: [events.traffic_source]
+    measures: [
+      events.unique_chaotic_sessions,
+      events.purchasing_sessions,
+      events.session_purchase_rate
+    ]
+    sorts: [events.session_purchase_rate: desc]
   }
 
   query: browser_cart_to_cancel_friction {

@@ -11,6 +11,7 @@ view: user_spend_facts {
       column: mens_items_bought { field: order_items_products_fields.mens_units }
       column: womens_items_bought { field: order_items_products_fields.womens_units }
       column: items_returned { field: order_items.ever_returned_items }
+      column: lifetime_returned_dollars { field: order_items.ever_returned_revenue }
       column: status_returned_items { field: order_items.returned_items }
       column: lifetime_spend { field: order_items.total_revenue }
       column: lifetime_profit { field: inventory_items_order_items_fields.total_gross_profit }
@@ -315,5 +316,69 @@ view: user_spend_facts {
     synonyms: ["active buyers", "paying customers count"]
     type: count
     filters: [user_id: "NOT NULL"]
+  }
+
+  dimension: lifetime_returned_dollars {
+    label: "Customer Lifetime Returned Dollars"
+    group_label: "Return Behavior"
+    description: "Cumulative sale price of purchased items returned by the customer (status 'Returned' or returned_at populated)."
+    synonyms: ["returned dollars", "customer refund dollars", "lifetime refunded spend"]
+    type: number
+    value_format_name: usd
+    sql: COALESCE(${TABLE}.lifetime_returned_dollars, 0) ;;
+  }
+
+  dimension: is_serial_returner {
+    label: "Serial Returner (2+ Items Returned)"
+    group_label: "Return Behavior"
+    description: "Whether the customer is a habitual repeat returner who has sent back two or more purchased items."
+    synonyms: ["is serial returner", "habitual repeat returner", "serial returner"]
+    type: yesno
+    sql: ${items_returned} >= 2 ;;
+  }
+
+  measure: serial_returner_users {
+    label: "Serial Returner Users (2+ Returns)"
+    description: "Number of paying customers who have sent back two or more purchased items."
+    synonyms: ["serial returner user count", "habitual repeat returners"]
+    type: count
+    filters: [user_id: "NOT NULL", is_serial_returner: "yes"]
+  }
+
+  measure: any_returner_users {
+    label: "Returner Users (1+ Returns)"
+    description: "Number of paying customers who have sent back at least one purchased item."
+    synonyms: ["any returner user count", "returning customers count"]
+    type: count
+    filters: [user_id: "NOT NULL", items_returned: ">=1"]
+  }
+
+  measure: serial_returner_refund_dollars {
+    label: "Serial Returner Refund Dollars"
+    description: "Total refunded merchandise dollars attributable to habitual repeat returners who have sent back two or more items."
+    synonyms: ["serial returner refund dollars", "repeat returner refunded revenue"]
+    type: sum
+    sql: ${lifetime_returned_dollars} ;;
+    filters: [is_serial_returner: "yes"]
+    value_format_name: usd
+  }
+
+  measure: total_refund_dollars {
+    label: "Total Customer Refund Dollars"
+    description: "Total refunded merchandise dollars summed across all paying customers."
+    synonyms: ["total refund dollars", "all refunded merchandise dollars"]
+    type: sum
+    sql: ${lifetime_returned_dollars} ;;
+    value_format_name: usd
+  }
+
+  measure: serial_returner_refund_share {
+    label: "Serial Returner Menace Concentration"
+    description: "Serial Returner Menace Concentration calculates the share of all refunded merchandise dollars across the business that comes from habitual repeat returners who have sent back two or more items."
+    synonyms: ["serial returner share of refunds", "serial returner menace concentration", "repeat returner refund share"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${serial_returner_refund_dollars} / NULLIF(${total_refund_dollars}, 0) ;;
+    value_format_name: percent_2
   }
 }

@@ -294,6 +294,16 @@ view: +order_items {
     filters: [is_ever_returned: "yes"]
   }
 
+  measure: ever_returned_revenue {
+    label: "Boomeranged Refund Dollars"
+    description: "Total sale price of ordered line items returned by customers (status is 'Returned' or returned_at is populated)."
+    synonyms: ["returned dollars", "boomeranged refund dollars", "ever returned revenue"]
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [is_ever_returned: "yes"]
+    value_format_name: usd
+  }
+
   measure: ever_return_rate {
     label: "Brand Return Boomerang Rate"
     description: "Brand Return Boomerang Rate identifies the share of ordered items that come back as customer returns (status 'Returned' or returned_at populated). Merchandising quality teams review this boomerang leaderboard to flag brands with inconsistent sizing or misleading product photos."

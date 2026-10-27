@@ -159,6 +159,75 @@ explore: users {
     relationship: one_to_one
   }
 
+  query: serial_returner_menace_concentration {
+    description: "Serial Returner Menace Concentration comparing serial returners (2+ returns), all returners, serial returner refund dollars, total refund dollars, and share of all refunds driven by habitual repeat returners."
+    measures: [
+      user_spend_facts.serial_returner_users,
+      user_spend_facts.any_returner_users,
+      user_spend_facts.serial_returner_refund_dollars,
+      user_spend_facts.total_refund_dollars,
+      user_spend_facts.serial_returner_refund_share
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+  }
+
+  query: top_serial_returners_by_refund_dollars {
+    description: "Top 15 habitual repeat returners (2+ returned items) ranked by cumulative returned merchandise dollars."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country,
+      user_spend_facts.items_bought,
+      user_spend_facts.items_returned,
+      user_spend_facts.lifetime_returned_dollars
+    ]
+    filters: [user_spend_facts.is_serial_returner: "yes"]
+    sorts: [user_spend_facts.lifetime_returned_dollars: desc]
+    limit: 15
+  }
+
+  query: acquisition_channel_conversion_efficiency {
+    description: "Paid versus Organic Conversion Efficiency comparing registered users, converting buyers, user conversion rate, total revenue, and revenue per registered user (ARPU) by acquisition traffic source."
+    dimensions: [users.traffic_source]
+    measures: [
+      users.count,
+      order_items.distinct_users,
+      order_items_users_fields.user_conversion_rate,
+      order_items.total_revenue,
+      order_items_users_fields.revenue_per_registered_user
+    ]
+    sorts: [order_items.total_revenue: desc]
+  }
+
+  query: global_clicks_per_dollar_ratio {
+    description: "Window-Shopper-to-Whale Clicks-per-Dollar Ratio benchmarks across all active clicking buyers: mean per-buyer clicks per dollar, global clicks per dollar, and global dollars per click."
+    measures: [
+      user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent,
+      user_click_facts_user_spend_facts_users_fields.clicks_per_dollar,
+      user_click_facts_user_spend_facts_users_fields.revenue_per_click
+    ]
+    filters: [
+      user_click_facts.user_id: "NOT NULL",
+      user_spend_facts.user_id: "NOT NULL"
+    ]
+  }
+
+  query: clicks_per_dollar_by_traffic_source {
+    description: "Active clicking buyers, clicks-per-dollar ratio, and revenue per click broken down by customer acquisition traffic source."
+    dimensions: [users.traffic_source]
+    measures: [
+      users.count,
+      user_click_facts_user_spend_facts_users_fields.clicks_per_dollar,
+      user_click_facts_user_spend_facts_users_fields.revenue_per_click
+    ]
+    filters: [
+      user_click_facts.user_id: "NOT NULL",
+      user_spend_facts.user_id: "NOT NULL"
+    ]
+    sorts: [user_click_facts_user_spend_facts_users_fields.revenue_per_click: desc]
+  }
+
   query: users_by_distinct_ip_nomad_locations {
     description: "IP Address Nomad Wanderlust Score breakdown of clicking customer count, average browsing cities visited, and away-from-home browsing event share by distinct IP locations."
     dimensions: [user_click_facts.distinct_ips]

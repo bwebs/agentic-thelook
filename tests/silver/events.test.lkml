@@ -124,3 +124,19 @@ test: events_2024_01_01_away_from_home_events {
     expression: ${events_users_fields.away_from_home_events} = 0 ;;
   }
 }
+
+test: events_2024_01_01_step_transition_metrics {
+  explore_source: events {
+    column: to_state { field: event_step_transitions.to_state }
+    column: count { field: events.count }
+    column: avg_seconds_before_transition { field: event_step_transitions.avg_seconds_before_transition }
+    filters: [events.created_date: "2024-01-01"]
+    sorts: [event_step_transitions.to_state: asc]
+  }
+  assert: session_exit_zero_dwell_matches {
+    expression: index(${event_step_transitions.to_state}, 1) = "SESSION_EXIT" AND index(${events.count}, 1) = 239 AND index(${event_step_transitions.avg_seconds_before_transition}, 1) = 0 ;;
+  }
+  assert: cancel_step_dwell_matches {
+    expression: index(${event_step_transitions.to_state}, 2) = "cancel" AND index(${events.count}, 2) = 41 AND round(index(${event_step_transitions.avg_seconds_before_transition}, 2), 1) = 1112.2 ;;
+  }
+}

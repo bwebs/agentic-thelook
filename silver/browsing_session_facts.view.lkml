@@ -14,7 +14,16 @@ view: browsing_session_facts {
       column: product_events { field: events.product_events }
       column: department_events { field: events.department_events }
       column: home_events { field: events.home_events }
+      column: click_journey_path { field: events.click_journey_path }
     }
+  }
+
+  dimension: click_journey_path {
+    label: "Session Clickstream Journey Path"
+    description: "Ordered sequence of event_type page steps (' -> ') traversed across the browsing session."
+    synonyms: ["click journey path", "session path", "journey path"]
+    type: string
+    sql: ${TABLE}.click_journey_path ;;
   }
 
   dimension: session_id {
