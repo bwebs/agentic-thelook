@@ -277,4 +277,40 @@ view: +events {
     type: string
     sql: ARRAY_AGG(${browser} ORDER BY ${created_raw} DESC LIMIT 1)[OFFSET(0)] ;;
   }
+
+  measure: distinct_ip_addresses {
+    label: "Distinct IP Addresses"
+    description: "Count of distinct client IP addresses recorded across clickstream events."
+    synonyms: ["distinct ips", "unique ip addresses", "network locations"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${ip_address} ;;
+  }
+
+  measure: distinct_cities {
+    label: "Distinct Event Cities"
+    description: "Count of distinct browsing cities recorded across clickstream events."
+    synonyms: ["distinct event cities", "browsing cities visited"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${city} ;;
+  }
+
+  measure: distinct_browsers {
+    label: "Distinct Browsers"
+    description: "Count of distinct web browsers recorded across clickstream events."
+    synonyms: ["distinct browsers used", "unique browsers"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${browser} ;;
+  }
+
+  measure: browser_combo {
+    label: "Browser Combination"
+    description: "Plus-delimited alphabetical list of distinct web browsers used across clickstream events."
+    synonyms: ["browser combo", "multi-browser combination"]
+    tags: ["non_additive"]
+    type: string
+    sql: STRING_AGG(DISTINCT ${browser}, ' + ' ORDER BY ${browser}) ;;
+  }
 }

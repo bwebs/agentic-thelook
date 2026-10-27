@@ -142,7 +142,11 @@ explore: order_items {
       user_click_facts.user_id,
       user_click_facts.total_clicks,
       user_click_facts.distinct_event_sources,
-      user_click_facts.latest_browser
+      user_click_facts.latest_browser,
+      user_click_facts.distinct_ips,
+      user_click_facts.ip_nomad_tier,
+      user_click_facts.distinct_browsers_used,
+      user_click_facts.browser_combo
     ]
   }
 
@@ -163,6 +167,56 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  query: spend_by_ip_nomad_tier {
+    description: "Active buyers, items purchased, total revenue, and spend per buyer across IP Address Nomad Wanderlust Tiers."
+    dimensions: [user_click_facts.ip_nomad_tier]
+    measures: [
+      order_items.distinct_users,
+      order_items.count,
+      order_items.total_revenue,
+      order_items.spend_per_buyer
+    ]
+    filters: [user_click_facts.user_id: "NOT NULL"]
+    sorts: [order_items.spend_per_buyer: desc]
+  }
+
+  query: revenue_by_product_title_word_count {
+    description: "Product Naming Verbosity Tax breakdown of sold SKUs, units sold, average retail sticker price, total revenue, and sale price per title word by title word count."
+    dimensions: [products.title_word_count]
+    measures: [
+      products.count,
+      order_items.count,
+      products.avg_sticker_price,
+      order_items.total_revenue,
+      order_items_products_fields.avg_price_per_title_word
+    ]
+    filters: [products.id: "NOT NULL"]
+    sorts: [products.title_word_count: asc]
+  }
+
+  query: product_title_verbosity_price_correlations {
+    description: "Pearson correlations between product title word count / character length and item sale price alongside maximum words in a sold product title."
+    measures: [
+      order_items_products_fields.title_word_count_price_correlation,
+      order_items_products_fields.title_char_length_price_correlation,
+      products.max_title_word_count
+    ]
+    filters: [products.id: "NOT NULL"]
+  }
+
+  query: top_multi_browser_combinations_by_revenue {
+    description: "Top 15 multi-browser customer combinations (2+ browsers used) ranked by gross item revenue alongside buyer count and average item price."
+    dimensions: [user_click_facts.browser_combo]
+    measures: [
+      order_items.distinct_users,
+      order_items.total_revenue,
+      order_items.avg_item_price
+    ]
+    filters: [user_click_facts.distinct_browsers_used: ">=2"]
+    sorts: [order_items.total_revenue: desc]
+    limit: 15
   }
 
   query: spend_by_customer_first_initial {

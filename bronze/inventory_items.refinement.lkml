@@ -134,4 +134,26 @@ view: +inventory_items {
     filters: [is_sold: "no"]
     value_format_name: usd
   }
+
+  measure: _days_on_shelf_sum {
+    hidden: yes
+    type: sum
+    sql: ${days_on_shelf} ;;
+  }
+
+  measure: _days_on_shelf_sum_of_squares {
+    hidden: yes
+    type: sum
+    sql: POWER(${days_on_shelf}, 2) ;;
+  }
+
+  measure: stddev_days_on_shelf {
+    label: "StdDev Days on Shelf Before Sale"
+    description: "Sample standard deviation of whole days sold inventory units sat on the warehouse shelf from intake creation until sale."
+    synonyms: ["stddev days to sell", "stddev days on shelf", "shelf dwell standard deviation"]
+    tags: ["non_additive"]
+    type: number
+    sql: SQRT(GREATEST(${_days_on_shelf_sum_of_squares} - (POWER(${_days_on_shelf_sum}, 2) / NULLIF(${sold_units}, 0)), 0) / NULLIF(${sold_units} - 1, 0)) ;;
+    value_format_name: decimal_1
+  }
 }

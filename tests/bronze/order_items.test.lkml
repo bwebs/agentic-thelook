@@ -229,3 +229,18 @@ test: order_items_2024_2025_boundary_era_and_reversed_metrics {
       AND round(index(${order_items.recent_era_revenue_share}, 2), 4) = 0.4279 ;;
   }
 }
+
+test: order_items_2024_01_01_spend_per_buyer {
+  explore_source: order_items {
+    column: total_revenue { field: order_items.total_revenue }
+    column: distinct_users { field: order_items.distinct_users }
+    column: spend_per_buyer { field: order_items.spend_per_buyer }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      order_items.status: "Complete"
+    ]
+  }
+  assert: spend_per_buyer_matches {
+    expression: round(${order_items.spend_per_buyer}, 2) = 70.20 ;;
+  }
+}

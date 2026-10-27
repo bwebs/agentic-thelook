@@ -14,6 +14,11 @@ view: user_click_facts {
       column: latest_browser { field: events.latest_browser }
       column: distinct_event_sources { field: events.distinct_traffic_sources }
       column: mismatched_source_events { field: events_users_fields.channel_crossover_events }
+      column: distinct_ips { field: events.distinct_ip_addresses }
+      column: distinct_event_cities { field: events.distinct_cities }
+      column: away_from_home_events { field: events_users_fields.away_from_home_events }
+      column: distinct_browsers_used { field: events.distinct_browsers }
+      column: browser_combo { field: events.browser_combo }
       filters: [events.user_id: "NOT NULL"]
     }
   }
@@ -147,5 +152,105 @@ view: user_click_facts {
     type: average
     sql: ${avg_url_depth} ;;
     value_format_name: decimal_2
+  }
+
+  dimension: distinct_ips {
+    label: "Distinct Customer IP Addresses"
+    group_label: "Nomad Mobility"
+    description: "Number of distinct network IP locations recorded across the customer's lifetime clickstream history."
+    synonyms: ["distinct ips", "customer ip count", "network locations"]
+    type: number
+    sql: ${TABLE}.distinct_ips ;;
+  }
+
+  dimension: distinct_event_cities {
+    label: "Distinct Customer Browsing Cities"
+    group_label: "Nomad Mobility"
+    description: "Number of distinct cities from which the customer has browsed across their clickstream history."
+    synonyms: ["distinct event cities", "browsing cities visited"]
+    type: number
+    sql: ${TABLE}.distinct_event_cities ;;
+  }
+
+  dimension: away_from_home_events {
+    label: "Customer Away-from-Home Events"
+    group_label: "Nomad Mobility"
+    description: "Count of website clickstream events where the customer's browsing city differed from their registered home billing city."
+    synonyms: ["user away from home events", "travel browsing events"]
+    type: number
+    sql: COALESCE(${TABLE}.away_from_home_events, 0) ;;
+  }
+
+  dimension: ip_nomad_tier {
+    label: "IP Address Nomad Wanderlust Tier"
+    group_label: "Nomad Mobility"
+    description: "IP Address Nomad Wanderlust Score classifies clicking customers by how many distinct network IP locations they browse from over time into 'Couch Potato (1 IP)', 'Two-Location Commuter (2 IPs)', and 'Road Warrior Nomad (3+ IPs)' (returns NULL for accounts with zero clickstream events). Mobile and travel-retail marketers use this mobility index to understand how often customers shop while commuting or traveling away from home."
+    synonyms: ["nomad tier", "ip nomad tier", "ip address nomad wanderlust score", "nomad wanderlust tier"]
+    case: {
+      when: {
+        sql: ${TABLE}.user_id IS NOT NULL AND ${distinct_ips} < 2 ;;
+        label: "Couch Potato (1 IP)"
+      }
+      when: {
+        sql: ${TABLE}.user_id IS NOT NULL AND ${distinct_ips} = 2 ;;
+        label: "Two-Location Commuter (2 IPs)"
+      }
+      when: {
+        sql: ${TABLE}.user_id IS NOT NULL AND ${distinct_ips} >= 3 ;;
+        label: "Road Warrior Nomad (3+ IPs)"
+      }
+    }
+  }
+
+  dimension: distinct_browsers_used {
+    label: "Distinct Browsers Used"
+    group_label: "Multi-Browser Hopping"
+    description: "Number of distinct web browsers the customer has signed in from across their lifetime clickstream history."
+    synonyms: ["distinct browsers used", "customer browser count", "browsers hopped"]
+    type: number
+    sql: ${TABLE}.distinct_browsers_used ;;
+  }
+
+  dimension: browser_combo {
+    label: "Customer Browser Combination"
+    group_label: "Multi-Browser Hopping"
+    description: "Plus-delimited alphabetical combination of distinct web browsers used across the customer's lifetime clickstream history."
+    synonyms: ["browser combo", "multi-browser combination", "browser stack"]
+    type: string
+    sql: ${TABLE}.browser_combo ;;
+  }
+
+  measure: avg_cities_visited {
+    label: "Average Browsing Cities Visited per Clicking User"
+    description: "Mean number of distinct browsing cities visited across clicking customers."
+    synonyms: ["avg cities visited", "average event cities per user"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${distinct_event_cities} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_user_clicks {
+    hidden: yes
+    type: sum
+    sql: ${total_clicks} ;;
+  }
+
+  measure: total_away_from_home_events {
+    label: "Total Customer Away-from-Home Events"
+    description: "Cumulative away-from-home clickstream events summed across clicking customers."
+    synonyms: ["total away from home events"]
+    type: sum
+    sql: ${away_from_home_events} ;;
+  }
+
+  measure: away_from_home_event_share {
+    label: "Away-from-Home Browsing Event Share"
+    description: "IP Address Nomad Wanderlust Score share of clicking customers' website events generated outside their registered home billing city."
+    synonyms: ["away from home event pct", "away from home event share", "nomad wanderlust share"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${total_away_from_home_events} / NULLIF(${total_user_clicks}, 0) ;;
+    value_format_name: percent_2
   }
 }

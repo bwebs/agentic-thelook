@@ -359,4 +359,14 @@ view: +order_items {
     sql: 1.0 * ${recent_era_revenue} / NULLIF(${total_revenue}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: spend_per_buyer {
+    label: "Spend per Active Buyer"
+    description: "Average gross dollar spend per distinct purchasing customer across ordered line items (total_revenue / distinct_users)."
+    synonyms: ["spend per buyer", "revenue per buyer", "average spend per buyer"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${total_revenue} / NULLIF(${distinct_users}, 0) ;;
+    value_format_name: usd
+  }
 }

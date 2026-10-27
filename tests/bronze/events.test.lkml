@@ -226,3 +226,25 @@ test: events_2024_01_01_latest_browser_metrics {
       AND ${events.count} = 880 ;;
   }
 }
+
+test: events_2024_01_01_nomad_and_browser_metrics {
+  explore_source: events {
+    column: distinct_ip_addresses { field: events.distinct_ip_addresses }
+    column: distinct_cities { field: events.distinct_cities }
+    column: distinct_browsers { field: events.distinct_browsers }
+    column: browser_combo { field: events.browser_combo }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: distinct_ip_addresses_matches {
+    expression: ${events.distinct_ip_addresses} = 256 ;;
+  }
+  assert: distinct_cities_matches {
+    expression: ${events.distinct_cities} = 203 ;;
+  }
+  assert: distinct_browsers_matches {
+    expression: ${events.distinct_browsers} = 5 ;;
+  }
+  assert: browser_combo_matches {
+    expression: ${events.browser_combo} = "Chrome + Firefox + IE + Other + Safari" ;;
+  }
+}

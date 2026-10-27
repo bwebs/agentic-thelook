@@ -1,4 +1,29 @@
 {
+  "agentic_thelook.category_brand_facts.category_brand_facts.count": {
+    "explore_label": "Category Brand Concentration",
+    "label": "Active Category Brands",
+    "view_label": "Category Brand Concentration Facts"
+  },
+  "agentic_thelook.category_brand_facts.category_brand_facts.oligopoly_ruling_brands": {
+    "explore_label": "Category Brand Concentration",
+    "label": "Oligopoly Ruling Brands (Top 3)",
+    "view_label": "Category Brand Concentration Facts"
+  },
+  "agentic_thelook.category_brand_facts.category_brand_facts.top_3_brands_revenue": {
+    "explore_label": "Category Brand Concentration",
+    "label": "Top 3 Brands Revenue",
+    "view_label": "Category Brand Concentration Facts"
+  },
+  "agentic_thelook.category_brand_facts.category_brand_facts.top_3_monopoly_share": {
+    "explore_label": "Category Brand Concentration",
+    "label": "Category Monopoly Concentration (Top 3 Brand Share)",
+    "view_label": "Category Brand Concentration Facts"
+  },
+  "agentic_thelook.category_brand_facts.category_brand_facts.total_category_revenue": {
+    "explore_label": "Category Brand Concentration",
+    "label": "Category Revenue",
+    "view_label": "Category Brand Concentration Facts"
+  },
   "agentic_thelook.category_growth_share_facts.category_growth_share_facts.avg_category_margin_rate": {
     "explore_label": "Category Growth-Share Portfolio",
     "label": "Average Category Margin Rate",
@@ -129,6 +154,11 @@
     "label": "Brand Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.browser_combo": {
+    "explore_label": "Events",
+    "label": "Browser Combination",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.cancel_events": {
     "explore_label": "Events",
     "label": "Rage-Quit Cancel Events",
@@ -174,9 +204,24 @@
     "label": "Department Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.distinct_browsers": {
+    "explore_label": "Events",
+    "label": "Distinct Browsers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.distinct_cities": {
+    "explore_label": "Events",
+    "label": "Distinct Event Cities",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.distinct_clicking_humans": {
     "explore_label": "Events",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.distinct_ip_addresses": {
+    "explore_label": "Events",
+    "label": "Distinct IP Addresses",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.distinct_traffic_sources": {
@@ -227,6 +272,11 @@
   "agentic_thelook.events.events.unique_chaotic_sessions": {
     "explore_label": "Events",
     "label": "Unique Browsing Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events_users_fields.away_from_home_events": {
+    "explore_label": "Events",
+    "label": "Away-from-Home Browsing Events",
     "view_label": "Events"
   },
   "agentic_thelook.events.events_users_fields.channel_crossover_events": {
@@ -324,6 +374,11 @@
     "label": "Sold Inventory Units",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.inventory_items.inventory_items.stddev_days_on_shelf": {
+    "explore_label": "Inventory Items",
+    "label": "StdDev Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.inventory_items.inventory_items.sunk_dusty_shelf_cost": {
     "explore_label": "Inventory Items",
     "label": "Unsold Dusty Shelf Inventory Cost",
@@ -337,6 +392,21 @@
   "agentic_thelook.inventory_items.inventory_items.unsold_units": {
     "explore_label": "Inventory Items",
     "label": "Remaining Unsold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items_inventory_items_fifo_batches_fields.avg_days_older_unit_skipped": {
+    "explore_label": "Inventory Items",
+    "label": "Average Days Older Unit Was Skipped",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments": {
+    "explore_label": "Inventory Items",
+    "label": "FIFO Line-Cutter Shipments",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items_inventory_items_fifo_batches_fields.fifo_violation_rate": {
+    "explore_label": "Inventory Items",
+    "label": "Warehouse FIFO Aging Anomaly Score (Violation Rate)",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.inventory_items.products.avg_dollar_markup": {
@@ -372,6 +442,11 @@
   "agentic_thelook.inventory_items.products.max_retail_price": {
     "explore_label": "Inventory Items",
     "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.inventory_items.products.max_title_word_count": {
+    "explore_label": "Inventory Items",
+    "label": "Max Words in a Product Name",
     "view_label": "Products"
   },
   "agentic_thelook.inventory_items.products.min_retail_price": {
@@ -437,6 +512,11 @@
   "agentic_thelook.order_items.inventory_items.sold_units": {
     "explore_label": "Order Items",
     "label": "Sold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items.inventory_items.stddev_days_on_shelf": {
+    "explore_label": "Order Items",
+    "label": "StdDev Days on Shelf Before Sale",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.order_items.inventory_items.sunk_dusty_shelf_cost": {
@@ -579,6 +659,11 @@
     "label": "Returned Items",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.spend_per_buyer": {
+    "explore_label": "Order Items",
+    "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.total_revenue": {
     "explore_label": "Order Items",
     "label": "Total Revenue",
@@ -592,6 +677,11 @@
   "agentic_thelook.order_items.order_items_products_fields.avg_activity_weighted_retail_price": {
     "explore_label": "Order Items",
     "label": "Average Activity-Weighted Retail Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.avg_price_per_title_word": {
+    "explore_label": "Order Items",
+    "label": "Average Sale Price per Title Word",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_products_fields.luxury_spend_share": {
@@ -627,6 +717,16 @@
   "agentic_thelook.order_items.order_items_products_fields.swimwear_units": {
     "explore_label": "Order Items",
     "label": "Swimwear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.title_char_length_price_correlation": {
+    "explore_label": "Order Items",
+    "label": "Title Character Length-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.title_word_count_price_correlation": {
+    "explore_label": "Order Items",
+    "label": "Title Word Count-Price Correlation",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_products_fields.total_luxury_150plus_revenue": {
@@ -762,6 +862,11 @@
   "agentic_thelook.order_items.products.max_retail_price": {
     "explore_label": "Order Items",
     "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items.products.max_title_word_count": {
+    "explore_label": "Order Items",
+    "label": "Max Words in a Product Name",
     "view_label": "Products"
   },
   "agentic_thelook.order_items.products.min_retail_price": {
@@ -917,6 +1022,11 @@
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.returned_items": {
     "explore_label": "Order Items (Financial Margin Ledger)",
     "label": "Returned Items",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.spend_per_buyer": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Spend per Active Buyer",
     "view_label": "Order Items Financial Ledger"
   },
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.total_ledger_dollars": {
@@ -1189,6 +1299,11 @@
     "label": "Returned Items",
     "view_label": "Order Items"
   },
+  "agentic_thelook.products.order_items.spend_per_buyer": {
+    "explore_label": "Products",
+    "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.products.order_items.total_revenue": {
     "explore_label": "Products",
     "label": "Total Revenue",
@@ -1198,6 +1313,21 @@
     "explore_label": "Products",
     "label": "Average Activity-Weighted Retail Price",
     "view_label": "Products"
+  },
+  "agentic_thelook.products.order_items_products_products__name_tokens_fields.avg_item_weighted_word_offset": {
+    "explore_label": "Products",
+    "label": "Average Sales-Weighted Word Position in Title",
+    "view_label": "Products: Title Words"
+  },
+  "agentic_thelook.products.order_items_products_products__name_tokens_fields.token_weighted_units_sold": {
+    "explore_label": "Products",
+    "label": "Token-Weighted Units Sold",
+    "view_label": "Products: Title Words"
+  },
+  "agentic_thelook.products.order_items_products_products__name_tokens_fields.total_token_weighted_revenue": {
+    "explore_label": "Products",
+    "label": "Buzzword-Attributed Revenue",
+    "view_label": "Products: Title Words"
   },
   "agentic_thelook.products.product_inventory_facts.total_sold_units": {
     "explore_label": "Products",
@@ -1269,10 +1399,25 @@
     "label": "Maximum Retail Price",
     "view_label": "Products"
   },
+  "agentic_thelook.products.products.max_title_word_count": {
+    "explore_label": "Products",
+    "label": "Max Words in a Product Name",
+    "view_label": "Products"
+  },
   "agentic_thelook.products.products.min_retail_price": {
     "explore_label": "Products",
     "label": "Minimum Retail Price",
     "view_label": "Products"
+  },
+  "agentic_thelook.products.products__name_tokens.avg_word_position_in_title": {
+    "explore_label": "Products",
+    "label": "Average Word Position in Title",
+    "view_label": "Products: Title Words"
+  },
+  "agentic_thelook.products.products__name_tokens.count": {
+    "explore_label": "Products",
+    "label": "Title Word Occurrences",
+    "view_label": "Products: Title Words"
   },
   "agentic_thelook.users.events.approx_unique_sessions": {
     "explore_label": "Users",
@@ -1287,6 +1432,11 @@
   "agentic_thelook.users.events.brand_url_events": {
     "explore_label": "Users",
     "label": "Brand Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users.events.browser_combo": {
+    "explore_label": "Users",
+    "label": "Browser Combination",
     "view_label": "Events"
   },
   "agentic_thelook.users.events.cancel_events": {
@@ -1334,9 +1484,24 @@
     "label": "Department Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users.events.distinct_browsers": {
+    "explore_label": "Users",
+    "label": "Distinct Browsers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users.events.distinct_cities": {
+    "explore_label": "Users",
+    "label": "Distinct Event Cities",
+    "view_label": "Events"
+  },
   "agentic_thelook.users.events.distinct_clicking_humans": {
     "explore_label": "Users",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users.events.distinct_ip_addresses": {
+    "explore_label": "Users",
+    "label": "Distinct IP Addresses",
     "view_label": "Events"
   },
   "agentic_thelook.users.events.distinct_traffic_sources": {
@@ -1398,6 +1563,11 @@
     "explore_label": "Users",
     "label": "Total Event-Weighted Item Revenue",
     "view_label": "Users"
+  },
+  "agentic_thelook.users.events_users_fields.away_from_home_events": {
+    "explore_label": "Users",
+    "label": "Away-from-Home Browsing Events",
+    "view_label": "Events"
   },
   "agentic_thelook.users.events_users_fields.channel_crossover_events": {
     "explore_label": "Users",
@@ -1499,6 +1669,11 @@
     "label": "Returned Items",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users.order_items.spend_per_buyer": {
+    "explore_label": "Users",
+    "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users.order_items.total_revenue": {
     "explore_label": "Users",
     "label": "Total Revenue",
@@ -1594,6 +1769,11 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users.user_click_facts.avg_cities_visited": {
+    "explore_label": "Users",
+    "label": "Average Browsing Cities Visited per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users.user_click_facts.avg_user_sessions": {
     "explore_label": "Users",
     "label": "Average Browsing Sessions per Clicking User",
@@ -1602,6 +1782,16 @@
   "agentic_thelook.users.user_click_facts.avg_user_url_depth": {
     "explore_label": "Users",
     "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users.user_click_facts.away_from_home_event_share": {
+    "explore_label": "Users",
+    "label": "Away-from-Home Browsing Event Share",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users.user_click_facts.total_away_from_home_events": {
+    "explore_label": "Users",
+    "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
   "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
@@ -1667,6 +1857,11 @@
   "agentic_thelook.users.user_spend_facts_users_fields.avg_user_retained_profit": {
     "explore_label": "Users",
     "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_spend_facts_users_fields.total_user_gross_spend": {
+    "explore_label": "Users",
+    "label": "Total Gross Spend (All Users)",
     "view_label": "Users"
   },
   "agentic_thelook.users.user_spend_facts_users_fields.total_user_retained_profit": {
@@ -1779,6 +1974,11 @@
     "label": "Brand Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_signup_activation.events.browser_combo": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Browser Combination",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_signup_activation.events.cancel_events": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Rage-Quit Cancel Events",
@@ -1824,9 +2024,24 @@
     "label": "Department Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_signup_activation.events.distinct_browsers": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Browsers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.distinct_cities": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct Event Cities",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_signup_activation.events.distinct_clicking_humans": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.distinct_ip_addresses": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Distinct IP Addresses",
     "view_label": "Events"
   },
   "agentic_thelook.users_signup_activation.events.distinct_traffic_sources": {
@@ -1888,6 +2103,11 @@
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Total Event-Weighted Item Revenue",
     "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.events_users_fields.away_from_home_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Away-from-Home Browsing Events",
+    "view_label": "Events"
   },
   "agentic_thelook.users_signup_activation.events_users_fields.channel_crossover_events": {
     "explore_label": "Users (Signup Activation Cohort)",
@@ -1987,6 +2207,11 @@
   "agentic_thelook.users_signup_activation.order_items.returned_items": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.spend_per_buyer": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_signup_activation.order_items.total_revenue": {
@@ -2119,6 +2344,11 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_signup_activation.user_click_facts.avg_cities_visited": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Browsing Cities Visited per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_signup_activation.user_click_facts.avg_user_sessions": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Browsing Sessions per Clicking User",
@@ -2127,6 +2357,16 @@
   "agentic_thelook.users_signup_activation.user_click_facts.avg_user_url_depth": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts.away_from_home_event_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Away-from-Home Browsing Event Share",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts.total_away_from_home_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
   "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
@@ -2192,6 +2432,11 @@
   "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.avg_user_retained_profit": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.total_user_gross_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Gross Spend (All Users)",
     "view_label": "Users"
   },
   "agentic_thelook.users_signup_activation.user_spend_facts_users_fields.total_user_retained_profit": {
@@ -2304,6 +2549,11 @@
     "label": "Brand Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_state_channel_traffic.events.browser_combo": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Browser Combination",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_state_channel_traffic.events.cancel_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Rage-Quit Cancel Events",
@@ -2349,9 +2599,24 @@
     "label": "Department Deep-Link Events",
     "view_label": "Events"
   },
+  "agentic_thelook.users_state_channel_traffic.events.distinct_browsers": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Browsers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.events.distinct_cities": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Event Cities",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_state_channel_traffic.events.distinct_clicking_humans": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.events.distinct_ip_addresses": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct IP Addresses",
     "view_label": "Events"
   },
   "agentic_thelook.users_state_channel_traffic.events.distinct_traffic_sources": {
@@ -2413,6 +2678,11 @@
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Total Event-Weighted Item Revenue",
     "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.events_users_fields.away_from_home_events": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Away-from-Home Browsing Events",
+    "view_label": "Events"
   },
   "agentic_thelook.users_state_channel_traffic.events_users_fields.channel_crossover_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
@@ -2512,6 +2782,11 @@
   "agentic_thelook.users_state_channel_traffic.order_items.returned_items": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.spend_per_buyer": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_state_channel_traffic.order_items.total_revenue": {
@@ -2624,6 +2899,11 @@
     "label": "Brand Deep-Link Events",
     "view_label": "State Clickstream Events"
   },
+  "agentic_thelook.users_state_channel_traffic.state_events.browser_combo": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Browser Combination",
+    "view_label": "State Clickstream Events"
+  },
   "agentic_thelook.users_state_channel_traffic.state_events.cancel_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Rage-Quit Cancel Events",
@@ -2669,9 +2949,24 @@
     "label": "Department Deep-Link Events",
     "view_label": "State Clickstream Events"
   },
+  "agentic_thelook.users_state_channel_traffic.state_events.distinct_browsers": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Browsers",
+    "view_label": "State Clickstream Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.state_events.distinct_cities": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct Event Cities",
+    "view_label": "State Clickstream Events"
+  },
   "agentic_thelook.users_state_channel_traffic.state_events.distinct_clicking_humans": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Distinct Clicking Shoppers",
+    "view_label": "State Clickstream Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.state_events.distinct_ip_addresses": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Distinct IP Addresses",
     "view_label": "State Clickstream Events"
   },
   "agentic_thelook.users_state_channel_traffic.state_events.distinct_traffic_sources": {
@@ -2729,6 +3024,11 @@
     "label": "Average Clickstream Channels Touched",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_cities_visited": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Browsing Cities Visited per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_user_sessions": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Browsing Sessions per Clicking User",
@@ -2737,6 +3037,16 @@
   "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_user_url_depth": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average URL Depth per Clicking User",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.away_from_home_event_share": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Away-from-Home Browsing Event Share",
+    "view_label": "Customer Clickstream Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.total_away_from_home_events": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
   "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.avg_user_clicks": {
@@ -2802,6 +3112,11 @@
   "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.avg_user_retained_profit": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Retained Net Profit per User",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.total_user_gross_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Total Gross Spend (All Users)",
     "view_label": "Users"
   },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts_users_fields.total_user_retained_profit": {

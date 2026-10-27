@@ -21,4 +21,20 @@ view: events_users_fields {
     type: count
     filters: [is_channel_crossover_event: "yes"]
   }
+
+  dimension: is_away_from_home_event {
+    label: "Away-from-Home Browsing Event"
+    description: "Whether the clickstream event city differs from the customer's registered home billing city."
+    synonyms: ["is away from home event", "travel browsing event"]
+    type: yesno
+    sql: ${events.city} != ${users.city} ;;
+  }
+
+  measure: away_from_home_events {
+    label: "Away-from-Home Browsing Events"
+    description: "Count of website clickstream events where the browsing city differs from the customer's registered home billing city."
+    synonyms: ["away from home events", "out-of-town click events"]
+    type: count
+    filters: [is_away_from_home_event: "yes"]
+  }
 }

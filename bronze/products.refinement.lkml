@@ -80,9 +80,42 @@ view: +products {
     }
   }
 
+  dimension: name_tokens {
+    hidden: yes
+    description: "Array of space-delimited word tokens extracted from the trimmed product title."
+    sql: SPLIT(TRIM(${name}), ' ') ;;
+  }
+
+  dimension: title_word_count {
+    label: "Product Title Word Count"
+    group_label: "Title Verbosity"
+    description: "Number of space-delimited words in the trimmed catalog product title."
+    synonyms: ["word count", "title word count", "product name word count"]
+    type: number
+    sql: ARRAY_LENGTH(${name_tokens}) ;;
+  }
+
+  dimension: title_char_length {
+    label: "Product Title Character Length"
+    group_label: "Title Verbosity"
+    description: "Total character length of the catalog product title."
+    synonyms: ["char length", "title character length", "product name length"]
+    type: number
+    sql: LENGTH(${name}) ;;
+  }
+
   measure: count {
     description: "Total number of distinct product SKUs in the catalog."
     synonyms: ["sku count", "skus"]
+  }
+
+  measure: max_title_word_count {
+    label: "Max Words in a Product Name"
+    description: "Maximum word count observed across catalog product titles."
+    synonyms: ["max words in a product name", "max title word count"]
+    tags: ["non_additive"]
+    type: max
+    sql: ${title_word_count} ;;
   }
 
   measure: distinct_categories {

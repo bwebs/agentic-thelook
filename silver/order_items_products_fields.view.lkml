@@ -141,4 +141,40 @@ view: order_items_products_fields {
     sql: 1.0 * ${total_luxury_150plus_revenue} / NULLIF(${order_items.total_revenue}, 0) ;;
     value_format_name: percent_2
   }
+
+  dimension: sale_price_per_title_word {
+    hidden: yes
+    type: number
+    sql: ${order_items.sale_price} / NULLIF(${products.title_word_count}, 0) ;;
+  }
+
+  measure: avg_price_per_title_word {
+    label: "Average Sale Price per Title Word"
+    description: "Product Naming Verbosity Tax benchmark: mean item sale price divided by product title word count across ordered line items."
+    synonyms: ["revenue per title word", "avg price per title word", "product naming verbosity tax"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${sale_price_per_title_word} ;;
+    value_format_name: usd
+  }
+
+  measure: title_word_count_price_correlation {
+    label: "Title Word Count-Price Correlation"
+    description: "Pearson correlation coefficient between product title word count and ordered item sale price."
+    synonyms: ["word count to price corr", "title word count price correlation"]
+    tags: ["non_additive"]
+    type: number
+    sql: CORR(${products.title_word_count}, ${order_items.sale_price}) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: title_char_length_price_correlation {
+    label: "Title Character Length-Price Correlation"
+    description: "Pearson correlation coefficient between product title character length and ordered item sale price."
+    synonyms: ["char length to price corr", "title character length price correlation"]
+    tags: ["non_additive"]
+    type: number
+    sql: CORR(${products.title_char_length}, ${order_items.sale_price}) ;;
+    value_format_name: decimal_4
+  }
 }

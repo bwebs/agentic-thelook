@@ -159,6 +159,32 @@ explore: users {
     relationship: one_to_one
   }
 
+  query: users_by_distinct_ip_nomad_locations {
+    description: "IP Address Nomad Wanderlust Score breakdown of clicking customer count, average browsing cities visited, and away-from-home browsing event share by distinct IP locations."
+    dimensions: [user_click_facts.distinct_ips]
+    measures: [
+      users.count,
+      user_click_facts.avg_cities_visited,
+      user_click_facts.away_from_home_event_share
+    ]
+    filters: [user_click_facts.user_id: "NOT NULL"]
+    sorts: [user_click_facts.distinct_ips: asc]
+  }
+
+  query: users_by_multi_browser_hopping_count {
+    description: "Multi-Browser Account Hopping Multiplier comparing clicking customer count, average sessions, average lifetime orders, average lifetime spend, and group total spend by distinct browsers used."
+    dimensions: [user_click_facts.distinct_browsers_used]
+    measures: [
+      users.count,
+      user_click_facts.avg_user_sessions,
+      user_order_facts_users_fields.avg_user_lifetime_orders,
+      user_spend_facts_users_fields.avg_user_gross_spend,
+      user_spend_facts_users_fields.total_user_gross_spend
+    ]
+    filters: [user_click_facts.user_id: "NOT NULL"]
+    sorts: [user_click_facts.distinct_browsers_used: asc]
+  }
+
   query: users_by_lifecycle_resurrection_state {
     description: "Registered customer count, average age, average lifetime orders, and average lifetime clicks across Customer Churn Hibernation and Resurrection State segments."
     dimensions: [user_click_facts_user_order_facts_users_fields.lifecycle_resurrection_state]
