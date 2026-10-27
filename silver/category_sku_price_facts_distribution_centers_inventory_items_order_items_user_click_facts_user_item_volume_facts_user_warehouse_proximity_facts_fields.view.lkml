@@ -47,4 +47,38 @@ view: category_sku_price_facts_distribution_centers_inventory_items_order_items_
       else: "Boomerang Heartbreak Reversal (Returned or Cancelled Transaction)"
     }
   }
+
+  measure: optimal_nearest_warehouse_shipments {
+    label: "Optimal Nearest-Warehouse Shipments"
+    description: "Count of shipped order items fulfilled out of the physical distribution center geographically closest to the customer's home coordinates."
+    synonyms: ["optimal nearest warehouse shipments", "closest warehouse shipments"]
+    type: count
+    filters: [
+      is_shipped_from_nearest_dc: "yes",
+      distribution_centers.id: "NOT NULL",
+      user_warehouse_proximity_facts.id: "NOT NULL"
+    ]
+  }
+
+  measure: suboptimal_detour_shipments {
+    label: "Suboptimal Detour Shipments"
+    description: "Count of shipped order items fulfilled from a non-closest warehouse rather than the distribution center nearest to the customer's home."
+    synonyms: ["suboptimal detour shipments", "mismatched warehouse shipments", "detoured shipments"]
+    type: count
+    filters: [
+      is_shipped_from_nearest_dc: "no",
+      distribution_centers.id: "NOT NULL",
+      user_warehouse_proximity_facts.id: "NOT NULL"
+    ]
+  }
+
+  measure: routing_absurdity_rate {
+    label: "Logistics Routing Absurdity Rate"
+    description: "Logistics Routing Absurdity Tax share of shipments fulfilled from a suboptimal non-nearest distribution center rather than the warehouse geographically closest to the customer's home."
+    synonyms: ["routing absurdity rate", "routing absurdity rate pct", "logistics routing absurdity tax", "detour shipment rate"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: percent_2
+    sql: 1.0 * ${suboptimal_detour_shipments} / NULLIF(${order_items.count}, 0) ;;
+  }
 }

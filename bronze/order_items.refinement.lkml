@@ -156,6 +156,12 @@ view: +order_items {
     sql_end: ${delivered_raw} ;;
   }
 
+  dimension: imputed_fulfillment_hours {
+    hidden: yes
+    type: number
+    sql: COALESCE(${hours_to_ship}, 24.0) + COALESCE(${hours_to_deliver}, 48.0) ;;
+  }
+
   dimension: fulfillment_speed_tier {
     label: "Flash-Flood versus Snail-Mail Fulfillment Tier"
     description: "Flash-Flood versus Snail-Mail Fulfillment Tier categorizes every item by total door-to-door wait time from checkout to delivery: 'Supersonic Drone Speed (<24h)', 'Prime-ish Express (24-72h)', 'Standard Pony Express (72-120h)', 'Lost-at-Sea Snail Mail (120h+)', or 'Still Floating in Transit / Unshipped' when undelivered. Customer support teams use this speed tier to monitor delivery service levels and proactively send apology credits when orders fall into the snail-mail bracket."
@@ -400,5 +406,40 @@ view: +order_items {
     type: number
     value_format_name: usd
     sql: SQRT(GREATEST(${_sale_price_sum_of_squares} - (POWER(${total_revenue}, 2) / NULLIF(${_sale_price_count}, 0)), 0) / NULLIF(${_sale_price_count} - 1, 0)) ;;
+  }
+
+  measure: _last_purchase_micros {
+    hidden: yes
+    type: max
+    tags: ["non_additive"]
+    sql: UNIX_MICROS(${created_raw}) ;;
+  }
+
+  measure: reversed_items {
+    label: "Returned or Cancelled Items"
+    description: "Count of ordered line items reversed via customer return or cancellation (status in 'Returned' or 'Cancelled')."
+    synonyms: ["lost sale items", "reversed units", "returned or cancelled units"]
+    type: count
+    filters: [is_reversed: "yes"]
+  }
+
+  measure: reversal_loss_rate {
+    label: "Return or Cancellation Loss Rate"
+    description: "Share of ordered line items lost to customer returns or cancellations (reversed_items / count)."
+    synonyms: ["return or cancel rate", "loss rate", "reversal rate"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: percent_2
+    sql: 1.0 * ${reversed_items} / NULLIF(${count}, 0) ;;
+  }
+
+  measure: avg_imputed_fulfillment_hours {
+    label: "Average Imputed End-to-End Fulfillment Hours"
+    description: "Mean total pick-pack and carrier transit hours across ordered line items, imputing 24 hours for unshipped pick-pack and 48 hours for undelivered transit."
+    synonyms: ["avg fulfillment hours", "imputed fulfillment hours"]
+    tags: ["non_additive"]
+    type: average
+    value_format_name: decimal_1
+    sql: ${imputed_fulfillment_hours} ;;
   }
 }

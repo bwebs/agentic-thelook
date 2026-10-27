@@ -24,6 +24,21 @@ view: inventory_items_order_items_fields {
     sql: SAFE_DIVIDE(${gross_profit}, ${order_items.sale_price}) ;;
   }
 
+  dimension: chaos_adjusted_item_profit {
+    label: "Chaos-Adjusted Net Profit (Item)"
+    description: "Item-level net profit after charging a 15% wholesale cost restocking penalty on Returned or Cancelled items (sale_price - cost when kept, else -0.15 * cost)."
+    synonyms: ["friction adjusted item profit", "restocking penalized item profit"]
+    type: number
+    value_format_name: usd
+    sql: CASE WHEN NOT ${order_items.is_reversed} THEN ${order_items.sale_price} - ${inventory_items.cost} ELSE -0.15 * ${inventory_items.cost} END ;;
+  }
+
+  dimension: imputed_shelf_dwell_days {
+    hidden: yes
+    type: number
+    sql: COALESCE(${inventory_items.shelf_turn_days}, 30.0) ;;
+  }
+
   measure: total_cogs {
     label: "Total Wholesale COGS"
     description: "Total wholesale inventory cost of goods sold summed across ordered line items."
@@ -80,5 +95,24 @@ view: inventory_items_order_items_fields {
     type: average
     value_format_name: decimal_0
     sql: COALESCE(${inventory_items.days_on_shelf}, 0) ;;
+  }
+
+  measure: chaos_adjusted_net_profit {
+    label: "Chaos-Adjusted Net Profit"
+    description: "Total net dollar profit across ordered items after subtracting wholesale COGS on kept items and a 15% wholesale restocking loss on Returned or Cancelled items."
+    synonyms: ["chaos adjusted net profit", "restocking-adjusted net profit"]
+    type: sum
+    value_format_name: usd
+    sql: ${chaos_adjusted_item_profit} ;;
+  }
+
+  measure: avg_imputed_shelf_dwell_days {
+    label: "Average Imputed Shelf Dwell Days"
+    description: "Mean fractional days (hours / 24.0) ordered inventory sat on warehouse shelves prior to sale, imputing 30.0 days when sale timestamps are unrecorded."
+    synonyms: ["avg shelf dwell days", "imputed shelf dwell days"]
+    tags: ["non_additive"]
+    type: average
+    value_format_name: decimal_1
+    sql: ${imputed_shelf_dwell_days} ;;
   }
 }

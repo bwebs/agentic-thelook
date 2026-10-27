@@ -381,4 +381,14 @@ view: user_spend_facts {
     sql: 1.0 * ${serial_returner_refund_dollars} / NULLIF(${total_refund_dollars}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: avg_lifetime_profit {
+    label: "Average Customer Gross Profit LTV"
+    description: "Mean cumulative gross dollar profit (sale_price - cost) across paying customers."
+    synonyms: ["avg net margin ltv", "average buyer net margin", "avg customer profit ltv"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${lifetime_profit} ;;
+    value_format_name: usd
+  }
 }

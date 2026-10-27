@@ -120,3 +120,21 @@ test: inventory_items_sold_2024_01_01_stddev_days_on_shelf {
     expression: round(${inventory_items.stddev_days_on_shelf}, 2) = 17.01 ;;
   }
 }
+
+test: inventory_items_shelf_turn_2024_01_01_metrics {
+  explore_source: inventory_items {
+    column: distinct_products { field: inventory_items.distinct_products }
+    column: avg_inventory_turn_days { field: inventory_items.avg_inventory_turn_days }
+    column: sold_units { field: inventory_items.sold_units }
+    filters: [
+      inventory_items.sold_date: "2024-01-01",
+      inventory_items.is_sold: "yes"
+    ]
+  }
+  assert: distinct_products_matches {
+    expression: ${inventory_items.distinct_products} = 63 AND ${inventory_items.sold_units} = 63 ;;
+  }
+  assert: avg_inventory_turn_days_matches {
+    expression: round(${inventory_items.avg_inventory_turn_days}, 2) = 30.17 ;;
+  }
+}

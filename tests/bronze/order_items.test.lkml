@@ -275,3 +275,25 @@ test: order_items_2024_01_01_sale_price_stddev_metrics {
     expression: round(${order_items.stddev_sale_price}, 2) = 29.67 ;;
   }
 }
+
+test: order_items_reversal_fulfillment_2024_01_01_metrics {
+  explore_source: order_items {
+    column: reversed_items { field: order_items.reversed_items }
+    column: reversal_loss_rate { field: order_items.reversal_loss_rate }
+    column: avg_imputed_fulfillment_hours { field: order_items.avg_imputed_fulfillment_hours }
+    column: item_count { field: order_items.count }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      order_items.status: "Complete,Returned,Cancelled"
+    ]
+  }
+  assert: reversed_items_matches {
+    expression: ${order_items.reversed_items} = 9 AND ${order_items.count} = 28 ;;
+  }
+  assert: reversal_loss_rate_matches {
+    expression: round(${order_items.reversal_loss_rate}, 4) = 0.3214 ;;
+  }
+  assert: avg_imputed_fulfillment_hours_matches {
+    expression: round(${order_items.avg_imputed_fulfillment_hours}, 2) = 76.36 ;;
+  }
+}
