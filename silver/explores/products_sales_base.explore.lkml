@@ -21,6 +21,6 @@ explore: products_sales_base {
     view_label: "Products"
     sql: ;;
     relationship: one_to_one
-    fields: [pk, avg_activity_weighted_retail_price]
+    fields: [pk, avg_activity_weighted_retail_price, avg_units_sold_per_brand]
   }
 }

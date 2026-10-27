@@ -14,6 +14,9 @@ view: order_basket_facts {
         orders.order_id: "NOT NULL",
         products.id: "NOT NULL"
       ]
+      derived_column: store_total_orders {
+        sql: COUNT(*) OVER () ;;
+      }
     }
   }
 
@@ -124,5 +127,20 @@ view: order_basket_facts {
     type: sum
     sql: ${basket_spend} ;;
     value_format_name: usd
+  }
+
+  dimension: _store_total_orders {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.store_total_orders ;;
+  }
+
+  measure: store_evaluated_orders {
+    label: "Store Total Evaluated Orders"
+    description: "Store-wide count of distinct orders containing evaluated catalog product items, used as the baseline denominator for market basket lift."
+    synonyms: ["n orders", "total evaluated basket orders"]
+    tags: ["non_additive"]
+    type: max
+    sql: ${_store_total_orders} ;;
   }
 }

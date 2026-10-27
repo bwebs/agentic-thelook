@@ -411,3 +411,53 @@ test: users_return_concentration_conversion_and_click_efficiency_invariants {
     expression: ${user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent} > 0 AND round(${user_click_facts_user_spend_facts_users_fields.clicks_per_dollar} * ${user_click_facts_user_spend_facts_users_fields.revenue_per_click}, 4) = 1 ;;
   }
 }
+
+test: users_pareto_whale_concentration_invariants {
+  explore_source: users {
+    column: buyer_count { field: user_pareto_facts.count }
+    column: min_lifetime_spend { field: user_pareto_facts.min_lifetime_spend }
+    column: max_lifetime_spend { field: user_pareto_facts.max_lifetime_spend }
+    column: top_1_pct_revenue_share { field: user_pareto_facts.top_1_pct_revenue_share }
+    column: top_10_pct_revenue_share { field: user_pareto_facts.top_10_pct_revenue_share }
+    column: top_20_pct_revenue_share { field: user_pareto_facts.top_20_pct_revenue_share }
+    filters: {
+      field: users.id
+      value: "<=5000"
+    }
+    filters: {
+      field: user_pareto_facts.user_id
+      value: "NOT NULL"
+    }
+  }
+  assert: buyer_spend_bounds_valid {
+    expression: ${user_pareto_facts.count} > 0 AND ${user_pareto_facts.min_lifetime_spend} > 0 AND ${user_pareto_facts.min_lifetime_spend} <= ${user_pareto_facts.max_lifetime_spend} ;;
+  }
+  assert: pareto_shares_monotonic_and_bounded {
+    expression: ${user_pareto_facts.top_1_pct_revenue_share} >= 0 AND ${user_pareto_facts.top_1_pct_revenue_share} <= ${user_pareto_facts.top_10_pct_revenue_share} AND ${user_pareto_facts.top_10_pct_revenue_share} <= ${user_pareto_facts.top_20_pct_revenue_share} AND ${user_pareto_facts.top_20_pct_revenue_share} <= 1 ;;
+  }
+}
+
+test: users_closet_brand_entropy_invariants {
+  explore_source: users {
+    column: repeat_customers { field: user_brand_entropy_facts.count }
+    column: avg_items_in_closet { field: user_brand_entropy_facts.avg_items_in_closet }
+    column: avg_distinct_brands { field: user_brand_entropy_facts.avg_distinct_brands }
+    column: avg_shannon_entropy { field: user_brand_entropy_facts.avg_shannon_entropy }
+    column: avg_buyer_spend { field: user_brand_entropy_facts.avg_buyer_spend }
+    column: avg_buyer_profit { field: user_brand_entropy_facts.avg_buyer_profit }
+    filters: {
+      field: users.id
+      value: "<=5000"
+    }
+    filters: {
+      field: user_brand_entropy_facts.total_items
+      value: ">=3"
+    }
+  }
+  assert: closet_size_and_entropy_bounds_valid {
+    expression: ${user_brand_entropy_facts.count} > 0 AND ${user_brand_entropy_facts.avg_items_in_closet} >= 3 AND ${user_brand_entropy_facts.avg_distinct_brands} >= 1 AND ${user_brand_entropy_facts.avg_distinct_brands} <= ${user_brand_entropy_facts.avg_items_in_closet} AND ${user_brand_entropy_facts.avg_shannon_entropy} >= 0 ;;
+  }
+  assert: buyer_spend_exceeds_profit {
+    expression: ${user_brand_entropy_facts.avg_buyer_spend} > 0 AND ${user_brand_entropy_facts.avg_buyer_spend} >= ${user_brand_entropy_facts.avg_buyer_profit} ;;
+  }
+}

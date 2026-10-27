@@ -379,4 +379,26 @@ view: +order_items {
     sql: 1.0 * ${total_revenue} / NULLIF(${distinct_users}, 0) ;;
     value_format_name: usd
   }
+
+  measure: _sale_price_count {
+    hidden: yes
+    type: count
+    filters: [sale_price: "NOT NULL"]
+  }
+
+  measure: _sale_price_sum_of_squares {
+    hidden: yes
+    type: sum
+    sql: POWER(${sale_price}, 2) ;;
+  }
+
+  measure: stddev_sale_price {
+    label: "Sale Price Standard Deviation"
+    description: "Sample standard deviation of ordered item sale prices."
+    synonyms: ["sale price stddev", "item sale price spread"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: usd
+    sql: SQRT(GREATEST(${_sale_price_sum_of_squares} - (POWER(${total_revenue}, 2) / NULLIF(${_sale_price_count}, 0)), 0) / NULLIF(${_sale_price_count} - 1, 0)) ;;
+  }
 }

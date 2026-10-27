@@ -1640,6 +1640,64 @@
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_dc_1_join_metrics"
   },
+  "agentic_thelook.order_items_2024_01_01_garment_mileage_and_category_baseline_metrics": {
+    "assert": {
+      "category_baseline_and_orders_positive": {
+        "expression": "${category_sales_facts_order_items_fields.avg_category_baseline} > 0 AND ${category_sales_facts.category_orders} > 0"
+      },
+      "shipment_distance_totals_match": {
+        "expression": "${order_items.count} = 63 AND round(${distribution_centers_order_items_users_fields.total_shipment_distance_km}, 2) = 500658.68 AND round(${distribution_centers_order_items_users_fields.earth_equator_laps_equivalent}, 2) = 12.49"
+      },
+      "shipment_efficiency_and_max_match": {
+        "expression": "round(${distribution_centers_order_items_users_fields.revenue_per_1000_km_flown}, 4) = 5.7066 AND round(${distribution_centers_order_items_users_fields.max_shipment_distance_km}, 2) = 16702.00"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_category_baseline": {
+            "field": "category_sales_facts_order_items_fields.avg_category_baseline"
+          },
+          "category_orders": {
+            "field": "category_sales_facts.category_orders"
+          },
+          "earth_equator_laps_equivalent": {
+            "field": "distribution_centers_order_items_users_fields.earth_equator_laps_equivalent"
+          },
+          "max_shipment_distance_km": {
+            "field": "distribution_centers_order_items_users_fields.max_shipment_distance_km"
+          },
+          "revenue_per_1000_km_flown": {
+            "field": "distribution_centers_order_items_users_fields.revenue_per_1000_km_flown"
+          },
+          "total_shipment_distance_km": {
+            "field": "distribution_centers_order_items_users_fields.total_shipment_distance_km"
+          },
+          "tracked_shipments": {
+            "field": "order_items.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "NOT NULL",
+          "inventory_items.id": "NOT NULL",
+          "order_items.created_date": "2024-01-01",
+          "products.category": "-NULL",
+          "products.id": "NOT NULL",
+          "type_": "filters",
+          "users.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 423,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_garment_mileage_and_category_baseline_metrics"
+  },
   "agentic_thelook.order_items_2024_01_01_geospatial_haul_metrics": {
     "assert": {
       "local_regional_hop_count_matches": {
@@ -1783,6 +1841,41 @@
     "line": 32,
     "model": "agentic_thelook",
     "name": "order_items_2024_01_01_orders_join_metrics"
+  },
+  "agentic_thelook.order_items_2024_01_01_sale_price_stddev_metrics": {
+    "assert": {
+      "order_item_count_matches": {
+        "expression": "${order_items.count} = 63"
+      },
+      "stddev_sale_price_matches": {
+        "expression": "round(${order_items.stddev_sale_price}, 2) = 29.67"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "order_item_count": {
+            "field": "order_items.count"
+          },
+          "stddev_sale_price": {
+            "field": "order_items.stddev_sale_price"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 262,
+    "model": "agentic_thelook",
+    "name": "order_items_2024_01_01_sale_price_stddev_metrics"
   },
   "agentic_thelook.order_items_2024_01_01_socks_obsession_metrics": {
     "assert": {
@@ -3195,6 +3288,44 @@
     "model": "agentic_thelook",
     "name": "products_2024_01_01_title_buzzword_revenue"
   },
+  "agentic_thelook.products_brand_unit_velocity_invariants": {
+    "assert": {
+      "avg_units_sold_per_brand_matches_ratio": {
+        "expression": "round(1.0 * ${order_items.count} / ${products.distinct_brands}, 6) = round(${order_items_products_fields.avg_units_sold_per_brand}, 6)"
+      },
+      "brand_count_positive": {
+        "expression": "${products.distinct_brands} > 0 AND ${order_items.count} >= 0"
+      }
+    },
+    "explore_source": {
+      "products": {
+        "column": {
+          "avg_units_sold_per_brand": {
+            "field": "order_items_products_fields.avg_units_sold_per_brand"
+          },
+          "distinct_brands": {
+            "field": "products.distinct_brands"
+          },
+          "units_sold": {
+            "field": "order_items.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "products",
+        "expression_custom_filter": null,
+        "filters": {
+          "products.id": "<=1000",
+          "type_": "filters"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/products.test.lkml",
+    "line": 170,
+    "model": "agentic_thelook",
+    "name": "products_brand_unit_velocity_invariants"
+  },
   "agentic_thelook.products_id_500_title_verbosity_and_tokens": {
     "assert": {
       "avg_word_position_matches": {
@@ -3627,6 +3758,47 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "session_journey_path_share_invariants"
+  },
+  "agentic_thelook.user_brand_facts_repeat_devotion_invariants": {
+    "assert": {
+      "devotee_counts_bounded": {
+        "expression": "${user_brand_facts.count} > 0 AND ${user_brand_facts.repeat_brand_devotees} >= 0 AND ${user_brand_facts.repeat_brand_devotees} <= ${user_brand_facts.count} AND ${user_brand_facts.max_units_by_single_buyer} >= 1"
+      },
+      "repeat_rate_matches_ratio": {
+        "expression": "round(1.0 * ${user_brand_facts.repeat_brand_devotees} / ${user_brand_facts.count}, 6) = round(${user_brand_facts.cult_devotion_repeat_rate}, 6)"
+      }
+    },
+    "explore_source": {
+      "user_brand_facts": {
+        "column": {
+          "cult_devotion_repeat_rate": {
+            "field": "user_brand_facts.cult_devotion_repeat_rate"
+          },
+          "distinct_buyers": {
+            "field": "user_brand_facts.count"
+          },
+          "max_units_by_single_buyer": {
+            "field": "user_brand_facts.max_units_by_single_buyer"
+          },
+          "repeat_brand_devotees": {
+            "field": "user_brand_facts.repeat_brand_devotees"
+          }
+        },
+        "derived_column": null,
+        "explore": "user_brand_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "user_brand_facts.user_id": "<=5000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/user_brand_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "user_brand_facts_repeat_devotion_invariants"
   },
   "agentic_thelook.users_2022_cohort_year_1_survival_metrics": {
     "assert": {
@@ -4343,6 +4515,54 @@
     "model": "agentic_thelook",
     "name": "users_channel_attribution_persona_invariants"
   },
+  "agentic_thelook.users_closet_brand_entropy_invariants": {
+    "assert": {
+      "buyer_spend_exceeds_profit": {
+        "expression": "${user_brand_entropy_facts.avg_buyer_spend} > 0 AND ${user_brand_entropy_facts.avg_buyer_spend} >= ${user_brand_entropy_facts.avg_buyer_profit}"
+      },
+      "closet_size_and_entropy_bounds_valid": {
+        "expression": "${user_brand_entropy_facts.count} > 0 AND ${user_brand_entropy_facts.avg_items_in_closet} >= 3 AND ${user_brand_entropy_facts.avg_distinct_brands} >= 1 AND ${user_brand_entropy_facts.avg_distinct_brands} <= ${user_brand_entropy_facts.avg_items_in_closet} AND ${user_brand_entropy_facts.avg_shannon_entropy} >= 0"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_buyer_profit": {
+            "field": "user_brand_entropy_facts.avg_buyer_profit"
+          },
+          "avg_buyer_spend": {
+            "field": "user_brand_entropy_facts.avg_buyer_spend"
+          },
+          "avg_distinct_brands": {
+            "field": "user_brand_entropy_facts.avg_distinct_brands"
+          },
+          "avg_items_in_closet": {
+            "field": "user_brand_entropy_facts.avg_items_in_closet"
+          },
+          "avg_shannon_entropy": {
+            "field": "user_brand_entropy_facts.avg_shannon_entropy"
+          },
+          "repeat_customers": {
+            "field": "user_brand_entropy_facts.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "user_brand_entropy_facts.total_items": ">=3",
+          "users.id": "<=5000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 440,
+    "model": "agentic_thelook",
+    "name": "users_closet_brand_entropy_invariants"
+  },
   "agentic_thelook.users_department_allegiance_invariants": {
     "assert": {
       "event_weighted_revenue_at_least_lifetime_spend": {
@@ -4820,6 +5040,54 @@
     "line": 216,
     "model": "agentic_thelook",
     "name": "users_id_le_5_full_name_metrics"
+  },
+  "agentic_thelook.users_pareto_whale_concentration_invariants": {
+    "assert": {
+      "buyer_spend_bounds_valid": {
+        "expression": "${user_pareto_facts.count} > 0 AND ${user_pareto_facts.min_lifetime_spend} > 0 AND ${user_pareto_facts.min_lifetime_spend} <= ${user_pareto_facts.max_lifetime_spend}"
+      },
+      "pareto_shares_monotonic_and_bounded": {
+        "expression": "${user_pareto_facts.top_1_pct_revenue_share} >= 0 AND ${user_pareto_facts.top_1_pct_revenue_share} <= ${user_pareto_facts.top_10_pct_revenue_share} AND ${user_pareto_facts.top_10_pct_revenue_share} <= ${user_pareto_facts.top_20_pct_revenue_share} AND ${user_pareto_facts.top_20_pct_revenue_share} <= 1"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "buyer_count": {
+            "field": "user_pareto_facts.count"
+          },
+          "max_lifetime_spend": {
+            "field": "user_pareto_facts.max_lifetime_spend"
+          },
+          "min_lifetime_spend": {
+            "field": "user_pareto_facts.min_lifetime_spend"
+          },
+          "top_10_pct_revenue_share": {
+            "field": "user_pareto_facts.top_10_pct_revenue_share"
+          },
+          "top_1_pct_revenue_share": {
+            "field": "user_pareto_facts.top_1_pct_revenue_share"
+          },
+          "top_20_pct_revenue_share": {
+            "field": "user_pareto_facts.top_20_pct_revenue_share"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "type_": "filters",
+          "user_pareto_facts.user_id": "NOT NULL",
+          "users.id": "<=5000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 415,
+    "model": "agentic_thelook",
+    "name": "users_pareto_whale_concentration_invariants"
   },
   "agentic_thelook.users_refinement_metrics": {
     "assert": {

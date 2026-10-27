@@ -258,3 +258,20 @@ test: order_items_2024_01_boomeranged_refund_metrics {
     expression: ${order_items.ever_returned_items} = 187 ;;
   }
 }
+
+test: order_items_2024_01_01_sale_price_stddev_metrics {
+  explore_source: order_items {
+    column: order_item_count { field: order_items.count }
+    column: stddev_sale_price { field: order_items.stddev_sale_price }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+  }
+  assert: order_item_count_matches {
+    expression: ${order_items.count} = 63 ;;
+  }
+  assert: stddev_sale_price_matches {
+    expression: round(${order_items.stddev_sale_price}, 2) = 29.67 ;;
+  }
+}

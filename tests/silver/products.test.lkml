@@ -166,3 +166,21 @@ test: products_2024_01_01_title_buzzword_revenue {
     expression: round(${order_items_products_products__name_tokens_fields.avg_item_weighted_word_offset}, 2) = 3.14 ;;
   }
 }
+
+test: products_brand_unit_velocity_invariants {
+  explore_source: products {
+    column: distinct_brands { field: products.distinct_brands }
+    column: units_sold { field: order_items.count }
+    column: avg_units_sold_per_brand { field: order_items_products_fields.avg_units_sold_per_brand }
+    filters: {
+      field: products.id
+      value: "<=1000"
+    }
+  }
+  assert: brand_count_positive {
+    expression: ${products.distinct_brands} > 0 AND ${order_items.count} >= 0 ;;
+  }
+  assert: avg_units_sold_per_brand_matches_ratio {
+    expression: round(1.0 * ${order_items.count} / ${products.distinct_brands}, 6) = round(${order_items_products_fields.avg_units_sold_per_brand}, 6) ;;
+  }
+}

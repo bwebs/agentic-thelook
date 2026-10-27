@@ -140,6 +140,19 @@ explore: orders {
     sorts: [order_basket_facts.basket_diversity_archetype: asc]
   }
 
+  query: multi_item_baskets_by_category_diversity {
+    description: "Multi-item order count (2+ items), average items per basket, average distinct brands, and average basket revenue broken down by distinct clothing categories in the basket."
+    dimensions: [order_basket_facts.distinct_categories]
+    measures: [
+      orders.count,
+      order_basket_facts.avg_basket_units,
+      order_basket_facts.avg_basket_distinct_brands,
+      order_basket_facts.avg_basket_spend
+    ]
+    filters: [order_basket_facts.total_units: ">=2"]
+    sorts: [order_basket_facts.distinct_categories: asc]
+  }
+
   query: cart_stuffing_velocity {
     description: "Cart Stuffing Velocity measures the average, maximum, and spread of how many items customers pack into a single order."
     measures: [orders.avg_items_per_order, orders.max_items_per_order, orders.stddev_items_per_order]
