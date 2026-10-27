@@ -102,3 +102,21 @@ test: inventory_items_sold_2024_01_01_aging_tier_metrics {
     expression: ${inventory_items.sold_units} = 55 AND round(${inventory_items.total_cost}, 2) = 1413.30 ;;
   }
 }
+
+test: inventory_items_sold_2024_01_01_stddev_days_on_shelf {
+  explore_source: inventory_items {
+    column: sold_units { field: inventory_items.sold_units }
+    column: avg_days_on_shelf { field: inventory_items.avg_days_on_shelf }
+    column: stddev_days_on_shelf { field: inventory_items.stddev_days_on_shelf }
+    filters: [
+      inventory_items.sold_date: "2024-01-01",
+      inventory_items.is_sold: "yes"
+    ]
+  }
+  assert: sold_units_matches {
+    expression: ${inventory_items.sold_units} = 63 ;;
+  }
+  assert: stddev_days_on_shelf_matches {
+    expression: round(${inventory_items.stddev_days_on_shelf}, 2) = 17.01 ;;
+  }
+}

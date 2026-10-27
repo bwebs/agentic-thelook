@@ -361,3 +361,27 @@ test: users_first_1000_cognitive_friction_invariants {
       AND ${user_click_facts.avg_user_url_depth} >= 1 ;;
   }
 }
+
+test: users_id_1000_nomad_and_browser_hopping_invariants {
+  explore_source: users {
+    column: count { field: users.count }
+    column: avg_cities_visited { field: user_click_facts.avg_cities_visited }
+    column: away_from_home_event_share { field: user_click_facts.away_from_home_event_share }
+    column: avg_user_gross_spend { field: user_spend_facts_users_fields.avg_user_gross_spend }
+    column: total_user_gross_spend { field: user_spend_facts_users_fields.total_user_gross_spend }
+    filters: [
+      users.id: "<=1000",
+      user_click_facts.user_id: "NOT NULL"
+    ]
+  }
+  assert: nomad_mobility_bounds_valid {
+    expression: ${users.count} > 0
+      AND ${user_click_facts.avg_cities_visited} >= 1
+      AND ${user_click_facts.away_from_home_event_share} >= 0
+      AND ${user_click_facts.away_from_home_event_share} <= 1 ;;
+  }
+  assert: user_gross_spend_algebraic_identity {
+    expression: ${user_spend_facts_users_fields.total_user_gross_spend} >= 0
+      AND round(${user_spend_facts_users_fields.total_user_gross_spend} / ${users.count}, 4) = round(${user_spend_facts_users_fields.avg_user_gross_spend}, 4) ;;
+  }
+}

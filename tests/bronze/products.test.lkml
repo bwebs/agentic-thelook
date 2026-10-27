@@ -81,3 +81,25 @@ test: products_id_le_1000_distinct_brands {
     expression: ${products.distinct_brands} = 258 ;;
   }
 }
+
+test: products_id_500_title_verbosity_and_tokens {
+  explore_source: products {
+    column: count { field: products.count }
+    column: max_title_word_count { field: products.max_title_word_count }
+    column: token_count { field: products__name_tokens.count }
+    column: avg_word_position_in_title { field: products__name_tokens.avg_word_position_in_title }
+    filters: [
+      products.id: "<=500",
+      products__name_tokens.token_length: ">=4"
+    ]
+  }
+  assert: max_title_word_count_matches {
+    expression: ${products.max_title_word_count} = 20 ;;
+  }
+  assert: token_count_matches {
+    expression: ${products__name_tokens.count} = 3601 ;;
+  }
+  assert: avg_word_position_matches {
+    expression: round(${products__name_tokens.avg_word_position_in_title}, 2) = 4.13 ;;
+  }
+}

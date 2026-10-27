@@ -54,3 +54,21 @@ test: inventory_items_2024_01_01_products_join_metrics {
     expression: ${inventory_items.sold_units} + ${inventory_items.unsold_units} = ${inventory_items.count} ;;
   }
 }
+
+test: inventory_items_2024_01_fifo_anomaly_invariants {
+  explore_source: inventory_items {
+    column: sold_units { field: inventory_items.sold_units }
+    column: fifo_line_cutter_shipments { field: inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments }
+    column: fifo_violation_rate { field: inventory_items_inventory_items_fifo_batches_fields.fifo_violation_rate }
+    filters: [
+      inventory_items.sold_date: "2024-01",
+      distribution_centers.id: "NOT NULL"
+    ]
+  }
+  assert: fifo_violation_rate_bounds_and_identity {
+    expression: ${inventory_items.sold_units} > 0
+      AND ${inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments} >= 0
+      AND ${inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments} <= ${inventory_items.sold_units}
+      AND round(${inventory_items_inventory_items_fifo_batches_fields.fifo_violation_rate}, 6) = round(${inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments} / ${inventory_items.sold_units}, 6) ;;
+  }
+}

@@ -64,4 +64,13 @@ view: user_spend_facts_users_fields {
     value_format_name: usd
     sql: COALESCE(${user_spend_facts.retained_net_profit}, 0) ;;
   }
+
+  measure: total_user_gross_spend {
+    label: "Total Gross Spend (All Users)"
+    description: "Total cumulative gross dollar spend summed across registered customers (defaulting $0 for cohorts with zero purchases)."
+    synonyms: ["group total spend", "total cohort gross spend"]
+    type: sum
+    value_format_name: usd
+    sql: COALESCE(${user_spend_facts.lifetime_spend}, 0) ;;
+  }
 }

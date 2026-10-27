@@ -143,3 +143,26 @@ test: products_jeans_outliers_and_inventory_invariants {
     expression: ${product_inventory_facts.total_unsold_capital_value} >= 0 ;;
   }
 }
+
+test: products_2024_01_01_title_buzzword_revenue {
+  explore_source: products {
+    column: count { field: products.count }
+    column: token_weighted_units_sold { field: order_items_products_products__name_tokens_fields.token_weighted_units_sold }
+    column: total_token_weighted_revenue { field: order_items_products_products__name_tokens_fields.total_token_weighted_revenue }
+    column: avg_item_weighted_word_offset { field: order_items_products_products__name_tokens_fields.avg_item_weighted_word_offset }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      order_items.status: "Complete",
+      products__name_tokens.token_length: ">=4"
+    ]
+  }
+  assert: token_weighted_units_matches {
+    expression: ${order_items_products_products__name_tokens_fields.token_weighted_units_sold} = 112 ;;
+  }
+  assert: total_token_weighted_revenue_matches {
+    expression: round(${order_items_products_products__name_tokens_fields.total_token_weighted_revenue}, 2) = 7484.97 ;;
+  }
+  assert: avg_item_weighted_word_offset_matches {
+    expression: round(${order_items_products_products__name_tokens_fields.avg_item_weighted_word_offset}, 2) = 3.14 ;;
+  }
+}

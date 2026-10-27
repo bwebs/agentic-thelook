@@ -107,3 +107,20 @@ test: events_loop_archetype_and_crossover_2024_01 {
       AND index(${events_users_fields.channel_crossover_events}, 2) = 0 ;;
   }
 }
+
+test: events_2024_01_01_away_from_home_events {
+  explore_source: events {
+    column: count { field: events.count }
+    column: away_from_home_events { field: events_users_fields.away_from_home_events }
+    filters: [
+      events.created_date: "2024-01-01",
+      users.id: "NOT NULL"
+    ]
+  }
+  assert: signed_in_events_matches {
+    expression: ${events.count} = 405 ;;
+  }
+  assert: away_from_home_events_matches {
+    expression: ${events_users_fields.away_from_home_events} = 0 ;;
+  }
+}

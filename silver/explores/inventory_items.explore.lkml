@@ -6,6 +6,8 @@ include: "/bronze/products.refinement.lkml"
 include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/inventory_items_base.explore.lkml"
+include: "/silver/inventory_items_fifo_batches.view.lkml"
+include: "/silver/inventory_items_inventory_items_fifo_batches_fields.view.lkml"
 
 explore: inventory_items {
   extends: [inventory_items_base]
@@ -28,6 +30,54 @@ explore: inventory_items {
     type: left_outer
     relationship: many_to_one
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+  }
+
+  join: inventory_items_fifo_batches {
+    view_label: "Inventory Items"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${inventory_items.id} = ${inventory_items_fifo_batches.id} ;;
+    fields: [
+      inventory_items_fifo_batches.id,
+      inventory_items_fifo_batches.oldest_unsold_stocked_raw,
+      inventory_items_fifo_batches.oldest_unsold_stocked_time,
+      inventory_items_fifo_batches.oldest_unsold_stocked_date,
+      inventory_items_fifo_batches.total_sku_units_at_dc
+    ]
+  }
+
+  join: inventory_items_inventory_items_fifo_batches_fields {
+    view_label: "Inventory Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: warehouse_fifo_aging_anomaly_score {
+    description: "Warehouse First-In-First-Out Aging Anomaly Score ranking fulfillment centers by FIFO violation rate alongside sold units, line-cutter shipments, and average days older stock was skipped."
+    dimensions: [distribution_centers.name]
+    measures: [
+      inventory_items.sold_units,
+      inventory_items_inventory_items_fifo_batches_fields.fifo_line_cutter_shipments,
+      inventory_items_inventory_items_fifo_batches_fields.fifo_violation_rate,
+      inventory_items_inventory_items_fifo_batches_fields.avg_days_older_unit_skipped
+    ]
+    filters: [distribution_centers.id: "NOT NULL"]
+    sorts: [inventory_items_inventory_items_fifo_batches_fields.fifo_violation_rate: desc]
+  }
+
+  query: category_shelf_dwell_days_to_sell {
+    description: "Top 15 clothing category and department combinations ranked by average days on shelf before sale alongside total stocked units and days-to-sell standard deviation."
+    dimensions: [
+      inventory_items.product_category,
+      inventory_items.product_department
+    ]
+    measures: [
+      inventory_items.count,
+      inventory_items.avg_days_on_shelf,
+      inventory_items.stddev_days_on_shelf
+    ]
+    sorts: [inventory_items.avg_days_on_shelf: desc]
+    limit: 15
   }
 
   query: top_high_velocity_skus_by_sell_through {

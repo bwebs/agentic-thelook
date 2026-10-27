@@ -1,11 +1,13 @@
 include: "/bronze/products.view.lkml"
 include: "/bronze/products.refinement.lkml"
+include: "/bronze/products__name_tokens.view.lkml"
 include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/explores/products_base.explore.lkml"
 include: "/silver/explores/products_sales_base.explore.lkml"
+include: "/silver/order_items_products_products__name_tokens_fields.view.lkml"
 include: "/silver/product_sales_facts.view.lkml"
 include: "/silver/product_inventory_facts.view.lkml"
 include: "/silver/category_sku_price_facts.view.lkml"
@@ -22,6 +24,12 @@ explore: products {
     type: left_outer
     relationship: many_to_one
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+  }
+
+  join: order_items_products_products__name_tokens_fields {
+    view_label: "Products: Title Words"
+    sql: ;;
+    relationship: one_to_one
   }
 
   join: product_sales_facts {
@@ -57,6 +65,23 @@ explore: products {
     type: left_outer
     relationship: one_to_one
     sql_on: ${products.id} = ${brand_sku_facts.product_id} ;;
+  }
+
+  query: top_product_title_buzzwords {
+    description: "Top 20 descriptive product title buzzwords (4+ characters) ranked by gross attributed sales alongside distinct SKUs, units sold, and average word position in title."
+    dimensions: [products__name_tokens.product_title_buzzword]
+    measures: [
+      products.count,
+      order_items.count,
+      order_items.total_revenue,
+      products__name_tokens.avg_word_position_in_title
+    ]
+    filters: [
+      order_items.id: "NOT NULL",
+      products__name_tokens.token_length: ">=4"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 20
   }
 
   query: catalog_by_replenishment_urgency_tier {

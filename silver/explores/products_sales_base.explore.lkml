@@ -1,5 +1,6 @@
 include: "/bronze/products.view.lkml"
 include: "/bronze/products.refinement.lkml"
+include: "/bronze/products__name_tokens.view.lkml"
 include: "/bronze/order_items.view.lkml"
 include: "/bronze/order_items.refinement.lkml"
 include: "/bronze/explores/products_base.explore.lkml"

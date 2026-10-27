@@ -378,3 +378,44 @@ test: order_items_2024_01_margin_and_luxury_metrics {
     expression: round(${order_items_products_fields.total_luxury_150plus_revenue}, 2) = 37209.72 AND round(${order_items_products_fields.luxury_spend_share}, 4) = 0.3107 ;;
   }
 }
+
+test: order_items_2024_01_01_title_verbosity_correlations {
+  explore_source: order_items {
+    column: avg_price_per_title_word { field: order_items_products_fields.avg_price_per_title_word }
+    column: title_word_count_price_correlation { field: order_items_products_fields.title_word_count_price_correlation }
+    column: title_char_length_price_correlation { field: order_items_products_fields.title_char_length_price_correlation }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      order_items.status: "Complete",
+      products.id: "NOT NULL"
+    ]
+  }
+  assert: avg_price_per_title_word_matches {
+    expression: round(${order_items_products_fields.avg_price_per_title_word}, 2) = 9.84 ;;
+  }
+  assert: title_word_count_price_correlation_matches {
+    expression: round(${order_items_products_fields.title_word_count_price_correlation}, 4) = 0.2068 ;;
+  }
+  assert: title_char_length_price_correlation_matches {
+    expression: round(${order_items_products_fields.title_char_length_price_correlation}, 4) = 0.3988 ;;
+  }
+}
+
+test: order_items_2024_01_nomad_and_browser_invariants {
+  explore_source: order_items {
+    column: ip_nomad_tier { field: user_click_facts.ip_nomad_tier }
+    column: distinct_users { field: order_items.distinct_users }
+    column: total_revenue { field: order_items.total_revenue }
+    column: spend_per_buyer { field: order_items.spend_per_buyer }
+    filters: [
+      order_items.created_date: "2024-01",
+      user_click_facts.user_id: "NOT NULL"
+    ]
+  }
+  assert: nomad_buyer_spend_identity {
+    expression: NOT is_null(${user_click_facts.ip_nomad_tier})
+      AND ${order_items.distinct_users} >= 1
+      AND ${order_items.total_revenue} > 0
+      AND round(${order_items.spend_per_buyer}, 4) = round(${order_items.total_revenue} / ${order_items.distinct_users}, 4) ;;
+  }
+}
