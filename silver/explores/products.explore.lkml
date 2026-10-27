@@ -168,6 +168,16 @@ explore: products {
     limit: 15
   }
 
+  query: catalog_brand_reach_by_department {
+    description: "Distinct catalog brands, purchasing customers, and average units sold per catalog brand across product departments."
+    dimensions: [products.department]
+    measures: [
+      products.distinct_brands,
+      order_items.distinct_users,
+      order_items_products_fields.avg_units_sold_per_brand
+    ]
+  }
+
   query: avg_sticker_price {
     description: "Average Sticker Shock measures the simple average retail sticker price across every item in our product catalog, regardless of how often it sells. The merchandising team uses this benchmark in board meetings to position the store as an affordable luxury destination."
     measures: [products.avg_sticker_price]

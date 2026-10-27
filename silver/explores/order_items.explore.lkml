@@ -23,6 +23,8 @@ include: "/silver/user_click_facts.view.lkml"
 include: "/silver/user_item_volume_facts.view.lkml"
 include: "/silver/order_items_user_click_facts_fields.view.lkml"
 include: "/silver/category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.view.lkml"
+include: "/silver/category_sales_facts.view.lkml"
+include: "/silver/category_sales_facts_order_items_fields.view.lkml"
 
 explore: order_items {
   extends: [order_items_base]
@@ -34,7 +36,8 @@ explore: order_items {
     -products.markup_greed_pct,
     -products.avg_markup_greed_pct,
     -order_items_users_fields.revenue_per_registered_user,
-    -order_items_users_fields.user_conversion_rate
+    -order_items_users_fields.user_conversion_rate,
+    -order_items_products_fields.avg_units_sold_per_brand
   ]
 
   join: common_helpers {
@@ -168,6 +171,87 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: category_sales_facts {
+    view_label: "Category Sold Price Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.category} = ${category_sales_facts.category} ;;
+  }
+
+  join: category_sales_facts_order_items_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: carbon_footprint_pants_miles_summary {
+    description: "Carbon-Footprint Pants Miles summary of tracked shipments, total garment kilometers traveled, Earth equator laps equivalent, average shipment distance, and revenue per 1,000 kilometers flown."
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_users_fields.total_shipment_distance_km,
+      distribution_centers_order_items_users_fields.earth_equator_laps_equivalent,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      distribution_centers_order_items_users_fields.revenue_per_1000_km_flown
+    ]
+    filters: [
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+  }
+
+  query: shipment_distance_by_origin_warehouse {
+    description: "Shipped items, average shipment distance (km), and maximum shipment distance (km) broken down by origin fulfillment warehouse."
+    dimensions: [distribution_centers.name]
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_users_fields.avg_shipment_distance_km,
+      distribution_centers_order_items_users_fields.max_shipment_distance_km
+    ]
+    filters: [
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL"
+    ]
+    sorts: [distribution_centers_order_items_users_fields.avg_shipment_distance_km: desc]
+  }
+
+  query: returns_by_fashion_guilt_sigma_tier {
+    description: "Fashion Guilt Price-Outlier Return Elasticity breakdown of items bought, average price paid, average category baseline price, returned items, and item return rate across Fashion Guilt Sigma Tiers."
+    dimensions: [category_sales_facts_order_items_fields.fashion_guilt_sigma_tier]
+    measures: [
+      order_items.count,
+      order_items.avg_item_price,
+      category_sales_facts_order_items_fields.avg_category_baseline,
+      order_items.returned_items,
+      order_items.return_rate
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      products.category: "-NULL"
+    ]
+    sorts: [category_sales_facts_order_items_fields.fashion_guilt_sigma_tier: asc]
+  }
+
+  query: top_fashion_guilt_price_outliers {
+    description: "Top 15 highest within-category Z-score purchased order items alongside product name, brand, sale price, category mean sold price, and item status."
+    dimensions: [
+      products.category,
+      products.name,
+      products.brand,
+      order_items.sale_price,
+      category_sales_facts.cat_mean_price,
+      category_sales_facts_order_items_fields.price_z_score,
+      order_items.status
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      products.category: "-NULL"
+    ]
+    sorts: [category_sales_facts_order_items_fields.price_z_score: desc]
+    limit: 15
   }
 
   query: spend_by_ip_nomad_tier {

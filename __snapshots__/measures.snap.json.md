@@ -509,6 +509,16 @@
     "label": "Total Revenue Across Selected Months",
     "view_label": "Monthly Revenue Momentum Facts"
   },
+  "agentic_thelook.order_items.category_sales_facts.category_orders": {
+    "explore_label": "Order Items",
+    "label": "Category Distinct Orders",
+    "view_label": "Category Sold Price Facts"
+  },
+  "agentic_thelook.order_items.category_sales_facts_order_items_fields.avg_category_baseline": {
+    "explore_label": "Order Items",
+    "label": "Average Category Baseline Price",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.distribution_centers.count": {
     "explore_label": "Order Items",
     "label": "Total Warehouse Empire Count",
@@ -527,6 +537,26 @@
   "agentic_thelook.order_items.distribution_centers_order_items_users_fields.avg_shipment_distance_km": {
     "explore_label": "Order Items",
     "label": "Average Shipment Distance (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.earth_equator_laps_equivalent": {
+    "explore_label": "Order Items",
+    "label": "Earth Equator Laps Equivalent",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.max_shipment_distance_km": {
+    "explore_label": "Order Items",
+    "label": "Maximum Shipment Distance (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.revenue_per_1000_km_flown": {
+    "explore_label": "Order Items",
+    "label": "Revenue per 1,000 km Flown",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_users_fields.total_shipment_distance_km": {
+    "explore_label": "Order Items",
+    "label": "Carbon-Footprint Pants Miles (Total Garment km)",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.inventory_items.avg_days_on_shelf": {
@@ -707,6 +737,11 @@
   "agentic_thelook.order_items.order_items.spend_per_buyer": {
     "explore_label": "Order Items",
     "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.stddev_sale_price": {
+    "explore_label": "Order Items",
+    "label": "Sale Price Standard Deviation",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items.total_revenue": {
@@ -974,6 +1009,526 @@
     "label": "Youngest Shopper Age",
     "view_label": "Users"
   },
+  "agentic_thelook.order_items_category_cooccurrence.category_sales_facts.category_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Category Distinct Orders",
+    "view_label": "Category Sold Price Facts"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.category_sales_facts_order_items_fields.avg_category_baseline": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Category Baseline Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.avg_lat_degrees_crossed": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Latitude Degrees Crossed",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.avg_shipment_distance_km": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Shipment Distance (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.earth_equator_laps_equivalent": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Earth Equator Laps Equivalent",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.max_shipment_distance_km": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Maximum Shipment Distance (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.revenue_per_1000_km_flown": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Revenue per 1,000 km Flown",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.total_shipment_distance_km": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Carbon-Footprint Pants Miles (Total Garment km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.avg_days_on_shelf": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Inventory Units Count",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.hypothetical_retail_value": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Unsold Hypothetical Retail Value",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.sell_through_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Sell-Through Rate",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.sold_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Sold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.stddev_days_on_shelf": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "StdDev Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.sunk_dusty_shelf_cost": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Unsold Dusty Shelf Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.total_cost": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.unsold_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Remaining Unsold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.avg_gross_profit": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Unit Gross Profit",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.avg_order_shelf_age_days": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Order Shelf Age (Days, Zero-Defaulted)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.gross_margin_ratio": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Gross Profit Margin",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.retained_net_profit": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Retained Net Profit",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.total_cogs": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Wholesale COGS",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.total_gross_profit": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Gross Profit",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_basket_facts.store_evaluated_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Store Total Evaluated Orders",
+    "view_label": "Order Basket Composition Facts"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_hours_to_deliver": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_hours_to_ship": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_item_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_truck_transit_hours": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.completed_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.distinct_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Orders",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.distinct_users": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.ever_return_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.ever_returned_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.ever_returned_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Boomeranged Refund Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.late_night_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.late_night_revenue_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.recent_era_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.recent_era_revenue_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Recent-Era Revenue Share (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.refunded_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.return_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.returned_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.spend_per_buyer": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.stddev_sale_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.total_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_category_cooccurrence.co_occurrence_lift_score": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Market Basket Odd-Couple Co-Occurrence Lift",
+    "view_label": "Market Basket Category Co-Occurrence"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_category_cooccurrence.pair_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Co-Occurring Basket Orders",
+    "view_label": "Market Basket Category Co-Occurrence"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.activewear_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Activewear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.avg_activity_weighted_retail_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Activity-Weighted Retail Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.avg_price_per_title_word": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Sale Price per Title Word",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.luxury_spend_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Midlife Crisis Luxury Splurge Share ($150+ Retail)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.mens_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Menswear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.ordered_item_categories": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Ordered Item Categories List",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.sock_revenue_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Socks & Hosiery Revenue Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.sock_unit_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Socks & Hosiery Unit Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.sock_units_sold": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Socks & Hosiery Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.swimwear_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Swimwear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.title_char_length_price_correlation": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Title Character Length-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.title_word_count_price_correlation": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Title Word Count-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.total_luxury_150plus_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Luxury High-Ticket Spend ($150+ Retail)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.total_sock_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Socks & Hosiery Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.total_warm_clothing_revenue": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Cozy Warm Clothing Spend",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.warm_clothing_revenue_share": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Warm Clothing Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.winter_cozy_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Sweaters & Outerwear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.womens_units": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Womenswear Units Sold",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_users_fields.cross_department_gift_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Cross-Department Gift Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_users_fields.cross_shopping_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Gender-Bending Wardrobe Cross-Shopping Index",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_user_click_facts_fields.avg_item_buyer_clicks": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Buyer Clicks (Item-Weighted)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_users_fields.age_price_correlation": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Age-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_users_fields.avg_activity_weighted_abs_latitude": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Activity-Weighted Absolute Latitude",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_users_fields.avg_activity_weighted_user_age": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Activity-Weighted User Age",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_users_fields.latitude_price_correlation": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Latitude-Price Correlation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.avg_items_per_order": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.cancelled_or_returned_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.distinct_users": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.max_items_per_order": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.stddev_items_per_order": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.orders.total_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Items in Orders",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.paired_category_sales_facts.category_orders": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Category Distinct Orders",
+    "view_label": "Paired Basket Product"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.avg_dollar_markup": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Dollar Markup",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.avg_sticker_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Sticker Shock",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.avg_wholesale_cost": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Wholesale Cost",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Count",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.distinct_brands": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Brands",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.distinct_categories": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Categories",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.max_retail_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.max_title_word_count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Max Words in a Product Name",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.products.min_retail_price": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Minimum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.avg_abs_latitude": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.avg_customer_age": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Customer Wisdom Level",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.avg_resident_age": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.distinct_cities": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.distinct_countries": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.distinct_postal_codes": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.distinct_states": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct States or Provinces",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.oldest_shopper_age": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Oldest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.us_registered_users": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "US State Registered Users",
+    "view_label": "Users"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.users.youngest_shopper_age": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Youngest Shopper Age",
+    "view_label": "Users"
+  },
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_hours_to_deliver": {
     "explore_label": "Order Items (Financial Margin Ledger)",
     "label": "Average Hours to Deliver",
@@ -1079,6 +1634,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items Financial Ledger"
   },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.stddev_sale_price": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items Financial Ledger"
+  },
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.total_ledger_dollars": {
     "explore_label": "Order Items (Financial Margin Ledger)",
     "label": "Ledger Dollars",
@@ -1112,6 +1672,11 @@
   "agentic_thelook.orders.order_basket_facts.avg_basket_units": {
     "explore_label": "Orders",
     "label": "Average Units in Basket",
+    "view_label": "Order Basket Composition Facts"
+  },
+  "agentic_thelook.orders.order_basket_facts.store_evaluated_orders": {
+    "explore_label": "Orders",
+    "label": "Store Total Evaluated Orders",
     "view_label": "Order Basket Composition Facts"
   },
   "agentic_thelook.orders.order_basket_facts.total_basket_revenue": {
@@ -1277,6 +1842,11 @@
   "agentic_thelook.orders_relapse_window.order_basket_facts.avg_basket_units": {
     "explore_label": "Orders (30-Day Rapid Relapse Window)",
     "label": "Average Units in Basket",
+    "view_label": "Order Basket Composition Facts"
+  },
+  "agentic_thelook.orders_relapse_window.order_basket_facts.store_evaluated_orders": {
+    "explore_label": "Orders (30-Day Rapid Relapse Window)",
+    "label": "Store Total Evaluated Orders",
     "view_label": "Order Basket Composition Facts"
   },
   "agentic_thelook.orders_relapse_window.order_basket_facts.total_basket_revenue": {
@@ -1599,6 +2169,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
+  "agentic_thelook.products.order_items.stddev_sale_price": {
+    "explore_label": "Products",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.products.order_items.total_revenue": {
     "explore_label": "Products",
     "label": "Total Revenue",
@@ -1607,6 +2182,11 @@
   "agentic_thelook.products.order_items_products_fields.avg_activity_weighted_retail_price": {
     "explore_label": "Products",
     "label": "Average Activity-Weighted Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.products.order_items_products_fields.avg_units_sold_per_brand": {
+    "explore_label": "Products",
+    "label": "Average Units Sold per Catalog Brand",
     "view_label": "Products"
   },
   "agentic_thelook.products.order_items_products_products__name_tokens_fields.avg_item_weighted_word_offset": {
@@ -1723,6 +2303,26 @@
     "explore_label": "Clickstream Session Journey Paths",
     "label": "Share of All Browsing Sessions",
     "view_label": "Session Journey Path Facts"
+  },
+  "agentic_thelook.user_brand_facts.user_brand_facts.count": {
+    "explore_label": "Brand Repeat Buyer Devotion",
+    "label": "Distinct Brand Buyers",
+    "view_label": "Customer Brand Affinity Facts"
+  },
+  "agentic_thelook.user_brand_facts.user_brand_facts.cult_devotion_repeat_rate": {
+    "explore_label": "Brand Repeat Buyer Devotion",
+    "label": "Cult Devotion Brand Repeat Rate",
+    "view_label": "Customer Brand Affinity Facts"
+  },
+  "agentic_thelook.user_brand_facts.user_brand_facts.max_units_by_single_buyer": {
+    "explore_label": "Brand Repeat Buyer Devotion",
+    "label": "Max Brand Units Hoarded by One Buyer",
+    "view_label": "Customer Brand Affinity Facts"
+  },
+  "agentic_thelook.user_brand_facts.user_brand_facts.repeat_brand_devotees": {
+    "explore_label": "Brand Repeat Buyer Devotion",
+    "label": "Repeat Brand Devotees (2+ Units)",
+    "view_label": "Customer Brand Affinity Facts"
   },
   "agentic_thelook.users.events.approx_unique_sessions": {
     "explore_label": "Users",
@@ -1999,6 +2599,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users.order_items.stddev_sale_price": {
+    "explore_label": "Users",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users.order_items.total_revenue": {
     "explore_label": "Users",
     "label": "Total Revenue",
@@ -2094,6 +2699,36 @@
     "label": "Ghost Users",
     "view_label": "Users"
   },
+  "agentic_thelook.users.user_brand_entropy_facts.avg_buyer_profit": {
+    "explore_label": "Users",
+    "label": "Average Brand-Evaluated Lifetime Profit",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users.user_brand_entropy_facts.avg_buyer_spend": {
+    "explore_label": "Users",
+    "label": "Average Brand-Evaluated Lifetime Spend",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users.user_brand_entropy_facts.avg_distinct_brands": {
+    "explore_label": "Users",
+    "label": "Average Distinct Brands Bought",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users.user_brand_entropy_facts.avg_items_in_closet": {
+    "explore_label": "Users",
+    "label": "Average Items in Closet",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users.user_brand_entropy_facts.avg_shannon_entropy": {
+    "explore_label": "Users",
+    "label": "Average Brand Shannon Entropy",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users.user_brand_entropy_facts.count": {
+    "explore_label": "Users",
+    "label": "Evaluated Brand Buyers",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
   "agentic_thelook.users.user_click_facts.avg_channels_touched": {
     "explore_label": "Users",
     "label": "Average Clickstream Channels Touched",
@@ -2163,6 +2798,41 @@
     "explore_label": "Users",
     "label": "Average Lifetime Orders per User",
     "view_label": "Customer Order Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.count": {
+    "explore_label": "Users",
+    "label": "Pareto-Evaluated Buyers",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.max_lifetime_spend": {
+    "explore_label": "Users",
+    "label": "Maximum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.min_lifetime_spend": {
+    "explore_label": "Users",
+    "label": "Minimum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.top_10_pct_revenue_share": {
+    "explore_label": "Users",
+    "label": "Top 10% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.top_1_pct_revenue_share": {
+    "explore_label": "Users",
+    "label": "Top 1% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.top_20_pct_revenue_share": {
+    "explore_label": "Users",
+    "label": "Top 20% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users.user_pareto_facts.total_lifetime_spend": {
+    "explore_label": "Users",
+    "label": "Total Decile Revenue",
+    "view_label": "Customer Pareto Spend Concentration Facts"
   },
   "agentic_thelook.users.user_spend_facts.any_returner_users": {
     "explore_label": "Users",
@@ -2759,6 +3429,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.order_items.stddev_sale_price": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.order_items.total_revenue": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Total Revenue",
@@ -2854,6 +3529,36 @@
     "label": "Ghost Users",
     "view_label": "Users"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.avg_buyer_profit": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Brand-Evaluated Lifetime Profit",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.avg_buyer_spend": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Brand-Evaluated Lifetime Spend",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.avg_distinct_brands": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Distinct Brands Bought",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.avg_items_in_closet": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Items in Closet",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.avg_shannon_entropy": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Brand Shannon Entropy",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_brand_entropy_facts.count": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Evaluated Brand Buyers",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.user_click_facts.avg_channels_touched": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Average Clickstream Channels Touched",
@@ -2923,6 +3628,41 @@
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Average Lifetime Orders per User",
     "view_label": "Customer Order Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.count": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Pareto-Evaluated Buyers",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.max_lifetime_spend": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Maximum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.min_lifetime_spend": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Minimum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.top_10_pct_revenue_share": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Top 10% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.top_1_pct_revenue_share": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Top 1% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.top_20_pct_revenue_share": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Top 20% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_pareto_facts.total_lifetime_spend": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Total Decile Revenue",
+    "view_label": "Customer Pareto Spend Concentration Facts"
   },
   "agentic_thelook.users_channel_conversion_efficiency.user_spend_facts.any_returner_users": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
@@ -3364,6 +4104,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users_signup_activation.order_items.stddev_sale_price": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users_signup_activation.order_items.total_revenue": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Total Revenue",
@@ -3494,6 +4239,36 @@
     "label": "Total Items in Orders",
     "view_label": "7-Day Rolling Window Orders"
   },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.avg_buyer_profit": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Brand-Evaluated Lifetime Profit",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.avg_buyer_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Brand-Evaluated Lifetime Spend",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.avg_distinct_brands": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Distinct Brands Bought",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.avg_items_in_closet": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Items in Closet",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.avg_shannon_entropy": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Brand Shannon Entropy",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_brand_entropy_facts.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Evaluated Brand Buyers",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
   "agentic_thelook.users_signup_activation.user_click_facts.avg_channels_touched": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Clickstream Channels Touched",
@@ -3563,6 +4338,41 @@
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Lifetime Orders per User",
     "view_label": "Customer Order Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Pareto-Evaluated Buyers",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.max_lifetime_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Maximum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.min_lifetime_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Minimum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.top_10_pct_revenue_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Top 10% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.top_1_pct_revenue_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Top 1% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.top_20_pct_revenue_share": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Top 20% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_pareto_facts.total_lifetime_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Decile Revenue",
+    "view_label": "Customer Pareto Spend Concentration Facts"
   },
   "agentic_thelook.users_signup_activation.user_spend_facts.any_returner_users": {
     "explore_label": "Users (Signup Activation Cohort)",
@@ -4004,6 +4814,11 @@
     "label": "Spend per Active Buyer",
     "view_label": "Order Items"
   },
+  "agentic_thelook.users_state_channel_traffic.order_items.stddev_sale_price": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.users_state_channel_traffic.order_items.total_revenue": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Total Revenue",
@@ -4254,6 +5069,36 @@
     "label": "Unique Browsing Sessions",
     "view_label": "State Clickstream Events"
   },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.avg_buyer_profit": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Brand-Evaluated Lifetime Profit",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.avg_buyer_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Brand-Evaluated Lifetime Spend",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.avg_distinct_brands": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Distinct Brands Bought",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.avg_items_in_closet": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Items in Closet",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.avg_shannon_entropy": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Brand Shannon Entropy",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_brand_entropy_facts.count": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Evaluated Brand Buyers",
+    "view_label": "Customer Brand Loyalty & Entropy Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_click_facts.avg_channels_touched": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Clickstream Channels Touched",
@@ -4323,6 +5168,41 @@
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Lifetime Orders per User",
     "view_label": "Customer Order Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.count": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Pareto-Evaluated Buyers",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.max_lifetime_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Maximum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.min_lifetime_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Minimum Customer Lifetime Spend",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.top_10_pct_revenue_share": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Top 10% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.top_1_pct_revenue_share": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Top 1% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.top_20_pct_revenue_share": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Top 20% Whale Revenue Share",
+    "view_label": "Customer Pareto Spend Concentration Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_pareto_facts.total_lifetime_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Total Decile Revenue",
+    "view_label": "Customer Pareto Spend Concentration Facts"
   },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.any_returner_users": {
     "explore_label": "Users (State & Channel Traffic Balance)",

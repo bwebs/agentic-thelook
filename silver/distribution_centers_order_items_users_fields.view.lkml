@@ -110,4 +110,43 @@ view: distribution_centers_order_items_users_fields {
     value_format_name: decimal_2
     sql: ${lat_degrees_crossed} ;;
   }
+
+  measure: total_shipment_distance_km {
+    label: "Carbon-Footprint Pants Miles (Total Garment km)"
+    description: "Carbon-Footprint Pants Miles calculates the cumulative real-world geographic distance in kilometers that shipped garments travel from their origin warehouse to the customer's home address. Sustainability and logistics teams use this mileage metric to estimate shipping emissions and evaluate regional fulfillment reach."
+    synonyms: ["total garment kilometers traveled", "carbon-footprint pants miles", "total shipment distance km", "garment kilometers traveled"]
+    type: sum
+    value_format_name: decimal_0
+    sql: ${shipment_distance_km} ;;
+  }
+
+  measure: earth_equator_laps_equivalent {
+    label: "Earth Equator Laps Equivalent"
+    description: "Cumulative garment shipping kilometers divided by Earth's equatorial circumference (40,075 km), expressing total shipment mileage in equator laps."
+    synonyms: ["earth equator laps equivalent", "earth equator laps", "equator laps flown"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: decimal_1
+    sql: ${total_shipment_distance_km} / 40075.0 ;;
+  }
+
+  measure: revenue_per_1000_km_flown {
+    label: "Revenue per 1,000 km Flown"
+    description: "Gross dollar sales generated per thousand kilometers of garment shipping distance (1000 * total_revenue / total_shipment_distance_km)."
+    synonyms: ["revenue per 1000 km flown", "revenue per thousand kilometers", "dollars per 1000 km"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: decimal_4
+    sql: 1000.0 * ${order_items.total_revenue} / NULLIF(${total_shipment_distance_km}, 0) ;;
+  }
+
+  measure: max_shipment_distance_km {
+    label: "Maximum Shipment Distance (km)"
+    description: "Longest straight-line geodesic distance in kilometers traveled by a single shipped item from origin warehouse to customer destination."
+    synonyms: ["max distance km", "max shipment distance km", "maximum flight distance km"]
+    tags: ["non_additive"]
+    type: max
+    value_format_name: decimal_2
+    sql: ${shipment_distance_km} ;;
+  }
 }

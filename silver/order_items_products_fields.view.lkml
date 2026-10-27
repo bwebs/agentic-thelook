@@ -177,4 +177,14 @@ view: order_items_products_fields {
     sql: CORR(${products.title_char_length}, ${order_items.sale_price}) ;;
     value_format_name: decimal_4
   }
+
+  measure: avg_units_sold_per_brand {
+    label: "Average Units Sold per Catalog Brand"
+    description: "Average number of order line items sold per distinct catalog brand (order_items.count / products.distinct_brands)."
+    synonyms: ["avg units sold per brand", "units sold per brand"]
+    tags: ["non_additive"]
+    type: number
+    value_format_name: decimal_2
+    sql: 1.0 * ${order_items.count} / NULLIF(${products.distinct_brands}, 0) ;;
+  }
 }

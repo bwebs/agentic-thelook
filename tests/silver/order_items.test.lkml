@@ -419,3 +419,48 @@ test: order_items_2024_01_nomad_and_browser_invariants {
       AND round(${order_items.spend_per_buyer}, 4) = round(${order_items.total_revenue} / ${order_items.distinct_users}, 4) ;;
   }
 }
+
+test: order_items_2024_01_01_garment_mileage_and_category_baseline_metrics {
+  explore_source: order_items {
+    column: tracked_shipments { field: order_items.count }
+    column: total_shipment_distance_km { field: distribution_centers_order_items_users_fields.total_shipment_distance_km }
+    column: earth_equator_laps_equivalent { field: distribution_centers_order_items_users_fields.earth_equator_laps_equivalent }
+    column: revenue_per_1000_km_flown { field: distribution_centers_order_items_users_fields.revenue_per_1000_km_flown }
+    column: max_shipment_distance_km { field: distribution_centers_order_items_users_fields.max_shipment_distance_km }
+    column: avg_category_baseline { field: category_sales_facts_order_items_fields.avg_category_baseline }
+    column: category_orders { field: category_sales_facts.category_orders }
+    filters: {
+      field: order_items.created_date
+      value: "2024-01-01"
+    }
+    filters: {
+      field: inventory_items.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: distribution_centers.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: users.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: products.id
+      value: "NOT NULL"
+    }
+    filters: {
+      field: products.category
+      value: "-NULL"
+    }
+  }
+  assert: shipment_distance_totals_match {
+    expression: ${order_items.count} = 63 AND round(${distribution_centers_order_items_users_fields.total_shipment_distance_km}, 2) = 500658.68 AND round(${distribution_centers_order_items_users_fields.earth_equator_laps_equivalent}, 2) = 12.49 ;;
+  }
+  assert: shipment_efficiency_and_max_match {
+    expression: round(${distribution_centers_order_items_users_fields.revenue_per_1000_km_flown}, 4) = 5.7066 AND round(${distribution_centers_order_items_users_fields.max_shipment_distance_km}, 2) = 16702.00 ;;
+  }
+  assert: category_baseline_and_orders_positive {
+    expression: ${category_sales_facts_order_items_fields.avg_category_baseline} > 0 AND ${category_sales_facts.category_orders} > 0 ;;
+  }
+}
