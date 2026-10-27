@@ -91,6 +91,28 @@ view: +users {
     sql: CONCAT(CAST(${age_decade} AS STRING), 's Decade') ;;
   }
 
+  dimension: life_stage_zone {
+    label: "Life-Stage Spend Zone"
+    group_label: "Age"
+    description: "Life-stage demographic age brackets grouping shoppers into 'Youth Budget (<25)', 'Career Builder (25-39)', 'Midlife Crisis Splurge Zone (40-55)', and 'Golden Years Connoisseur (56+)' for high-ticket luxury spend analysis."
+    synonyms: ["life stage zone", "midlife crisis splurge zone", "luxury life stage bracket", "age splurge cohort"]
+    case: {
+      when: {
+        sql: ${age} < 25 ;;
+        label: "Youth Budget (<25)"
+      }
+      when: {
+        sql: ${age} BETWEEN 25 AND 39 ;;
+        label: "Career Builder (25-39)"
+      }
+      when: {
+        sql: ${age} BETWEEN 40 AND 55 ;;
+        label: "Midlife Crisis Splurge Zone (40-55)"
+      }
+      else: "Golden Years Connoisseur (56+)"
+    }
+  }
+
   dimension: global_macro_region {
     label: "Global Macro Region"
     group_label: "Location"
@@ -243,6 +265,24 @@ view: +users {
     synonyms: ["monogram", "customer initials", "initial monogram"]
     type: string
     sql: CONCAT(SUBSTR(${first_name}, 1, 1), '.', SUBSTR(${last_name}, 1, 1), '.') ;;
+  }
+
+  dimension: first_initial {
+    label: "First Name Initial"
+    group_label: "Name"
+    description: "First character of the customer's given name (first_name), used in First-Name Vanity Spend Index demographic slices."
+    synonyms: ["first initial", "given name initial", "starting letter of first name"]
+    type: string
+    sql: SUBSTR(${first_name}, 1, 1) ;;
+  }
+
+  dimension: full_name_letter_count {
+    label: "Full Name Letter Count"
+    group_label: "Name"
+    description: "Total combined character length of the customer's given name and surname (LENGTH(first_name) + LENGTH(last_name)), excluding spaces."
+    synonyms: ["name letter count", "combined name length", "full name character count"]
+    type: number
+    sql: LENGTH(${first_name}) + LENGTH(${last_name}) ;;
   }
 
   dimension: full_name {

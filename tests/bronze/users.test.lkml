@@ -283,3 +283,24 @@ test: users_2024_01_01_geographic_reach_metrics {
     expression: ${users.avg_resident_age} <= 90 ;;
   }
 }
+
+test: users_2024_01_01_vanity_and_life_stage_dims {
+  explore_source: users {
+    column: life_stage_zone { field: users.life_stage_zone }
+    column: first_initial { field: users.first_initial }
+    column: full_name_letter_count { field: users.full_name_letter_count }
+    column: count { field: users.count }
+    filters: [users.created_date: "2024-01-01"]
+    sorts: [
+      users.life_stage_zone: asc,
+      users.first_initial: asc,
+      users.full_name_letter_count: asc
+    ]
+  }
+  assert: first_row_youth_vanity_matches {
+    expression: index(${users.life_stage_zone}, 1) = "Youth Budget (<25)" AND index(${users.first_initial}, 1) = "A" AND index(${users.full_name_letter_count}, 1) = 10 AND index(${users.count}, 1) = 1 ;;
+  }
+  assert: career_builder_row_matches {
+    expression: index(${users.life_stage_zone}, 8) = "Career Builder (25-39)" AND index(${users.first_initial}, 8) = "J" AND index(${users.full_name_letter_count}, 8) = 12 ;;
+  }
+}

@@ -355,3 +355,26 @@ test: order_items_2024_w1_archetype_invariants {
       ) ;;
   }
 }
+
+test: order_items_2024_01_margin_and_luxury_metrics {
+  explore_source: order_items {
+    column: total_cogs { field: inventory_items_order_items_fields.total_cogs }
+    column: avg_gross_profit { field: inventory_items_order_items_fields.avg_gross_profit }
+    column: total_luxury_150plus_revenue { field: order_items_products_fields.total_luxury_150plus_revenue }
+    column: luxury_spend_share { field: order_items_products_fields.luxury_spend_share }
+    filters: [
+      order_items.created_month: "2024-01",
+      inventory_items.id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+  }
+  assert: total_cogs_matches {
+    expression: round(${inventory_items_order_items_fields.total_cogs}, 2) = 57712.62 ;;
+  }
+  assert: avg_gross_profit_matches {
+    expression: round(${inventory_items_order_items_fields.avg_gross_profit}, 2) = 31.41 ;;
+  }
+  assert: luxury_spend_matches {
+    expression: round(${order_items_products_fields.total_luxury_150plus_revenue}, 2) = 37209.72 AND round(${order_items_products_fields.luxury_spend_share}, 4) = 0.3107 ;;
+  }
+}

@@ -165,6 +165,104 @@ explore: order_items {
     relationship: one_to_one
   }
 
+  query: spend_by_customer_first_initial {
+    description: "First-Name Vanity Spend Index grouping active buyers, items bought, total gross spend, and average item price by the starting letter of the customer's first name."
+    dimensions: [users.first_initial]
+    measures: [
+      order_items.distinct_users,
+      order_items.count,
+      order_items.total_revenue,
+      order_items.avg_item_price
+    ]
+    filters: [users.id: "NOT NULL"]
+    sorts: [order_items.total_revenue: desc]
+  }
+
+  query: spend_by_full_name_letter_count {
+    description: "Active buyers, average item sale price, and total gross revenue grouped by combined first-name and last-name character length."
+    dimensions: [users.full_name_letter_count]
+    measures: [
+      order_items.distinct_users,
+      order_items.avg_item_price,
+      order_items.total_revenue
+    ]
+    filters: [users.id: "NOT NULL"]
+    sorts: [users.full_name_letter_count: asc]
+  }
+
+  query: top_common_first_names_by_revenue {
+    description: "Top 15 common customer first names (10+ distinct buyers) ranked by total gross revenue alongside distinct order volume."
+    dimensions: [users.first_name]
+    measures: [
+      order_items.distinct_orders,
+      order_items.total_revenue
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      orders.order_id: "NOT NULL",
+      order_items.distinct_users: ">=10"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 15
+  }
+
+  query: realized_gross_margin_summary {
+    description: "Executive P&L summary comparing top-line gross revenue, wholesale inventory COGS, realized gross profit, and realized gross margin share."
+    measures: [
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_cogs,
+      inventory_items_order_items_fields.total_gross_profit,
+      inventory_items_order_items_fields.gross_margin_ratio
+    ]
+    filters: [inventory_items.id: "NOT NULL"]
+  }
+
+  query: realized_gross_profit_by_inventory_department {
+    description: "Units sold, realized department gross profit, and average unit gross profit broken down by physical inventory department."
+    dimensions: [inventory_items.product_department]
+    measures: [
+      order_items.count,
+      inventory_items_order_items_fields.total_gross_profit,
+      inventory_items_order_items_fields.avg_gross_profit
+    ]
+    filters: [inventory_items.id: "NOT NULL"]
+  }
+
+  query: luxury_splurge_spend_by_life_stage {
+    description: "Midlife Crisis Luxury Splurge Multiplier comparing distinct shoppers, items bought, average item price, $150+ high-ticket spend, and luxury spend share across life-stage age zones."
+    dimensions: [users.life_stage_zone]
+    measures: [
+      order_items.distinct_users,
+      order_items.count,
+      order_items.avg_item_price,
+      order_items_products_fields.total_luxury_150plus_revenue,
+      order_items_products_fields.luxury_spend_share
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+    sorts: [users.life_stage_zone: asc]
+  }
+
+  query: oldest_skewing_categories_by_buyer_age {
+    description: "Top 15 clothing department-category lines with the oldest average buyer profile alongside units sold, average paid item price, and average unit net margin."
+    dimensions: [products.department, products.category]
+    measures: [
+      users.avg_customer_age,
+      order_items.count,
+      order_items.avg_item_price,
+      inventory_items_order_items_fields.avg_gross_profit
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      products.id: "NOT NULL",
+      inventory_items.id: "NOT NULL"
+    ]
+    sorts: [users.avg_customer_age: desc]
+    limit: 15
+  }
+
   query: top_categories_by_recent_era_revenue_share {
     description: "Top 15 department-category lines ranked by 2025+ recent-era revenue momentum share alongside all-time revenue, recent-era revenue, and gross profit."
     dimensions: [products.department, products.category]

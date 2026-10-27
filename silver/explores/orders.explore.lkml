@@ -5,6 +5,7 @@ include: "/bronze/users.refinement.lkml"
 include: "/bronze/explores/orders_base.explore.lkml"
 include: "/silver/order_basket_facts.view.lkml"
 include: "/silver/orders_sequenced.view.lkml"
+include: "/silver/user_spend_trajectory_facts.view.lkml"
 
 explore: orders {
   extends: [orders_base]
@@ -38,6 +39,26 @@ explore: orders {
     type: left_outer
     relationship: one_to_one
     sql_on: ${orders.order_id} = ${order_basket_facts.order_id} ;;
+  }
+
+  join: user_spend_trajectory_facts {
+    view_label: "Customer Spend Trajectory Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${orders.order_id} = ${user_spend_trajectory_facts.order_id} ;;
+  }
+
+  query: repeat_customer_order_spend_escalation {
+    description: "Repeat customer count, average order spend, average baseline first-order spend, and Second-Order Price Escalation Multiplier across chronological purchase sequence steps."
+    dimensions: [user_spend_trajectory_facts.order_sequence_number]
+    measures: [
+      orders.distinct_users,
+      user_spend_trajectory_facts.avg_order_spend,
+      user_spend_trajectory_facts.avg_first_order_spend,
+      user_spend_trajectory_facts.avg_spend_escalation_multiplier
+    ]
+    filters: [user_spend_trajectory_facts.user_order_count: ">=2"]
+    sorts: [user_spend_trajectory_facts.order_sequence_number: asc]
   }
 
   query: resurrected_lazarus_orders {
