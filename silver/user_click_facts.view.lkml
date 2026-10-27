@@ -19,6 +19,9 @@ view: user_click_facts {
       column: away_from_home_events { field: events_users_fields.away_from_home_events }
       column: distinct_browsers_used { field: events.distinct_browsers }
       column: browser_combo { field: events.browser_combo }
+      column: purchase_events { field: events.purchase_events }
+      column: first_touch_event_source { field: events.first_touch_event_source }
+      column: last_touch_event_source { field: events.last_touch_event_source }
       filters: [events.user_id: "NOT NULL"]
     }
   }
@@ -252,5 +255,40 @@ view: user_click_facts {
     type: number
     sql: 1.0 * ${total_away_from_home_events} / NULLIF(${total_user_clicks}, 0) ;;
     value_format_name: percent_2
+  }
+
+  dimension: purchase_events {
+    label: "Customer Clickstream Purchase Events"
+    group_label: "Channel Attribution"
+    description: "Cumulative checkout purchase clickstream events recorded for the customer (returns NULL when the customer has zero recorded clickstream events)."
+    synonyms: ["click purchases", "clickstream purchase events", "user purchase clicks"]
+    type: number
+    sql: ${TABLE}.purchase_events ;;
+  }
+
+  dimension: first_touch_event_source {
+    label: "First-Touch Session Traffic Source"
+    group_label: "Channel Attribution"
+    description: "Session marketing traffic source recorded on the customer's earliest website clickstream event."
+    synonyms: ["first touch event source", "earliest clickstream channel"]
+    type: string
+    sql: ${TABLE}.first_touch_event_source ;;
+  }
+
+  dimension: last_touch_event_source {
+    label: "Last-Touch Session Traffic Source"
+    group_label: "Channel Attribution"
+    description: "Session marketing traffic source recorded on the customer's most recent website clickstream event."
+    synonyms: ["last touch event source", "latest clickstream channel"]
+    type: string
+    sql: ${TABLE}.last_touch_event_source ;;
+  }
+
+  measure: total_purchase_events {
+    label: "Total Customer Clickstream Purchase Events"
+    description: "Total clickstream purchase events summed across clicking customers."
+    synonyms: ["total click purchases", "sum clickstream purchase events"]
+    type: sum
+    sql: ${purchase_events} ;;
   }
 }

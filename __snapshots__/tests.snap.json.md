@@ -91,6 +91,146 @@
     "model": "agentic_thelook",
     "name": "category_growth_share_portfolio_invariants"
   },
+  "agentic_thelook.category_warehouse_chaos_facts_invariants": {
+    "assert": {
+      "chaos_index_and_loss_bounds": {
+        "expression": "${category_warehouse_chaos_facts.loss_rate} >= 0 AND ${category_warehouse_chaos_facts.loss_rate} <= 1 AND ${category_warehouse_chaos_facts.grand_unified_chaos_singularity_score} > 0"
+      },
+      "corridor_volume_and_rank_bounds": {
+        "expression": "${category_warehouse_chaos_facts.profit_rank_in_dept} = 1 AND ${category_warehouse_chaos_facts.total_units} >= 15 AND ${category_warehouse_chaos_facts.profit_percentile_rank} >= 0 AND ${category_warehouse_chaos_facts.profit_percentile_rank} <= 1"
+      }
+    },
+    "explore_source": {
+      "category_warehouse_chaos_facts": {
+        "column": {
+          "department": {
+            "field": "category_warehouse_chaos_facts.department"
+          },
+          "grand_unified_chaos_singularity_score": {
+            "field": "category_warehouse_chaos_facts.grand_unified_chaos_singularity_score"
+          },
+          "loss_rate": {
+            "field": "category_warehouse_chaos_facts.loss_rate"
+          },
+          "profit_percentile_rank": {
+            "field": "category_warehouse_chaos_facts.profit_percentile_rank"
+          },
+          "profit_rank_in_dept": {
+            "field": "category_warehouse_chaos_facts.profit_rank_in_dept"
+          },
+          "total_units": {
+            "field": "category_warehouse_chaos_facts.total_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "category_warehouse_chaos_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "category_warehouse_chaos_facts.profit_rank_in_dept": "1"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/category_warehouse_chaos_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "category_warehouse_chaos_facts_invariants"
+  },
+  "agentic_thelook.country_channel_department_facts_invariants": {
+    "assert": {
+      "country_rank_and_margin_bounds": {
+        "expression": "${country_channel_department_facts.country} = \"United States\" AND ${country_channel_department_facts.channel_dept_rank_in_country} >= 1 AND ${country_channel_department_facts.channel_dept_rank_in_country} <= 3 AND ${country_channel_department_facts.items_count} >= ${country_channel_department_facts.orders_count} AND ${country_channel_department_facts.orders_count} > 0 AND ${country_channel_department_facts.gross_margin} > 0"
+      }
+    },
+    "explore_source": {
+      "country_channel_department_facts": {
+        "column": {
+          "channel_dept_rank_in_country": {
+            "field": "country_channel_department_facts.channel_dept_rank_in_country"
+          },
+          "country": {
+            "field": "country_channel_department_facts.country"
+          },
+          "gross_margin": {
+            "field": "country_channel_department_facts.gross_margin"
+          },
+          "items_count": {
+            "field": "country_channel_department_facts.items_count"
+          },
+          "orders_count": {
+            "field": "country_channel_department_facts.orders_count"
+          }
+        },
+        "derived_column": null,
+        "explore": "country_channel_department_facts",
+        "expression_custom_filter": null,
+        "filters": {
+          "country_channel_department_facts.channel_dept_rank_in_country": "<=3",
+          "country_channel_department_facts.country": "United States"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/country_channel_department_facts.test.lkml",
+    "line": 3,
+    "model": "agentic_thelook",
+    "name": "country_channel_department_facts_invariants"
+  },
+  "agentic_thelook.distribution_centers_gravity_well_invariants": {
+    "assert": {
+      "capital_and_dead_stock_bounds": {
+        "expression": "${warehouse_inventory_facts.count} >= 1 AND ${warehouse_inventory_facts.total_distinct_skus_stocked} > 0 AND ${warehouse_inventory_facts.total_warehouse_capital_deployed} >= ${warehouse_inventory_facts.total_dead_stock_drag} AND ${warehouse_inventory_facts.total_dead_stock_drag} >= 0"
+      },
+      "fulfillment_and_gravity_well_bounds": {
+        "expression": "${warehouse_fulfillment_facts.total_fulfilled_order_items} > 0 AND ${warehouse_fulfillment_facts.return_drag_rate} >= 0 AND ${warehouse_fulfillment_facts.return_drag_rate} <= 1 AND ${warehouse_fulfillment_facts.net_profit_per_1000_shipment_km} > 0 AND ${warehouse_inventory_facts.avg_warehouse_turn_days} > 0"
+      }
+    },
+    "explore_source": {
+      "distribution_centers": {
+        "column": {
+          "avg_warehouse_turn_days": {
+            "field": "warehouse_inventory_facts.avg_warehouse_turn_days"
+          },
+          "net_profit_per_1000_shipment_km": {
+            "field": "warehouse_fulfillment_facts.net_profit_per_1000_shipment_km"
+          },
+          "return_drag_rate": {
+            "field": "warehouse_fulfillment_facts.return_drag_rate"
+          },
+          "total_dead_stock_drag": {
+            "field": "warehouse_inventory_facts.total_dead_stock_drag"
+          },
+          "total_distinct_skus_stocked": {
+            "field": "warehouse_inventory_facts.total_distinct_skus_stocked"
+          },
+          "total_fulfilled_order_items": {
+            "field": "warehouse_fulfillment_facts.total_fulfilled_order_items"
+          },
+          "total_warehouse_capital_deployed": {
+            "field": "warehouse_inventory_facts.total_warehouse_capital_deployed"
+          },
+          "warehouse_count": {
+            "field": "warehouse_inventory_facts.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "distribution_centers",
+        "expression_custom_filter": null,
+        "filters": {
+          "warehouse_fulfillment_facts.dc_id": "NOT NULL",
+          "warehouse_inventory_facts.dc_id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/distribution_centers.test.lkml",
+    "line": 22,
+    "model": "agentic_thelook",
+    "name": "distribution_centers_gravity_well_invariants"
+  },
   "agentic_thelook.distribution_centers_id_1_flagship_specialty_invariants": {
     "assert": {
       "flagship_specialty_invariants_hold": {
@@ -1034,6 +1174,43 @@
     "model": "agentic_thelook",
     "name": "events_refinement_metrics"
   },
+  "agentic_thelook.events_touch_attribution_2024_01_01_metrics": {
+    "assert": {
+      "event_count_matches": {
+        "expression": "${events.count} = 792"
+      },
+      "touch_sources_match": {
+        "expression": "${events.first_touch_event_source} = \"Email\" AND ${events.last_touch_event_source} = \"Facebook\""
+      }
+    },
+    "explore_source": {
+      "events": {
+        "column": {
+          "event_count": {
+            "field": "events.count"
+          },
+          "first_touch_event_source": {
+            "field": "events.first_touch_event_source"
+          },
+          "last_touch_event_source": {
+            "field": "events.last_touch_event_source"
+          }
+        },
+        "derived_column": null,
+        "explore": "events",
+        "expression_custom_filter": null,
+        "filters": {
+          "events.created_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/events.test.lkml",
+    "line": 271,
+    "model": "agentic_thelook",
+    "name": "events_touch_attribution_2024_01_01_metrics"
+  },
   "agentic_thelook.inventory_items_2024_01_01_products_join_metrics": {
     "assert": {
       "distinct_categories_matches": {
@@ -1306,6 +1483,44 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "inventory_items_refinement_metrics"
+  },
+  "agentic_thelook.inventory_items_shelf_turn_2024_01_01_metrics": {
+    "assert": {
+      "avg_inventory_turn_days_matches": {
+        "expression": "round(${inventory_items.avg_inventory_turn_days}, 2) = 30.17"
+      },
+      "distinct_products_matches": {
+        "expression": "${inventory_items.distinct_products} = 63 AND ${inventory_items.sold_units} = 63"
+      }
+    },
+    "explore_source": {
+      "inventory_items": {
+        "column": {
+          "avg_inventory_turn_days": {
+            "field": "inventory_items.avg_inventory_turn_days"
+          },
+          "distinct_products": {
+            "field": "inventory_items.distinct_products"
+          },
+          "sold_units": {
+            "field": "inventory_items.sold_units"
+          }
+        },
+        "derived_column": null,
+        "explore": "inventory_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "inventory_items.is_sold": "yes",
+          "inventory_items.sold_date": "2024-01-01"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/inventory_items.test.lkml",
+    "line": 124,
+    "model": "agentic_thelook",
+    "name": "inventory_items_shelf_turn_2024_01_01_metrics"
   },
   "agentic_thelook.inventory_items_sold_2024_01_01_aging_tier_metrics": {
     "assert": {
@@ -2686,6 +2901,114 @@
     "line": 3,
     "model": "agentic_thelook",
     "name": "order_items_refinement_metrics"
+  },
+  "agentic_thelook.order_items_reversal_fulfillment_2024_01_01_metrics": {
+    "assert": {
+      "avg_imputed_fulfillment_hours_matches": {
+        "expression": "round(${order_items.avg_imputed_fulfillment_hours}, 2) = 76.36"
+      },
+      "reversal_loss_rate_matches": {
+        "expression": "round(${order_items.reversal_loss_rate}, 4) = 0.3214"
+      },
+      "reversed_items_matches": {
+        "expression": "${order_items.reversed_items} = 9 AND ${order_items.count} = 28"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_imputed_fulfillment_hours": {
+            "field": "order_items.avg_imputed_fulfillment_hours"
+          },
+          "item_count": {
+            "field": "order_items.count"
+          },
+          "reversal_loss_rate": {
+            "field": "order_items.reversal_loss_rate"
+          },
+          "reversed_items": {
+            "field": "order_items.reversed_items"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "order_items.created_date": "2024-01-01",
+          "order_items.status": "Complete,Returned,Cancelled"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/bronze/order_items.test.lkml",
+    "line": 279,
+    "model": "agentic_thelook",
+    "name": "order_items_reversal_fulfillment_2024_01_01_metrics"
+  },
+  "agentic_thelook.order_items_us_routing_chaos_2024_01_01_metrics": {
+    "assert": {
+      "margins_and_chaos_profit_match": {
+        "expression": "round(${order_items_products_fields.total_theoretical_margin}, 2) = 80.74 AND round(${inventory_items_order_items_fields.chaos_adjusted_net_profit}, 2) = 49.23 AND round(${inventory_items_order_items_fields.avg_imputed_shelf_dwell_days}, 2) = 30"
+      },
+      "routing_absurdity_counts_match": {
+        "expression": "${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments} = 2 AND ${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments} = 3 AND round(${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate}, 4) = 0.6"
+      },
+      "wasted_detour_km_matches": {
+        "expression": "round(${distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km}, 2) = 823.66 AND round(${distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km}, 2) = 4118.32"
+      }
+    },
+    "explore_source": {
+      "order_items": {
+        "column": {
+          "avg_imputed_shelf_dwell_days": {
+            "field": "inventory_items_order_items_fields.avg_imputed_shelf_dwell_days"
+          },
+          "avg_wasted_detour_km": {
+            "field": "distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km"
+          },
+          "chaos_adjusted_net_profit": {
+            "field": "inventory_items_order_items_fields.chaos_adjusted_net_profit"
+          },
+          "item_count": {
+            "field": "order_items.count"
+          },
+          "optimal_shipments": {
+            "field": "category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments"
+          },
+          "routing_absurdity_rate": {
+            "field": "category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate"
+          },
+          "suboptimal_shipments": {
+            "field": "category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments"
+          },
+          "total_theoretical_margin": {
+            "field": "order_items_products_fields.total_theoretical_margin"
+          },
+          "total_wasted_detour_km": {
+            "field": "distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km"
+          }
+        },
+        "derived_column": null,
+        "explore": "order_items",
+        "expression_custom_filter": null,
+        "filters": {
+          "distribution_centers.id": "NOT NULL",
+          "inventory_items.id": "NOT NULL",
+          "order_items.created_date": "2024-01-01",
+          "order_items.status": "Complete,Returned,Cancelled",
+          "products.id": "NOT NULL",
+          "users.country": "United States",
+          "users.id": "NOT NULL"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/order_items.test.lkml",
+    "line": 468,
+    "model": "agentic_thelook",
+    "name": "order_items_us_routing_chaos_2024_01_01_metrics"
   },
   "agentic_thelook.order_items_weekend_warrior_metrics": {
     "assert": {
@@ -5199,5 +5522,71 @@
     "line": 389,
     "model": "agentic_thelook",
     "name": "users_return_concentration_conversion_and_click_efficiency_invariants"
+  },
+  "agentic_thelook.users_telemetry_rfme_cohort_1000_metrics": {
+    "assert": {
+      "margin_and_recency_bounds": {
+        "expression": "${user_spend_facts.avg_lifetime_profit} > 0 AND ${user_click_facts_user_spend_facts_users_fields.net_margin_per_click} > 0 AND ${user_rfme_facts.avg_recency_days} >= 0"
+      },
+      "telemetry_partition_identity": {
+        "expression": "${user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users} + ${user_click_facts_user_spend_facts_users_fields.telemetry_drift_users} = ${users.count} AND ${users.count} = ${user_rfme_facts.count} AND ${users.count} > 0"
+      },
+      "unit_gap_algebraic_identity": {
+        "expression": "${user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap} = ${user_spend_facts.total_items_bought} - ${user_click_facts.total_purchase_events}"
+      }
+    },
+    "explore_source": {
+      "users": {
+        "column": {
+          "avg_lifetime_profit": {
+            "field": "user_spend_facts.avg_lifetime_profit"
+          },
+          "avg_recency_days": {
+            "field": "user_rfme_facts.avg_recency_days"
+          },
+          "exact_telemetry_match_users": {
+            "field": "user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users"
+          },
+          "is_channel_attribution_mirage": {
+            "field": "user_click_facts_users_fields.is_channel_attribution_mirage"
+          },
+          "ledger_vs_clickstream_unit_gap": {
+            "field": "user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap"
+          },
+          "net_margin_per_click": {
+            "field": "user_click_facts_user_spend_facts_users_fields.net_margin_per_click"
+          },
+          "rfme_buyer_count": {
+            "field": "user_rfme_facts.count"
+          },
+          "telemetry_drift_users": {
+            "field": "user_click_facts_user_spend_facts_users_fields.telemetry_drift_users"
+          },
+          "total_items_bought": {
+            "field": "user_spend_facts.total_items_bought"
+          },
+          "total_purchase_events": {
+            "field": "user_click_facts.total_purchase_events"
+          },
+          "user_count": {
+            "field": "users.count"
+          }
+        },
+        "derived_column": null,
+        "explore": "users",
+        "expression_custom_filter": null,
+        "filters": {
+          "user_click_facts.user_id": "NOT NULL",
+          "user_spend_facts.user_id": "NOT NULL",
+          "users.id": "<=1000"
+        },
+        "limit": null,
+        "timezone": null
+      }
+    },
+    "file": "tests/silver/users.test.lkml",
+    "line": 465,
+    "model": "agentic_thelook",
+    "name": "users_telemetry_rfme_cohort_1000_metrics"
   }
 }

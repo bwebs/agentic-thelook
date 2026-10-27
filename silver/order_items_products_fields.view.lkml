@@ -187,4 +187,22 @@ view: order_items_products_fields {
     value_format_name: decimal_2
     sql: 1.0 * ${order_items.count} / NULLIF(${products.distinct_brands}, 0) ;;
   }
+
+  dimension: theoretical_item_margin {
+    label: "Theoretical Catalog Item Margin"
+    description: "Order item sale price minus catalog product wholesale cost (order_items.sale_price - products.cost)."
+    synonyms: ["catalog item margin", "theoretical unit margin"]
+    type: number
+    value_format_name: usd
+    sql: ${order_items.sale_price} - ${products.cost} ;;
+  }
+
+  measure: total_theoretical_margin {
+    label: "Total Theoretical Catalog Margin"
+    description: "Cumulative theoretical dollar margin across ordered line items using catalog product wholesale cost (SUM(order_items.sale_price - products.cost))."
+    synonyms: ["theoretical margin", "total catalog margin"]
+    type: sum
+    value_format_name: usd
+    sql: ${theoretical_item_margin} ;;
+  }
 }

@@ -30,6 +30,15 @@ view: +inventory_items {
     sql_end: ${sold_raw} ;;
   }
 
+  dimension: shelf_turn_days {
+    label: "Inventory Shelf Turn Days (Fractional)"
+    description: "Fractional days an inventory unit sat on the warehouse shelf from intake creation until sale (TIMESTAMP_DIFF in hours divided by 24.0)."
+    synonyms: ["fractional shelf turn days", "inventory turn days"]
+    type: number
+    value_format_name: decimal_1
+    sql: ${hours_on_shelf} / 24.0 ;;
+  }
+
   dimension_group: shelf_age {
     label: "Shelf Age"
     description: "Elapsed time an inventory unit has been on the warehouse shelf from intake creation until sale or the current timestamp if still unsold."
@@ -154,6 +163,26 @@ view: +inventory_items {
     tags: ["non_additive"]
     type: number
     sql: SQRT(GREATEST(${_days_on_shelf_sum_of_squares} - (POWER(${_days_on_shelf_sum}, 2) / NULLIF(${sold_units}, 0)), 0) / NULLIF(${sold_units} - 1, 0)) ;;
+    value_format_name: decimal_1
+  }
+
+  measure: distinct_products {
+    label: "Distinct Stocked SKUs"
+    description: "Count of distinct catalog product SKUs represented across physical inventory units."
+    synonyms: ["distinct skus stocked", "stocked product count", "unique stocked skus"]
+    tags: ["non_additive"]
+    type: count_distinct
+    sql: ${product_id} ;;
+  }
+
+  measure: avg_inventory_turn_days {
+    label: "Average Inventory Turn Days"
+    description: "Mean fractional days (from hours / 24.0) that sold physical inventory units sat in warehouse stock before selling."
+    synonyms: ["avg inventory turn days", "avg turn days"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${shelf_turn_days} ;;
+    filters: [is_sold: "yes"]
     value_format_name: decimal_1
   }
 }

@@ -69,6 +69,25 @@ explore: events {
     ]
   }
 
+  query: purchase_events_by_browser_and_channel_pair {
+    description: "Top 15 browser, session traffic source, and customer signup source combinations ranked by purchase clickstream events alongside purchasing sessions."
+    dimensions: [
+      events.browser,
+      events.traffic_source,
+      users.traffic_source
+    ]
+    measures: [
+      events.unique_chaotic_sessions,
+      events.count
+    ]
+    filters: [
+      events.event_type: "purchase",
+      users.id: "NOT NULL"
+    ]
+    sorts: [events.count: desc]
+    limit: 15
+  }
+
   query: session_purchase_rate_by_traffic_source {
     description: "Total browsing sessions, purchasing sessions, and session purchase conversion rate broken down by session traffic source."
     dimensions: [events.traffic_source]

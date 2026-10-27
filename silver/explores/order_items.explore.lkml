@@ -25,6 +25,7 @@ include: "/silver/order_items_user_click_facts_fields.view.lkml"
 include: "/silver/category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.view.lkml"
 include: "/silver/category_sales_facts.view.lkml"
 include: "/silver/category_sales_facts_order_items_fields.view.lkml"
+include: "/silver/distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.view.lkml"
 
 explore: order_items {
   extends: [order_items_base]
@@ -184,6 +185,123 @@ explore: order_items {
     view_label: "Order Items"
     sql: ;;
     relationship: one_to_one
+  }
+
+  join: product_distribution_centers {
+    from: distribution_centers
+    view_label: "Product Catalog Distribution Center"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.distribution_center_id} = ${product_distribution_centers.id} ;;
+  }
+
+  join: distribution_centers_order_items_user_warehouse_proximity_facts_users_fields {
+    view_label: "Order Items"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  query: warehouse_department_assortment_and_theoretical_margin {
+    description: "Catalog categories carried, outbound units shipped, and theoretical catalog margin broken down by product distribution center and department."
+    dimensions: [
+      product_distribution_centers.name,
+      products.department
+    ]
+    measures: [
+      products.distinct_categories,
+      order_items.count,
+      order_items_products_fields.total_theoretical_margin
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      product_distribution_centers.id: "NOT NULL"
+    ]
+    sorts: [
+      product_distribution_centers.name: asc,
+      order_items.count: desc
+    ]
+  }
+
+  query: top_cross_border_warehouse_country_corridors {
+    description: "Top 20 international cross-border warehouse-to-country shipping corridors outside the United States ranked by cross-border gross revenue."
+    dimensions: [
+      product_distribution_centers.name,
+      users.country
+    ]
+    measures: [
+      order_items.count,
+      order_items.total_revenue
+    ]
+    filters: [
+      products.id: "NOT NULL",
+      product_distribution_centers.id: "NOT NULL",
+      users.id: "NOT NULL",
+      users.country: "-United States,-NULL"
+    ]
+    sorts: [order_items.total_revenue: desc]
+    limit: 20
+  }
+
+  query: us_logistics_routing_absurdity_summary {
+    description: "Logistics Routing Absurdity Tax summary of domestic US shipments comparing optimal nearest-warehouse fulfillment against suboptimal detours, detour rate, average wasted km per item, and total wasted detour km."
+    measures: [
+      order_items.count,
+      category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments,
+      category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments,
+      category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate,
+      distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km,
+      distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km
+    ]
+    filters: [
+      users.country: "United States",
+      users.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL"
+    ]
+  }
+
+  query: top_mismatched_us_warehouse_detour_pairs {
+    description: "Top 15 domestic US warehouse routing mismatch corridors (actual shipping warehouse vs. closest catchment warehouse) ranked by detoured shipment count alongside average extra kilometers."
+    dimensions: [
+      distribution_centers.name,
+      user_warehouse_proximity_facts.nearest_warehouse_name
+    ]
+    measures: [
+      order_items.count,
+      distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km
+    ]
+    filters: [
+      users.country: "United States",
+      users.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.is_shipped_from_nearest_dc: "no"
+    ]
+    sorts: [order_items.count: desc]
+    limit: 15
+  }
+
+  query: top_customers_by_net_profit_contributed {
+    description: "Top 15 individual buyers ranked by cumulative net profit contributed alongside customer name, age, country, orders placed, items bought, and gross spend."
+    dimensions: [
+      users.id,
+      users.full_name,
+      users.age,
+      users.country
+    ]
+    measures: [
+      order_items.distinct_orders,
+      order_items.count,
+      order_items.total_revenue,
+      inventory_items_order_items_fields.total_gross_profit
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      orders.order_id: "NOT NULL",
+      inventory_items.id: "NOT NULL"
+    ]
+    sorts: [inventory_items_order_items_fields.total_gross_profit: desc]
+    limit: 15
   }
 
   query: carbon_footprint_pants_miles_summary {

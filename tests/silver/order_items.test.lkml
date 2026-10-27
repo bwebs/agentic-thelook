@@ -464,3 +464,35 @@ test: order_items_2024_01_01_garment_mileage_and_category_baseline_metrics {
     expression: ${category_sales_facts_order_items_fields.avg_category_baseline} > 0 AND ${category_sales_facts.category_orders} > 0 ;;
   }
 }
+
+test: order_items_us_routing_chaos_2024_01_01_metrics {
+  explore_source: order_items {
+    column: item_count { field: order_items.count }
+    column: total_theoretical_margin { field: order_items_products_fields.total_theoretical_margin }
+    column: chaos_adjusted_net_profit { field: inventory_items_order_items_fields.chaos_adjusted_net_profit }
+    column: avg_imputed_shelf_dwell_days { field: inventory_items_order_items_fields.avg_imputed_shelf_dwell_days }
+    column: optimal_shipments { field: category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments }
+    column: suboptimal_shipments { field: category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments }
+    column: routing_absurdity_rate { field: category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate }
+    column: avg_wasted_detour_km { field: distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km }
+    column: total_wasted_detour_km { field: distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km }
+    filters: [
+      order_items.created_date: "2024-01-01",
+      order_items.status: "Complete,Returned,Cancelled",
+      users.country: "United States",
+      users.id: "NOT NULL",
+      inventory_items.id: "NOT NULL",
+      distribution_centers.id: "NOT NULL",
+      products.id: "NOT NULL"
+    ]
+  }
+  assert: margins_and_chaos_profit_match {
+    expression: round(${order_items_products_fields.total_theoretical_margin}, 2) = 80.74 AND round(${inventory_items_order_items_fields.chaos_adjusted_net_profit}, 2) = 49.23 AND round(${inventory_items_order_items_fields.avg_imputed_shelf_dwell_days}, 2) = 30 ;;
+  }
+  assert: routing_absurdity_counts_match {
+    expression: ${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments} = 2 AND ${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments} = 3 AND round(${category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate}, 4) = 0.6 ;;
+  }
+  assert: wasted_detour_km_matches {
+    expression: round(${distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km}, 2) = 823.66 AND round(${distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km}, 2) = 4118.32 ;;
+  }
+}

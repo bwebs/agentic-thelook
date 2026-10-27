@@ -342,4 +342,22 @@ view: +events {
     sql: 1.0 * ${purchasing_sessions} / NULLIF(${unique_chaotic_sessions}, 0) ;;
     value_format_name: percent_2
   }
+
+  measure: first_touch_event_source {
+    label: "First-Touch Event Traffic Source"
+    description: "Earliest recorded session marketing traffic channel across clickstream events ordered chronologically by event timestamp."
+    synonyms: ["first touch event source", "earliest session traffic source"]
+    tags: ["non_additive"]
+    type: string
+    sql: ARRAY_AGG(${traffic_source} ORDER BY ${created_raw} ASC LIMIT 1)[OFFSET(0)] ;;
+  }
+
+  measure: last_touch_event_source {
+    label: "Last-Touch Event Traffic Source"
+    description: "Most recently recorded session marketing traffic channel across clickstream events ordered by event timestamp."
+    synonyms: ["last touch event source", "latest session traffic source"]
+    tags: ["non_additive"]
+    type: string
+    sql: ARRAY_AGG(${traffic_source} ORDER BY ${created_raw} DESC LIMIT 1)[OFFSET(0)] ;;
+  }
 }

@@ -2,6 +2,8 @@ include: "/bronze/distribution_centers.view.lkml"
 include: "/bronze/distribution_centers.refinement.lkml"
 include: "/bronze/explores/distribution_centers_base.explore.lkml"
 include: "/silver/warehouse_category_facts.view.lkml"
+include: "/silver/warehouse_inventory_facts.view.lkml"
+include: "/silver/warehouse_fulfillment_facts.view.lkml"
 
 explore: distribution_centers {
   extends: [distribution_centers_base]
@@ -14,6 +16,45 @@ explore: distribution_centers {
     type: left_outer
     relationship: one_to_many
     sql_on: ${distribution_centers.id} = ${warehouse_category_facts.dc_id} ;;
+  }
+
+  join: warehouse_inventory_facts {
+    view_label: "Warehouse Inventory Ledger Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${distribution_centers.id} = ${warehouse_inventory_facts.dc_id} ;;
+  }
+
+  join: warehouse_fulfillment_facts {
+    view_label: "Warehouse Fulfillment Physics & P&L Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${distribution_centers.id} = ${warehouse_fulfillment_facts.dc_id} ;;
+  }
+
+  query: warehouse_gravity_well_profit_efficiency_scorecard {
+    description: "Warehouse Gravity Well and Supply Chain Profit Efficiency unified P&L scorecard benchmarking every fulfillment center across stocked SKUs, deployed capital, dead-stock drag, turn days, fulfilled items, gross revenue, retained net profit, return drag, pick-pack speed, and net profit per 1,000 shipment km."
+    dimensions: [
+      distribution_centers.id,
+      distribution_centers.name
+    ]
+    measures: [
+      warehouse_inventory_facts.total_distinct_skus_stocked,
+      warehouse_inventory_facts.total_warehouse_capital_deployed,
+      warehouse_inventory_facts.total_dead_stock_drag,
+      warehouse_inventory_facts.avg_warehouse_turn_days,
+      warehouse_fulfillment_facts.total_fulfilled_order_items,
+      warehouse_fulfillment_facts.total_gross_revenue,
+      warehouse_fulfillment_facts.total_retained_net_profit,
+      warehouse_fulfillment_facts.return_drag_rate,
+      warehouse_fulfillment_facts.avg_warehouse_pick_pack_hours,
+      warehouse_fulfillment_facts.net_profit_per_1000_shipment_km
+    ]
+    filters: [
+      warehouse_inventory_facts.dc_id: "NOT NULL",
+      warehouse_fulfillment_facts.dc_id: "NOT NULL"
+    ]
+    sorts: [warehouse_fulfillment_facts.net_profit_per_1000_shipment_km: desc]
   }
 
   query: total_warehouse_empire_count {

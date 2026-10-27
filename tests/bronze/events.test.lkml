@@ -267,3 +267,20 @@ test: events_2024_01_01_session_purchase_metrics {
     expression: length(${events.click_journey_path}) > 0 ;;
   }
 }
+
+test: events_touch_attribution_2024_01_01_metrics {
+  explore_source: events {
+    column: first_touch_event_source { field: events.first_touch_event_source }
+    column: last_touch_event_source { field: events.last_touch_event_source }
+    column: event_count { field: events.count }
+    filters: [
+      events.created_date: "2024-01-01"
+    ]
+  }
+  assert: touch_sources_match {
+    expression: ${events.first_touch_event_source} = "Email" AND ${events.last_touch_event_source} = "Facebook" ;;
+  }
+  assert: event_count_matches {
+    expression: ${events.count} = 792 ;;
+  }
+}

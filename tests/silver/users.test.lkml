@@ -461,3 +461,33 @@ test: users_closet_brand_entropy_invariants {
     expression: ${user_brand_entropy_facts.avg_buyer_spend} > 0 AND ${user_brand_entropy_facts.avg_buyer_spend} >= ${user_brand_entropy_facts.avg_buyer_profit} ;;
   }
 }
+
+test: users_telemetry_rfme_cohort_1000_metrics {
+  explore_source: users {
+    column: is_channel_attribution_mirage { field: user_click_facts_users_fields.is_channel_attribution_mirage }
+    column: user_count { field: users.count }
+    column: total_purchase_events { field: user_click_facts.total_purchase_events }
+    column: total_items_bought { field: user_spend_facts.total_items_bought }
+    column: ledger_vs_clickstream_unit_gap { field: user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap }
+    column: exact_telemetry_match_users { field: user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users }
+    column: telemetry_drift_users { field: user_click_facts_user_spend_facts_users_fields.telemetry_drift_users }
+    column: avg_lifetime_profit { field: user_spend_facts.avg_lifetime_profit }
+    column: net_margin_per_click { field: user_click_facts_user_spend_facts_users_fields.net_margin_per_click }
+    column: rfme_buyer_count { field: user_rfme_facts.count }
+    column: avg_recency_days { field: user_rfme_facts.avg_recency_days }
+    filters: [
+      users.id: "<=1000",
+      user_spend_facts.user_id: "NOT NULL",
+      user_click_facts.user_id: "NOT NULL"
+    ]
+  }
+  assert: unit_gap_algebraic_identity {
+    expression: ${user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap} = ${user_spend_facts.total_items_bought} - ${user_click_facts.total_purchase_events} ;;
+  }
+  assert: telemetry_partition_identity {
+    expression: ${user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users} + ${user_click_facts_user_spend_facts_users_fields.telemetry_drift_users} = ${users.count} AND ${users.count} = ${user_rfme_facts.count} AND ${users.count} > 0 ;;
+  }
+  assert: margin_and_recency_bounds {
+    expression: ${user_spend_facts.avg_lifetime_profit} > 0 AND ${user_click_facts_user_spend_facts_users_fields.net_margin_per_click} > 0 AND ${user_rfme_facts.avg_recency_days} >= 0 ;;
+  }
+}

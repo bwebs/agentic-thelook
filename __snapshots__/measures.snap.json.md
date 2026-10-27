@@ -54,6 +54,31 @@
     "label": "Quadrant Revenue",
     "view_label": "Category Growth-Share Portfolio Facts"
   },
+  "agentic_thelook.category_warehouse_chaos_facts.category_warehouse_chaos_facts.avg_chaos_singularity_score": {
+    "explore_label": "Category-Warehouse Chaos Index",
+    "label": "Average Chaos Singularity Score",
+    "view_label": "Category-Warehouse Chaos Index Facts"
+  },
+  "agentic_thelook.category_warehouse_chaos_facts.category_warehouse_chaos_facts.count": {
+    "explore_label": "Category-Warehouse Chaos Index",
+    "label": "Qualified Category-Warehouse Pairs",
+    "view_label": "Category-Warehouse Chaos Index Facts"
+  },
+  "agentic_thelook.category_warehouse_chaos_facts.category_warehouse_chaos_facts.total_corridor_chaos_profit": {
+    "explore_label": "Category-Warehouse Chaos Index",
+    "label": "Total Corridor Chaos-Adjusted Net Profit",
+    "view_label": "Category-Warehouse Chaos Index Facts"
+  },
+  "agentic_thelook.country_channel_department_facts.country_channel_department_facts.count": {
+    "explore_label": "Country Channel-Department Margin Leaders",
+    "label": "Country-Channel-Department Segments",
+    "view_label": "Country Channel-Department Margin Rank Facts"
+  },
+  "agentic_thelook.country_channel_department_facts.country_channel_department_facts.total_segment_gross_margin": {
+    "explore_label": "Country Channel-Department Margin Leaders",
+    "label": "Total Segment Gross Margin",
+    "view_label": "Country Channel-Department Margin Rank Facts"
+  },
   "agentic_thelook.distribution_centers.distribution_centers.count": {
     "explore_label": "Distribution Centers",
     "label": "Total Warehouse Empire Count",
@@ -83,6 +108,66 @@
     "explore_label": "Distribution Centers",
     "label": "Specialty Tier Units Sold",
     "view_label": "Warehouse Category Specialty Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.avg_warehouse_pick_pack_hours": {
+    "explore_label": "Distribution Centers",
+    "label": "Average Pick-and-Pack Hours",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.count": {
+    "explore_label": "Distribution Centers",
+    "label": "Active Fulfillment Warehouses",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.net_profit_per_1000_shipment_km": {
+    "explore_label": "Distribution Centers",
+    "label": "Net Profit per 1,000 Shipment km",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.return_drag_rate": {
+    "explore_label": "Distribution Centers",
+    "label": "Warehouse Return Drag Rate",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.total_fulfilled_order_items": {
+    "explore_label": "Distribution Centers",
+    "label": "Fulfilled Order Items",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.total_gross_revenue": {
+    "explore_label": "Distribution Centers",
+    "label": "Outbound Gross Revenue",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_fulfillment_facts.total_retained_net_profit": {
+    "explore_label": "Distribution Centers",
+    "label": "Outbound Retained Net Profit",
+    "view_label": "Warehouse Fulfillment Physics & P&L Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_inventory_facts.avg_warehouse_turn_days": {
+    "explore_label": "Distribution Centers",
+    "label": "Average Warehouse Turn Days",
+    "view_label": "Warehouse Inventory Ledger Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_inventory_facts.count": {
+    "explore_label": "Distribution Centers",
+    "label": "Stocked Warehouses",
+    "view_label": "Warehouse Inventory Ledger Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_inventory_facts.total_dead_stock_drag": {
+    "explore_label": "Distribution Centers",
+    "label": "Dead-Stock Capital Drag",
+    "view_label": "Warehouse Inventory Ledger Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_inventory_facts.total_distinct_skus_stocked": {
+    "explore_label": "Distribution Centers",
+    "label": "Distinct SKUs Stocked",
+    "view_label": "Warehouse Inventory Ledger Facts"
+  },
+  "agentic_thelook.distribution_centers.warehouse_inventory_facts.total_warehouse_capital_deployed": {
+    "explore_label": "Distribution Centers",
+    "label": "Capital Deployed",
+    "view_label": "Warehouse Inventory Ledger Facts"
   },
   "agentic_thelook.event_transition_matrix_facts.event_transition_matrix_facts.avg_seconds_before_transition": {
     "explore_label": "Clickstream Step Transition Matrix",
@@ -264,6 +349,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
+  "agentic_thelook.events.events.first_touch_event_source": {
+    "explore_label": "Events",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
   "agentic_thelook.events.events.home_events": {
     "explore_label": "Events",
     "label": "Home Page Events",
@@ -277,6 +367,11 @@
   "agentic_thelook.events.events.ie_events": {
     "explore_label": "Events",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.events.events.last_touch_event_source": {
+    "explore_label": "Events",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Events"
   },
   "agentic_thelook.events.events.latest_browser": {
@@ -394,9 +489,19 @@
     "label": "Average Days on Shelf Before Sale",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.inventory_items.inventory_items.avg_inventory_turn_days": {
+    "explore_label": "Inventory Items",
+    "label": "Average Inventory Turn Days",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.inventory_items.inventory_items.count": {
     "explore_label": "Inventory Items",
     "label": "Inventory Units Count",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.inventory_items.inventory_items.distinct_products": {
+    "explore_label": "Inventory Items",
+    "label": "Distinct Stocked SKUs",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.inventory_items.inventory_items.hypothetical_retail_value": {
@@ -519,6 +624,21 @@
     "label": "Average Category Baseline Price",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments": {
+    "explore_label": "Order Items",
+    "label": "Optimal Nearest-Warehouse Shipments",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate": {
+    "explore_label": "Order Items",
+    "label": "Logistics Routing Absurdity Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments": {
+    "explore_label": "Order Items",
+    "label": "Suboptimal Detour Shipments",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.distribution_centers.count": {
     "explore_label": "Order Items",
     "label": "Total Warehouse Empire Count",
@@ -528,6 +648,16 @@
     "explore_label": "Order Items",
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km": {
+    "explore_label": "Order Items",
+    "label": "Average Wasted Detour Distance per Item (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km": {
+    "explore_label": "Order Items",
+    "label": "Total Wasted Detour Distance (km)",
+    "view_label": "Order Items"
   },
   "agentic_thelook.order_items.distribution_centers_order_items_users_fields.avg_lat_degrees_crossed": {
     "explore_label": "Order Items",
@@ -564,9 +694,19 @@
     "label": "Average Days on Shelf Before Sale",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items.inventory_items.avg_inventory_turn_days": {
+    "explore_label": "Order Items",
+    "label": "Average Inventory Turn Days",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.order_items.inventory_items.count": {
     "explore_label": "Order Items",
     "label": "Inventory Units Count",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items.inventory_items.distinct_products": {
+    "explore_label": "Order Items",
+    "label": "Distinct Stocked SKUs",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.order_items.inventory_items.hypothetical_retail_value": {
@@ -609,9 +749,19 @@
     "label": "Average Unit Gross Profit",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.avg_imputed_shelf_dwell_days": {
+    "explore_label": "Order Items",
+    "label": "Average Imputed Shelf Dwell Days",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.inventory_items_order_items_fields.avg_order_shelf_age_days": {
     "explore_label": "Order Items",
     "label": "Average Order Shelf Age (Days, Zero-Defaulted)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.inventory_items_order_items_fields.chaos_adjusted_net_profit": {
+    "explore_label": "Order Items",
+    "label": "Chaos-Adjusted Net Profit",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.inventory_items_order_items_fields.gross_margin_ratio": {
@@ -642,6 +792,11 @@
   "agentic_thelook.order_items.order_items.avg_hours_to_ship": {
     "explore_label": "Order Items",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Order Items",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items.avg_item_price": {
@@ -734,6 +889,16 @@
     "label": "Returned Items",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items.order_items.reversal_loss_rate": {
+    "explore_label": "Order Items",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items.reversed_items": {
+    "explore_label": "Order Items",
+    "label": "Returned or Cancelled Items",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items.order_items.spend_per_buyer": {
     "explore_label": "Order Items",
     "label": "Spend per Active Buyer",
@@ -817,6 +982,11 @@
   "agentic_thelook.order_items.order_items_products_fields.total_sock_revenue": {
     "explore_label": "Order Items",
     "label": "Total Socks & Hosiery Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items.order_items_products_fields.total_theoretical_margin": {
+    "explore_label": "Order Items",
+    "label": "Total Theoretical Catalog Margin",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items.order_items_products_fields.total_warm_clothing_revenue": {
@@ -908,6 +1078,16 @@
     "explore_label": "Order Items",
     "label": "Total Items in Orders",
     "view_label": "Orders"
+  },
+  "agentic_thelook.order_items.product_distribution_centers.count": {
+    "explore_label": "Order Items",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Product Catalog Distribution Center"
+  },
+  "agentic_thelook.order_items.product_distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Order Items",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Product Catalog Distribution Center"
   },
   "agentic_thelook.order_items.products.avg_dollar_markup": {
     "explore_label": "Order Items",
@@ -1019,6 +1199,21 @@
     "label": "Average Category Baseline Price",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items_category_cooccurrence.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.optimal_nearest_warehouse_shipments": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Optimal Nearest-Warehouse Shipments",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.routing_absurdity_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Logistics Routing Absurdity Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.category_sku_price_facts_distribution_centers_inventory_items_order_items_user_click_facts_user_item_volume_facts_user_warehouse_proximity_facts_fields.suboptimal_detour_shipments": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Suboptimal Detour Shipments",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items_category_cooccurrence.distribution_centers.count": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Total Warehouse Empire Count",
@@ -1028,6 +1223,16 @@
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Mean Warehouse Latitude",
     "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.avg_wasted_detour_km": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Wasted Detour Distance per Item (km)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_user_warehouse_proximity_facts_users_fields.total_wasted_detour_km": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Wasted Detour Distance (km)",
+    "view_label": "Order Items"
   },
   "agentic_thelook.order_items_category_cooccurrence.distribution_centers_order_items_users_fields.avg_lat_degrees_crossed": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
@@ -1064,9 +1269,19 @@
     "label": "Average Days on Shelf Before Sale",
     "view_label": "Inventory Items"
   },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.avg_inventory_turn_days": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Inventory Turn Days",
+    "view_label": "Inventory Items"
+  },
   "agentic_thelook.order_items_category_cooccurrence.inventory_items.count": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Inventory Units Count",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items.distinct_products": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Distinct Stocked SKUs",
     "view_label": "Inventory Items"
   },
   "agentic_thelook.order_items_category_cooccurrence.inventory_items.hypothetical_retail_value": {
@@ -1109,9 +1324,19 @@
     "label": "Average Unit Gross Profit",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.avg_imputed_shelf_dwell_days": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Imputed Shelf Dwell Days",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.avg_order_shelf_age_days": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Average Order Shelf Age (Days, Zero-Defaulted)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.chaos_adjusted_net_profit": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Chaos-Adjusted Net Profit",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items_category_cooccurrence.inventory_items_order_items_fields.gross_margin_ratio": {
@@ -1147,6 +1372,11 @@
   "agentic_thelook.order_items_category_cooccurrence.order_items.avg_hours_to_ship": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items_category_cooccurrence.order_items.avg_item_price": {
@@ -1237,6 +1467,16 @@
   "agentic_thelook.order_items_category_cooccurrence.order_items.returned_items": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.reversal_loss_rate": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.order_items.reversed_items": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.order_items_category_cooccurrence.order_items.spend_per_buyer": {
@@ -1334,6 +1574,11 @@
     "label": "Total Socks & Hosiery Revenue",
     "view_label": "Order Items"
   },
+  "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.total_theoretical_margin": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Theoretical Catalog Margin",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.order_items_category_cooccurrence.order_items_products_fields.total_warm_clothing_revenue": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Cozy Warm Clothing Spend",
@@ -1428,6 +1673,16 @@
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
     "label": "Category Distinct Orders",
     "view_label": "Paired Basket Product"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.product_distribution_centers.count": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Product Catalog Distribution Center"
+  },
+  "agentic_thelook.order_items_category_cooccurrence.product_distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Product Catalog Distribution Center"
   },
   "agentic_thelook.order_items_category_cooccurrence.products.avg_dollar_markup": {
     "explore_label": "Order Items (Market Basket Category Co-Occurrence)",
@@ -1539,6 +1794,11 @@
     "label": "Average Hours to Ship",
     "view_label": "Order Items Financial Ledger"
   },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_imputed_fulfillment_hours": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
+    "view_label": "Order Items Financial Ledger"
+  },
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.avg_item_price": {
     "explore_label": "Order Items (Financial Margin Ledger)",
     "label": "Average Item Price",
@@ -1627,6 +1887,16 @@
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.returned_items": {
     "explore_label": "Order Items (Financial Margin Ledger)",
     "label": "Returned Items",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.reversal_loss_rate": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items Financial Ledger"
+  },
+  "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.reversed_items": {
+    "explore_label": "Order Items (Financial Margin Ledger)",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items Financial Ledger"
   },
   "agentic_thelook.order_items_financial_ledger.order_items_financial_ledger.spend_per_buyer": {
@@ -2074,6 +2344,11 @@
     "label": "Average Hours to Ship",
     "view_label": "Order Items"
   },
+  "agentic_thelook.products.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Products",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
+    "view_label": "Order Items"
+  },
   "agentic_thelook.products.order_items.avg_item_price": {
     "explore_label": "Products",
     "label": "Average Item Price",
@@ -2162,6 +2437,16 @@
   "agentic_thelook.products.order_items.returned_items": {
     "explore_label": "Products",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.reversal_loss_rate": {
+    "explore_label": "Products",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.products.order_items.reversed_items": {
+    "explore_label": "Products",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.products.order_items.spend_per_buyer": {
@@ -2304,6 +2589,501 @@
     "label": "Share of All Browsing Sessions",
     "view_label": "Session Journey Path Facts"
   },
+  "agentic_thelook.storewide_entity_ledger.distribution_centers.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Warehouse Empire Count",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.storewide_entity_ledger.distribution_centers.mean_warehouse_latitude": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Mean Warehouse Latitude",
+    "view_label": "Distribution Centers"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.approx_unique_sessions": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Approximate Unique Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.avg_url_path_depth": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average URL Path Depth",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.brand_url_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Brand Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.browser_combo": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Browser Combination",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.cancel_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Rage-Quit Cancel Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.cancel_to_cart_ratio": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Rage-Quit Cart Abandonment Ratio",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.cart_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Cart Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.carts_per_purchase_ratio": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Carts per Purchase Ratio",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.category_url_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Category Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.click_journey_path": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Clickstream Journey Path",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.click_trail": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Clickstream Event Trail",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Click Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.department_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Department Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.department_url_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Department Deep-Link Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.distinct_browsers": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Browsers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.distinct_cities": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Event Cities",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.distinct_clicking_humans": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Clicking Shoppers",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.distinct_ip_addresses": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct IP Addresses",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.distinct_traffic_sources": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Traffic Sources",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.event_span_minutes": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Event Span Duration (Minutes)",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.first_touch_event_source": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.home_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Home Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.ie_event_share": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Internet Explorer Traffic Share (Dinosaur Tax)",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.ie_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.last_touch_event_source": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Last-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.latest_browser": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Latest Event Browser",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.max_sequence_number": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Max Sequence Number",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.product_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Product Page Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.purchase_events": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Purchase Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.purchasing_sessions": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Purchasing Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.session_purchase_rate": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Session Purchase Rate",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.events.unique_chaotic_sessions": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Unique Browsing Sessions",
+    "view_label": "Events"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.avg_days_on_shelf": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.avg_inventory_turn_days": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Inventory Turn Days",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Inventory Units Count",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.distinct_products": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Stocked SKUs",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.hypothetical_retail_value": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Unsold Hypothetical Retail Value",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.sell_through_rate": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Sell-Through Rate",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.sold_units": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Sold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.stddev_days_on_shelf": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "StdDev Days on Shelf Before Sale",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.sunk_dusty_shelf_cost": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Unsold Dusty Shelf Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.total_cost": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Inventory Cost",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.inventory_items.unsold_units": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Remaining Unsold Inventory Units",
+    "view_label": "Inventory Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_hours_to_deliver": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Hours to Deliver",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_hours_to_ship": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_item_price": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Item Price",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_total_doorstep_wait_hours": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Total Doorstep Wait (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_truck_transit_hours": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Truck Transit (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.avg_warehouse_procrastination_hours": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Warehouse Procrastination (Whole Hours)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.completed_items": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Completed Line Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Impulse Line Items Count",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.distinct_orders": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Orders",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.distinct_users": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Active Buyers",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.ever_return_rate": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Brand Return Boomerang Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.ever_returned_items": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Boomeranged Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.ever_returned_revenue": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Boomeranged Refund Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.late_night_revenue": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Midnight Owl Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.late_night_revenue_share": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Midnight Owl Impulse Spend Share",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.recent_era_revenue": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Recent-Era Revenue (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.recent_era_revenue_share": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Recent-Era Revenue Share (2025+)",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.refunded_revenue": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Refunded Dollars",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.return_rate": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Item Return Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.returned_items": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.reversal_loss_rate": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.reversed_items": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Returned or Cancelled Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.spend_per_buyer": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Spend per Active Buyer",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.stddev_sale_price": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Sale Price Standard Deviation",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.order_items.total_revenue": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Revenue",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.avg_items_per_order": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.cancelled_or_returned_orders": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Buyer's Remorse Order Volume (Cancelled or Returned)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Order Count",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.distinct_users": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Buying Users",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.max_items_per_order": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Max Items per Order",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.stddev_items_per_order": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Basket Size Standard Deviation (Jitter)",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.orders.total_items": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Total Items in Orders",
+    "view_label": "Orders"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.avg_dollar_markup": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Dollar Markup",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.avg_markup_greed_pct": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Catalog Markup Greed Ratio",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.avg_sticker_price": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Sticker Shock",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.avg_wholesale_cost": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Wholesale Cost",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Count",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.distinct_brands": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Brands",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.distinct_categories": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Categories",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.max_retail_price": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Maximum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.max_title_word_count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Max Words in a Product Name",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.products.min_retail_price": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Minimum Retail Price",
+    "view_label": "Products"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.avg_abs_latitude": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Absolute Customer Latitude",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.avg_customer_age": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Customer Wisdom Level",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.avg_resident_age": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Average Resident Age (1 Decimal)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.count": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Count",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.distinct_cities": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Cities",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.distinct_countries": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Countries",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.distinct_postal_codes": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct Postal Codes",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.distinct_states": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Distinct States or Provinces",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.oldest_shopper_age": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Oldest Shopper Age",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.us_registered_users": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "US State Registered Users",
+    "view_label": "Users"
+  },
+  "agentic_thelook.storewide_entity_ledger.users.youngest_shopper_age": {
+    "explore_label": "Storewide Multi-Fact Entity Ledger",
+    "label": "Youngest Shopper Age",
+    "view_label": "Users"
+  },
   "agentic_thelook.user_brand_facts.user_brand_facts.count": {
     "explore_label": "Brand Repeat Buyer Devotion",
     "label": "Distinct Brand Buyers",
@@ -2424,6 +3204,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
+  "agentic_thelook.users.events.first_touch_event_source": {
+    "explore_label": "Users",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
   "agentic_thelook.users.events.home_events": {
     "explore_label": "Users",
     "label": "Home Page Events",
@@ -2437,6 +3222,11 @@
   "agentic_thelook.users.events.ie_events": {
     "explore_label": "Users",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users.events.last_touch_event_source": {
+    "explore_label": "Users",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Events"
   },
   "agentic_thelook.users.events.latest_browser": {
@@ -2502,6 +3292,11 @@
   "agentic_thelook.users.order_items.avg_hours_to_ship": {
     "explore_label": "Users",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Users",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.users.order_items.avg_item_price": {
@@ -2592,6 +3387,16 @@
   "agentic_thelook.users.order_items.returned_items": {
     "explore_label": "Users",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.reversal_loss_rate": {
+    "explore_label": "Users",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users.order_items.reversed_items": {
+    "explore_label": "Users",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.users.order_items.spend_per_buyer": {
@@ -2759,6 +3564,11 @@
     "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users.user_click_facts.total_purchase_events": {
+    "explore_label": "Users",
+    "label": "Total Customer Clickstream Purchase Events",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent": {
     "explore_label": "Users",
     "label": "Average Clicks per Dollar Spent",
@@ -2779,9 +3589,29 @@
     "label": "Clicks-per-Dollar Ratio",
     "view_label": "Users"
   },
+  "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users": {
+    "explore_label": "Users",
+    "label": "Exact Telemetry Match Buyers",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap": {
+    "explore_label": "Users",
+    "label": "Ledger vs. Clickstream Purchase Unit Gap",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.net_margin_per_click": {
+    "explore_label": "Users",
+    "label": "Net Gross Profit Margin per Buyer Click",
+    "view_label": "Users"
+  },
   "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.revenue_per_click": {
     "explore_label": "Users",
     "label": "Revenue per Click (Active Buyers)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users.user_click_facts_user_spend_facts_users_fields.telemetry_drift_users": {
+    "explore_label": "Users",
+    "label": "Telemetry Drift Buyers",
     "view_label": "Users"
   },
   "agentic_thelook.users.user_cohort_facts.initial_cohort_users": {
@@ -2834,6 +3664,36 @@
     "label": "Total Decile Revenue",
     "view_label": "Customer Pareto Spend Concentration Facts"
   },
+  "agentic_thelook.users.user_rfme_facts.avg_buyer_clicks": {
+    "explore_label": "Users",
+    "label": "Average Buyer Clicks",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users.user_rfme_facts.avg_frequency_orders": {
+    "explore_label": "Users",
+    "label": "Average Buyer Orders",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users.user_rfme_facts.avg_gross_spend": {
+    "explore_label": "Users",
+    "label": "Average Buyer Gross Spend",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users.user_rfme_facts.avg_net_margin": {
+    "explore_label": "Users",
+    "label": "Average Buyer Net Margin",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users.user_rfme_facts.avg_recency_days": {
+    "explore_label": "Users",
+    "label": "Average Buyer Recency Days",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users.user_rfme_facts.count": {
+    "explore_label": "Users",
+    "label": "RFME-Scored Buyers",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
   "agentic_thelook.users.user_spend_facts.any_returner_users": {
     "explore_label": "Users",
     "label": "Returner Users (1+ Returns)",
@@ -2842,6 +3702,11 @@
   "agentic_thelook.users.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users",
     "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users.user_spend_facts.avg_lifetime_profit": {
+    "explore_label": "Users",
+    "label": "Average Customer Gross Profit LTV",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users.user_spend_facts.blended_lifetime_margin_ratio": {
@@ -3104,6 +3969,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Channel Clickstream Events"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.channel_events.first_touch_event_source": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Channel Clickstream Events"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.channel_events.home_events": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Home Page Events",
@@ -3117,6 +3987,11 @@
   "agentic_thelook.users_channel_conversion_efficiency.channel_events.ie_events": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Internet Explorer Events",
+    "view_label": "Channel Clickstream Events"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.channel_events.last_touch_event_source": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Channel Clickstream Events"
   },
   "agentic_thelook.users_channel_conversion_efficiency.channel_events.latest_browser": {
@@ -3254,6 +4129,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.events.first_touch_event_source": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.events.home_events": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Home Page Events",
@@ -3267,6 +4147,11 @@
   "agentic_thelook.users_channel_conversion_efficiency.events.ie_events": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.events.last_touch_event_source": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Events"
   },
   "agentic_thelook.users_channel_conversion_efficiency.events.latest_browser": {
@@ -3332,6 +4217,11 @@
   "agentic_thelook.users_channel_conversion_efficiency.order_items.avg_hours_to_ship": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_channel_conversion_efficiency.order_items.avg_item_price": {
@@ -3422,6 +4312,16 @@
   "agentic_thelook.users_channel_conversion_efficiency.order_items.returned_items": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.order_items.reversal_loss_rate": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.order_items.reversed_items": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_channel_conversion_efficiency.order_items.spend_per_buyer": {
@@ -3589,6 +4489,11 @@
     "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.user_click_facts.total_purchase_events": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Total Customer Clickstream Purchase Events",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Average Clicks per Dollar Spent",
@@ -3609,9 +4514,29 @@
     "label": "Clicks-per-Dollar Ratio",
     "view_label": "Users"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Exact Telemetry Match Buyers",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Ledger vs. Clickstream Purchase Unit Gap",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.net_margin_per_click": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Net Gross Profit Margin per Buyer Click",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.revenue_per_click": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Revenue per Click (Active Buyers)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_click_facts_user_spend_facts_users_fields.telemetry_drift_users": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Telemetry Drift Buyers",
     "view_label": "Users"
   },
   "agentic_thelook.users_channel_conversion_efficiency.user_cohort_facts.initial_cohort_users": {
@@ -3664,6 +4589,36 @@
     "label": "Total Decile Revenue",
     "view_label": "Customer Pareto Spend Concentration Facts"
   },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.avg_buyer_clicks": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Buyer Clicks",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.avg_frequency_orders": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Buyer Orders",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.avg_gross_spend": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Buyer Gross Spend",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.avg_net_margin": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Buyer Net Margin",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.avg_recency_days": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Buyer Recency Days",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_rfme_facts.count": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "RFME-Scored Buyers",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
   "agentic_thelook.users_channel_conversion_efficiency.user_spend_facts.any_returner_users": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Returner Users (1+ Returns)",
@@ -3672,6 +4627,11 @@
   "agentic_thelook.users_channel_conversion_efficiency.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
     "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_channel_conversion_efficiency.user_spend_facts.avg_lifetime_profit": {
+    "explore_label": "Users (Annual Channel Signup-to-Purchase Efficiency)",
+    "label": "Average Customer Gross Profit LTV",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users_channel_conversion_efficiency.user_spend_facts.blended_lifetime_margin_ratio": {
@@ -3929,6 +4889,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
+  "agentic_thelook.users_signup_activation.events.first_touch_event_source": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_signup_activation.events.home_events": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Home Page Events",
@@ -3942,6 +4907,11 @@
   "agentic_thelook.users_signup_activation.events.ie_events": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_signup_activation.events.last_touch_event_source": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Events"
   },
   "agentic_thelook.users_signup_activation.events.latest_browser": {
@@ -4007,6 +4977,11 @@
   "agentic_thelook.users_signup_activation.order_items.avg_hours_to_ship": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_signup_activation.order_items.avg_item_price": {
@@ -4097,6 +5072,16 @@
   "agentic_thelook.users_signup_activation.order_items.returned_items": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.reversal_loss_rate": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_signup_activation.order_items.reversed_items": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_signup_activation.order_items.spend_per_buyer": {
@@ -4299,6 +5284,11 @@
     "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_signup_activation.user_click_facts.total_purchase_events": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Total Customer Clickstream Purchase Events",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Clicks per Dollar Spent",
@@ -4319,9 +5309,29 @@
     "label": "Clicks-per-Dollar Ratio",
     "view_label": "Users"
   },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Exact Telemetry Match Buyers",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Ledger vs. Clickstream Purchase Unit Gap",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.net_margin_per_click": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Net Gross Profit Margin per Buyer Click",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.revenue_per_click": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Revenue per Click (Active Buyers)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_signup_activation.user_click_facts_user_spend_facts_users_fields.telemetry_drift_users": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Telemetry Drift Buyers",
     "view_label": "Users"
   },
   "agentic_thelook.users_signup_activation.user_cohort_facts.initial_cohort_users": {
@@ -4374,6 +5384,36 @@
     "label": "Total Decile Revenue",
     "view_label": "Customer Pareto Spend Concentration Facts"
   },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.avg_buyer_clicks": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Buyer Clicks",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.avg_frequency_orders": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Buyer Orders",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.avg_gross_spend": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Buyer Gross Spend",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.avg_net_margin": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Buyer Net Margin",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.avg_recency_days": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Buyer Recency Days",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_rfme_facts.count": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "RFME-Scored Buyers",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
   "agentic_thelook.users_signup_activation.user_spend_facts.any_returner_users": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Returner Users (1+ Returns)",
@@ -4382,6 +5422,11 @@
   "agentic_thelook.users_signup_activation.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users (Signup Activation Cohort)",
     "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_signup_activation.user_spend_facts.avg_lifetime_profit": {
+    "explore_label": "Users (Signup Activation Cohort)",
+    "label": "Average Customer Gross Profit LTV",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users_signup_activation.user_spend_facts.blended_lifetime_margin_ratio": {
@@ -4639,6 +5684,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "Events"
   },
+  "agentic_thelook.users_state_channel_traffic.events.first_touch_event_source": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "Events"
+  },
   "agentic_thelook.users_state_channel_traffic.events.home_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Home Page Events",
@@ -4652,6 +5702,11 @@
   "agentic_thelook.users_state_channel_traffic.events.ie_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Internet Explorer Events",
+    "view_label": "Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.events.last_touch_event_source": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "Events"
   },
   "agentic_thelook.users_state_channel_traffic.events.latest_browser": {
@@ -4717,6 +5772,11 @@
   "agentic_thelook.users_state_channel_traffic.order_items.avg_hours_to_ship": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Hours to Ship",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.avg_imputed_fulfillment_hours": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Imputed End-to-End Fulfillment Hours",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_state_channel_traffic.order_items.avg_item_price": {
@@ -4807,6 +5867,16 @@
   "agentic_thelook.users_state_channel_traffic.order_items.returned_items": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Returned Items",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.reversal_loss_rate": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Return or Cancellation Loss Rate",
+    "view_label": "Order Items"
+  },
+  "agentic_thelook.users_state_channel_traffic.order_items.reversed_items": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Returned or Cancelled Items",
     "view_label": "Order Items"
   },
   "agentic_thelook.users_state_channel_traffic.order_items.spend_per_buyer": {
@@ -5019,6 +6089,11 @@
     "label": "Event Span Duration (Minutes)",
     "view_label": "State Clickstream Events"
   },
+  "agentic_thelook.users_state_channel_traffic.state_events.first_touch_event_source": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "First-Touch Event Traffic Source",
+    "view_label": "State Clickstream Events"
+  },
   "agentic_thelook.users_state_channel_traffic.state_events.home_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Home Page Events",
@@ -5032,6 +6107,11 @@
   "agentic_thelook.users_state_channel_traffic.state_events.ie_events": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Internet Explorer Events",
+    "view_label": "State Clickstream Events"
+  },
+  "agentic_thelook.users_state_channel_traffic.state_events.last_touch_event_source": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Last-Touch Event Traffic Source",
     "view_label": "State Clickstream Events"
   },
   "agentic_thelook.users_state_channel_traffic.state_events.latest_browser": {
@@ -5129,6 +6209,11 @@
     "label": "Total Customer Away-from-Home Events",
     "view_label": "Customer Clickstream Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts.total_purchase_events": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Total Customer Clickstream Purchase Events",
+    "view_label": "Customer Clickstream Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Clicks per Dollar Spent",
@@ -5149,9 +6234,29 @@
     "label": "Clicks-per-Dollar Ratio",
     "view_label": "Users"
   },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Exact Telemetry Match Buyers",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Ledger vs. Clickstream Purchase Unit Gap",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.net_margin_per_click": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Net Gross Profit Margin per Buyer Click",
+    "view_label": "Users"
+  },
   "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.revenue_per_click": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Revenue per Click (Active Buyers)",
+    "view_label": "Users"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_click_facts_user_spend_facts_users_fields.telemetry_drift_users": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Telemetry Drift Buyers",
     "view_label": "Users"
   },
   "agentic_thelook.users_state_channel_traffic.user_cohort_facts.initial_cohort_users": {
@@ -5204,6 +6309,36 @@
     "label": "Total Decile Revenue",
     "view_label": "Customer Pareto Spend Concentration Facts"
   },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.avg_buyer_clicks": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Buyer Clicks",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.avg_frequency_orders": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Buyer Orders",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.avg_gross_spend": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Buyer Gross Spend",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.avg_net_margin": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Buyer Net Margin",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.avg_recency_days": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Buyer Recency Days",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_rfme_facts.count": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "RFME-Scored Buyers",
+    "view_label": "Customer RFME Super-Score Facts"
+  },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.any_returner_users": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Returner Users (1+ Returns)",
@@ -5212,6 +6347,11 @@
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.avg_customer_ltv": {
     "explore_label": "Users (State & Channel Traffic Balance)",
     "label": "Average Customer LTV",
+    "view_label": "Customer Spend Facts"
+  },
+  "agentic_thelook.users_state_channel_traffic.user_spend_facts.avg_lifetime_profit": {
+    "explore_label": "Users (State & Channel Traffic Balance)",
+    "label": "Average Customer Gross Profit LTV",
     "view_label": "Customer Spend Facts"
   },
   "agentic_thelook.users_state_channel_traffic.user_spend_facts.blended_lifetime_margin_ratio": {

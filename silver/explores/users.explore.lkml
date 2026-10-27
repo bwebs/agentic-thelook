@@ -28,6 +28,8 @@ include: "/silver/events_users_fields.view.lkml"
 include: "/silver/user_warehouse_proximity_facts.view.lkml"
 include: "/silver/user_brand_entropy_facts.view.lkml"
 include: "/silver/user_pareto_facts.view.lkml"
+include: "/silver/user_click_facts_users_fields.view.lkml"
+include: "/silver/user_rfme_facts.view.lkml"
 
 explore: users {
   extends: [users_sales_base]
@@ -168,6 +170,84 @@ explore: users {
     type: left_outer
     relationship: one_to_one
     sql_on: ${users.id} = ${user_pareto_facts.user_id} ;;
+  }
+
+  join: user_click_facts_users_fields {
+    view_label: "Customer Clickstream Facts"
+    sql: ;;
+    relationship: one_to_one
+  }
+
+  join: user_rfme_facts {
+    view_label: "Customer RFME Super-Score Facts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${user_rfme_facts.user_id} ;;
+  }
+
+  query: clickstream_attribution_mirage_reconciliation {
+    description: "Clickstream Attribution Mirage Divergence reconciling signup marketing channel against latest session traffic channel alongside matched buyers, clickstream purchases, ledger order items, unit gap, attributed gross revenue, and net margin."
+    dimensions: [
+      users.traffic_source,
+      user_click_facts.last_touch_event_source,
+      user_click_facts_users_fields.is_channel_attribution_mirage
+    ]
+    measures: [
+      users.count,
+      user_click_facts.total_purchase_events,
+      user_spend_facts.total_items_bought,
+      user_click_facts_user_spend_facts_users_fields.ledger_vs_clickstream_unit_gap,
+      user_spend_facts.total_lifetime_spend,
+      user_spend_facts.total_lifetime_profit
+    ]
+    filters: [
+      user_click_facts.user_id: "NOT NULL",
+      user_spend_facts.user_id: "NOT NULL"
+    ]
+    sorts: [user_spend_facts.total_lifetime_spend: desc]
+  }
+
+  query: telemetry_drift_by_channels_touched {
+    description: "Buyer volume, exact clickstream-to-ledger purchase match count, telemetry drift user count, and average buyer spend broken down by distinct clickstream channels touched."
+    dimensions: [user_click_facts.distinct_event_sources]
+    measures: [
+      user_spend_facts.count,
+      user_click_facts_user_spend_facts_users_fields.exact_telemetry_match_users,
+      user_click_facts_user_spend_facts_users_fields.telemetry_drift_users,
+      user_spend_facts.avg_customer_ltv
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_click_facts.distinct_event_sources: asc]
+  }
+
+  query: customer_rfme_super_score_distribution {
+    description: "Customer RFM and Clickstream Engagement Super-Score distribution across the 4-to-20 composite scale with buyer count, average age, recency days, orders, gross spend, net margin, and clicks."
+    dimensions: [user_rfme_facts.composite_rfme_score]
+    measures: [
+      user_rfme_facts.count,
+      users.avg_customer_age,
+      user_rfme_facts.avg_recency_days,
+      user_rfme_facts.avg_frequency_orders,
+      user_rfme_facts.avg_gross_spend,
+      user_rfme_facts.avg_net_margin,
+      user_rfme_facts.avg_buyer_clicks
+    ]
+    filters: [user_rfme_facts.user_id: "NOT NULL"]
+    sorts: [user_rfme_facts.composite_rfme_score: desc]
+  }
+
+  query: buyer_margin_and_clicks_by_channel_and_gender {
+    description: "Active buyers, average age, average net margin LTV, average clicks per buyer, and net margin per click broken down by acquisition channel and gender."
+    dimensions: [users.traffic_source, users.gender]
+    measures: [
+      users.count,
+      users.avg_customer_age,
+      user_spend_facts.avg_lifetime_profit,
+      user_click_facts_user_spend_facts_users_fields.avg_user_clicks,
+      user_click_facts_user_spend_facts_users_fields.net_margin_per_click
+    ]
+    filters: [user_spend_facts.user_id: "NOT NULL"]
+    sorts: [user_spend_facts.avg_lifetime_profit: desc]
   }
 
   query: customer_spend_deciles {
