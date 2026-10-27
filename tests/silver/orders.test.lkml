@@ -72,3 +72,32 @@ test: orders_2024_01_repeat_spend_escalation {
     expression: index(${user_spend_trajectory_facts.order_sequence_number}, 2) = 2 AND index(${orders.distinct_users}, 2) > 0 AND index(${user_spend_trajectory_facts.avg_spend_escalation_multiplier}, 2) > 0 ;;
   }
 }
+
+test: orders_2024_01_purchase_cooldown_metrics {
+  explore_source: orders {
+    column: repeat_orders { field: order_purchase_cooldowns.repeat_orders }
+    column: avg_dopamine_cooldown_days { field: order_purchase_cooldowns.avg_dopamine_cooldown_days }
+    column: min_cooldown_hours { field: order_purchase_cooldowns.min_cooldown_hours }
+    column: max_cooldown_days { field: order_purchase_cooldowns.max_cooldown_days }
+    column: avg_whole_cooldown_days { field: order_purchase_cooldowns.avg_whole_cooldown_days }
+    filters: [
+      orders.created_date: "2024-01",
+      order_purchase_cooldowns.is_repeat_order: "yes"
+    ]
+  }
+  assert: repeat_orders_matches {
+    expression: ${order_purchase_cooldowns.repeat_orders} = 462 ;;
+  }
+  assert: avg_dopamine_cooldown_days_matches {
+    expression: round(${order_purchase_cooldowns.avg_dopamine_cooldown_days}, 2) = 428.95 ;;
+  }
+  assert: min_cooldown_hours_matches {
+    expression: round(${order_purchase_cooldowns.min_cooldown_hours}, 2) = 30.78 ;;
+  }
+  assert: max_cooldown_days_matches {
+    expression: ${order_purchase_cooldowns.max_cooldown_days} = 1618 ;;
+  }
+  assert: avg_whole_cooldown_days_matches {
+    expression: round(${order_purchase_cooldowns.avg_whole_cooldown_days}, 2) = 428.45 ;;
+  }
+}

@@ -248,3 +248,22 @@ test: events_2024_01_01_nomad_and_browser_metrics {
     expression: ${events.browser_combo} = "Chrome + Firefox + IE + Other + Safari" ;;
   }
 }
+
+test: events_2024_01_01_session_purchase_metrics {
+  explore_source: events {
+    column: unique_chaotic_sessions { field: events.unique_chaotic_sessions }
+    column: purchasing_sessions { field: events.purchasing_sessions }
+    column: session_purchase_rate { field: events.session_purchase_rate }
+    column: click_journey_path { field: events.click_journey_path }
+    filters: [events.created_date: "2024-01-01"]
+  }
+  assert: purchasing_sessions_matches {
+    expression: ${events.purchasing_sessions} = 63 ;;
+  }
+  assert: session_purchase_rate_matches {
+    expression: round(${events.session_purchase_rate}, 4) = 0.2461 ;;
+  }
+  assert: click_journey_path_populated {
+    expression: length(${events.click_journey_path}) > 0 ;;
+  }
+}

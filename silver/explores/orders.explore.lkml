@@ -4,6 +4,7 @@ include: "/bronze/users.view.lkml"
 include: "/bronze/users.refinement.lkml"
 include: "/bronze/explores/orders_base.explore.lkml"
 include: "/silver/order_basket_facts.view.lkml"
+include: "/silver/order_purchase_cooldowns.view.lkml"
 include: "/silver/orders_sequenced.view.lkml"
 include: "/silver/user_spend_trajectory_facts.view.lkml"
 
@@ -34,6 +35,24 @@ explore: orders {
     ]
   }
 
+  join: order_purchase_cooldowns {
+    view_label: "Orders"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${orders.order_id} = ${order_purchase_cooldowns.order_id} ;;
+    fields: [
+      order_purchase_cooldowns.order_id,
+      order_purchase_cooldowns.order_sequence,
+      order_purchase_cooldowns.is_repeat_order,
+      order_purchase_cooldowns.cooldown_days,
+      order_purchase_cooldowns.repeat_orders,
+      order_purchase_cooldowns.avg_dopamine_cooldown_days,
+      order_purchase_cooldowns.min_cooldown_hours,
+      order_purchase_cooldowns.max_cooldown_days,
+      order_purchase_cooldowns.avg_whole_cooldown_days
+    ]
+  }
+
   join: order_basket_facts {
     view_label: "Order Basket Composition Facts"
     type: left_outer
@@ -46,6 +65,33 @@ explore: orders {
     type: left_outer
     relationship: one_to_one
     sql_on: ${orders.order_id} = ${user_spend_trajectory_facts.order_id} ;;
+  }
+
+  query: inter_order_dopamine_cooldown_by_milestone {
+    description: "Inter-Order Dopamine Cooldown order count, average cooldown days, minimum cooldown hours, and maximum cooldown days across repeat purchase sequence milestones."
+    dimensions: [order_purchase_cooldowns.order_sequence]
+    measures: [
+      order_purchase_cooldowns.repeat_orders,
+      order_purchase_cooldowns.avg_dopamine_cooldown_days,
+      order_purchase_cooldowns.min_cooldown_hours,
+      order_purchase_cooldowns.max_cooldown_days
+    ]
+    filters: [order_purchase_cooldowns.is_repeat_order: "yes"]
+    sorts: [order_purchase_cooldowns.order_sequence: asc]
+  }
+
+  query: repeat_order_cooldown_by_traffic_source {
+    description: "Repeat order transitions and average whole days between consecutive orders broken down by customer acquisition traffic source."
+    dimensions: [users.traffic_source]
+    measures: [
+      order_purchase_cooldowns.repeat_orders,
+      order_purchase_cooldowns.avg_whole_cooldown_days
+    ]
+    filters: [
+      users.id: "NOT NULL",
+      order_purchase_cooldowns.is_repeat_order: "yes"
+    ]
+    sorts: [order_purchase_cooldowns.avg_whole_cooldown_days: asc]
   }
 
   query: repeat_customer_order_spend_escalation {

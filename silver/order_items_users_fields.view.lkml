@@ -35,11 +35,21 @@ view: order_items_users_fields {
   measure: revenue_per_registered_user {
     label: "Revenue per Registered User"
     description: "Country Per-Capita Fashion Spend measures average gross sales spend per registered customer across countries and marketing channels."
-    synonyms: ["country per-capita fashion spend", "average spend per registered customer", "per capita fashion spend"]
+    synonyms: ["country per-capita fashion spend", "average spend per registered customer", "per capita fashion spend", "arpu"]
     type: number
     tags: ["non_additive"]
     sql: 1.0 * ${order_items.total_revenue} / NULLIF(${users.count}, 0) ;;
     value_format_name: usd
+  }
+
+  measure: user_conversion_rate {
+    label: "Registered User Conversion Rate"
+    description: "Paid versus Organic Conversion Efficiency share of registered customers who have converted to at least one purchased order item (converting buyers divided by registered users)."
+    synonyms: ["user conversion rate", "customer conversion rate", "buyer conversion rate"]
+    type: number
+    tags: ["non_additive"]
+    sql: 1.0 * ${order_items.distinct_users} / NULLIF(${users.count}, 0) ;;
+    value_format_name: percent_2
   }
 
   measure: latitude_price_correlation {

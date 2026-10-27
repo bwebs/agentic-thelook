@@ -244,3 +244,17 @@ test: order_items_2024_01_01_spend_per_buyer {
     expression: round(${order_items.spend_per_buyer}, 2) = 70.20 ;;
   }
 }
+
+test: order_items_2024_01_boomeranged_refund_metrics {
+  explore_source: order_items {
+    column: ever_returned_revenue { field: order_items.ever_returned_revenue }
+    column: ever_returned_items { field: order_items.ever_returned_items }
+    filters: [order_items.created_date: "2024-01"]
+  }
+  assert: ever_returned_revenue_matches {
+    expression: round(${order_items.ever_returned_revenue}, 2) = 11430.93 ;;
+  }
+  assert: ever_returned_items_matches {
+    expression: ${order_items.ever_returned_items} = 187 ;;
+  }
+}

@@ -33,7 +33,8 @@ explore: order_items {
     ALL_FIELDS*,
     -products.markup_greed_pct,
     -products.avg_markup_greed_pct,
-    -order_items_users_fields.revenue_per_registered_user
+    -order_items_users_fields.revenue_per_registered_user,
+    -order_items_users_fields.user_conversion_rate
   ]
 
   join: common_helpers {

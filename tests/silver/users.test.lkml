@@ -385,3 +385,29 @@ test: users_id_1000_nomad_and_browser_hopping_invariants {
       AND round(${user_spend_facts_users_fields.total_user_gross_spend} / ${users.count}, 4) = round(${user_spend_facts_users_fields.avg_user_gross_spend}, 4) ;;
   }
 }
+
+test: users_return_concentration_conversion_and_click_efficiency_invariants {
+  explore_source: users {
+    column: user_count { field: users.count }
+    column: converting_buyers { field: order_items.distinct_users }
+    column: user_conversion_rate { field: order_items_users_fields.user_conversion_rate }
+    column: serial_returner_users { field: user_spend_facts.serial_returner_users }
+    column: any_returner_users { field: user_spend_facts.any_returner_users }
+    column: serial_returner_refund_dollars { field: user_spend_facts.serial_returner_refund_dollars }
+    column: total_refund_dollars { field: user_spend_facts.total_refund_dollars }
+    column: serial_returner_refund_share { field: user_spend_facts.serial_returner_refund_share }
+    column: avg_clicks_per_dollar_spent { field: user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent }
+    column: clicks_per_dollar { field: user_click_facts_user_spend_facts_users_fields.clicks_per_dollar }
+    column: revenue_per_click { field: user_click_facts_user_spend_facts_users_fields.revenue_per_click }
+    filters: [users.id: "<=2000"]
+  }
+  assert: user_conversion_rate_algebraic_identity {
+    expression: ${order_items_users_fields.user_conversion_rate} >= 0 AND ${order_items_users_fields.user_conversion_rate} <= 1 AND round(${order_items_users_fields.user_conversion_rate}, 6) = round(${order_items.distinct_users} / ${users.count}, 6) ;;
+  }
+  assert: serial_returner_concentration_invariants {
+    expression: ${user_spend_facts.serial_returner_users} <= ${user_spend_facts.any_returner_users} AND ${user_spend_facts.serial_returner_refund_dollars} <= ${user_spend_facts.total_refund_dollars} AND round(${user_spend_facts.serial_returner_refund_share}, 6) = round(${user_spend_facts.serial_returner_refund_dollars} / ${user_spend_facts.total_refund_dollars}, 6) ;;
+  }
+  assert: clicks_per_dollar_reciprocal_identity {
+    expression: ${user_click_facts_user_spend_facts_users_fields.avg_clicks_per_dollar_spent} > 0 AND round(${user_click_facts_user_spend_facts_users_fields.clicks_per_dollar} * ${user_click_facts_user_spend_facts_users_fields.revenue_per_click}, 4) = 1 ;;
+  }
+}

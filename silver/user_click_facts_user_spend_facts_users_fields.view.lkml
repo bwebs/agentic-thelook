@@ -75,4 +75,63 @@ view: user_click_facts_user_spend_facts_users_fields {
     sql: COALESCE(${user_spend_facts.items_bought}, 0) ;;
     value_format_name: decimal_2
   }
+
+  dimension: is_clicking_buyer {
+    hidden: yes
+    type: yesno
+    sql: ${user_click_facts.user_id} IS NOT NULL AND ${user_spend_facts.user_id} IS NOT NULL ;;
+  }
+
+  dimension: user_clicks_per_dollar {
+    label: "Customer Clicks per Dollar Spent"
+    description: "Number of lifetime website clicks generated per dollar of lifetime spend for an active clicking buyer."
+    synonyms: ["customer clicks per dollar", "buyer clicks per dollar spent"]
+    type: number
+    value_format_name: decimal_4
+    sql: CASE WHEN ${is_clicking_buyer} THEN ${user_click_facts.total_clicks} / NULLIF(${user_spend_facts.lifetime_spend}, 0) END ;;
+  }
+
+  measure: _clicking_buyer_clicks {
+    hidden: yes
+    type: sum
+    sql: ${user_click_facts.total_clicks} ;;
+    filters: [is_clicking_buyer: "yes"]
+  }
+
+  measure: _clicking_buyer_spend {
+    hidden: yes
+    type: sum
+    sql: ${user_spend_facts.lifetime_spend} ;;
+    filters: [is_clicking_buyer: "yes"]
+  }
+
+  measure: avg_clicks_per_dollar_spent {
+    label: "Average Clicks per Dollar Spent"
+    description: "Mean per-buyer ratio of lifetime website clicks to lifetime dollar spend across active clicking buyers."
+    synonyms: ["avg clicks per dollar spent", "average buyer clicks per dollar"]
+    tags: ["non_additive"]
+    type: average
+    sql: ${user_clicks_per_dollar} ;;
+    value_format_name: decimal_4
+  }
+
+  measure: clicks_per_dollar {
+    label: "Clicks-per-Dollar Ratio"
+    description: "Window-Shopper-to-Whale Clicks-per-Dollar Ratio measuring how many website clicks active buyers generate for every dollar they spend (sum of buyer clicks divided by sum of buyer spend)."
+    synonyms: ["clicks per dollar", "global clicks per dollar", "window-shopper-to-whale clicks-per-dollar ratio"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${_clicking_buyer_clicks} / NULLIF(${_clicking_buyer_spend}, 0) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: revenue_per_click {
+    label: "Revenue per Click (Active Buyers)"
+    description: "Gross dollar spend generated per website click across active clicking buyers (sum of buyer spend divided by sum of buyer clicks)."
+    synonyms: ["revenue per click", "global dollars per click", "dollars per click"]
+    tags: ["non_additive"]
+    type: number
+    sql: 1.0 * ${_clicking_buyer_spend} / NULLIF(${_clicking_buyer_clicks}, 0) ;;
+    value_format_name: usd
+  }
 }
